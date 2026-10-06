@@ -53,9 +53,13 @@ content/02-de-luyen-olp-ai.md     đề luyện không đáp án (đừng đụn
 content/03-dap-an-olp-ai.md       đáp án full (đừng đụng)
 docs/EXAM_SCHEMA_OLP.md           schema + quy ước LaTeX cho người soạn đề
 docs/exam-template.json           template đề mới olp-NN.json
+docs/HANDOFF_GEMINI.md            file này (tổng hợp cho agent rebuild UI)
+docs/spec-redesign-web-on-thi-trac-nghiem.md  spec redesign gốc từ agent research (chi tiết)
+docs/tai-lieu-on-thi-olp-ai-hcmus-2026.md     link nguồn enrich (AI-TEST, VOAI, IOAI...)
+docs/prompt-soan-tai-lieu-olp-ai.md           prompt gốc soạn nội dung (100 câu + 6 tự luận)
 ```
 
-## 4. Spec redesign đã chốt (file gốc: `spec-redesign-web-on-thi-trac-nghiem.md`)
+## 4. Spec redesign đã chốt (bản đầy đủ: `docs/spec-redesign-web-on-thi-trac-nghiem.md`)
 
 - 2 tap từ mở app đến làm bài; thao tác ≤2 chạm, target ≥48px; chuyển câu <1s.
 - Practice: chọn → xanh/đỏ + giải thích inline + nút "Câu tiếp →". Exam: chỉ đánh dấu, không auto-advance, hết giờ tự nộp.
