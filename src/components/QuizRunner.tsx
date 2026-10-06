@@ -2,11 +2,14 @@ import { useCallback, useEffect, useMemo, useState } from 'react';
 import type { AnswerState, Exam, Question, QuizMode } from '../types/exam';
 import { saveProgress, loadProgress, clearProgress, saveResult } from '../utils/storage';
 import { summarizeExam } from '../utils/scoring';
+import { extractSectionRef, type VideoResource } from '../data/videoData';
 import { QuestionCard } from './QuestionCard';
 import { QuestionPalette } from './QuestionPalette';
 import { QuizTopBar } from './QuizTopBar';
 import { QuizBottomBar } from './QuizBottomBar';
 import { ResultSummary } from './ResultSummary';
+import { TheorySidebar } from './TheorySidebar';
+import { VideoModal } from './VideoModal';
 
 interface Props {
   exam: Exam;
@@ -28,7 +31,16 @@ export function QuizRunner({ exam, mode, timerEnabled, onHome }: Props) {
   const [paletteOpen, setPaletteOpen] = useState(false);
   const [confirmSubmit, setConfirmSubmit] = useState(false);
 
+  // State cho Sidebar Ly thuyet va Video Modal
+  const [theoryOpen, setTheoryOpen] = useState(() => {
+    return typeof window !== 'undefined' && window.innerWidth >= 1200;
+  });
+  const [activeVideo, setActiveVideo] = useState<VideoResource | null>(null);
+
   const currentQuestion = exam.questions[current];
+  const currentSection = extractSectionRef(
+    (currentQuestion?.type === 'mcq' ? currentQuestion?.explanation : currentQuestion?.modelAnswer) || ''
+  );
 
   const answeredIds = useMemo(() => {
     const set = new Set<string>();
@@ -106,7 +118,7 @@ export function QuizRunner({ exam, mode, timerEnabled, onHome }: Props) {
   }
 
   return (
-    <div className="quiz-screen">
+    <div className={`quiz-screen${theoryOpen ? ' quiz-screen--with-sidebar' : ''}`}>
       <QuizTopBar
         title={exam.title}
         index={current}
@@ -116,21 +128,35 @@ export function QuizRunner({ exam, mode, timerEnabled, onHome }: Props) {
         onTimeUp={doSubmit}
         onHome={onHome}
         onOpenPalette={() => setPaletteOpen(true)}
+        onToggleTheory={() => setTheoryOpen((v) => !v)}
+        theoryOpen={theoryOpen}
+        currentSection={currentSection}
       />
 
-      <main className="quiz-body">
-        <QuestionCard
-          question={currentQuestion}
-          index={current}
-          total={exam.questions.length}
-          answer={answers[currentQuestion.id]}
-          mode={mode}
-          submitted={false}
-          hasNext={current < exam.questions.length - 1}
-          onAnswer={updateAnswer}
-          onNext={goNext}
+      <div className="quiz-workspace">
+        <main className="quiz-body">
+          <QuestionCard
+            question={currentQuestion}
+            index={current}
+            total={exam.questions.length}
+            answer={answers[currentQuestion.id]}
+            mode={mode}
+            submitted={false}
+            hasNext={current < exam.questions.length - 1}
+            onAnswer={updateAnswer}
+            onNext={goNext}
+            onOpenTheory={(_secId) => setTheoryOpen(true)}
+            onOpenVideo={(video) => setActiveVideo(video)}
+          />
+        </main>
+
+        <TheorySidebar
+          isOpen={theoryOpen}
+          onClose={() => setTheoryOpen(false)}
+          targetSectionId={currentSection}
+          onOpenVideo={(video) => setActiveVideo(video)}
         />
-      </main>
+      </div>
 
       <QuizBottomBar
         hasPrev={current > 0}
@@ -165,6 +191,10 @@ export function QuizRunner({ exam, mode, timerEnabled, onHome }: Props) {
             </div>
           </section>
         </div>
+      )}
+
+      {activeVideo && (
+        <VideoModal video={activeVideo} onClose={() => setActiveVideo(null)} />
       )}
     </div>
   );

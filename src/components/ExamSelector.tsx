@@ -12,6 +12,7 @@ interface Props {
   onModeChange: (mode: QuizMode) => void;
   onTimerChange: (enabled: boolean) => void;
   onStart: () => void;
+  onOpenHandbook?: () => void;
 }
 
 // Màn chọn đề kiểu app thi lái xe: segmented mode + card từng đề + CTA sticky.
@@ -23,7 +24,8 @@ export function ExamSelector({
   onExamChange,
   onModeChange,
   onTimerChange,
-  onStart
+  onStart,
+  onOpenHandbook
 }: Props) {
   const selected = exams.find((exam) => exam.id === selectedExamId) ?? exams[0];
   const results = loadResults();
@@ -41,6 +43,14 @@ export function ExamSelector({
         <span className="eyebrow">OLP AI HCMUS 2026 · vòng loại cấp trường</span>
         <h1>Ôn thi Olympic AI</h1>
       </header>
+
+      {onOpenHandbook && (
+        <div className="deck-handbook-banner">
+          <button type="button" className="secondary deck-handbook-btn" onClick={onOpenHandbook}>
+            📚 Sổ tay Lý thuyết & Video Bài giảng (Full LaTeX KaTeX) →
+          </button>
+        </div>
+      )}
 
       <div className="segmented" role="tablist" aria-label="Chế độ làm bài">
         {(['practice', 'exam'] as QuizMode[]).map((m) => (

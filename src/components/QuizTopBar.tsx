@@ -9,10 +9,25 @@ interface Props {
   onTimeUp: () => void;
   onHome: () => void;
   onOpenPalette: () => void;
+  onToggleTheory?: () => void;
+  theoryOpen?: boolean;
+  currentSection?: string;
 }
 
-// Sticky top bar: thoát · Câu n/N · timer (rAF, chỉ re-render khi đổi giây) · palette.
-export function QuizTopBar({ title, index, total, timerEnabled, durationMinutes, onTimeUp, onHome, onOpenPalette }: Props) {
+// Sticky top bar: thoát · Câu n/N · Sổ tay lý thuyết · timer · palette.
+export function QuizTopBar({
+  title,
+  index,
+  total,
+  timerEnabled,
+  durationMinutes,
+  onTimeUp,
+  onHome,
+  onOpenPalette,
+  onToggleTheory,
+  theoryOpen,
+  currentSection
+}: Props) {
   const [label, setLabel] = useState('');
   const deadlineRef = useRef(0);
   const lastSecondRef = useRef(-1);
@@ -51,8 +66,23 @@ export function QuizTopBar({ title, index, total, timerEnabled, durationMinutes,
         <strong>Câu {index + 1}/{total}</strong>
         <span className="topbar-title">{title}</span>
       </div>
-      {timerEnabled && <span className={`topbar-timer${urgent ? ' topbar-timer--urgent' : ''}`} role="timer">⏱ {label || '--:--'}</span>}
-      <button type="button" className="topbar-btn" aria-label="Mở danh sách câu hỏi" onClick={onOpenPalette}>▦</button>
+
+      <div className="topbar-right-controls">
+        {onToggleTheory && (
+          <button
+            type="button"
+            className={`topbar-btn topbar-theory-toggle${theoryOpen ? ' topbar-theory-toggle--active' : ''}`}
+            aria-label="Mở sổ tay lý thuyết"
+            onClick={onToggleTheory}
+            title="Mở thanh lý thuyết & video bên cạnh"
+          >
+            📖 <span className="topbar-theory-text">{currentSection ? `${currentSection}` : 'Lý thuyết'}</span>
+          </button>
+        )}
+
+        {timerEnabled && <span className={`topbar-timer${urgent ? ' topbar-timer--urgent' : ''}`} role="timer">⏱ {label || '--:--'}</span>}
+        <button type="button" className="topbar-btn" aria-label="Mở danh sách câu hỏi" onClick={onOpenPalette}>▦</button>
+      </div>
     </header>
   );
 }
