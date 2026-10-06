@@ -1,13 +1,15 @@
 import { useState } from 'react';
 import { exams } from './data/exams';
 import type { QuizMode } from './types/exam';
+import { loadMode } from './utils/storage';
 import { ExamSelector } from './components/ExamSelector';
 import { QuizRunner } from './components/QuizRunner';
 import './styles/global.css';
+import './styles/quiz.css';
 
 export default function App() {
   const [selectedExamId, setSelectedExamId] = useState(exams[0]?.id ?? '');
-  const [mode, setMode] = useState<QuizMode>('practice');
+  const [mode, setMode] = useState<QuizMode>(() => loadMode());
   const [timerEnabled, setTimerEnabled] = useState(false);
   const [started, setStarted] = useState(false);
 

@@ -11,10 +11,15 @@ export interface ModuleScore {
 export function isQuestionCorrect(question: Question, answer?: AnswerState): boolean {
   if (!answer) return false;
   if (question.type === 'mcq') return answer.selected === question.answer;
+  if (answer.essayScore !== undefined) return answer.essayScore >= question.points / 2;
   return answer.selfGrade === 'pass';
 }
 
 export function scoreQuestion(question: Question, answer?: AnswerState): number {
+  if (!answer) return 0;
+  if (question.type !== 'mcq' && answer.essayScore !== undefined) {
+    return Math.max(0, Math.min(question.points, answer.essayScore));
+  }
   return isQuestionCorrect(question, answer) ? question.points : 0;
 }
 
@@ -41,12 +46,10 @@ export function summarizeExam(exam: Exam, answers: Record<string, AnswerState>) 
     if (question.type === 'essay') {
       essayCount += 1;
       essayTotal += question.points;
-      if (ok) {
-        essayEarned += question.points;
-        essayPass += 1;
-      } else {
-        review.push(question);
-      }
+      const partial = scoreQuestion(question, answer);
+      essayEarned += partial;
+      if (ok) essayPass += 1;
+      if (!ok) review.push(question);
       continue;
     }
     const qScore = ok ? question.points : 0;

@@ -48,6 +48,10 @@ export interface AnswerState {
   selected?: string;
   text?: string;
   selfGrade?: 'pass' | 'fail';
+  /** Điểm tự chấm tự luận (0..points của câu). */
+  essayScore?: number;
+  /** Checklist rubric đã tick (không tính điểm, chỉ gợi ý). */
+  rubricChecks?: boolean[];
 }
 
 export const MODULE_LABELS: Record<ModuleId, string> = {

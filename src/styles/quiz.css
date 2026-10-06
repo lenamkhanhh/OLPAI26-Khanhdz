@@ -1,0 +1,106 @@
+/* OLP AI quiz UI — mobile-first, kieu app thi trac nghiem. */
+
+/* ---------- Man lam bai ---------- */
+.quiz-screen { min-height: 100vh; display: flex; flex-direction: column; background: #f2f5fa; }
+.quiz-topbar { position: sticky; top: 0; z-index: 20; display: flex; align-items: center; gap: 8px; padding: 10px 12px; background: #fff; border-bottom: 1px solid #dfe7f3; }
+.topbar-btn { min-width: 44px; min-height: 44px; border: 1px solid #d7e1ee; border-radius: 12px; background: #fff; font-size: 1.2rem; font-weight: 900; }
+.topbar-center { flex: 1; min-width: 0; display: flex; flex-direction: column; }
+.topbar-center strong { font-size: 1rem; }
+.topbar-title { font-size: .8rem; color: #617086; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.topbar-timer { font-weight: 900; background: #111827; color: #fff; border-radius: 999px; padding: 8px 12px; font-size: .95rem; white-space: nowrap; }
+.topbar-timer--urgent { background: #b42318; }
+.quiz-body { flex: 1; width: 100%; max-width: 720px; margin: 0 auto; padding: 12px 12px 12px; }
+.quiz-bottombar { position: sticky; bottom: 0; z-index: 20; background: #fff; border-top: 1px solid #dfe7f3; padding: 10px 12px calc(10px + env(safe-area-inset-bottom)); display: grid; gap: 8px; }
+.bottombar-nav { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+.bottombar-nav .secondary, .bottombar-submit { min-height: 48px; font-size: 1rem; }
+.bottombar-submit { width: 100%; }
+
+/* ---------- The cau hoi ---------- */
+.question-card { padding: 18px; }
+.module-tag { display: inline-block; font-size: .75rem; font-weight: 900; color: #2858ff; background: #eaf0ff; border-radius: 999px; padding: 4px 10px; margin-bottom: 8px; }
+.question-stem { font-size: 1.05rem; line-height: 1.65; }
+.question-stem .math-display, .feedback-body .math-display, .model-answer-body .math-display { overflow-x: auto; overflow-y: hidden; padding: 4px 0; }
+.options { display: grid; gap: 10px; margin-top: 16px; }
+.answer-option { display: flex; align-items: flex-start; gap: 12px; width: 100%; min-height: 52px; padding: 12px; border: 2px solid #d7e1ee; border-radius: 14px; background: #fff; text-align: left; font-size: 1rem; line-height: 1.5; }
+.answer-option__key { flex: 0 0 auto; display: inline-grid; place-items: center; min-width: 30px; height: 30px; border-radius: 50%; background: #eef3fb; font-weight: 900; }
+.answer-option__text { flex: 1; min-width: 0; overflow-wrap: anywhere; }
+.answer-option__mark { font-weight: 900; }
+.answer-option--selected { border-color: #2858ff; background: #f0f5ff; }
+.answer-option--correct { border-color: #25a55b; background: #ecf9f0; }
+.answer-option--correct .answer-option__key { background: #25a55b; color: #fff; }
+.answer-option--wrong { border-color: #df5555; background: #fff0f0; }
+.answer-option--wrong .answer-option__key { background: #df5555; color: #fff; }
+.answer-option--dimmed { opacity: .75; }
+.feedback--ok { background: #ecf9f0; border-color: #9fdbb3; }
+.feedback--bad { background: #fff0f0; border-color: #f3b8b8; }
+.feedback-next { margin-top: 12px; width: 100%; min-height: 48px; }
+.rubric-checklist { list-style: none; margin: 8px 0 0; padding: 0; display: grid; gap: 8px; }
+.rubric-checklist label { display: flex; gap: 10px; align-items: flex-start; line-height: 1.5; }
+.rubric-checklist input { width: 22px; height: 22px; margin-top: 2px; flex: 0 0 auto; }
+.essay-score { margin-top: 14px; display: grid; gap: 8px; }
+.essay-score input[type='range'] { width: 100%; min-height: 44px; accent-color: #2858ff; }
+.model-answer-body { line-height: 1.65; }
+
+/* ---------- Palette + modal ---------- */
+.palette-backdrop { position: fixed; inset: 0; z-index: 50; background: rgba(15,23,42,.55); display: flex; align-items: flex-end; justify-content: center; }
+.palette-sheet { width: 100%; max-width: 720px; max-height: 75vh; overflow: auto; background: #fff; border-radius: 20px 20px 0 0; padding: 16px 16px calc(20px + env(safe-area-inset-bottom)); }
+.palette-head { display: flex; justify-content: space-between; align-items: center; }
+.palette-close { width: 44px; height: 44px; border-radius: 50%; border: 0; background: #eef2f8; font-size: 1.4rem; }
+.palette-legend { display: flex; flex-wrap: wrap; gap: 12px; margin: 10px 0 12px; color: #617086; font-size: .9rem; }
+.dot { display: inline-block; width: 12px; height: 12px; border-radius: 4px; margin-right: 4px; vertical-align: baseline; }
+.dot--todo { background: #d7e1ee; }
+.dot--done { background: #25a55b; }
+.dot--wrong { background: #df5555; }
+.dot--current { background: #fff; border: 3px solid #2858ff; width: 10px; height: 10px; }
+.palette-grid { display: grid; grid-template-columns: repeat(6, 1fr); gap: 8px; }
+.palette-cell { min-height: 48px; border: 1px solid #d8e1ed; border-radius: 10px; background: #f1f4f9; font-weight: 800; font-size: 1rem; }
+.palette-cell--done { background: #e6f7ec; border-color: #9fdbb3; }
+.palette-cell--current { border: 3px solid #2858ff; background: #fff; }
+.confirm-dialog { width: min(440px, calc(100% - 40px)); padding: 24px; margin-bottom: 24px; }
+.confirm-actions { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 16px; }
+.confirm-actions .secondary, .confirm-actions .primary { min-height: 48px; }
+
+/* ---------- Man chon de ---------- */
+.deck { max-width: 720px; }
+.deck-head h1 { font-size: clamp(1.6rem, 5vw, 2.4rem); }
+.segmented { display: grid; grid-template-columns: 1fr 1fr; background: #e9eef7; border-radius: 16px; padding: 4px; margin-top: 12px; }
+.segmented__btn { border: 0; background: transparent; border-radius: 12px; min-height: 48px; font-weight: 900; color: #617086; }
+.segmented__btn--active { background: #fff; color: #172033; box-shadow: 0 2px 8px rgba(46,75,120,.15); }
+.segmented-hint { color: #617086; margin: 8px 2px 0; }
+.deck-list { display: grid; gap: 10px; margin-top: 14px; }
+.deck-card { display: flex; justify-content: space-between; align-items: center; gap: 12px; text-align: left; background: #fff; border: 2px solid #dfe7f3; border-radius: 16px; padding: 14px; width: 100%; }
+.deck-card--active { border-color: #2858ff; background: #f5f8ff; }
+.deck-card__main { display: grid; gap: 4px; }
+.deck-card__main span { color: #617086; font-size: .9rem; }
+.deck-card__meta { display: grid; gap: 6px; justify-items: end; min-width: 110px; }
+.deck-progress { display: block; width: 110px; height: 8px; border-radius: 999px; background: #e8eef7; overflow: hidden; }
+.deck-progress span { display: block; height: 100%; background: #2858ff; }
+.deck-stats { font-size: .85rem; color: #617086; white-space: nowrap; }
+.deck-timer { margin-top: 14px; }
+.deck-cta { position: sticky; bottom: 0; padding: 12px 0 calc(12px + env(safe-area-inset-bottom)); background: linear-gradient(transparent, #f2f5fa 40%); }
+.deck-start { width: 100%; min-height: 54px; font-size: 1.05rem; }
+
+/* ---------- Man ket qua ---------- */
+.result { max-width: 720px; }
+.result-hero { display: grid; grid-template-columns: auto 1fr; gap: 16px; align-items: center; }
+.result-badge { width: 84px; height: 84px; border-radius: 50%; display: grid; place-items: center; font-size: 2.4rem; font-weight: 900; color: #fff; }
+.result-badge--pass { background: #25a55b; }
+.result-badge--fail { background: #df5555; }
+.result-hero h1 { margin: 4px 0 8px; font-size: clamp(1.8rem, 7vw, 2.6rem); }
+.review-grid { display: grid; grid-template-columns: repeat(8, 1fr); gap: 8px; margin-top: 12px; }
+.review-cell { min-height: 44px; border-radius: 10px; border: 1px solid #d8e1ed; font-weight: 800; }
+.review-cell--right { background: #e6f7ec; border-color: #9fdbb3; color: #14622e; }
+.review-cell--wrong { background: #ffecec; border-color: #f3b8b8; color: #a02323; }
+.review-cell--todo { background: #fff7dd; border-color: #ecd27a; color: #7a5b00; }
+.review-wrong ul { margin: 8px 0 0; padding: 0; list-style: none; display: grid; gap: 10px; }
+.review-wrong li { border-top: 1px solid #e6ebf3; padding-top: 10px; display: grid; gap: 4px; }
+.review-wrong__stem { color: #3c4a63; font-size: .95rem; line-height: 1.55; }
+.result-actions { margin-top: 16px; display: grid; gap: 10px; }
+.result-actions .primary, .result-actions .secondary { min-height: 50px; }
+
+@media (min-width: 700px) {
+  .quiz-body { padding: 20px 16px; }
+  .question-card { padding: 26px; }
+  .palette-grid { grid-template-columns: repeat(8, 1fr); }
+  .review-grid { grid-template-columns: repeat(10, 1fr); }
+}

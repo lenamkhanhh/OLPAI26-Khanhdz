@@ -31,6 +31,14 @@ Mỗi file `src/data/exams/olp-NN.json` là một đề đầy đủ.
 | mcq | C | 30 | 1 | như trên, phủ ML/DL/CV/NLP |
 | essay | C | 4–5 | 10 | `modelAnswer` theo khung 5 bước + `rubric` ≥ 3 ý, chấm riêng |
 
+## Quy ước công thức (KaTeX)
+
+- Stem / options / explanation được phép chứa `$...$` (inline) và `$$...$$` (display).
+- Trong JSON **escape backslash nhân đôi**: `\\frac`, `\\sum`, `\\times`, `\\approx`, `\\to`, `\\circ`, `\\sqrt`, `\\lfloor \\rfloor`, `\\text{}`.
+- Biến `$x$` (tự in nghiêng); chữ thường trong công thức dùng `\text{}`: `$P(\text{benh}|+)$`.
+- Không render KaTeX trong câu code (giữ `<pre>` mono).
+- Mẫu chuẩn: Conv `$$O = \left\lfloor\frac{W-K+2P}{S}\right\rfloor+1$$` · Entropy `$$H = -\sum p_i \log_2 p_i$$` · Bayes `$$P(A|B) = \frac{P(B|A)\,P(A)}{P(B)}$$` · IoU `$$\text{IoU} = \frac{\text{Giao}}{\text{Hop}}$$` · F1 `$$F_1 = \frac{2PR}{P+R}$$`.
+
 ## Quy tắc toàn repo
 
 - ID đề và ID câu hỏi duy nhất; prompt không trùng nhau giữa các đề.

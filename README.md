@@ -21,6 +21,14 @@ Khung web tái sử dụng từ [AI-TEST](https://github.com/HungBil/AI-TEST) (M
 - `02-de-luyen-olp-ai.md` — đề luyện (không đáp án).
 - `03-dap-an-olp-ai.md` — đáp án + vì sao đúng/sai + trích dẫn §.
 
+## UI/UX (kiểu app thi lái xe)
+
+- Màn chọn đề: segmented Practice/Exam (nhớ lựa chọn), card từng đề kèm tiến độ + điểm gần nhất, CTA sticky.
+- Màn làm bài: 1 câu/màn hình, đáp án full-width tap 1 lần (tap lại để bỏ), top bar sticky (Câu n/N + timer + palette ▦), bottom bar sticky (Trước/Sau/Nộp kèm số câu đã làm), palette lưới số, phím tắt desktop 1–4 + ←/→ + Enter.
+- Practice: chấm + giải thích inline ngay tại chỗ + nút "Câu tiếp →". Exam: chỉ đánh dấu, hết giờ tự nộp.
+- Kết quả: ĐẠT (≥70%) / CHƯA ĐẠT cỡ lớn, điểm module A/B/C, lưới review xanh/đỏ/vàng, ôn lại từ câu sai.
+- Công thức render bằng KaTeX (`$...$`/`$$...$$` trong JSON, nhớ escape `\\`).
+
 ## Chạy web thi thử
 
 ```

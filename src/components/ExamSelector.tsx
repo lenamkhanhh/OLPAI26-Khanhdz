@@ -1,5 +1,6 @@
-import type { ChangeEvent } from 'react';
 import type { Exam, QuizMode } from '../types/exam';
+import { loadProgress, loadResults, loadMode, saveMode } from '../utils/storage';
+import { isQuestionAnswered } from './QuizRunner';
 import { Disclaimer } from './Disclaimer';
 
 interface Props {
@@ -13,12 +14,7 @@ interface Props {
   onStart: () => void;
 }
 
-const ABC_OVERVIEW = [
-  'A: 12 câu Toán & Xác suất – Thống kê',
-  'B: 18 câu Python/NumPy/Tính tay, gồm 2 câu code',
-  'C: 30 câu ML/DL/CV/NLP + 4 câu tự luận giải pháp AI (chấm riêng)'
-];
-
+// Màn chọn đề kiểu app thi lái xe: segmented mode + card từng đề + CTA sticky.
 export function ExamSelector({
   exams,
   selectedExamId,
@@ -30,54 +26,81 @@ export function ExamSelector({
   onStart
 }: Props) {
   const selected = exams.find((exam) => exam.id === selectedExamId) ?? exams[0];
-  const overview = selected.moduleOverview ?? ABC_OVERVIEW;
+  const results = loadResults();
+  const initialMode = loadMode();
+  const activeMode = mode ?? initialMode;
+
+  const pickMode = (m: QuizMode) => {
+    saveMode(m);
+    onModeChange(m);
+  };
 
   return (
-    <main className="home page-shell">
-      <section className="hero card">
+    <main className="deck page-shell">
+      <header className="deck-head">
         <span className="eyebrow">OLP AI HCMUS 2026 · vòng loại cấp trường</span>
-        <h1>Ôn thi Olympic AI HCMUS 2026</h1>
-        <p>
-          Web thi thử với {exams.length} đề. Mỗi đề 60 câu trắc nghiệm/code (thang 100 điểm)
-          + 4 câu tự luận giải pháp AI chấm riêng theo rubric.
-        </p>
-        <Disclaimer text={selected.disclaimer} />
-      </section>
+        <h1>Ôn thi Olympic AI</h1>
+      </header>
 
-      <section className="setup card">
-        <label>
-          <span>Chọn đề</span>
-          <select value={selectedExamId} onChange={(event: ChangeEvent<HTMLSelectElement>) => onExamChange(event.target.value)}>
-            {exams.map((exam) => <option key={exam.id} value={exam.id}>{exam.title}</option>)}
-          </select>
-        </label>
-
-        <div className="mode-grid">
-          <button className={mode === 'practice' ? 'active mode-card' : 'mode-card'} onClick={() => onModeChange('practice')}>
-            Practice mode
-            <span>Chọn xong hiện đúng/sai, đáp án và giải thích.</span>
+      <div className="segmented" role="tablist" aria-label="Chế độ làm bài">
+        {(['practice', 'exam'] as QuizMode[]).map((m) => (
+          <button
+            key={m}
+            type="button"
+            role="tab"
+            aria-selected={activeMode === m}
+            className={activeMode === m ? 'segmented__btn segmented__btn--active' : 'segmented__btn'}
+            onClick={() => pickMode(m)}
+          >
+            {m === 'practice' ? 'Practice' : 'Exam'}
           </button>
-          <button className={mode === 'exam' ? 'active mode-card' : 'mode-card'} onClick={() => onModeChange('exam')}>
-            Exam mode
-            <span>Làm xong mới hiện đáp án, giống tự bấm giờ.</span>
-          </button>
-        </div>
+        ))}
+      </div>
+      <p className="segmented-hint">
+        {activeMode === 'practice' ? 'Chọn đáp án hiện đúng/sai + giải thích ngay.' : 'Làm xong mới chấm, giống thi thật.'}
+      </p>
 
-        <label className="checkbox-row">
-          <input type="checkbox" checked={timerEnabled} onChange={(event: ChangeEvent<HTMLInputElement>) => onTimerChange(event.target.checked)} />
-          Bật timer {selected.durationMinutes} phút
-        </label>
+      <div className="deck-list">
+        {exams.map((exam) => {
+          const progress = loadProgress(exam.id);
+          const done = exam.questions.filter((q) => isQuestionAnswered(q, progress[q.id])).length;
+          const pct = Math.round((done / exam.questions.length) * 100);
+          const last = results[exam.id];
+          const active = exam.id === selected.id;
+          return (
+            <button
+              key={exam.id}
+              type="button"
+              className={active ? 'deck-card deck-card--active' : 'deck-card'}
+              onClick={() => onExamChange(exam.id)}
+              aria-pressed={active}
+            >
+              <span className="deck-card__main">
+                <strong>{exam.title}</strong>
+                <span>{exam.questions.length} câu · {exam.durationMinutes} phút</span>
+              </span>
+              <span className="deck-card__meta">
+                {done > 0 && <span className="deck-progress"><span style={{ width: `${pct}%` }} /></span>}
+                <span className="deck-stats">
+                  {done > 0 ? `${pct}%` : 'Chưa làm'}
+                  {last ? ` · Gần nhất ${last.percent}%` : ''}
+                </span>
+              </span>
+            </button>
+          );
+        })}
+      </div>
 
-        <div className="overview">
-          <strong>{selected.title}</strong>
-          <span>{selected.description}</span>
-          <ul>
-            {overview.map((item) => <li key={item}>{item}</li>)}
-          </ul>
-        </div>
+      <label className="checkbox-row deck-timer">
+        <input type="checkbox" checked={timerEnabled} onChange={(e) => onTimerChange(e.target.checked)} />
+        Bật timer {selected.durationMinutes} phút
+      </label>
 
-        <button className="primary" onClick={onStart}>Bắt đầu làm bài</button>
-      </section>
+      <div className="deck-cta">
+        <button type="button" className="primary deck-start" onClick={onStart}>▶ BẮT ĐẦU — {selected.title}</button>
+      </div>
+
+      <Disclaimer text={selected.disclaimer} />
     </main>
   );
 }
