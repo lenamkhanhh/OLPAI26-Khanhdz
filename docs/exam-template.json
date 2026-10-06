@@ -1,0 +1,19 @@
+{
+  "id": "olp-02",
+  "title": "Đề 02",
+  "description": "Mô tả ngắn phạm vi đề.",
+  "durationMinutes": 90,
+  "totalPoints": 100,
+  "disclaimer": "Tài liệu ôn thi cộng đồng cho vòng loại cấp trường OLP AI HCMUS 2026, không phải đề thi chính thức, không cam kết giống đề thật.",
+  "moduleLabels": {
+    "A": "Toán & Xác suất - Thống kê (12 câu)",
+    "B": "Python / NumPy / Tính tay (18 câu, gồm 2 code)",
+    "C": "ML / DL / CV / NLP + Giải pháp AI (30 câu + 4 tự luận chấm riêng)"
+  },
+  "moduleOverview": [
+    "A: 12 câu Toán & Xác suất - Thống kê",
+    "B: 18 câu Python/NumPy/Tính tay, gồm 2 câu code",
+    "C: 30 câu ML/DL/CV/NLP + 4 câu tự luận giải pháp AI (chấm riêng)"
+  ],
+  "questions": []
+}
