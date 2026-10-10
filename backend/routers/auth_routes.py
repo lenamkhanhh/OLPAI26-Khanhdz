@@ -33,6 +33,20 @@ def register_user(payload: UserRegister, conn: sqlite3.Connection = Depends(get_
     user_id = cursor.lastrowid
     conn.commit()
 
+    # Mirror to Supabase Cloud
+    try:
+        from backend.supabase_sync import _make_request
+        _make_request("users", method="POST", data={
+            "username": payload.username,
+            "display_name": payload.display_name,
+            "team_name": payload.team_name or "",
+            "role": "student",
+            "password_hash": pw_hash,
+            "salt": salt
+        })
+    except Exception:
+        pass
+
     token = create_user_token(conn, user_id)
     cursor.execute("SELECT id, username, display_name, team_name, role, created_at FROM users WHERE id = ?;", (user_id,))
     user_row = dict(cursor.fetchone())

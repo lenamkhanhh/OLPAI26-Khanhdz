@@ -131,6 +131,25 @@ def submit_exam(
     cursor.execute("SELECT submitted_at FROM submissions WHERE id = ?;", (submission_id,))
     submitted_at = cursor.fetchone()["submitted_at"]
 
+    # Asynchronously / gracefully mirror to Supabase Cloud
+    try:
+        from backend.supabase_sync import sync_submission_to_supabase
+        sync_submission_to_supabase({
+            "username": current_user.get("username", "student"),
+            "display_name": current_user.get("display_name", "Thí sinh"),
+            "team_name": current_user.get("team_name", ""),
+            "exam_id": payload.exam_id,
+            "score": final_score,
+            "max_score": max_score,
+            "accuracy_percentage": accuracy_pct,
+            "correct_count": correct_count,
+            "total_questions": total_questions,
+            "time_spent_seconds": payload.time_spent_seconds,
+            "answers": {k: v.dict() for k, v in user_answers.items()}
+        })
+    except Exception as e:
+        print(f"[Supabase sync warning] {e}")
+
     return SubmissionResult(
         submission_id=submission_id,
         exam_id=payload.exam_id,
