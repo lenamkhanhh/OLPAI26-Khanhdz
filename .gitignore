@@ -1,14 +1,34 @@
+# Node dependencies & caches
 node_modules/
+.npm/
 dist/
 .env
-.env.*
-.dev.vars
-.dev.vars.*
-.DS_Store
-.vscode/
-.idea/
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
-pnpm-debug.log*
-tsconfig.tsbuildinfo
+.env.local
+.env.*.local
+
+# Python caches & virtualenvs
+__pycache__/
+*.py[cod]
+*$py.class
+.pytest_cache/
+.venv/
+venv/
+env/
+
+# Databases
+data/*.db
+data/*.db-shm
+data/*.db-wal
+/tmp/
+
+# Temporary test runners & audit artifacts
+scratch/
+tmp/
+*.png
+temp_test.*
+test_*.js
+test_*.mjs
+test_*.py
+videoData_audit.json
+video_audit_results.json
+inspect_code.py

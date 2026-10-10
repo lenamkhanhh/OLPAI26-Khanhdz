@@ -9,6 +9,7 @@ import { TheoryHandbook } from './components/TheoryHandbook';
 import { VideoModal } from './components/VideoModal';
 import './styles/global.css';
 import './styles/quiz.css';
+import './styles/ai-chatbot.css';
 
 export default function App() {
   const [selectedExamId, setSelectedExamId] = useState(exams[0]?.id ?? '');

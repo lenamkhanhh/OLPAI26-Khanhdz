@@ -1,0 +1,806 @@
+<!DOCTYPE html>
+<html lang="vi" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Olympic AI HCMUS 2026 — UI Template Preview (Linear / Obsidian Dark)</title>
+  
+  <!-- Google Fonts: Plus Jakarta Sans & JetBrains Mono -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  
+  <!-- KaTeX for crisp LaTeX Math Rendering -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css">
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/contrib/auto-render.min.js" onload="renderMathInElement(document.body);"></script>
+
+  <style>
+    :root {
+      --font-sans: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+      --font-mono: 'JetBrains Mono', monospace;
+
+      /* Dark Obsidian Theme (Linear / Raycast Style) */
+      --bg-base: #07090e;
+      --bg-surface-1: rgba(15, 23, 42, 0.75);
+      --bg-surface-2: rgba(30, 41, 59, 0.7);
+      --bg-surface-elevated: rgba(30, 41, 59, 0.95);
+      
+      --border-subtle: rgba(255, 255, 255, 0.08);
+      --border-active: rgba(99, 102, 241, 0.6);
+      --border-hover: rgba(255, 255, 255, 0.2);
+
+      --text-main: #f8fafc;
+      --text-muted: #94a3b8;
+      --text-faint: #64748b;
+
+      --accent-primary: #6366f1; /* Indigo */
+      --accent-cyan: #06b6d4;    /* Cyan */
+      --accent-emerald: #10b981; /* Success */
+      --accent-rose: #f43f5e;    /* Error */
+      --accent-amber: #f59e0b;   /* Warning */
+
+      --glow-primary: 0 0 25px rgba(99, 102, 241, 0.25);
+      --glow-cyan: 0 0 25px rgba(6, 182, 212, 0.3);
+      --glow-emerald: 0 0 25px rgba(16, 185, 129, 0.3);
+      --glow-rose: 0 0 25px rgba(244, 63, 94, 0.3);
+      
+      --radius-sm: 8px;
+      --radius-md: 14px;
+      --radius-lg: 20px;
+      --radius-xl: 28px;
+      --radius-pill: 9999px;
+
+      --transition-fast: 0.16s cubic-bezier(0.16, 1, 0.3, 1);
+      --transition-smooth: 0.28s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    [data-theme="light"] {
+      --bg-base: #f8fafc;
+      --bg-surface-1: rgba(255, 255, 255, 0.88);
+      --bg-surface-2: rgba(241, 245, 249, 0.95);
+      --bg-surface-elevated: #ffffff;
+      
+      --border-subtle: rgba(0, 0, 0, 0.08);
+      --border-active: #6366f1;
+      --border-hover: rgba(0, 0, 0, 0.2);
+
+      --text-main: #0f172a;
+      --text-muted: #475569;
+      --text-faint: #94a3b8;
+      --glow-primary: 0 10px 30px rgba(99, 102, 241, 0.15);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    body {
+      font-family: var(--font-sans);
+      background-color: var(--bg-base);
+      color: var(--text-main);
+      min-height: 100vh;
+      overflow-x: hidden;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+    }
+
+    /* Ambient Glow Background Orbs */
+    .ambient-glow-1 {
+      position: fixed;
+      top: -150px;
+      left: 15%;
+      width: 550px;
+      height: 550px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(99, 102, 241, 0.12) 0%, rgba(99, 102, 241, 0) 70%);
+      filter: blur(80px);
+      pointer-events: none;
+      z-index: 0;
+    }
+    .ambient-glow-2 {
+      position: fixed;
+      bottom: -150px;
+      right: 10%;
+      width: 600px;
+      height: 600px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(6, 182, 212, 0.1) 0%, rgba(6, 182, 212, 0) 70%);
+      filter: blur(90px);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* Top Sticky Navigation Bar */
+    .top-nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      background: rgba(7, 9, 14, 0.75);
+      border-bottom: 1px solid var(--border-subtle);
+      transition: background var(--transition-smooth);
+    }
+    [data-theme="light"] .top-nav {
+      background: rgba(248, 250, 252, 0.85);
+    }
+
+    .nav-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 12px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+    }
+
+    .brand-group {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .brand-badge {
+      width: 36px;
+      height: 36px;
+      border-radius: 10px;
+      background: linear-gradient(135deg, var(--accent-primary), var(--accent-cyan));
+      display: grid;
+      place-items: center;
+      color: white;
+      font-weight: 800;
+      font-size: 1.1rem;
+      box-shadow: 0 4px 14px rgba(99, 102, 241, 0.35);
+    }
+    .brand-title {
+      font-weight: 700;
+      font-size: 1.05rem;
+      letter-spacing: -0.02em;
+    }
+    .brand-sub {
+      font-size: 0.75rem;
+      color: var(--text-faint);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      font-weight: 600;
+    }
+
+    .status-group {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .timer-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 14px;
+      border-radius: var(--radius-pill);
+      background: rgba(15, 23, 42, 0.8);
+      border: 1px solid var(--border-subtle);
+      font-family: var(--font-mono);
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: var(--accent-cyan);
+      box-shadow: var(--glow-cyan);
+    }
+    .timer-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--accent-cyan);
+      box-shadow: 0 0 10px var(--accent-cyan);
+      animation: pulse 1.8s infinite;
+    }
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.4; transform: scale(0.85); }
+    }
+
+    .nav-actions {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .btn-ghost {
+      background: transparent;
+      border: 1px solid var(--border-subtle);
+      color: var(--text-muted);
+      border-radius: var(--radius-md);
+      padding: 8px 14px;
+      font-weight: 600;
+      font-size: 0.88rem;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: all var(--transition-fast);
+    }
+    .btn-ghost:hover {
+      border-color: var(--border-hover);
+      color: var(--text-main);
+      background: var(--bg-surface-2);
+    }
+
+    /* Main Container */
+    .main-wrapper {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 32px 24px 100px;
+      flex: 1;
+      width: 100%;
+      position: relative;
+      z-index: 1;
+    }
+
+    /* Progress Tracker Bar */
+    .progress-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 10px;
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      font-weight: 600;
+    }
+    .progress-bar-track {
+      width: 100%;
+      height: 6px;
+      background: var(--border-subtle);
+      border-radius: var(--radius-pill);
+      overflow: hidden;
+      margin-bottom: 24px;
+    }
+    .progress-bar-fill {
+      width: 32%;
+      height: 100%;
+      background: linear-gradient(90deg, var(--accent-primary), var(--accent-cyan));
+      border-radius: var(--radius-pill);
+      transition: width var(--transition-smooth);
+      box-shadow: 0 0 12px rgba(6, 182, 212, 0.5);
+    }
+
+    /* Split Stage Layout */
+    .stage-layout {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 300px;
+      gap: 28px;
+      align-items: start;
+    }
+
+    /* Question Glass Card */
+    .question-card {
+      background: var(--bg-surface-1);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-xl);
+      padding: 36px 38px;
+      box-shadow: 0 20px 45px rgba(0, 0, 0, 0.45);
+      position: relative;
+      transition: border-color var(--transition-smooth);
+    }
+    .question-card:hover {
+      border-color: rgba(255, 255, 255, 0.12);
+    }
+
+    .question-meta {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 20px;
+    }
+    .module-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 4px 12px;
+      border-radius: var(--radius-pill);
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      background: rgba(99, 102, 241, 0.15);
+      border: 1px solid rgba(99, 102, 241, 0.35);
+      color: #818cf8;
+    }
+    .difficulty-tag {
+      font-size: 0.8rem;
+      color: var(--accent-amber);
+      font-weight: 600;
+    }
+
+    .question-title {
+      font-size: 1.35rem;
+      font-weight: 700;
+      line-height: 1.5;
+      margin-bottom: 24px;
+      letter-spacing: -0.015em;
+    }
+
+    .math-display-box {
+      background: rgba(15, 23, 42, 0.6);
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      border-radius: var(--radius-md);
+      padding: 20px;
+      margin: 16px 0 26px;
+      text-align: center;
+      font-size: 1.25rem;
+      box-shadow: inset 0 2px 10px rgba(0, 0, 0, 0.3);
+    }
+
+    /* Options Stack */
+    .options-grid {
+      display: grid;
+      gap: 14px;
+    }
+
+    .option-card {
+      display: flex;
+      align-items: flex-start;
+      gap: 16px;
+      padding: 16px 20px;
+      border-radius: var(--radius-lg);
+      background: var(--bg-surface-2);
+      border: 1px solid var(--border-subtle);
+      cursor: pointer;
+      position: relative;
+      transition: all var(--transition-fast);
+      user-select: none;
+    }
+    .option-card:hover {
+      border-color: var(--border-hover);
+      transform: translateY(-2px);
+      background: rgba(40, 53, 76, 0.8);
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
+    }
+
+    .option-card.selected {
+      border-color: var(--accent-primary);
+      background: rgba(99, 102, 241, 0.12);
+      box-shadow: var(--glow-primary);
+    }
+
+    .option-card.correct {
+      border-color: var(--accent-emerald) !important;
+      background: rgba(16, 185, 129, 0.12) !important;
+      box-shadow: var(--glow-emerald) !important;
+    }
+    .option-card.wrong {
+      border-color: var(--accent-rose) !important;
+      background: rgba(244, 63, 94, 0.12) !important;
+      box-shadow: var(--glow-rose) !important;
+    }
+
+    .key-badge {
+      min-width: 32px;
+      height: 32px;
+      border-radius: 10px;
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      display: grid;
+      place-items: center;
+      font-family: var(--font-mono);
+      font-weight: 700;
+      font-size: 0.88rem;
+      color: var(--text-muted);
+      flex-shrink: 0;
+      transition: all var(--transition-fast);
+    }
+    .option-card.selected .key-badge {
+      background: var(--accent-primary);
+      color: white;
+      border-color: transparent;
+      box-shadow: 0 0 12px var(--accent-primary);
+    }
+    .option-card.correct .key-badge {
+      background: var(--accent-emerald);
+      color: white;
+      border-color: transparent;
+    }
+    .option-card.wrong .key-badge {
+      background: var(--accent-rose);
+      color: white;
+      border-color: transparent;
+    }
+
+    .option-text {
+      font-size: 1.02rem;
+      line-height: 1.5;
+      padding-top: 3px;
+      flex: 1;
+    }
+
+    /* Explanation Drawer */
+    .solution-drawer {
+      margin-top: 28px;
+      padding: 22px 24px;
+      border-radius: var(--radius-lg);
+      background: rgba(16, 185, 129, 0.08);
+      border: 1px solid rgba(16, 185, 129, 0.35);
+      animation: fadeIn 0.3s ease;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(8px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .solution-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-weight: 700;
+      font-size: 0.92rem;
+      color: var(--accent-emerald);
+      margin-bottom: 10px;
+    }
+    .solution-content {
+      font-size: 0.95rem;
+      line-height: 1.65;
+      color: #cbd5e1;
+    }
+    .ref-link {
+      display: inline-block;
+      margin-top: 10px;
+      color: var(--accent-cyan);
+      font-weight: 600;
+      text-decoration: none;
+    }
+    .ref-link:hover {
+      text-decoration: underline;
+    }
+
+    /* Right Sidebar Palette */
+    .palette-card {
+      background: var(--bg-surface-1);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-xl);
+      padding: 24px;
+      box-shadow: 0 16px 40px rgba(0, 0, 0, 0.35);
+      position: sticky;
+      top: 80px;
+    }
+    .palette-title {
+      font-weight: 700;
+      font-size: 1rem;
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .palette-grid {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 8px;
+      max-height: 380px;
+      overflow-y: auto;
+      padding-right: 4px;
+    }
+    .palette-item {
+      aspect-ratio: 1;
+      border-radius: 10px;
+      background: var(--bg-surface-2);
+      border: 1px solid var(--border-subtle);
+      color: var(--text-muted);
+      font-family: var(--font-mono);
+      font-size: 0.88rem;
+      font-weight: 600;
+      display: grid;
+      place-items: center;
+      cursor: pointer;
+      transition: all var(--transition-fast);
+    }
+    .palette-item:hover {
+      border-color: var(--border-hover);
+      color: var(--text-main);
+      transform: scale(1.05);
+    }
+    .palette-item.active {
+      background: var(--accent-primary);
+      border-color: var(--accent-primary);
+      color: white;
+      box-shadow: var(--glow-primary);
+    }
+    .palette-item.answered {
+      background: rgba(16, 185, 129, 0.2);
+      border-color: var(--accent-emerald);
+      color: var(--accent-emerald);
+    }
+    .palette-item.flagged {
+      background: rgba(245, 158, 11, 0.2);
+      border-color: var(--accent-amber);
+      color: var(--accent-amber);
+    }
+
+    /* Bottom Action Bar */
+    .bottom-bar {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      z-index: 100;
+      background: rgba(7, 9, 14, 0.85);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-top: 1px solid var(--border-subtle);
+      padding: 14px 24px;
+    }
+    [data-theme="light"] .bottom-bar {
+      background: rgba(248, 250, 252, 0.9);
+    }
+    .bottom-container {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+    }
+
+    .btn-nav {
+      padding: 10px 20px;
+      border-radius: var(--radius-md);
+      font-weight: 700;
+      font-size: 0.92rem;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      transition: all var(--transition-fast);
+      border: 0;
+    }
+    .btn-prev {
+      background: var(--bg-surface-2);
+      border: 1px solid var(--border-subtle);
+      color: var(--text-main);
+    }
+    .btn-prev:hover {
+      background: rgba(255, 255, 255, 0.1);
+      border-color: var(--border-hover);
+    }
+    .btn-next {
+      background: linear-gradient(135deg, var(--accent-primary), #4f46e5);
+      color: white;
+      box-shadow: 0 4px 18px rgba(99, 102, 241, 0.35);
+    }
+    .btn-next:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 6px 24px rgba(99, 102, 241, 0.5);
+    }
+    .btn-submit {
+      background: linear-gradient(135deg, var(--accent-emerald), #059669);
+      color: white;
+      box-shadow: 0 4px 18px rgba(16, 185, 129, 0.35);
+    }
+    .btn-submit:hover {
+      box-shadow: 0 6px 24px rgba(16, 185, 129, 0.5);
+    }
+
+    /* Template Switcher Bar */
+    .theme-pill-bar {
+      display: inline-flex;
+      background: var(--bg-surface-2);
+      padding: 4px;
+      border-radius: var(--radius-pill);
+      border: 1px solid var(--border-subtle);
+    }
+    .theme-pill-btn {
+      padding: 5px 12px;
+      border-radius: var(--radius-pill);
+      border: 0;
+      background: transparent;
+      color: var(--text-muted);
+      font-size: 0.78rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all var(--transition-fast);
+    }
+    .theme-pill-btn.active {
+      background: var(--accent-primary);
+      color: white;
+      box-shadow: 0 2px 8px rgba(99, 102, 241, 0.4);
+    }
+
+    @media (max-width: 860px) {
+      .stage-layout {
+        grid-template-columns: 1fr;
+      }
+      .palette-card {
+        display: none;
+      }
+      .question-card {
+        padding: 24px 20px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Ambient Glow Effects -->
+  <div class="ambient-glow-1"></div>
+  <div class="ambient-glow-2"></div>
+
+  <!-- Top Sticky Navigation -->
+  <header class="top-nav">
+    <div class="nav-container">
+      <div class="brand-group">
+        <div class="brand-badge">Ω</div>
+        <div>
+          <div class="brand-title">Olympic AI HCMUS 2026</div>
+          <div class="brand-sub">Đề Thi Thử Thực Chiến VOAI</div>
+        </div>
+      </div>
+
+      <div class="status-group">
+        <div class="timer-pill">
+          <div class="timer-dot"></div>
+          <span id="timerDisplay">59:42</span>
+        </div>
+      </div>
+
+      <div class="nav-actions">
+        <div class="theme-pill-bar">
+          <button class="theme-pill-btn active" id="btnThemeDark" onclick="setTheme('dark')">Dark Obsidian</button>
+          <button class="theme-pill-btn" id="btnThemeLight" onclick="setTheme('light')">Clean Light</button>
+        </div>
+        <a href="olp_ai_handbook_2026.pdf" target="_blank" class="btn-ghost" title="Mở Sổ tay PDF 45 trang">
+          <span>📖</span> PDF Handbook
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Exam Content -->
+  <main class="main-wrapper">
+    
+    <div class="progress-header">
+      <span>TIẾN ĐỘ LÀM BÀI: CÂU 1 / 50</span>
+      <span>ĐÃ LÀM: 16/50 (32%)</span>
+    </div>
+    <div class="progress-bar-track">
+      <div class="progress-bar-fill"></div>
+    </div>
+
+    <div class="stage-layout">
+      
+      <!-- Question Left Stage -->
+      <section class="question-card">
+        <div class="question-meta">
+          <span class="module-tag">Module A: Đại Số Tuyến Tính</span>
+          <span class="difficulty-tag">Mức độ: Vận dụng</span>
+        </div>
+
+        <h2 class="question-title">
+          Câu 1: Cho ma trận $A$ kích thước $n \times n$. Nếu $A$ là ma trận trực giao (orthogonal matrix), phát biểu nào sau đây là ĐÚNG?
+        </h2>
+
+        <div class="options-grid">
+          <div class="option-card correct" onclick="selectOption(this, true)">
+            <div class="key-badge">A</div>
+            <div class="option-text">$A^T = A^{-1}$</div>
+          </div>
+
+          <div class="option-card" onclick="selectOption(this, false)">
+            <div class="key-badge">B</div>
+            <div class="option-text">Định thức của $A$ luôn bằng 0.</div>
+          </div>
+
+          <div class="option-card" onclick="selectOption(this, false)">
+            <div class="key-badge">C</div>
+            <div class="option-text">$A$ là ma trận suy biến.</div>
+          </div>
+
+          <div class="option-card" onclick="selectOption(this, false)">
+            <div class="key-badge">D</div>
+            <div class="option-text">Các hàng của $A$ phụ thuộc tuyến tính.</div>
+          </div>
+        </div>
+
+        <!-- Inline Solution Drawer (Practice Mode) -->
+        <div class="solution-drawer">
+          <div class="solution-badge">
+            <span>✓</span> ĐÁP ÁN CHÍNH XÁC: PHƯƠNG ÁN A
+          </div>
+          <div class="solution-content">
+            <strong>Chứng minh & Bản chất toán học:</strong><br>
+            Theo định nghĩa ma trận trực giao trong đại số tuyến tính:
+            $$A^T A = A A^T = I_n \implies A^{-1} = A^T$$
+            Hơn nữa, lấy định thức hai vế:
+            $$\det(A^T A) = \det(A)^2 = \det(I) = 1 \implies \det(A) = \pm 1 \neq 0$$
+            Do đó ma trận trực giao $A$ <strong>luôn khả nghịch (không bao giờ suy biến)</strong>, và các hàng/cột của $A$ tạo thành một hệ trực chuẩn độc lập tuyến tính.<br>
+            <a href="olp_ai_handbook_2026.pdf" target="_blank" class="ref-link">
+              → Tra cứu chi tiết tại mục §5.1 (Trang 17 trong Sổ tay PDF)
+            </a>
+          </div>
+        </div>
+
+      </section>
+
+      <!-- Right Palette Sidebar -->
+      <aside class="palette-card">
+        <div class="palette-title">
+          <span>LƯỚI CÂU HỎI (50 CÂU)</span>
+          <span style="font-size: 0.8rem; color: var(--accent-emerald);">● Practice</span>
+        </div>
+
+        <div class="palette-grid">
+          <div class="palette-item active">1</div>
+          <div class="palette-item answered">2</div>
+          <div class="palette-item answered">3</div>
+          <div class="palette-item flagged">4</div>
+          <div class="palette-item answered">5</div>
+          <div class="palette-item">6</div>
+          <div class="palette-item answered">7</div>
+          <div class="palette-item">8</div>
+          <div class="palette-item answered">9</div>
+          <div class="palette-item">10</div>
+          <div class="palette-item answered">11</div>
+          <div class="palette-item answered">12</div>
+          <div class="palette-item">13</div>
+          <div class="palette-item answered">14</div>
+          <div class="palette-item">15</div>
+          <div class="palette-item">16</div>
+          <div class="palette-item answered">17</div>
+          <div class="palette-item">18</div>
+          <div class="palette-item">19</div>
+          <div class="palette-item">20</div>
+          <div class="palette-item">21</div>
+          <div class="palette-item">22</div>
+          <div class="palette-item">23</div>
+          <div class="palette-item">24</div>
+          <div class="palette-item">25</div>
+        </div>
+      </aside>
+
+    </div>
+
+  </main>
+
+  <!-- Sticky Bottom Navigation Bar -->
+  <footer class="bottom-bar">
+    <div class="bottom-container">
+      <button class="btn-nav btn-prev">← Câu trước</button>
+      
+      <div style="display: flex; gap: 10px;">
+        <button class="btn-nav btn-prev" style="color: var(--accent-amber);">★ Đánh dấu xem lại</button>
+      </div>
+
+      <div style="display: flex; gap: 12px;">
+        <button class="btn-nav btn-next">Câu tiếp theo →</button>
+        <button class="btn-nav btn-submit">Nộp bài (50/50)</button>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    function setTheme(theme) {
+      document.documentElement.setAttribute('data-theme', theme);
+      document.getElementById('btnThemeDark').classList.toggle('active', theme === 'dark');
+      document.getElementById('btnThemeLight').classList.toggle('active', theme === 'light');
+    }
+
+    function selectOption(el, isCorrect) {
+      document.querySelectorAll('.option-card').forEach(card => card.classList.remove('selected'));
+      el.classList.add('selected');
+    }
+
+    // Keyboard navigation (1-4, Arrows)
+    window.addEventListener('keydown', (e) => {
+      const cards = document.querySelectorAll('.option-card');
+      if (['1', '2', '3', '4'].includes(e.key)) {
+        const idx = parseInt(e.key) - 1;
+        if (cards[idx]) selectOption(cards[idx], idx === 0);
+      }
+    });
+  </script>
+</body>
+</html>

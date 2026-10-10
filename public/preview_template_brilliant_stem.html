@@ -1,0 +1,1101 @@
+<!DOCTYPE html>
+<html lang="vi" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Olympic AI HCMUS 2026 — STEM Terminal & Bento Diagnostics Arena</title>
+
+  <!-- Google Fonts: Plus Jakarta Sans & JetBrains Mono -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <!-- KaTeX for crisp LaTeX Math Rendering -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css">
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/contrib/auto-render.min.js" onload="renderMathInElement(document.body);"></script>
+
+  <style>
+    :root {
+      --font-sans: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+      --font-mono: 'JetBrains Mono', monospace;
+
+      /* Deep Cyber-Academic Blueprint Palette */
+      --bg-base: #060913;
+      --bg-surface-1: #0c1222;
+      --bg-surface-2: #141d34;
+      --bg-surface-elevated: #1b2645;
+      
+      --border-blueprint: rgba(56, 189, 248, 0.16);
+      --border-subtle: rgba(255, 255, 255, 0.08);
+      --border-glow: rgba(56, 189, 248, 0.4);
+
+      --text-main: #f8fafc;
+      --text-muted: #94a3b8;
+      --text-faint: #64748b;
+
+      --accent-cyan: #38bdf8;
+      --accent-emerald: #10b981;
+      --accent-rose: #f43f5e;
+      --accent-amber: #f59e0b;
+      --accent-indigo: #6366f1;
+      --accent-purple: #a855f7;
+
+      --radius-sm: 6px;
+      --radius-md: 10px;
+      --radius-lg: 16px;
+      --radius-xl: 20px;
+      --radius-pill: 9999px;
+
+      --glow-cyan: 0 0 20px rgba(56, 189, 248, 0.2);
+      --glow-emerald: 0 0 20px rgba(16, 185, 129, 0.25);
+      --glow-rose: 0 0 20px rgba(244, 63, 94, 0.25);
+
+      --transition-fast: 0.18s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: var(--font-sans);
+      background-color: var(--bg-base);
+      color: var(--text-main);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      line-height: 1.5;
+      /* STEM Math Blueprint Grid Background Texture */
+      background-image: 
+        radial-gradient(circle at 50% 0%, rgba(56, 189, 248, 0.07) 0%, transparent 60%),
+        linear-gradient(rgba(56, 189, 248, 0.035) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(56, 189, 248, 0.035) 1px, transparent 1px);
+      background-size: 100% 100%, 24px 24px, 24px 24px;
+      background-position: 0 0, -1px -1px, -1px -1px;
+    }
+
+    /* Top Compact Terminal HUD */
+    .hud-header {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      background: rgba(8, 13, 26, 0.92);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border-blueprint);
+    }
+    .hud-inner {
+      max-width: 1560px;
+      margin: 0 auto;
+      padding: 10px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+    }
+    .hud-brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .hud-logo {
+      width: 32px;
+      height: 32px;
+      border-radius: var(--radius-sm);
+      background: linear-gradient(135deg, #0284c7, #6366f1);
+      display: grid;
+      place-items: center;
+      font-family: var(--font-mono);
+      font-weight: 800;
+      font-size: 0.95rem;
+      color: white;
+      box-shadow: 0 0 12px rgba(2, 132, 199, 0.4);
+    }
+    .hud-title-group h1 {
+      font-size: 0.98rem;
+      font-weight: 800;
+      letter-spacing: -0.01em;
+      line-height: 1.2;
+    }
+    .hud-title-group p {
+      font-size: 0.72rem;
+      color: var(--accent-cyan);
+      font-family: var(--font-mono);
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+
+    /* Compact Telemetry Badges */
+    .telemetry-strip {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .tele-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: var(--bg-surface-2);
+      border: 1px solid var(--border-blueprint);
+      padding: 5px 12px;
+      border-radius: var(--radius-pill);
+      font-size: 0.8rem;
+      font-weight: 600;
+      font-family: var(--font-mono);
+    }
+    .tele-chip.live-timer {
+      color: var(--accent-cyan);
+      box-shadow: var(--glow-cyan);
+      border-color: rgba(56, 189, 248, 0.4);
+    }
+    .tele-chip .dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--accent-cyan);
+      animation: pulse 1.6s infinite;
+    }
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); opacity: 1; }
+      50% { transform: scale(0.65); opacity: 0.35; }
+    }
+
+    .btn-hud {
+      background: var(--bg-surface-2);
+      border: 1px solid var(--border-blueprint);
+      color: var(--text-main);
+      padding: 6px 14px;
+      border-radius: var(--radius-sm);
+      font-size: 0.82rem;
+      font-weight: 700;
+      font-family: var(--font-sans);
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: all var(--transition-fast);
+      text-decoration: none;
+    }
+    .btn-hud:hover {
+      background: var(--bg-surface-elevated);
+      border-color: var(--accent-cyan);
+      transform: translateY(-1px);
+    }
+    .btn-hud-primary {
+      background: linear-gradient(135deg, #0284c7, #2563eb);
+      border-color: transparent;
+      color: white;
+      box-shadow: 0 2px 10px rgba(2, 132, 199, 0.35);
+    }
+
+    /* Bento Grid Arena Layout (High Information Density) */
+    .bento-arena {
+      max-width: 1560px;
+      margin: 0 auto;
+      padding: 16px 20px;
+      flex: 1;
+      width: 100%;
+      display: grid;
+      grid-template-columns: 56fr 44fr;
+      gap: 16px;
+      align-items: start;
+    }
+
+    /* Common Card Styling with Math Blueprint Corner Marks */
+    .bento-card {
+      background: var(--bg-surface-1);
+      border: 1px solid var(--border-blueprint);
+      border-radius: var(--radius-lg);
+      padding: 20px;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.45);
+    }
+    .bento-card::before {
+      content: "";
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, rgba(56, 189, 248, 0.4), transparent);
+    }
+    /* Blueprint Corner Watermark */
+    .card-corner-watermark {
+      position: absolute;
+      top: 8px;
+      right: 12px;
+      font-family: var(--font-mono);
+      font-size: 0.65rem;
+      color: rgba(56, 189, 248, 0.25);
+      letter-spacing: 0.08em;
+      pointer-events: none;
+    }
+
+    /* Left Column Stack */
+    .left-stack {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    /* Question Card Header */
+    .q-meta-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      margin-bottom: 12px;
+      flex-wrap: wrap;
+    }
+    .q-tag {
+      background: rgba(56, 189, 248, 0.12);
+      border: 1px solid rgba(56, 189, 248, 0.3);
+      color: var(--accent-cyan);
+      padding: 3px 10px;
+      border-radius: var(--radius-pill);
+      font-size: 0.74rem;
+      font-family: var(--font-mono);
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+    .btn-toggle-video {
+      background: rgba(244, 63, 94, 0.12);
+      border: 1px solid rgba(244, 63, 94, 0.3);
+      color: #fb7185;
+      padding: 5px 12px;
+      border-radius: var(--radius-pill);
+      font-size: 0.78rem;
+      font-weight: 700;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: all var(--transition-fast);
+    }
+    .btn-toggle-video:hover {
+      background: rgba(244, 63, 94, 0.22);
+      border-color: #f43f5e;
+      transform: translateY(-1px);
+    }
+
+    .q-statement {
+      font-size: 1.15rem;
+      font-weight: 700;
+      line-height: 1.45;
+      margin-bottom: 14px;
+      color: #f1f5f9;
+    }
+
+    /* Interactive 2D Vector Geometry Visualizer Box */
+    .visualizer-box {
+      background: #080d1a;
+      border: 1px solid rgba(56, 189, 248, 0.2);
+      border-radius: var(--radius-md);
+      padding: 14px;
+      margin-bottom: 16px;
+      display: grid;
+      grid-template-columns: 1fr 140px;
+      gap: 14px;
+      align-items: center;
+    }
+    .visualizer-svg-wrap {
+      position: relative;
+      height: 150px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .visualizer-svg-wrap svg {
+      width: 100%;
+      height: 100%;
+      max-width: 220px;
+      filter: drop-shadow(0 0 8px rgba(56, 189, 248, 0.2));
+    }
+    .visualizer-info {
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+    .visualizer-info strong {
+      color: var(--accent-cyan);
+      font-family: var(--font-mono);
+    }
+    .btn-rotate-sim {
+      background: rgba(56, 189, 248, 0.15);
+      border: 1px solid var(--accent-cyan);
+      color: var(--accent-cyan);
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      font-weight: 700;
+      padding: 4px 8px;
+      border-radius: var(--radius-sm);
+      cursor: pointer;
+      text-align: center;
+      margin-top: 4px;
+      transition: all var(--transition-fast);
+    }
+    .btn-rotate-sim:hover {
+      background: var(--accent-cyan);
+      color: #060913;
+    }
+
+    /* Compact Options Selector */
+    .options-grid {
+      display: grid;
+      gap: 8px;
+    }
+    .option-row {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 10px 14px;
+      border-radius: var(--radius-md);
+      background: var(--bg-surface-2);
+      border: 1px solid var(--border-blueprint);
+      cursor: pointer;
+      transition: all var(--transition-fast);
+      user-select: none;
+    }
+    .option-row:hover {
+      border-color: rgba(56, 189, 248, 0.5);
+      background: var(--bg-surface-elevated);
+      transform: translateX(3px);
+    }
+    .option-row.selected {
+      border-color: var(--accent-emerald);
+      background: rgba(16, 185, 129, 0.12);
+      box-shadow: var(--glow-emerald);
+    }
+    .opt-key {
+      width: 26px;
+      height: 26px;
+      border-radius: var(--radius-sm);
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid var(--border-blueprint);
+      display: grid;
+      place-items: center;
+      font-family: var(--font-mono);
+      font-weight: 800;
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      flex-shrink: 0;
+    }
+    .option-row.selected .opt-key {
+      background: var(--accent-emerald);
+      color: #060913;
+      border-color: transparent;
+    }
+    .opt-content {
+      font-size: 0.95rem;
+      font-weight: 600;
+      flex: 1;
+    }
+    .opt-hint {
+      font-size: 0.72rem;
+      font-family: var(--font-mono);
+      color: var(--text-faint);
+    }
+
+    /* Collapsible Video Lecture Drawer */
+    .video-drawer {
+      background: #040711;
+      border: 1px solid rgba(244, 63, 94, 0.3);
+      border-radius: var(--radius-lg);
+      padding: 16px;
+      margin-top: 14px;
+      animation: fadeIn 0.25s ease;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(-4px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .video-drawer-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 10px;
+    }
+    .video-channel {
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: #fca5a5;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .timestamp-chips {
+      display: flex;
+      gap: 6px;
+    }
+    .ts-chip {
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      color: #f8fafc;
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      padding: 2px 8px;
+      border-radius: var(--radius-sm);
+      cursor: pointer;
+      transition: all var(--transition-fast);
+    }
+    .ts-chip:hover, .ts-chip.active {
+      background: #ef4444;
+      border-color: #ef4444;
+      color: white;
+    }
+
+    .video-iframe-wrap {
+      position: relative;
+      width: 100%;
+      padding-bottom: 48%; /* compact 16:9 */
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      background: black;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+    .video-iframe-wrap iframe {
+      position: absolute;
+      top: 0; left: 0; width: 100%; height: 100%;
+      border: 0;
+    }
+    .video-takeaway {
+      margin-top: 10px;
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      background: rgba(255, 255, 255, 0.03);
+      padding: 8px 12px;
+      border-radius: var(--radius-sm);
+      border-left: 3px solid #ef4444;
+      line-height: 1.45;
+    }
+
+    /* RIGHT COLUMN: Tabbed High-Density Analytics Terminal */
+    .analysis-tabs-header {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      border-bottom: 1px solid var(--border-blueprint);
+      margin-bottom: 14px;
+      padding-bottom: 4px;
+    }
+    .tab-btn {
+      background: transparent;
+      border: 0;
+      color: var(--text-muted);
+      font-family: var(--font-sans);
+      font-size: 0.82rem;
+      font-weight: 700;
+      padding: 8px 14px;
+      border-radius: var(--radius-sm);
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: all var(--transition-fast);
+    }
+    .tab-btn:hover {
+      color: var(--text-main);
+      background: rgba(255, 255, 255, 0.04);
+    }
+    .tab-btn.active {
+      color: var(--accent-cyan);
+      background: rgba(56, 189, 248, 0.12);
+      border-bottom: 2px solid var(--accent-cyan);
+    }
+
+    /* Tab Content Panes */
+    .tab-pane {
+      display: none;
+    }
+    .tab-pane.active {
+      display: block;
+    }
+
+    /* TAB 1: Candidate Diagnostics (Bóc tách chi tiết & Bẫy) */
+    .diag-cards-stack {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .diag-card {
+      background: var(--bg-surface-2);
+      border: 1px solid var(--border-blueprint);
+      border-radius: var(--radius-md);
+      padding: 12px 14px;
+      position: relative;
+      transition: all var(--transition-fast);
+    }
+    .diag-card.is-correct {
+      border-color: rgba(16, 185, 129, 0.45);
+      background: rgba(16, 185, 129, 0.06);
+    }
+    .diag-card.is-trap {
+      border-color: rgba(245, 158, 11, 0.4);
+      background: rgba(245, 158, 11, 0.05);
+    }
+    .diag-card.is-wrong {
+      border-color: rgba(244, 63, 94, 0.35);
+      background: rgba(244, 63, 94, 0.04);
+    }
+
+    .diag-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 6px;
+    }
+    .diag-opt-label {
+      font-weight: 800;
+      font-size: 0.88rem;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .diag-badge {
+      font-size: 0.7rem;
+      font-weight: 800;
+      font-family: var(--font-mono);
+      padding: 2px 7px;
+      border-radius: var(--radius-pill);
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+    .badge-true {
+      background: rgba(16, 185, 129, 0.2);
+      color: #34d399;
+      border: 1px solid #10b981;
+    }
+    .badge-trap {
+      background: rgba(245, 158, 11, 0.2);
+      color: #fbbf24;
+      border: 1px solid #f59e0b;
+    }
+    .badge-fatal {
+      background: rgba(244, 63, 94, 0.2);
+      color: #fb7185;
+      border: 1px solid #f43f5e;
+    }
+    .diag-desc {
+      font-size: 0.82rem;
+      color: #cbd5e1;
+      line-height: 1.5;
+    }
+    .diag-cite {
+      margin-top: 6px;
+      font-size: 0.74rem;
+      font-family: var(--font-mono);
+      color: var(--accent-cyan);
+      display: inline-block;
+    }
+
+    /* TAB 2: Mathematical Invariants & Properties Radar */
+    .invariants-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.82rem;
+      margin-bottom: 12px;
+    }
+    .invariants-table th {
+      text-align: left;
+      padding: 8px 10px;
+      background: var(--bg-surface-elevated);
+      color: var(--accent-cyan);
+      font-family: var(--font-mono);
+      font-size: 0.74rem;
+      border-bottom: 1px solid var(--border-blueprint);
+    }
+    .invariants-table td {
+      padding: 8px 10px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+      font-family: var(--font-sans);
+    }
+    .invariants-table tr:hover td {
+      background: rgba(56, 189, 248, 0.04);
+    }
+    .badge-val {
+      font-family: var(--font-mono);
+      background: rgba(255, 255, 255, 0.08);
+      padding: 2px 6px;
+      border-radius: var(--radius-sm);
+      font-size: 0.78rem;
+    }
+
+    /* TAB 3: NumPy Verification Terminal Sandbox */
+    .code-terminal {
+      background: #040711;
+      border: 1px solid rgba(56, 189, 248, 0.2);
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      font-family: var(--font-mono);
+    }
+    .code-term-header {
+      background: #090e1d;
+      padding: 6px 12px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      font-size: 0.74rem;
+      color: var(--text-muted);
+    }
+    .code-term-body {
+      padding: 12px;
+      font-size: 0.8rem;
+      line-height: 1.6;
+      color: #e2e8f0;
+      white-space: pre-wrap;
+    }
+    .kw { color: #f43f5e; font-weight: 700; }
+    .fn { color: #38bdf8; }
+    .cm { color: #64748b; font-style: italic; }
+    .num { color: #a855f7; }
+    .str { color: #10b981; }
+
+    .term-output {
+      border-top: 1px dashed rgba(255, 255, 255, 0.12);
+      background: #02050c;
+      padding: 8px 12px;
+      font-size: 0.76rem;
+      color: #34d399;
+    }
+
+    /* Bottom HUD Navigation Bar */
+    .bottom-hud {
+      position: sticky;
+      bottom: 0;
+      background: rgba(8, 13, 26, 0.94);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border-top: 1px solid var(--border-blueprint);
+      padding: 10px 20px;
+      z-index: 40;
+    }
+    .bottom-hud-inner {
+      max-width: 1560px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+    }
+
+    @media (max-width: 1100px) {
+      .bento-arena {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Top Compact Terminal HUD -->
+  <header class="hud-header">
+    <div class="hud-inner">
+      <div class="hud-brand">
+        <div class="hud-logo">Ω</div>
+        <div class="hud-title-group">
+          <h1>Olympic AI HCMUS 2026</h1>
+          <p>STEM Bento Terminal & Candidate Diagnostics Arena</p>
+        </div>
+      </div>
+
+      <!-- Telemetry Strip -->
+      <div class="telemetry-strip">
+        <div class="tele-chip live-timer">
+          <div class="dot"></div>
+          <span>59:15</span>
+        </div>
+        <div class="tele-chip">
+          <span>Câu: <strong>1 / 50</strong></span>
+        </div>
+        <div class="tele-chip" style="color: var(--accent-emerald);">
+          <span>Độ chính xác: <strong>88%</strong></span>
+        </div>
+      </div>
+
+      <!-- Navigation & Handbook Quick Launch -->
+      <div style="display: flex; gap: 8px;">
+        <a href="olp_ai_handbook_2026.pdf" target="_blank" class="btn-hud">
+          <span>📖</span> PDF Handbook (§5.1 - Tr. 17)
+        </a>
+        <button class="btn-hud btn-hud-primary" onclick="alert('Đã lưu bài làm!')">
+          <span>✓</span> Nộp Bài
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- High-Density Bento Grid Arena -->
+  <main class="bento-arena">
+
+    <!-- LEFT COLUMN: Problem, Interactive Vector Geometry & Options & Video -->
+    <div class="left-stack">
+
+      <!-- Bento Card: Problem Statement & Geometric Visualizer -->
+      <section class="bento-card">
+        <span class="card-corner-watermark">MODULE A // ADVANCED LINEAR ALGEBRA</span>
+
+        <div class="q-meta-bar">
+          <span class="q-tag">§5.1 Ma Trận Trực Giao & Isometry</span>
+          <button class="btn-toggle-video" id="btnToggleVideo" onclick="toggleVideoDrawer()">
+            <span>▶</span> Xem Video Bài Giảng Trọng Tâm (3Blue1Brown)
+          </button>
+        </div>
+
+        <h2 class="q-statement">
+          Câu 1: Cho ma trận $A$ kích thước $n \times n$. Nếu $A$ là ma trận trực giao (orthogonal matrix), phát biểu nào sau đây là ĐÚNG?
+        </h2>
+
+        <!-- Interactive 2D Vector Geometry Visualizer Box -->
+        <div class="visualizer-box">
+          <div class="visualizer-svg-wrap">
+            <svg viewBox="-60 -60 120 120" id="geomSvg">
+              <!-- Grid background lines -->
+              <line x1="-50" y1="0" x2="50" y2="0" stroke="rgba(255,255,255,0.15)" stroke-width="0.8" />
+              <line x1="0" y1="-50" x2="0" y2="50" stroke="rgba(255,255,255,0.15)" stroke-width="0.8" />
+              <!-- Unit Circle -->
+              <circle cx="0" cy="0" r="42" fill="none" stroke="rgba(56, 189, 248, 0.3)" stroke-width="1.2" stroke-dasharray="2,2" />
+              
+              <!-- Vector v (original, green) -->
+              <line x1="0" y1="0" x2="36" y2="-21" stroke="#34d399" stroke-width="2.4" marker-end="url(#arrow-green)" id="vecV" />
+              <text x="38" y="-24" fill="#34d399" font-size="7" font-family="'JetBrains Mono', monospace">v (||v||=1)</text>
+
+              <!-- Vector Av (transformed, cyan) -->
+              <line x1="0" y1="0" x2="21" y2="-36" stroke="#38bdf8" stroke-width="2.4" id="vecAv" />
+              <text x="23" y="-39" fill="#38bdf8" font-size="7" font-family="'JetBrains Mono', monospace">Av (||Av||=1)</text>
+
+              <!-- Rotation Arc -->
+              <path d="M 28 -16 A 42 42 0 0 0 16 -28" fill="none" stroke="#f59e0b" stroke-width="1.2" />
+              <text x="26" y="-26" fill="#f59e0b" font-size="6" font-family="'JetBrains Mono', monospace">θ</text>
+            </svg>
+          </div>
+
+          <div class="visualizer-info">
+            <div><strong>Isometry Theorem:</strong></div>
+            <div>$\|A\mathbf{x}\|_2 = \|\mathbf{x}\|_2$</div>
+            <div>Bảo toàn nguyên vẹn độ dài vector & góc quay $\theta$. Không co giãn không gian.</div>
+            <button class="btn-rotate-sim" onclick="simulateRotate()">↻ Xoay Vector $\theta + 30^\circ$</button>
+          </div>
+        </div>
+
+        <!-- Options Selector Grid -->
+        <div class="options-grid">
+          <div class="option-row selected" onclick="selectOpt(this, 'A')">
+            <div class="opt-key">A</div>
+            <div class="opt-content">$A^T = A^{-1}$</div>
+            <div class="opt-hint">[Phím 1]</div>
+          </div>
+
+          <div class="option-row" onclick="selectOpt(this, 'B')">
+            <div class="opt-key">B</div>
+            <div class="opt-content">Định thức của $A$ luôn bằng 0.</div>
+            <div class="opt-hint">[Phím 2]</div>
+          </div>
+
+          <div class="option-row" onclick="selectOpt(this, 'C')">
+            <div class="opt-key">C</div>
+            <div class="opt-content">$A$ là ma trận suy biến.</div>
+            <div class="opt-hint">[Phím 3]</div>
+          </div>
+
+          <div class="option-row" onclick="selectOpt(this, 'D')">
+            <div class="opt-key">D</div>
+            <div class="opt-content">Các hàng của $A$ phụ thuộc tuyến tính.</div>
+            <div class="opt-hint">[Phím 4]</div>
+          </div>
+        </div>
+
+        <!-- Collapsible Video Drawer -->
+        <div class="video-drawer" id="videoDrawer" style="display: none;">
+          <div class="video-drawer-top">
+            <span class="video-channel">
+              <span>🎬</span> 3Blue1Brown — Essence of Linear Algebra
+            </span>
+            <div class="timestamp-chips">
+              <span class="ts-chip" onclick="jumpTs(135)">02:15 Bản chất phép quay</span>
+              <span class="ts-chip active" onclick="jumpTs(225)">03:45 Tại sao det = ±1</span>
+              <span class="ts-chip" onclick="jumpTs(380)">06:20 Ứng dụng QR / SVD</span>
+            </div>
+          </div>
+
+          <div class="video-iframe-wrap">
+            <iframe 
+              id="ytPlayer"
+              src="https://www.youtube.com/embed/kYB8IZa5AuE?start=225&autoplay=0" 
+              title="3Blue1Brown Orthogonal Matrices" 
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+              allowfullscreen>
+            </iframe>
+          </div>
+
+          <div class="video-takeaway">
+            <strong>Trọng tâm cần nắm:</strong> Ma trận trực giao biểu diễn phép quay/phản xạ cứng trong không gian. Do không kéo giãn hay co bóp thể tích khối $n$ chiều, nên định thức $|\det(A)| = 1 \implies \det(A) = \pm 1$, triệt tiêu hoàn toàn khả năng $\det(A) = 0$.
+          </div>
+        </div>
+
+      </section>
+
+    </div>
+
+    <!-- RIGHT COLUMN: High-Density Tabbed Analytics Hub -->
+    <div class="right-stack">
+
+      <section class="bento-card">
+        <span class="card-corner-watermark">ANALYTICS HUB // DEEP DIAGNOSTICS</span>
+
+        <!-- Segmented Tab Header -->
+        <div class="analysis-tabs-header">
+          <button class="tab-btn active" onclick="switchTab('tabDiagnostics', this)">
+            <span>🔬</span> Candidate Diagnostics
+          </button>
+          <button class="tab-btn" onclick="switchTab('tabInvariants', this)">
+            <span>⚡</span> Invariants & Properties
+          </button>
+          <button class="tab-btn" onclick="switchTab('tabCode', this)">
+            <span>💻</span> NumPy Sandbox
+          </button>
+        </div>
+
+        <!-- TAB 1: Candidate Diagnostics (Bóc Tách Từng Phương Án A, B, C, D) -->
+        <div class="tab-pane active" id="tabDiagnostics">
+          <div class="diag-cards-stack">
+
+            <!-- Candidate A -->
+            <div class="diag-card is-correct">
+              <div class="diag-header">
+                <span class="diag-opt-label">
+                  <span style="color: #34d399;">●</span> Phương án A: $A^T = A^{-1}$
+                </span>
+                <span class="diag-badge badge-true">100% Chính Xác</span>
+              </div>
+              <div class="diag-desc">
+                Theo định nghĩa đại số tuyến tính: $A^T A = A A^T = I_n \implies A^{-1} = A^T$. Nghịch đảo chính là chuyển vị, tính toán trong độ phức tạp $\mathcal{O}(1)$ bộ nhớ.
+              </div>
+              <span class="diag-cite">Căn cứ: Sổ tay Handbook PDF (§5.1 - Trang 17)</span>
+            </div>
+
+            <!-- Candidate B -->
+            <div class="diag-card is-trap">
+              <div class="diag-header">
+                <span class="diag-opt-label">
+                  <span style="color: #fbbf24;">●</span> Phương án B: Định thức $\det(A) = 0$
+                </span>
+                <span class="diag-badge badge-trap">Bẫy Gài (38% Sai)</span>
+              </div>
+              <div class="diag-desc">
+                <strong>Bẫy phổ biến:</strong> Ta có $\det(A^T A) = \det(A)^2 = \det(I) = 1 \implies \det(A) = \pm 1$. Định thức <strong>tuyệt đối không thể bằng 0</strong>! Thí sinh thường nhầm giữa trực giao (orthogonal) và trực chuẩn triệt tiêu.
+              </div>
+              <span class="diag-cite" style="color: #fca5a5;">Điểm bẫy: Nhầm lẫn giữa tính trực giao và suy biến</span>
+            </div>
+
+            <!-- Candidate C -->
+            <div class="diag-card is-wrong">
+              <div class="diag-header">
+                <span class="diag-opt-label">
+                  <span style="color: #fb7185;">●</span> Phương án C: $A$ là ma trận suy biến
+                </span>
+                <span class="diag-badge badge-fatal">Sai Bản Chất (14% Sai)</span>
+              </div>
+              <div class="diag-desc">
+                <strong>Lý do loại trừ:</strong> Ma trận suy biến (Singular Matrix) là ma trận có $\det = 0$ và không khả nghịch. Do $A^{-1} = A^T$ luôn tồn tại, $A$ <strong>luôn luôn khả nghịch (Non-singular)</strong>.
+              </div>
+            </div>
+
+            <!-- Candidate D -->
+            <div class="diag-card is-wrong">
+              <div class="diag-header">
+                <span class="diag-opt-label">
+                  <span style="color: #fb7185;">●</span> Phương án D: Các hàng phụ thuộc tuyến tính
+                </span>
+                <span class="diag-badge badge-fatal">Phản Chứng (6% Sai)</span>
+              </div>
+              <div class="diag-desc">
+                <strong>Lý do loại trừ:</strong> Các hàng của ma trận trực giao lập thành một hệ trực chuẩn (chuẩn bằng 1 và tích vô hướng từng đôi bằng 0). Mọi hệ trực chuẩn đều <strong>độc lập tuyến tính tuyệt đối</strong> $\implies \text{rank}(A) = n$.
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- TAB 2: Mathematical Invariants & Properties Radar -->
+        <div class="tab-pane" id="tabInvariants">
+          <table class="invariants-table">
+            <thead>
+              <tr>
+                <th>Thuộc Tính Toán Học</th>
+                <th>Giá Trị / Trạng Thái</th>
+                <th>Ý Nghĩa Trong AI/ML</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Định thức $\det(A)$</strong></td>
+                <td><span class="badge-val">+1 hoặc -1</span></td>
+                <td>Bảo toàn thể tích (Volume-preserving)</td>
+              </tr>
+              <tr>
+                <td><strong>Chuẩn Euclid $\|A\mathbf{x}\|_2$</strong></td>
+                <td><span class="badge-val">$\|\mathbf{x}\|_2$</span></td>
+                <td>Tránh bùng nổ/triệt tiêu Gradient trong RNNs</td>
+              </tr>
+              <tr>
+                <td><strong>Giá trị riêng $\lambda_i$</strong></td>
+                <td><span class="badge-val">$|\lambda_i| = 1$</span></td>
+                <td>Nằm trọn trên vòng tròn đơn vị phức $\mathbb{C}$</td>
+              </tr>
+              <tr>
+                <td><strong>Hạng ma trận (Rank)</strong></td>
+                <td><span class="badge-val">Full-rank ($n$)</span></td>
+                <td>Không làm mất chiều dữ liệu (No projection loss)</td>
+              </tr>
+              <tr>
+                <td><strong>Chi phí tính nghịch đảo</strong></td>
+                <td><span class="badge-val">$\mathcal{O}(1)$ Mem / $\mathcal{O}(n^2)$</span></td>
+                <td>Nhanh hơn gấp bội Gaussian $\mathcal{O}(n^3)$</td>
+              </tr>
+              <tr>
+                <td><strong>Tích vô hướng $\langle A\mathbf{u}, A\mathbf{v}\rangle$</strong></td>
+                <td><span class="badge-val">$\langle \mathbf{u}, \mathbf{v}\rangle$</span></td>
+                <td>Bảo toàn góc cosine giữa các embedding vectors</td>
+              </tr>
+            </tbody>
+          </table>
+
+          <div style="font-size: 0.78rem; color: var(--text-muted); background: rgba(56, 189, 248, 0.05); padding: 10px; border-radius: var(--radius-sm); border: 1px dashed var(--border-blueprint);">
+            💡 <strong>Ứng dụng thi Olympic AI:</strong> Thuộc tính bảo toàn chuẩn của ma trận trực giao là nền tảng của <em>Orthogonal Initialization</em> (giúp huấn luyện Deep Transformer ổn định) và các thuật toán <em>QR Decomposition, SVD, PCA</em>.
+          </div>
+        </div>
+
+        <!-- TAB 3: NumPy / PyTorch Code Verification -->
+        <div class="tab-pane" id="tabCode">
+          <div class="code-terminal">
+            <div class="code-term-header">
+              <span>verify_orthogonal_properties.py</span>
+              <button style="background: rgba(56, 189, 248, 0.15); border: 1px solid var(--accent-cyan); color: var(--accent-cyan); font-size: 0.7rem; padding: 2px 8px; border-radius: 4px; cursor: pointer;" onclick="runSimCode()">▶ Chạy Lại</button>
+            </div>
+            <div class="code-term-body">
+<span class="kw">import</span> numpy <span class="kw">as</span> np
+
+<span class="cm"># 1. Tạo ma trận quay 2D với góc theta = pi/4</span>
+theta = np.pi / <span class="num">4</span>
+A = np.array([
+    [np.cos(theta), -np.sin(theta)],
+    [np.sin(theta),  np.cos(theta)]
+])
+
+<span class="cm"># 2. Kiểm chứng: A.T @ A có bằng ma trận đơn vị I không?</span>
+is_orthogonal = np.allclose(A.T @ A, np.eye(<span class="num">2</span>))
+
+<span class="cm"># 3. Tính định thức det(A) xem có bằng 0 như Phương án B không?</span>
+det_val = np.linalg.det(A)
+
+<span class="cm"># 4. Kiểm chứng bảo toàn chuẩn Euclid: ||Ax|| == ||x||</span>
+x = np.array([<span class="num">3.0</span>, <span class="num">4.0</span>])
+norm_x = np.linalg.norm(x)
+norm_Ax = np.linalg.norm(A @ x)
+            </div>
+            <div class="term-output" id="termOutput">
+[Console Output]
+>>> is_orthogonal = True  (A.T == A^-1 verified)
+>>> det(A) = 1.00000000  (KHÁC 0! Phương án B là bẫy gài)
+>>> norm(x) = 5.00000000 | norm(Ax) = 5.00000000  (Bảo toàn chuẩn tuyệt đối)
+            </div>
+          </div>
+        </div>
+
+      </section>
+
+    </div>
+
+  </main>
+
+  <!-- Bottom HUD Navigation -->
+  <footer class="bottom-hud">
+    <div class="bottom-hud-inner">
+      <button class="btn-hud">← Câu Trước (P)</button>
+
+      <div style="display: flex; gap: 8px;">
+        <button class="btn-hud" style="color: var(--accent-amber); border-color: rgba(245, 158, 11, 0.3);">
+          ★ Đánh Dấu Xem Lại (F)
+        </button>
+      </div>
+
+      <div style="display: flex; gap: 10px;">
+        <button class="btn-hud btn-hud-primary">Câu Tiếp Theo (N) →</button>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Tab switching logic
+    function switchTab(tabId, btn) {
+      document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+      document.querySelectorAll('.tab-pane').forEach(p => p.classList.remove('active'));
+      btn.classList.add('active');
+      document.getElementById(tabId).classList.add('active');
+    }
+
+    // Video drawer toggle
+    function toggleVideoDrawer() {
+      const drawer = document.getElementById('videoDrawer');
+      const btn = document.getElementById('btnToggleVideo');
+      const isHidden = window.getComputedStyle(drawer).display === 'none';
+      if (isHidden) {
+        drawer.style.display = 'block';
+        btn.innerHTML = '<span>✕</span> Thu Gọn Video Bài Giảng';
+        btn.style.background = 'rgba(244, 63, 94, 0.25)';
+      } else {
+        drawer.style.display = 'none';
+        btn.innerHTML = '<span>▶</span> Xem Video Bài Giảng Trọng Tâm (3Blue1Brown)';
+        btn.style.background = 'rgba(244, 63, 94, 0.12)';
+      }
+    }
+
+    // Jump timestamp in iframe
+    function jumpTs(sec) {
+      document.querySelectorAll('.ts-chip').forEach(c => c.classList.remove('active'));
+      event.target.classList.add('active');
+      const iframe = document.getElementById('ytPlayer');
+      iframe.src = `https://www.youtube.com/embed/kYB8IZa5AuE?start=${sec}&autoplay=1`;
+    }
+
+    // Option selection
+    function selectOpt(el, key) {
+      document.querySelectorAll('.option-row').forEach(r => r.classList.remove('selected'));
+      el.classList.add('selected');
+    }
+
+    // Keyboard shortcuts (1-4, P, N)
+    window.addEventListener('keydown', (e) => {
+      const rows = document.querySelectorAll('.option-row');
+      if (['1', '2', '3', '4'].includes(e.key)) {
+        const idx = parseInt(e.key) - 1;
+        if (rows[idx]) selectOpt(rows[idx], ['A', 'B', 'C', 'D'][idx]);
+      }
+    });
+
+    // 2D Rotation Vector simulation
+    let currentAngle = 45;
+    function simulateRotate() {
+      currentAngle = (currentAngle + 30) % 360;
+      const rad = currentAngle * Math.PI / 180;
+      const r = 42;
+      const x = Math.round(r * Math.cos(rad));
+      const y = -Math.round(r * Math.sin(rad)); // SVG y inverted
+      const vecAv = document.getElementById('vecAv');
+      vecAv.setAttribute('x2', x);
+      vecAv.setAttribute('y2', y);
+    }
+
+    function runSimCode() {
+      const out = document.getElementById('termOutput');
+      out.style.opacity = '0.4';
+      setTimeout(() => {
+        out.style.opacity = '1';
+        out.innerHTML = `[Console Output - Timestamp: ${new Date().toLocaleTimeString()}]\n>>> is_orthogonal = True  (A.T == A^-1 verified)\n>>> det(A) = 1.00000000  (KHÁC 0! Phương án B là bẫy gài)\n>>> norm(x) = 5.00000000 | norm(Ax) = 5.00000000  (Bảo toàn chuẩn tuyệt đối)`;
+      }, 200);
+    }
+  </script>
+</body>
+</html>

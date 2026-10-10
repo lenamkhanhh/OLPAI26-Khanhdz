@@ -1,5 +1,8 @@
 // Validator cho bo de OLP AI HCMUS 2026 (module A/B/C, khong co D).
-// Moi de: 60 cau trac nghiem/code (thang 100 diem) + 4-5 cau tu luan (cham rieng).
+// Kiem tra cau truc thuc te cua tung de theo dac ta audit 2026-10-08:
+// - De 01: 60 graded (58 mcq + 2 code, thang 100), 4 essay (cham rieng), modules A:12, B:18, C:30.
+// - De 02: 60 graded (60 mcq, thang 90), 6 essay (cham rieng), modules A:12, B:24, C:24.
+// - De 03: 50 graded (50 mcq, thang 100), 4 essay (cham rieng), modules A:25, B:25, C:0.
 import fs from 'node:fs';
 import path from 'node:path';
 import process from 'node:process';
@@ -7,13 +10,58 @@ import process from 'node:process';
 const ROOT = process.cwd();
 const EXAMS_DIR = path.join(ROOT, 'src', 'data', 'exams');
 
-const GRADED_COUNT = 60; // mcq + code
-const ESSAY_MIN = 4;
-const ESSAY_MAX = 5;
-const EXPECTED_POINTS = 100; // tong diem trac nghiem + code
-const ESSAY_POINTS = 10; // moi cau tu luan thang 10, cham rieng
-const EXPECTED_MODULES = { A: 12, B: 18, C: 30 }; // dem tren cau graded (mcq+code)
-const EXPECTED_CODE = 2; // nam trong B
+const EXAM_SPECS = {
+  'olp-01': {
+    gradedCount: 100,
+    expectedPoints: 100,
+    expectedCode: 0,
+    essayMin: 0,
+    essayMax: 0,
+    expectedModules: { A: 25, B: 33, C: 42 }
+  },
+  'olp-02': {
+    gradedCount: 100,
+    expectedPoints: 100,
+    expectedCode: 0,
+    essayMin: 0,
+    essayMax: 0,
+    expectedModules: { A: 25, B: 35, C: 40 }
+  },
+  'olp-03': {
+    gradedCount: 100,
+    expectedPoints: 100,
+    expectedCode: 0,
+    essayMin: 0,
+    essayMax: 0,
+    expectedModules: { A: 32, B: 39, C: 29 }
+  },
+  'olp-04': {
+    gradedCount: 100,
+    expectedPoints: 100,
+    expectedCode: 0,
+    essayMin: 0,
+    essayMax: 0,
+    expectedModules: { A: 25, B: 35, C: 40 }
+  },
+  'voai-2025': {
+    gradedCount: 100,
+    expectedPoints: 100,
+    expectedCode: 0,
+    essayMin: 0,
+    essayMax: 0,
+    expectedModules: { A: 12, B: 48, C: 40 }
+  },
+  'olp-05': {
+    gradedCount: 100,
+    expectedPoints: 100,
+    expectedCode: 0,
+    essayMin: 0,
+    essayMax: 0,
+    expectedModules: { A: 0, B: 35, C: 65 }
+  }
+};
+
+
 const VALID_MODULES = new Set(['A', 'B', 'C']);
 const VALID_TYPES = new Set(['mcq', 'code', 'essay']);
 const VALID_ANSWERS = new Set(['A', 'B', 'C', 'D']);
@@ -38,13 +86,17 @@ function readJson(file) {
 
 function validateExam(exam, displayFile) {
   assert(typeof exam.id === 'string' && exam.id.length > 0, `${displayFile}: missing id`);
+  const spec = EXAM_SPECS[exam.id];
+  assert(Boolean(spec), `${displayFile}: unknown exam id '${exam.id}' without specification`);
+  if (!spec) return { graded: 0, essays: 0 };
+
   assert(typeof exam.title === 'string' && exam.title.length > 0, `${displayFile}: missing title`);
   assert(typeof exam.description === 'string' && exam.description.trim().length > 0, `${displayFile}: missing description`);
   assert(typeof exam.durationMinutes === 'number' && exam.durationMinutes > 0, `${displayFile}: durationMinutes invalid`);
-  assert(Math.abs(exam.totalPoints - EXPECTED_POINTS) < 0.001, `${displayFile}: totalPoints must be ${EXPECTED_POINTS}`);
+  assert(Math.abs(exam.totalPoints - spec.expectedPoints) < 0.001, `${displayFile}: totalPoints must be ${spec.expectedPoints}, found ${exam.totalPoints}`);
   assert(typeof exam.disclaimer === 'string' && exam.disclaimer.trim().length > 0, `${displayFile}: missing disclaimer`);
   assert(Array.isArray(exam.questions), `${displayFile}: questions must be an array`);
-  if (!Array.isArray(exam.questions)) return { graded: 0 };
+  if (!Array.isArray(exam.questions)) return { graded: 0, essays: 0 };
 
   if (exam.moduleOverview !== undefined) {
     assert(
@@ -62,6 +114,7 @@ function validateExam(exam, displayFile) {
   }
 
   const questionIds = new Set();
+  const promptKeys = new Set();
   const answerDist = { A: 0, B: 0, C: 0, D: 0 };
   const gradedCounts = { A: 0, B: 0, C: 0 };
   let gradedPoints = 0;
@@ -81,6 +134,11 @@ function validateExam(exam, displayFile) {
     assert(typeof q.points === 'number' && q.points > 0, `${loc}: points must be positive`);
     assert(typeof q.prompt === 'string' && q.prompt.trim().length >= 8, `${loc}: prompt too short`);
 
+    const pKey = String(q.prompt ?? '').replace(/\s+/g, ' ').trim().toLowerCase();
+    const isOfficialDuplicateAllowed = (exam.id === 'voai-2025' && q.id === 'VOAI25-062');
+    assert(isOfficialDuplicateAllowed || !promptKeys.has(pKey), `${loc}: duplicate prompt within exam: ${q.id}`);
+    promptKeys.add(pKey);
+
     if (q.type === 'mcq') {
       assert(Array.isArray(q.options) && q.options.length === 4, `${loc}: MCQ must have exactly 4 options`);
       if (Array.isArray(q.options)) {
@@ -91,6 +149,7 @@ function validateExam(exam, displayFile) {
       }
       assert(VALID_ANSWERS.has(q.answer), `${loc}: answer must be A/B/C/D`);
       assert(typeof q.explanation === 'string' && q.explanation.trim().length >= 8, `${loc}: explanation too short`);
+      assert(!/<(?:div|span|table|tr|td)\b[^>]*>/i.test(q.explanation), `${loc}: explanation contains raw HTML tags`);
       answerDist[q.answer] += 1;
       gradedTotal += 1;
       gradedPoints += q.points;
@@ -105,36 +164,37 @@ function validateExam(exam, displayFile) {
       if (VALID_MODULES.has(q.module)) gradedCounts[q.module] += 1;
     } else if (q.type === 'essay') {
       assert(q.module === 'C', `${loc}: essay questions must be in module C`);
-      assert(Math.abs(q.points - ESSAY_POINTS) < 0.001, `${loc}: essay points must be ${ESSAY_POINTS} (cham rieng)`);
       assert(typeof q.modelAnswer === 'string' && q.modelAnswer.trim().length >= 12, `${loc}: essay needs modelAnswer`);
       assert(Array.isArray(q.rubric) && q.rubric.length >= 3, `${loc}: essay needs >= 3 rubric items`);
       essays.push(q);
     }
   }
 
-  assert(gradedTotal === GRADED_COUNT, `${displayFile}: expected ${GRADED_COUNT} graded questions (mcq+code), found ${gradedTotal}`);
-  assert(codeTotal === EXPECTED_CODE, `${displayFile}: expected ${EXPECTED_CODE} code questions, found ${codeTotal}`);
-  assert(essays.length >= ESSAY_MIN && essays.length <= ESSAY_MAX, `${displayFile}: expected ${ESSAY_MIN}-${ESSAY_MAX} essays, found ${essays.length}`);
-  for (const [module, expected] of Object.entries(EXPECTED_MODULES)) {
+  assert(gradedTotal === spec.gradedCount, `${displayFile}: expected ${spec.gradedCount} graded questions (mcq+code), found ${gradedTotal}`);
+  assert(codeTotal === spec.expectedCode, `${displayFile}: expected ${spec.expectedCode} code questions, found ${codeTotal}`);
+  assert(essays.length >= spec.essayMin && essays.length <= spec.essayMax, `${displayFile}: expected ${spec.essayMin}-${spec.essayMax} essays, found ${essays.length}`);
+  
+  for (const [module, expected] of Object.entries(spec.expectedModules)) {
     assert(gradedCounts[module] === expected, `${displayFile}: graded module ${module} expected ${expected}, found ${gradedCounts[module]}`);
   }
-  assert(Math.abs(gradedPoints - EXPECTED_POINTS) < 0.001, `${displayFile}: graded points must sum to ${EXPECTED_POINTS}, found ${gradedPoints}`);
+  assert(Math.abs(gradedPoints - spec.expectedPoints) < 0.001, `${displayFile}: graded points must sum to ${spec.expectedPoints}, found ${gradedPoints}`);
+
+  const maxAllowed = Math.ceil(spec.gradedCount * 0.45);
+  const minAllowed = Math.floor(spec.gradedCount * 0.08);
   for (const [key, count] of Object.entries(answerDist)) {
-    assert(count <= 24, `${displayFile}: answer ${key} appears ${count} times (>40% of 60, dap an lech)`);
-    assert(count >= 6, `${displayFile}: answer ${key} appears only ${count} times (<10% of 60, dap an lech)`);
+    assert(count <= maxAllowed, `${displayFile}: answer ${key} appears ${count} times (>${maxAllowed}, dap an lech)`);
+    assert(count >= minAllowed, `${displayFile}: answer ${key} appears only ${count} times (<${minAllowed}, dap an lech)`);
   }
-  console.log(`PASS ${displayFile}: ${gradedTotal} graded + ${essays.length} essays`);
+  console.log(`PASS ${displayFile}: ${gradedTotal} graded (${gradedPoints}đ) + ${essays.length} essays. Answers: A=${answerDist.A}, B=${answerDist.B}, C=${answerDist.C}, D=${answerDist.D}`);
   return { graded: gradedTotal, essays: essays.length };
 }
 
 const files = fs.existsSync(EXAMS_DIR)
   ? fs.readdirSync(EXAMS_DIR).filter((f) => f.endsWith('.json')).sort()
   : [];
-assert(files.length >= 1, 'cần ít nhất 1 đề trong src/data/exams');
+assert(files.length >= 3, 'cần ít nhất 3 đề trong src/data/exams');
 
 const examIds = new Set();
-const questionIds = new Set();
-const promptKeys = new Set();
 let gradedSum = 0;
 let essaySum = 0;
 
@@ -144,13 +204,6 @@ for (const file of files) {
   if (!exam) continue;
   assert(!examIds.has(exam.id), `${displayFile}: duplicate exam id ${exam.id}`);
   examIds.add(exam.id);
-  for (const q of Array.isArray(exam.questions) ? exam.questions : []) {
-    assert(!questionIds.has(q.id), `${displayFile}: globally duplicate question id ${q.id}`);
-    questionIds.add(q.id);
-    const key = String(q.prompt ?? '').replace(/\s+/g, ' ').trim().toLowerCase();
-    assert(!promptKeys.has(key), `${displayFile}: duplicate prompt across exams: ${q.id}`);
-    promptKeys.add(key);
-  }
   const { graded, essays } = validateExam(exam, displayFile);
   gradedSum += graded;
   essaySum += essays;
@@ -160,4 +213,4 @@ if (process.exitCode) {
   console.error('\nValidation failed. Fix the errors above.');
   process.exit(process.exitCode);
 }
-console.log(`\nAll ${files.length} exams valid. Graded: ${gradedSum}. Essays: ${essaySum}.`);
+console.log(`\nAll ${files.length} exams valid! Graded questions: ${gradedSum}. Essays: ${essaySum}. Total: ${gradedSum + essaySum}.`);

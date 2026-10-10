@@ -12,9 +12,11 @@ interface Props {
   onToggleTheory?: () => void;
   theoryOpen?: boolean;
   currentSection?: string;
+  onToggleAI?: () => void;
+  aiOpen?: boolean;
 }
 
-// Sticky top bar: thoát · Câu n/N · Sổ tay lý thuyết · timer · palette.
+// Sticky top bar: thoát · Câu n/N · Sổ tay lý thuyết · AI · timer · palette.
 export function QuizTopBar({
   title,
   index,
@@ -26,7 +28,9 @@ export function QuizTopBar({
   onOpenPalette,
   onToggleTheory,
   theoryOpen,
-  currentSection
+  currentSection,
+  onToggleAI,
+  aiOpen
 }: Props) {
   const [label, setLabel] = useState('');
   const deadlineRef = useRef(0);
@@ -77,6 +81,18 @@ export function QuizTopBar({
             title="Mở thanh lý thuyết & video bên cạnh"
           >
             📖 <span className="topbar-theory-text">{currentSection ? `${currentSection}` : 'Lý thuyết'}</span>
+          </button>
+        )}
+
+        {onToggleAI && (
+          <button
+            type="button"
+            className={`topbar-btn topbar-ai-toggle${aiOpen ? ' topbar-ai-toggle--active' : ''}`}
+            aria-label="Mở Trợ lý AI"
+            onClick={onToggleAI}
+            title="Mở Trợ lý AI Olympic (Chấm Rubric & Giải đáp)"
+          >
+            ⚡ <span className="topbar-ai-text">AI Trợ lý</span>
           </button>
         )}
 

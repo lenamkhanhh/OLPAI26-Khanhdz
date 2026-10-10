@@ -13,6 +13,7 @@ export interface BaseQuestion {
   type: QuestionType;
   points: number;
   prompt: string;
+  image?: string;
   tags?: string[];
 }
 

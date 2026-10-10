@@ -1,0 +1,3271 @@
+# ĐỀ THI 01: ÔN TẬP TOÀN DIỆN OLP AI HCMUS 2026 (CANONICAL EDITION)
+## 60 Câu Tự Động Chấm (58 MCQ + 2 Code: 100.0đ) & 4 Bài Tự Luận Theo Rubric (40.0đ)
+
+> **Nguồn gốc học thuật:** Đề thi chuẩn hóa toàn diện phủ kín 3 phân hệ Module A (Toán & Xác suất thống kê), Module B (Học máy cổ điển), Module C (Deep Learning & Computer Vision/NLP).
+
+---
+
+### Câu 01 [OLP01-A01] — Phân hệ Module A (Thang điểm: 1.0đ)
+
+**Đề bài:** Một căn bệnh có tỉ lệ mắc trong cộng đồng là 2%. Một xét nghiệm y tế có độ nhạy (Sensitivity) 95% và tỉ lệ dương tính giả (False Positive Rate) là 4%. Một người đi xét nghiệm và nhận kết quả Dương tính (+). Xác suất người đó thật sự mắc bệnh là bao nhiêu?
+
+- **A.** 95%
+- **B.** Khoảng 32.6%
+- **C.** 2%
+- **D.** Khoảng 68%
+
+**Đáp án chính xác:** `B`
+
+### 1. ELI5 — Bản chất cốt lõi (Giải thích như cho em bé)
+👶 **Thuật ngữ mới cần hiểu trước:**
+- **Tỉ lệ nền (Base Rate / Prior):** Tỉ lệ người thật sự có bệnh trong cả cộng đồng. Ở đây là 2% (cứ 100 người thì chỉ có 2 người ốm).
+- **Độ nhạy (Sensitivity):** Người có bệnh đi khám thì test phát hiện đúng bao nhiêu phần trăm (95%).
+- **Dương tính giả (False Positive Rate):** Người hoàn toàn khỏe mạnh nhưng máy lại báo nhầm là có bệnh (4%).
+
+🍼 **Hình dung thực tế cho em bé:**
+Tưởng tượng trong một hội trường có **10,000 người**:
+1. Có **200 người thực sự có bệnh** (2%). Máy test phát hiện đúng 95% của 200 người này $\implies 200 \times 0.95 = 190$ người dương tính thật.
+2. Có tới **9,800 người khỏe mạnh** (98%). Máy báo nhầm 4% số người khỏe này $\implies 9,800 \times 0.04 = 392$ người khỏe bị báo dương tính oan!
+3. Tổng số người cầm tờ giấy kết quả ghi chữ " DƯƠNG TÍNH " là: $190 + 392 = 582$ người.
+Nhưng hãy nhìn xem: Trong 582 người nhận kết quả dương tính đó, chỉ có **190 người thực sự mang mầm bệnh**!
+Xác suất thật: $\frac{190}{582} \approx 32.6\%$. Tức là cầm kết quả dương tính trên tay, khả năng bạn vẫn KHỎE MẠNH lên tới gần 67.4%!
+
+### 2. Công thức toán & Bước tính chi tiết (Step-by-Step)
+📐 Áp dụng định lý Bayes toàn phần:
+$$P(\text{Bệnh} \mid +) = \frac{P(+ \mid \text{Bệnh}) \cdot P(\text{Bệnh})}{P(+)}$$
+Trong đó xác suất toàn phần để nhận kết quả dương tính là:
+$$P(+) = P(+ \mid \text{Bệnh}) \cdot P(\text{Bệnh}) + P(+ \mid \text{Khỏe}) \cdot P(\text{Khỏe})$$
+Thay số chi tiết từng bước:
+- $P(\text{Bệnh}) = 0.02 \implies P(\text{Khỏe}) = 1 - 0.02 = 0.98$.
+- $P(+ \mid \text{Bệnh}) = 0.95$ (Độ nhạy).
+- $P(+ \mid \text{Khỏe}) = 0.04$ (Tỉ lệ dương tính giả).
+- Tử số: $0.95 \times 0.02 = 0.019$.
+- Mẫu số: $P(+) = (0.95 \times 0.02) + (0.04 \times 0.98) = 0.019 + 0.0392 = 0.0582$.
+- Kết quả:
+$$P(\text{Bệnh} \mid +) = \frac{0.019}{0.0582} \approx 0.32646 \implies \mathbf{32.6\%}$$
+Chọn đáp án **B**.
+
+### 3. Bẫy đề thi & Tại sao các đáp án khác sai (Pitfalls)
+⚠️ **Bẫy kinh điển (Base Rate Fallacy):**
+- **Phương án A (95%):** Rất nhiều người thấy test nhạy 95% liền tưởng mình có 95% nguy cơ bệnh. Đây là sai lầm chết người vì nhầm lẫn giữa $P(+ \mid \text{Bệnh})$ với $P(\text{Bệnh} \mid +)$.
+- **Phương án C (2%):** Đây chỉ là xác suất tiên nghiệm (Prior) trước khi test; test dương tính đã làm tăng khả năng bệnh từ 2% lên 32.6%.
+- **Phương án D (Khoảng 68%):** Lấy $100\% - 32.6\%$ ra xác suất không mắc bệnh nhưng lại đánh tráo vào câu hỏi.
+
+### 4. Mắt xích kiến thức & Liên hệ bài cũ
+📚 **Căn cứ lý thuyết:** Xem **§5.1 Định lý Bayes & Phân tích xác suất y tế**.
+🔗 Định lý Bayes là nền tảng cốt lõi của Machine Learning: Chuyển đổi từ niềm tin ban đầu (Prior) thành niềm tin cập nhật sau khi quan sát dữ liệu (Posterior Likelihood). Ta sẽ tiếp tục gặp nguyên lý này ở câu A02 ngay sau đây!
+
+---
+
+### Câu 02 [OLP01-A02] — Phân hệ Module A (Thang điểm: 1.0đ)
+
+**Đề bài:** Một xét nghiệm y tế có độ nhạy 99% và độ đặc hiệu 99% đối với một căn bệnh hiếm gặp (tỉ lệ mắc trong dân số chỉ là 0.1%). Vì sao khi xét nghiệm ngẫu nhiên, hầu hết những người có kết quả Dương tính (+) thực tế vẫn KHÔNG mắc bệnh?
+
+- **A.** Do độ nhạy (Sensitivity) của xét nghiệm chỉ đạt 99% nên bỏ sót quá nhiều ca mắc thực tế trong dân số
+- **B.** Do độ đặc hiệu (Specificity) của xét nghiệm quá thấp khiến tỷ lệ âm tính giả (False Negatives) vượt quá mức an toàn
+- **C.** Do tỉ lệ mắc (Base Rate) trong dân số quá nhỏ, nhóm người khỏe dương tính giả áp đảo nhóm bệnh thật
+- **D.** Do sai số phương sai lấy mẫu (Sampling Variance) làm đảo ngược xác suất tiên nghiệm (Prior Probability)
+
+**Đáp án chính xác:** `C`
+
+### 1. ELI5 — Bản chất cốt lõi (Giải thích như cho em bé)
+👶 **Hiện tượng: Ảo tưởng tỉ lệ nền (Base Rate Fallacy).**
+🍼 **Hình dung cho em bé:**
+Hãy tưởng tượng một cánh đồng có **100,000 hạt đậu**, trong đó chỉ có đúng **100 hạt đậu bị mốc** (tỉ lệ 0.1%), còn lại **99,900 hạt đậu lành lặn**.
+Bạn có một chiếc kính lúp siêu xịn (độ chính xác 99%):
+- Soi 100 hạt mốc: Tìm đúng được 99 hạt mốc.
+- Soi 99,900 hạt lành: Dù kính chỉ nhầm 1%, nhưng vì số lượng hạt lành quá khổng lồ, kính vẫn soi nhầm tới $99,900 \times 1\% = 999$ hạt lành thành hạt mốc!
+Bây giờ, trong giỏ hạt mà kính lúp báo ' MỐC ', có: 99 hạt mốc thật và tận 999 hạt lành!
+Tỉ lệ mốc thật chỉ là $\frac{99}{99 + 999} \approx 9\%$. Nghĩa là tới hơn 90% số hạt bị báo mốc thực ra hoàn toàn ăn ngon lành!
+
+### 2. Công thức toán & Bước tính chi tiết (Step-by-Step)
+📐 Áp dụng công thức Bayes tương tự câu A01:
+- Số ca bệnh thật được phát hiện: $N \times P(D) \times \text{Sensitivity} = N \times 0.001 \times 0.99 = 0.00099 N$.
+- Số ca khỏe bị dương tính giả: $N \times P(\bar{D}) \times (1 - \text{Specificity}) = N \times 0.999 \times 0.01 = 0.00999 N$.
+Tỉ lệ người dương tính thật sự có bệnh:
+$$P(D \mid +) = \frac{0.00099}{0.00099 + 0.00999} = \frac{0.00099}{0.01098} \approx 9.02\%$$
+Như vậy, có tới hơn $90.98\%$ người nhận kết quả dương tính thực ra là khỏe mạnh. Nhóm dương tính giả ($0.00999N$) lớn gấp hơn 10 lần nhóm dương tính thật ($0.00099N$). Chọn **C**.
+
+### 3. Bẫy đề thi & Tại sao các đáp án khác sai (Pitfalls)
+⚠️ **Bẫy nhận định:**
+- **Phương án A & B:** Cả độ nhạy và đặc hiệu 99% đều thuộc hàng xuất sắc nhất trong y khoa lâm sàng, không thể nói là thấp.
+- **Phương án D:** Xét nghiệm hoàn toàn có cơ sở khoa học chính xác cao, không phải ngẫu nhiên.
+- **Nguyên nhân cốt lõi duy nhất:** Là do số lượng người khỏe mạnh trong dân số quá áp đảo ($99.9\%$), nên 1% sai số của nhóm người khỏe cũng đã đè bẹp 99% chính xác của nhóm người bệnh hiếm hoi.
+
+### 4. Mắt xích kiến thức & Liên hệ bài cũ
+📚 **Căn cứ lý thuyết:** Xem **§5.1 Định lý Bayes & Phân tích xác suất y tế**.
+🔗 **Liên hệ bài cũ:** Ở câu **OLP01-A01**, khi tỉ lệ bệnh là 2%, xác suất thật là 32.6%. Đến câu **OLP01-A02**, khi tỉ lệ bệnh chỉ còn 0.1%, xác suất thật tụt xuống còn ~9%. Điều này chứng minh: Khi bệnh càng hiếm, kết quả xét nghiệm 1 lần càng dễ bị nhiễu bởi dương tính giả!
+
+---
+
+### Câu 03 [OLP01-A03] — Phân hệ Module A (Thang điểm: 1.0đ)
+
+**Đề bài:** Cho biến ngẫu nhiên rời rạc $X \sim \text{Bernoulli}(p = 0.3)$. Kỳ vọng $\mathbb{E}[X]$ và phương sai $\text{Var}(X)$ của biến ngẫu nhiên $X$ lần lượt là bao nhiêu?
+
+- **A.** E[X] = 0.3, Var(X) = 0.21
+- **B.** E[X] = 0.5, Var(X) = 0.25
+- **C.** E[X] = 0.3, Var(X) = 0.09
+- **D.** E[X] = 0.7, Var(X) = 0.21
+
+**Đáp án chính xác:** `A`
+
+### 1. ELI5 — Bản chất cốt lõi (Giải thích như cho em bé)
+👶 **Thuật ngữ cần hiểu:**
+- **Phân phối Bernoulli:** Là một phép thử chỉ có đúng 2 kết quả: Thắng (nhận giá trị 1) hoặc Thua (nhận giá trị 0).
+- **Kỳ vọng (Expectation $\mathbb{E}[X]$):** Giá trị trung bình nhận được nếu bạn chơi trò này rất nhiều lần. Nếu tỉ lệ thắng là $p$, thì trung bình bạn nhận được chính là $p$.
+- **Phương sai (Variance $\text{Var}(X)$):** Đo độ bấp bênh, độ rủi ro giữa thắng và thua. Công thức chuẩn luôn là $p \times (1 - p)$.
+
+### 2. Công thức toán & Bước tính chi tiết (Step-by-Step)
+📐 Định nghĩa biến ngẫu nhiên Bernoulli nhận $X = 1$ với xác suất $p$, và $X = 0$ với xác suất $1 - p$:
+1. Kỳ vọng:
+$$\mathbb{E}[X] = 1 \cdot p + 0 \cdot (1 - p) = p = 0.3$$
+2. Tính $\mathbb{E}[X^2]$:
+$$\mathbb{E}[X^2] = 1^2 \cdot p + 0^2 \cdot (1 - p) = p = 0.3$$
+3. Phương sai:
+$$\text{Var}(X) = \mathbb{E}[X^2] - (\mathbb{E}[X])^2 = p - p^2 = p(1 - p) = 0.3 \times (1 - 0.3) = 0.3 \times 0.7 = 0.21$$
+Vậy $\mathbb{E}[X] = 0.3$ và $\text{Var}(X) = 0.21$. Chọn đáp án **A**.
+
+### 3. Bẫy đề thi & Tại sao các đáp án khác sai (Pitfalls)
+⚠️ **Các bẫy công thức thường gặp:**
+- **Phương án B:** Nhầm với đồng xu cân đối $p = 0.5$ (khi đó $\text{Var} = 0.25$ đạt cực đại).
+- **Phương án C:** Tính nhầm phương sai thành $p^2 = 0.3^2 = 0.09$.
+- **Phương án D:** Nhầm kỳ vọng của biến cố đối $1 - p = 0.7$.
+
+### 4. Mắt xích kiến thức & Liên hệ bài cũ
+📚 **Căn cứ lý thuyết:** Xem **§5.2 Các phân phối xác suất quan trọng**.
+🔗 Phân phối Bernoulli là viên gạch xây nên phân phối Nhị thức (Binomial - $n$ phép thử Bernoulli độc lập) và phân phối nhị phân trong hàm mất mát Binary Cross-Entropy (BCE) của mạng nơ-ron!
+
+---
+
+### Câu 04 [OLP01-A04] — Phân hệ Module A (Thang điểm: 1.0đ)
+
+**Đề bài:** Tung một đồng xu cân đối và đồng chất liên tiếp 10 lần độc lập. Xác suất để cả 10 lần tung đều xuất hiện mặt sấp (S) là bao nhiêu?
+
+- **A.** 0.5
+- **B.** Khoảng 0.25
+- **C.** Khoảng 0.05
+- **D.** Khoảng 0.001
+
+**Đáp án chính xác:** `D`
+
+### 1. ELI5 — Bản chất cốt lõi (Giải thích như cho em bé)
+👶 **Hình dung cho em bé:**
+Mỗi lần tung đồng xu, cơ hội ra mặt sấp chỉ là một nửa ($0.5$).
+Nếu bạn muốn nó ra sấp liên tục 2 lần: Cơ hội là $\frac{1}{2} \times \frac{1}{2} = \frac{1}{4}$ (chỉ có 1 trong 4 khả năng).
+Muốn ra sấp liên tục 10 lần: Giống như bạn đoán trúng liên tiếp 10 câu hỏi khó. Khả năng là siêu nhỏ, cứ khoảng **1,000 lần chơi** thì bạn mới may mắn ăn may được 1 lần!
+
+### 2. Công thức toán & Bước tính chi tiết (Step-by-Step)
+📐 Do 10 lần tung hoàn toàn độc lập, áp dụng quy tắc nhân xác suất cho các biến cố độc lập:
+$$P(\text{10 lần S}) = P(S_1) \times P(S_2) \times \dots \times P(S_{10}) = \left( \frac{1}{2} \right)^{10}$$
+Tính toán lũy thừa:
+$$2^{10} = 1024 \implies \left( \frac{1}{2} \right)^{10} = \frac{1}{1024} \approx 0.0009765625 \approx 0.001$$
+Chọn đáp án **D**.
+
+### 3. Bẫy đề thi & Tại sao các đáp án khác sai (Pitfalls)
+⚠️ **Phân tích bẫy:**
+- **Phương án A (0.5):** Chỉ là xác suất của 1 lần tung đơn lẻ.
+- **Phương án B (0.25):** Là xác suất của 2 lần tung liên tiếp ($0.5^2$).
+- **Phương án C (0.05):** Thường là mức ý nghĩa $\alpha = 0.05$ trong kiểm định thống kê mà người ra đề đưa vào để bẫy thí sinh nhớ lộn số.
+
+### 4. Mắt xích kiến thức & Liên hệ bài cũ
+📚 **Căn cứ lý thuyết:** Xem **§5.2 Các phân phối xác suất quan trọng**.
+🔗 Đây chính là bài toán phân phối nhị thức $X \sim \text{Binomial}(n=10, p=0.5)$ với số lần thành công $k=10$: $P(X=10) = C_{10}^{10} (0.5)^{10} (0.5)^0 = \frac{1}{1024}$.
+
+---
+
+### Câu 05 [OLP01-A05] — Phân hệ Module A (Thang điểm: 1.0đ)
+
+**Đề bài:** Một tổng đài chăm sóc khách hàng nhận trung bình $\lambda = 3$ cuộc gọi mỗi phút theo mô hình phân phối Poisson. Xác suất để trong một phút bất kỳ tổng đài KHÔNG nhận được cuộc gọi nào ($k = 0$) gần nhất với giá trị nào?
+
+- **A.** 0
+- **B.** Khoảng 0.05
+- **C.** Khoảng 0.5
+- **D.** Khoảng 0.95
+
+**Đáp án chính xác:** `B`
+
+### 1. ELI5 — Bản chất cốt lõi (Giải thích như cho em bé)
+👶 **Thuật ngữ mới: Phân phối Poisson.**
+Dùng để đếm số sự kiện xảy ra ngẫu nhiên trong một khoảng thời gian cố định (như số cuộc gọi đến trong 1 phút, số tin nhắn đến trong 1 giờ).
+🍼 **Hình dung cho em bé:**
+Bình thường mỗi phút có trung bình 3 người gọi đến. Việc bỗng dưng suốt 1 phút im re, không có ai gọi đến ($k=0$) là một điều khá hiếm gặp, chỉ xảy ra khoảng $5\%$ thời gian (tức cứ 20 phút thì mới có 1 phút hoàn toàn yên tĩnh).
+
+### 2. Công thức toán & Bước tính chi tiết (Step-by-Step)
+📐 Công thức hàm khối xác suất của phân phối Poisson với tham số $\lambda$:
+$$P(X = k) = \frac{e^{-\lambda} \cdot \lambda^k}{k!}$$
+Với bài toán này, $\lambda = 3$ và $k = 0$:
+$$P(X = 0) = \frac{e^{-3} \cdot 3^0}{0!} = \frac{e^{-3} \cdot 1}{1} = e^{-3}$$
+Giá trị của hằng số $e \approx 2.71828$:
+$$e^{-3} = \frac{1}{e^3} \approx \frac{1}{20.0855} \approx 0.049787 \approx 0.05$$
+Tức xác suất khoảng **5%**. Chọn đáp án **B**.
+
+### 3. Bẫy đề thi & Tại sao các đáp án khác sai (Pitfalls)
+⚠️ **Phân tích bẫy:**
+- **Phương án A (0):** Nghĩ rằng trung bình có 3 cuộc thì chắc chắn phải có người gọi, không thể bằng 0 $\implies$ Sai bản chất ngẫu nhiên.
+- **Phương án C & D:** Giá trị quá lớn, bất hợp lý vì xác suất không có cuộc gọi nào phải nhỏ hơn nhiều so với xác suất có 2-3 cuộc gọi.
+
+### 4. Mắt xích kiến thức & Liên hệ bài cũ
+📚 **Căn cứ lý thuyết:** Xem **§5.2 Các phân phối xác suất quan trọng**.
+🔗 Trong thị giác máy tính và sinh ảnh, Poisson Noise (nhiễu bắn hạt / photon noise) là loại nhiễu đặc trưng của cảm biến máy ảnh khi chụp trong điều kiện thiếu sáng!
+
+---
+
+### Câu 06 [OLP01-A06] — Phân hệ Module A (Thang điểm: 1.0đ)
+
+**Đề bài:** Theo Định lý Giới hạn Trung tâm (Central Limit Theorem — CLT), khi kích thước mẫu $n$ đủ lớn ($n \ge 30$), giá trị trung bình mẫu $\bar{X}$ của một biến ngẫu nhiên bất kỳ (có kỳ vọng $\mu$ và phương sai hữu hạn $\sigma^2$) sẽ có phân phối xấp xỉ phân phối nào?
+
+- **A.** Phân phối Poisson
+- **B.** Phân phối Bernoulli
+- **C.** Phân phối chuẩn (Gaussian / Normal Distribution)
+- **D.** Phân phối đều (Uniform Distribution)
+
+**Đáp án chính xác:** `C`
+
+### 1. ELI5 — Bản chất cốt lõi (Giải thích như cho em bé)
+👶 **Định lý Giới hạn Trung tâm (CLT) là phép màu kỳ diệu nhất của thống kê:**
+Dù dữ liệu ban đầu của bạn có kỳ quái thế nào chăng nữa (dù là phân phối đồng xu Bernoulli, phân phối Poisson, hay phân phối méo mó bất kỳ), cứ hễ bạn gom nhiều mẫu lại (từ 30 người trở lên) rồi tính **điểm trung bình**, thì đồ thị phân bố của các điểm trung bình đó sẽ luôn luôn uốn cong thành **hình chiếc chuông cân đối hoàn hảo** — đó chính là **Phân phối Chuẩn (Normal / Gaussian)**!
+
+### 2. Công thức toán & Bước tính chi tiết (Step-by-Step)
+📐 Phát biểu toán học của CLT:
+Cho các biến ngẫu nhiên $X_1, X_2, \dots, X_n$ độc lập cùng phân phối (i.i.d) có kỳ vọng $\mathbb{E}[X_i] = \mu$ và phương sai $\text{Var}(X_i) = \sigma^2 < \infty$.
+Khi $n \to \infty$, biến ngẫu nhiên trung bình mẫu $\bar{X} = \frac{1}{n} \sum_{i=1}^n X_i$ hội tụ theo phân phối:
+$$\bar{X} \approx \mathcal{N}\left( \mu, \frac{\sigma^2}{n} \right)$$
+Chuẩn hóa Z-score:
+$$Z = \frac{\bar{X} - \mu}{\frac{\sigma}{\sqrt{n}}} \xrightarrow{d} \mathcal{N}(0, 1)$$
+Chọn đáp án **C**.
+
+### 3. Bẫy đề thi & Tại sao các đáp án khác sai (Pitfalls)
+⚠️ **Phân tích bẫy:**
+- **Phương án A, B, D:** Là các dạng phân phối gốc cụ thể của từng quan sát riêng lẻ, không bao giờ là phân phối giới hạn của trung bình mẫu.
+
+### 4. Mắt xích kiến thức & Liên hệ bài cũ
+📚 **Căn cứ lý thuyết:** Xem **§5.2 & §5.3 Thống kê mô tả & Định lý giới hạn**.
+🔗 CLT là lý do vì sao trong Machine Learning, hầu hết các thuật toán (từ Linear Regression, PCA, đến Batch Normalization) đều giả định các sai số hoặc đại lượng trung bình tuân theo phân phối chuẩn Gaussian!
+
+---
+
+### Câu 07 [OLP01-A07] — Phân hệ Module A (Thang điểm: 1.0đ)
+
+**Đề bài:** Cho biến ngẫu nhiên $X$ có kỳ vọng $\mathbb{E}[X] = 5$ và phương sai $\text{Var}(X) = 4$. Đặt biến ngẫu nhiên $Y = 2X + 3$. Kỳ vọng $\mathbb{E}[Y]$ và phương sai $\text{Var}(Y)$ lần lượt là bao nhiêu?
+
+- **A.** E[Y] = 13, Var(Y) = 16
+- **B.** E[Y] = 13, Var(Y) = 8
+- **C.** E[Y] = 10, Var(Y) = 16
+- **D.** E[Y] = 13, Var(Y) = 11
+
+**Đáp án chính xác:** `A`
+
+### 1. ELI5 — Bản chất cốt lõi (Giải thích như cho em bé)
+👶 **Hình dung cho em bé:**
+1. **Kỳ vọng (Giá trị trung bình):** Bạn nhân gấp đôi số kẹo của mọi người rồi phát thêm cho mỗi người 3 cái kẹo. Vậy số kẹo trung bình mới đương nhiên là lấy trung bình cũ nhân đôi rồi cộng 3: $5 \times 2 + 3 = 13$.
+2. **Phương sai (Độ chênh lệch/phân tán):**
+- Cộng thêm cho tất cả mọi người cùng 3 cái kẹo thì sự chênh lệch khoảng cách giữa các bạn **không hề thay đổi**! (Hằng số cộng thêm có phương sai bằng 0).
+- Nhưng nếu nhân gấp đôi số kẹo, khoảng cách chênh lệch bị nhân đôi, mà phương sai tính theo **bình phương** khoảng cách, nên độ phân tán sẽ bị phóng to lên gấp $2^2 = 4$ lần! $4 \times 4 = 16$.
+
+### 2. Công thức toán & Bước tính chi tiết (Step-by-Step)
+📐 Tính chất tuyến tính của kỳ vọng và phương sai với $Y = aX + b$:
+1. $\mathbb{E}[aX + b] = a \cdot \mathbb{E}[X] + b$:
+$$\mathbb{E}[Y] = 2 \cdot \mathbb{E}[X] + 3 = 2 \times 5 + 3 = 13$$
+2. $\text{Var}(aX + b) = a^2 \cdot \text{Var}(X)$ (hằng số $b$ bị triệt tiêu vì không làm đổi độ phân tán):
+$$\text{Var}(Y) = 2^2 \cdot \text{Var}(X) = 4 \times 4 = 16$$
+Độ lệch chuẩn mới: $\sigma_Y = \sqrt{16} = 4 = |2| \cdot \sigma_X$.
+Chọn đáp án **A**.
+
+### 3. Bẫy đề thi & Tại sao các đáp án khác sai (Pitfalls)
+⚠️ **Bẫy kinh điển:**
+- **Phương án B:** Quên bình phương hệ số $a$, tính nhầm $\text{Var} = 2 \times 4 = 8$.
+- **Phương án D:** Cộng cả số hạng tự do vào phương sai: $2 \times 4 + 3 = 11$.
+
+### 4. Mắt xích kiến thức & Liên hệ bài cũ
+📚 **Căn cứ lý thuyết:** Xem **§5.3 Kỳ vọng, Phương sai & Ma trận Hiệp phương sai**.
+🔗 Trong PyTorch và Deep Learning, khi ta chuẩn hóa dữ liệu $Z = \frac{X - \mu}{\sigma}$ (Z-score Normalization hoặc BatchNorm), ta đang áp dụng phép biến đổi tuyến tính với $a = 1/\sigma$ và $b = -\mu/\sigma$ để đưa $\mathbb{E}[Z] = 0$ và $\text{Var}(Z) = 1$!
+
+---
+
+### Câu 08 [OLP01-A08] — Phân hệ Module A (Thang điểm: 1.0đ)
+
+**Đề bài:** Điểm khác biệt bản chất cốt lõi giữa phương pháp ước lượng Hợp lý cực đại (Maximum Likelihood Estimation — MLE) và Ước lượng Hậu nghiệm cực đại (Maximum A Posteriori — MAP) là gì?
+
+- **A.** MLE sử dụng phân phối tiên nghiệm (Prior) để điều chuẩn mô hình, trong khi MAP chỉ dựa thuần túy vào hàm hợp lý của dữ liệu
+- **B.** Hai phương pháp này luôn luôn hội tụ về cùng một điểm dừng cực tiểu địa phương trong mọi không gian tham số phi tuyến
+- **C.** MAP chỉ tối ưu hóa được cho bài toán học không giám sát, trong khi MLE được thiết kế riêng cho các mô hình hồi quy có giám sát
+- **D.** MAP kết hợp dữ liệu quan sát với thông tin tiên nghiệm (Prior), trong khi MLE chỉ dựa thuần túy vào dữ liệu quan sát
+
+**Đáp án chính xác:** `D`
+
+### 1. ELI5 — Bản chất cốt lõi (Giải thích như cho em bé)
+👶 **Hình dung cho em bé:**
+Tưởng tượng bạn tìm thấy một đồng xu lạ rơi trên đường và tung 3 lần, cả 3 lần đều ra mặt Sấp:
+- **MLE (Người ngây thơ, chỉ tin vào mắt mình):** Nhìn thấy 3 sấp / 3 lần, kết luận luôn đồng xu này bị yểm bùa có tỉ lệ sấp $100\%$!
+- **MAP (Người có hiểu biết đời sống - có Prior):** Dù thấy 3 lần sấp, người này vẫn bảo: ' Từ bé đến giờ các đồng xu đều có tỉ lệ 50/50. Cần thêm nhiều bằng chứng nữa chứ không thể vội vàng nói đồng xu này 100% sấp được!'
+Nói cách khác: **MAP = MLE + Kinh nghiệm quá khứ (Prior)**.
+
+### 2. Công thức toán & Bước tính chi tiết (Step-by-Step)
+📐 So sánh công thức toán học tối ưu hóa:
+1. **MLE (Maximum Likelihood Estimation):**
+Tìm tham số $\theta$ tối đa hóa xác suất xảy ra của tập dữ liệu $D$:
+$$\hat{\theta}_{\text{MLE}} = \arg\max_\theta P(D \mid \theta) = \arg\max_\theta \sum_{i=1}^N \log P(x_i \mid \theta)$$
+2. **MAP (Maximum A Posteriori):**
+Theo định lý Bayes, tìm $\theta$ tối đa hóa xác suất hậu nghiệm:
+$$P(\theta \mid D) = \frac{P(D \mid \theta) P(\theta)}{P(D)} \propto P(D \mid \theta) P(\theta)$$
+$$\hat{\theta}_{\text{MAP}} = \arg\max_\theta [\log P(D \mid \theta) + \log P(\theta)]$$
+Thành phần $\log P(\theta)$ chính là **phân phối tiên nghiệm (Prior)**.
+Khi tiên nghiệm $P(\theta)$ là phân phối đều (Uniform Prior - không có thông tin tiên nghiệm), thì $\hat{\theta}_{\text{MAP}} \equiv \hat{\theta}_{\text{MLE}}$. Chọn **D**.
+
+### 3. Bẫy đề thi & Tại sao các đáp án khác sai (Pitfalls)
+⚠️ **Phân tích bẫy:**
+- **Phương án A:** Bị đảo ngược hoàn toàn giữa MLE và MAP.
+- **Phương án B:** Chỉ trùng nhau khi Prior là phân phối đều; tổng quát nghiệm MAP và MLE khác nhau.
+- **Phương án C:** Cả hai phương pháp đều dùng rộng rãi trong cả học có giám sát và không giám sát.
+
+### 4. Mắt xích kiến thức & Liên hệ bài cũ
+📚 **Căn cứ lý thuyết:** Xem **§5.4 MLE vs MAP & Mối liên hệ Regularization**.
+🔗 **Mắt xích quan trọng:** Trong Machine Learning, nếu ta đặt Prior Gaussian cho trọng số $w \sim \mathcal{N}(0, \sigma^2)$, MAP biến thành **Regularization L2 (Ridge Regression)**! Nếu đặt Prior Laplace, MAP biến thành **Regularization L1 (Lasso Regression)**! Ta sẽ học sâu L1/L2 ở câu C09-C10!
+
+---
+
+### Câu 09 [OLP01-A09] — Phân hệ Module A (Thang điểm: 1.0đ)
+
+**Đề bài:** Trong kiểm định giả thuyết thống kê, ta đặt mức ý nghĩa $\alpha = 0.05$ và thu được giá trị $p\text{-value} = 0.03$. Kết luận khoa học chính xác nhất là gì?
+
+- **A.** Chấp nhận giả thuyết không H0 vì p-value là một số rất nhỏ
+- **B.** Bác bỏ giả thuyết không H0 ở mức ý nghĩa 5% vì p-value < alpha
+- **C.** Xác suất để giả thuyết không H0 đúng là chính xác 3%
+- **D.** Kích thước hiệu ứng (Effect size) của mô hình là rất lớn
+
+**Đáp án chính xác:** `B`
+
+### 1. ELI5 — Bản chất cốt lõi (Giải thích như cho em bé)
+👶 **Quy tắc vàng của kiểm định thống kê:**
+- **Giả thuyết $H_0$ (Giả thuyết vô tội):** Mặc định cho rằng ' không có sự khác biệt gì cả ' hoặc ' thuốc không có tác dụng '.
+- **$p\text{-value}$:** Đo xác suất ' nếu thực sự không có tác dụng, thì liệu sự khác biệt ta quan sát được có phải chỉ do ăn may/ngẫu nhiên hay không '.
+- **Khẩu quyết ghi nhớ:** *' Nếu $p$ thấp hơn $\alpha$, giả thuyết $H_0$ phải bị đuổi đi!' (If $p$ is low, $H_0$ must go).*
+Ở đây $p = 0.03 < 0.05$, nghĩa là cơ hội ăn may chỉ có 3%, nhỏ hơn ngưỡng chịu đựng rủi ro 5%, nên ta đủ bằng chứng để **Bác bỏ $H_0$**!
+
+### 2. Công thức toán & Bước tính chi tiết (Step-by-Step)
+📐 Quy tắc ra quyết định kiểm định giả thuyết thống kê:
+- Nếu $p\text{-value} \le \alpha$: Bác bỏ $H_0$, chấp nhận đối thuyết $H_1$ có ý nghĩa thống kê ở mức $\alpha$.
+- Nếu $p\text{-value} > \alpha$: Chưa đủ bằng chứng để bác bỏ $H_0$.
+Vì $0.03 < 0.05$, ta kết luận: Bác bỏ $H_0$ ở mức ý nghĩa $5\%$. Chọn đáp án **B**.
+
+### 3. Bẫy đề thi & Tại sao các đáp án khác sai (Pitfalls)
+⚠️ **Bẫy hiểu sai bản chất $p$-value:**
+- **Phương án A:** Ngược hoàn toàn quy tắc quyết định.
+- **Phương án C (Bẫy kinh điển nhất):** $p$-value KHÔNG PHẢI là xác suất $P(H_0 \text{ đúng})$. $p$-value là xác suất dữ liệu quan sát được khi $H_0$ giả định là đúng ($P(\text{Data} \mid H_0)$), không phải $P(H_0 \mid \text{Data})$.
+- **Phương án D:** $p$-value chỉ đo mức độ ý nghĩa thống kê, không đo độ lớn của hiệu ứng thực tế (Effect Size). Một mẫu cực lớn có thể cho $p < 0.001$ dù chênh lệch thực tế là không đáng kể.
+
+### 4. Mắt xích kiến thức & Liên hệ bài cũ
+📚 **Căn cứ lý thuyết:** Xem **§5.5 Kiểm định giả thuyết thống kê & A/B Testing**.
+🔗 Trong đánh giá mô hình AI, A/B Testing và t-test / Wilcoxon signed-rank test được dùng để chứng minh mô hình mới thực sự vượt trội hơn baseline chứ không phải ngẫu nhiên.
+
+---
+
+### Câu 10 [OLP01-A10] — Phân hệ Module A (Thang điểm: 1.0đ)
+
+**Đề bài:** Một nghiên cứu thống kê cho thấy: Khi doanh số bán kem que tại các bãi biển tăng cao, số vụ tai nạn đuối nước cũng tăng mạnh (hệ số tương quan Pearson $r = 0.85$). Cách giải thích khoa học và hợp lý nhất cho hiện tượng này là gì?
+
+- **A.** Tồn tại biến ẩn nhiễu chung (Confounder) là thời tiết mùa hè nắng nóng làm tăng cả nhu cầu ăn kem và số người đi bơi
+- **B.** Ăn kem que lạnh gây sốc nhiệt cục bộ (Spurious Causation) dẫn đến co thắt cơ bắp và chết đuối trực tiếp theo quan hệ nhân quả
+- **C.** Hệ số tương quan Pearson dương (Deterministic Link) luôn chứng minh sự tồn tại của quan hệ nhân quả theo định lý giới hạn
+- **D.** Số liệu thống kê bị sai lệch (Sampling Bias) do kỹ thuật ngoại suy dữ liệu làm thổi phồng độ biến động phương sai quan sát
+
+**Đáp án chính xác:** `A`
+
+### 1. ELI5 — Bản chất cốt lõi (Giải thích như cho em bé)
+👶 **Chân lý nổi tiếng nhất của ngành Khoa học dữ liệu:**
+**' Tương quan không đồng nghĩa với Nhân quả ' (Correlation does NOT imply Causation).**
+🍼 **Hình dung cho em bé:**
+Vào mùa hè trời nóng bức:
+- Trời nóng $\implies$ Nhiều người mua kem ăn cho mát.
+- Trời nóng $\implies$ Hàng triệu người đổ xô ra biển tắm, dẫn đến số vụ đuối nước tăng lên.
+Cái ăn kem và cái đuối nước đi cùng với nhau nhưng **kem không giết người**! Thủ phạm đứng đằng sau điều khiển cả hai việc này chính là **Thời tiết mùa hè nóng bức** — trong khoa học gọi là **Biến ẩn gây nhiễu (Confounder)**!
+
+### 2. Công thức toán & Bước tính chi tiết (Step-by-Step)
+📐 Biểu đồ nhân quả (Causal DAG):
+$$\text{Mùa hè nóng (Z - Confounder)} \longrightarrow \text{Doanh số kem (X)}$$
+$$\text{Mùa hè nóng (Z - Confounder)} \longrightarrow \text{Số vụ đuối nước (Y)}$$
+Hệ số tương quan không điều kiện $\text{Corr}(X, Y) > 0$ do dòng chảy thông tin qua ngã ba rẽ nhánh $X \leftarrow Z \rightarrow Y$ (Fork structure).
+Khi ta kiểm soát biến mùa hè (Conditioning on $Z$):
+$$\text{Corr}(X, Y \mid Z) \approx 0$$
+Tức là nếu chỉ xét trong những ngày có nhiệt độ cố định, việc ăn kem không hề làm tăng nguy cơ đuối nước. Chọn **A**.
+
+### 3. Bẫy đề thi & Tại sao các đáp án khác sai (Pitfalls)
+⚠️ **Phân tích bẫy:**
+- **Phương án B & D:** Ngộ nhận tương quan thành quan hệ nhân quả một chiều (Spurious Causality).
+- **Phương án C:** Số liệu hoàn toàn có thật và tương quan rất cao, không hề sai số liệu.
+
+### 4. Mắt xích kiến thức & Liên hệ bài cũ
+📚 **Căn cứ lý thuyết:** Xem **§5.6 Tương quan vs Nhân quả & Kỹ thuật lấy mẫu**.
+🔗 Trong thiết kế giải pháp AI y tế hoặc chấm điểm tín dụng, nếu không phát hiện và loại bỏ biến Confounder (như độ tuổi, giới tính, vùng miền), mô hình AI sẽ bị sai lệch nghiêm trọng (Causal Bias / Shortcut Learning)!
+
+---
+
+### Câu 11 [OLP01-A11] — Phân hệ Module A (Thang điểm: 1.0đ)
+
+**Đề bài:** Một tập dữ liệu huấn luyện phân loại khách hàng bị mất cân bằng lớp nghiêm trọng (nhóm khách hàng gian lận chỉ chiếm 5%, nhóm bình thường chiếm 95%). Khi chia tập dữ liệu thành Train và Validation, kỹ thuật lấy mẫu nào là ĐÚNG ĐẮN NHẤT để tránh sai lệch?
+
+- **A.** Lấy mẫu chỉ từ nhóm đa số để đảm bảo tính đồng nhất
+- **B.** Lấy mẫu ngẫu nhiên đơn giản (Simple Random Sampling) vì luôn đảm bảo tính khách quan
+- **C.** Lấy mẫu phân tầng (Stratified Sampling) để bảo toàn tỉ lệ 5% / 95% trong cả tập Train và Validation
+- **D.** Tăng kích thước tập Test lên gấp đôi để bù đắp sai lệch
+
+**Đáp án chính xác:** `C`
+
+### 1. ELI5 — Bản chất cốt lõi (Giải thích như cho em bé)
+👶 **Hình dung cho em bé:**
+Trong một hộp kẹo 100 cái có **95 cái kẹo dâu** và chỉ có **5 cái kẹo sô-cô-la hiếm**.
+Nếu bạn nhắm mắt bốc đại (lấy mẫu ngẫu nhiên đơn giản): Có thể bạn bốc nhầm một nắm toàn kẹo dâu, không có cái kẹo sô-cô-la nào trong tập Validation để kiểm tra!
+**Lấy mẫu phân tầng (Stratified Sampling)** là hành động thông minh: Bạn chia riêng kẹo dâu và kẹo sô-cô-la thành 2 ngăn, rồi chia đều theo đúng tỉ lệ 5% và 95% vào cả hai túi Train và Test, đảm bảo túi nào cũng có đủ cả 2 loại kẹo!
+
+### 2. Công thức toán & Bước tính chi tiết (Step-by-Step)
+📐 Nguyên lý phân tầng (Stratification):
+Cho nhãn lớp $Y \in \{0, 1\}$ với tỉ lệ $P(Y=1) = p = 0.05$.
+- Với Simple Random Sampling: Số mẫu dương trong tập Val có dung lượng $N_{\text{val}}$ tuân theo phân phối nhị thức. Với $N_{\text{val}}$ nhỏ, xác suất để fold có tỉ lệ lệch lớn là rất cao.
+- Với Stratified K-Fold: Thuật toán ép chặt tỉ lệ trong mọi fold:
+$$\frac{N_{k, c}}{N_k} = \frac{N_c}{N} = p, \quad \forall k=1,\dots, K$$
+Đảm bảo độ đo Precision, Recall, PR-AUC đo được trên tập Validation phản ánh chân thực năng lực của mô hình. Chọn **C**.
+
+### 3. Bẫy đề thi & Tại sao các đáp án khác sai (Pitfalls)
+⚠️ **Phân tích bẫy:**
+- **Phương án A:** Bỏ nhóm thiểu số thì mô hình hoàn toàn mù tịt về gian lận.
+- **Phương án B:** Lấy mẫu ngẫu nhiên đơn giản dễ làm mất trắng nhóm hiếm trong một số fold validation.
+- **Phương án D:** Tăng kích thước tập test không giải quyết được vấn đề mất cân bằng tỉ lệ.
+
+### 4. Mắt xích kiến thức & Liên hệ bài cũ
+📚 **Căn cứ lý thuyết:** Xem **§1.5 K-Fold Cross-Validation & §5.6 Chiến lược lấy mẫu**.
+🔗 Ta sẽ tiếp tục liên hệ kiến thức này ở câu **C08** (Stratified K-Fold) và câu **C19** (SMOTE + F1-score)!
+
+---
+
+### Câu 12 [OLP01-A12] — Phân hệ Module A (Thang điểm: 1.0đ)
+
+**Đề bài:** Gieo đồng thời hai con xúc xắc 6 mặt cân đối và đồng chất. Xác suất để tổng số chấm xuất hiện trên hai mặt ngửa bằng 9 là bao nhiêu?
+
+- **A.** $\frac{1}{6}$
+- **B.** $\frac{5}{36}$
+- **C.** $\frac{1}{12}$
+- **D.** $\frac{1}{9}$
+
+**Đáp án chính xác:** `D`
+
+### 1. ELI5 — Bản chất cốt lõi (Giải thích như cho em bé)
+👶 **Hình dung cho em bé:**
+Hai con xúc xắc gieo xuống có tất cả $6 \times 6 = 36$ khả năng khác nhau có thể xảy ra.
+Bây giờ bé hãy đếm xem có mấy cặp số cộng lại bằng 9 nhé:
+- Con xúc xắc thứ nhất ra 3, con thứ hai ra 6: $(3, 6)$ $\implies$ Tổng là 9.
+- Con xúc xắc thứ nhất ra 4, con thứ hai ra 5: $(4, 5)$ $\implies$ Tổng là 9.
+- Con xúc xắc thứ nhất ra 5, con thứ hai ra 4: $(5, 4)$ $\implies$ Tổng là 9.
+- Con xúc xắc thứ nhất ra 6, con thứ hai ra 3: $(6, 3)$ $\implies$ Tổng là 9.
+Chỉ có đúng **4 cặp may mắn** như vậy trên tổng số 36 khả năng.
+Rút gọn phân số: $\frac{4}{36} = \frac{1}{9}$!
+
+### 2. Công thức toán & Bước tính chi tiết (Step-by-Step)
+📐 Không gian mẫu:
+$$|\Omega| = 6 \times 6 = 36$$
+Tập các kết quả thuận lợi cho biến cố $A$: ' Tổng hai xúc xắc bằng 9':
+$$A = \{(3, 6), (4, 5), (5, 4), (6, 3)\}$$
+Số phần tử: $|A| = 4$.
+Xác suất cổ điển:
+$$P(A) = \frac{|A|}{|\Omega|} = \frac{4}{36} = \frac{1}{9} \approx 0.1111$$
+Chọn đáp án **D**.
+
+### 3. Bẫy đề thi & Tại sao các đáp án khác sai (Pitfalls)
+⚠️ **Bẫy hay gặp:**
+- **Phương án A (1/6):** Là xác suất tổng bằng 7 (có 6 cặp: (1,6), (2,5), (3,4), (4,3), (5,2), (6,1) $\implies 6/36 = 1/6$).
+- **Phương án B (5/36):** Là xác suất tổng bằng 8 (có 5 cặp: (2,6), (3,5), (4,4), (5,3), (6,2)).
+- **Phương án C (1/12):** Quên tính các hoán vị (chỉ đếm (3,6) và (4,5) ra 2/36 = 1/18 hoặc 3/36 = 1/12).
+
+### 4. Mắt xích kiến thức & Liên hệ bài cũ
+📚 **Căn cứ lý thuyết:** Xem **§5.1 Không gian mẫu & Xác suất cổ điển**.
+🔗 Đếm không gian mẫu và phân phối tổng của hai biến ngẫu nhiên rời rạc là bước khởi đầu để hiểu về tích chập xác suất (Convolution of Probability Distributions) trong lý thuyết thống kê!
+
+---
+
+### Câu 13 [OLP01-B01] — Phân hệ Module B (Thang điểm: 1.0đ)
+
+**Đề bài:** Một ảnh đầu vào có kích thước không gian $32 \times 32$ được đưa qua một tầng tích chập Conv2D với kích thước kernel $K = 3 \times 3$, bước trượt (stride) $S = 1$, và chèn đệm (padding) $P = 1$. Kích thước không gian của tensor đầu ra (Output shape) là bao nhiêu?
+
+- **A.** 32 x 32
+- **B.** 30 x 30
+- **C.** 16 x 16
+- **D.** 34 x 34
+
+**Đáp án chính xác:** `A`
+
+### 1. ELI5 — Bản chất cốt lõi (Giải thích như cho em bé)
+👶 **Kỹ thuật ' Same Padding ' trong mạng CNN:**
+- Khi bạn quét một chiếc kính lúp kích thước $3 \times 3$ qua một bức ảnh, các pixel ở mép ngoài cùng sẽ bị thiếu hàng xóm, làm ảnh bị co nhỏ lại mỗi chiều 2 pixel (từ 32 tụt xuống 30).
+- Để giữ nguyên kích thước ảnh ban đầu, người ta viền thêm một lớp số 0 xung quanh ảnh (chèn đệm $P = 1$). Bức ảnh tạm thời to lên thành $34 \times 34$, sau khi quét kính lúp $3 \times 3$ xong thì kích thước đầu ra vừa khít quay về đúng **32 x 32**!
+
+### 2. Công thức toán & Bước tính chi tiết (Step-by-Step)
+📐 Công thức chuẩn tính kích thước không gian đầu ra tầng Conv2D:
+$$O = \left\lfloor \frac{W - K + 2P}{S} \right\rfloor + 1$$
+Thay các tham số vào công thức:
+- Chiều rộng ảnh vào: $W = 32$.
+- Kích thước kernel: $K = 3$.
+- Chèn viền: $P = 1$.
+- Bước trượt: $S = 1$.
+Từng bước tính toán:
+$$O = \left\lfloor \frac{32 - 3 + 2(1)}{1} \right\rfloor + 1 = \left\lfloor \frac{31}{1} \right\rfloor + 1 = 31 + 1 = 32$$
+Vì ảnh vuông nên chiều cao và chiều rộng cùng bằng 32. Kích thước output là **32 x 32**. Chọn **A**.
+
+### 3. Bẫy đề thi & Tại sao các đáp án khác sai (Pitfalls)
+⚠️ **Phân tích bẫy:**
+- **Phương án B (30 x 30):** Quên cộng padding $P=1$ (tính theo kiểu Valid Padding $32 - 3 + 1 = 30$).
+- **Phương án C (16 x 16):** Nhầm bước trượt Stride $S = 2$ hoặc nhầm sang tầng MaxPool2D(2, 2).
+- **Phương án D (34 x 34):** Cộng padding 2 lần nhưng quên trừ đi kích thước kernel.
+
+### 4. Mắt xích kiến thức & Liên hệ bài cũ
+📚 **Căn cứ lý thuyết:** Xem **§3.1 Kiến trúc CNN & Công thức kích thước tensor**.
+🔗 Đây là cấu hình tích chập kinh điển của mạng **VGGNet** (Kernel 3x3, Pad 1, Stride 1) giúp giữ nguyên kích thước không gian để trích xuất đặc trưng sâu mà không làm mất thông tin mép! Tiếp theo ở câu B02, ta sẽ thử trường hợp không có padding!
+
+---
+
+### Câu 14 [OLP01-B02] — Phân hệ Module B (Thang điểm: 1.0đ)
+
+**Đề bài:** Một ảnh đầu vào có kích thước $28 \times 28$ (ảnh chữ số MNIST) được đưa qua một tầng tích chập Conv2D với kernel $K = 5 \times 5$, bước trượt $S = 1$, và không sử dụng padding ($P = 0$, valid padding). Kích thước không gian của tensor đầu ra là bao nhiêu?
+
+- **A.** 28 x 28
+- **B.** 24 x 24
+- **C.** 14 x 14
+- **D.** 23 x 23
+
+**Đáp án chính xác:** `B`
+
+### 1. ELI5 — Bản chất cốt lõi (Giải thích như cho em bé)
+👶 **Hình dung cho em bé:**
+Lần này chúng ta không viền số 0 (không có padding).
+Một chiếc cửa sổ kích thước $5$ ô trượt trên chiếc thước dài $28$ ô:
+Vị trí đầu tiên chiếc cửa sổ chiếm từ ô 1 đến ô 5. Chiếc cửa sổ chỉ có thể trượt sang phải thêm $28 - 5 = 23$ bước nữa.
+Cộng thêm vị trí ban đầu nữa là tổng cộng có $23 + 1 = 24$ vị trí cửa sổ có thể dừng lại!
+Vậy ảnh đầu ra sẽ bị thu nhỏ thành **24 x 24**.
+
+### 2. Công thức toán & Bước tính chi tiết (Step-by-Step)
+📐 Áp dụng công thức chuẩn đã học từ câu B01:
+$$O = \left\lfloor \frac{W - K + 2P}{S} \right\rfloor + 1$$
+Thay số với $W = 28$, $K = 5$, $P = 0$, $S = 1$:
+$$O = \left\lfloor \frac{28 - 5 + 0}{1} \right\rfloor + 1 = 23 + 1 = 24$$
+Output tensor có kích thước **24 x 24**. Chọn đáp án **B**.
+
+### 3. Bẫy đề thi & Tại sao các đáp án khác sai (Pitfalls)
+⚠️ **Phân tích bẫy:**
+- **Phương án A (28 x 28):** Nhầm rằng mọi lớp tích chập đều giữ nguyên kích thước ảnh (quên rằng không có padding).
+- **Phương án C (14 x 14):** Nhầm với phép Pooling giảm nửa kích thước.
+- **Phương án D (23 x 23):** Lỗi quên cộng 1 (Off-by-one error: lấy $28 - 5 = 23$).
+
+### 4. Mắt xích kiến thức & Liên hệ bài cũ
+📚 **Căn cứ lý thuyết:** Xem **§3.1 Kiến trúc CNN & Công thức kích thước tensor**.
+🔗 **Liên hệ bài cũ:** So sánh với câu **OLP01-B01**:
+- Ở B01 có padding $P=1$ nên kích thước được bảo toàn ($32 \to 32$).
+- Ở B02 không có padding ($P=0$) nên mỗi chiều bị co lại đúng $K - 1 = 5 - 1 = 4$ pixel ($28 \to 24$). Đây chính là tầng Conv1 của mạng **LeNet-5** kinh điển!
+
+---
+
+### Câu 15 [OLP01-B03] — Phân hệ Module B (Thang điểm: 1.0đ)
+
+**Đề bài:** Một ảnh đầu vào kích thước $224 \times 224$ (chuẩn ImageNet) được đưa qua tầng Conv2D đầu tiên với kích thước kernel $K = 7 \times 7$, bước trượt $S = 2$, và padding $P = 3$. Kích thước không gian của tensor đầu ra là bao nhiêu?
+
+- **A.** 224 x 224
+- **B.** 111 x 111
+- **C.** 112 x 112
+- **D.** 56 x 56
+
+**Đáp án chính xác:** `C`
+
+### 1. ELI5 — Bản chất cốt lõi (Giải thích như cho em bé)
+👶 **Tầng mở màn kinh điển của ResNet-50:**
+Các bức ảnh chụp thực tế rất lớn ($224 \times 224$). Ở tầng đầu tiên, mạng muốn giảm nhanh kích thước ảnh xuống một nửa để tiết kiệm bộ nhớ và tính toán nhanh hơn.
+Vì thế, người ta dùng bước nhảy $S = 2$ (mỗi lần trượt nhảy cóc 2 bước), đồng thời chọn $K = 7$ và $P = 3$ để kích thước ảnh giảm chính xác một nửa thành **112 x 112**!
+
+### 2. Công thức toán & Bước tính chi tiết (Step-by-Step)
+📐 Áp dụng công thức tính kích thước:
+$$O = \left\lfloor \frac{W - K + 2P}{S} \right\rfloor + 1$$
+Thay số: $W = 224, K = 7, P = 3, S = 2$:
+1. Tính tử số: $W - K + 2P = 224 - 7 + 2(3) = 224 - 7 + 6 = 223$.
+2. Chia cho stride $S = 2$: $\frac{223}{2} = 111.5$.
+3. Lấy hàm sàn (Floor): $\lfloor 111.5 \rfloor = 111$.
+4. Cộng thêm 1: $111 + 1 = 112$.
+Vậy kích thước tensor đầu ra là **112 x 112**. Chọn đáp án **C**.
+
+### 3. Bẫy đề thi & Tại sao các đáp án khác sai (Pitfalls)
+⚠️ **Bẫy hay gặp:**
+- **Phương án B (111 x 111):** Tính phép chia lấy sàn ra 111 nhưng quên cộng thêm 1.
+- **Phương án D (56 x 56):** Nhầm kích thước sau khi đi qua tiếp tầng MaxPool2D(3, stride 2, pad 1) kế tiếp.
+
+### 4. Mắt xích kiến thức & Liên hệ bài cũ
+📚 **Căn cứ lý thuyết:** Xem **§3.1 & §3.3 Kiến trúc ResNet**.
+🔗 **Bộ ba câu hỏi Conv2D:**
+- B01: Stride 1, Pad Same ($32 \to 32$)
+- B02: Stride 1, Pad Valid ($28 \to 24$)
+- B03: Stride 2, Giảm một nửa ($224 \to 112$)
+Nắm vững bộ 3 câu này là bạn làm chủ 100% các câu hỏi về kích thước layer trong đề thi!
+
+---
+
+### Câu 16 [OLP01-B04] — Phân hệ Module B (Thang điểm: 1.0đ)
+
+**Đề bài:** Một nút (node) trong cây quyết định đang chứa 8 mẫu dữ liệu, gồm 4 mẫu thuộc lớp Đỏ và 4 mẫu thuộc lớp Xanh. Độ hỗn loạn thông tin Shannon Entropy của nút này là bao nhiêu?
+
+- **A.** 0 bit
+- **B.** 0.5 bit
+- **C.** 2 bit
+- **D.** 1 bit
+
+**Đáp án chính xác:** `D`
+
+### 1. ELI5 — Bản chất cốt lõi (Giải thích như cho em bé)
+👶 **Thuật ngữ mới: Shannon Entropy.**
+- **Entropy:** Là đại lượng đo ' độ bất định, độ hỗn loạn, không biết đằng nào mà lần '.
+🍼 **Hình dung cho em bé:**
+Nếu một hộp có 8 quả bóng, bạn nhắm mắt thò tay vào bốc:
+- Nếu cả 8 quả đều màu Đỏ (100% chắc chắn): Bạn không hề bối rối chút nào, độ bất định bằng 0 ($Entropy = 0$).
+- Nhưng ở đây có **4 quả Đỏ và 4 quả Xanh** (cân bằng 50% - 50%): Đây là trạng thái bất định và khó đoán nhất! Trong lý thuyết thông tin với cơ số 2, độ bất định cực đại của 2 lựa chọn tương đương đúng **1 bit** thông tin!
+
+### 2. Công thức toán & Bước tính chi tiết (Step-by-Step)
+📐 Công thức Shannon Entropy (dùng $\log_2$, đơn vị bit):
+$$H(S) = - \sum_{i=1}^C p_i \log_2(p_i)$$
+Ở đây có $C = 2$ lớp (Đỏ và Xanh):
+- Xác suất lớp Đỏ: $p_1 = \frac{4}{8} = 0.5$.
+- Xác suất lớp Xanh: $p_2 = \frac{4}{8} = 0.5$.
+Thay vào công thức:
+$$H(S) = - [0.5 \log_2(0.5) + 0.5 \log_2(0.5)]$$
+Ta có $\log_2(0.5) = \log_2(2^{-1}) = -1$:
+$$H(S) = - [0.5 \times (-1) + 0.5 \times (-1)] = - [-0.5 - 0.5] = - (-1) = 1 \text{ bit}$$
+Chọn đáp án **D**.
+
+### 3. Bẫy đề thi & Tại sao các đáp án khác sai (Pitfalls)
+⚠️ **Phân tích bẫy:**
+- **Phương án A (0 bit):** Chỉ xảy ra khi node thuần khiết (Pure node - 100% cùng 1 lớp).
+- **Phương án B (0.5 bit):** Nhầm với chỉ số Gini Impurity ($Gini = 1 - (0.5^2 + 0.5^2) = 0.5$).
+- **Phương án C (2 bit):** Nhầm cơ số hoặc tính sai log.
+
+### 4. Mắt xích kiến thức & Liên hệ bài cũ
+📚 **Căn cứ lý thuyết:** Xem **§1.3 Cây quyết định & Shannon Entropy**.
+🔗 Thuật toán **ID3** dùng Entropy làm thước đo. Ở câu tiếp theo **B05**, ta sẽ dùng kết quả Entropy này để tính Mức tăng thông tin (Information Gain) khi phân chia node!
+
+---
+
+### Câu 17 [OLP01-B05] — Phân hệ Module B (Thang điểm: 1.0đ)
+
+**Đề bài:** Từ nút ban đầu ở câu B04 (Entropy = 1 bit), ta phân chia dữ liệu theo một đặc trưng và thu được 2 nút lá: Nút trái chứa toàn bộ 4 mẫu Đỏ, Nút phải chứa toàn bộ 4 mẫu Xanh. Mức tăng thông tin (Information Gain — ID3) của phép phân chia này là bao nhiêu?
+
+- **A.** 1.0 bit
+- **B.** 0.5 bit
+- **C.** 0.0 bit
+- **D.** 0.25 bit
+
+**Đáp án chính xác:** `A`
+
+### 1. ELI5 — Bản chất cốt lõi (Giải thích như cho em bé)
+👶 **Mức tăng thông tin (Information Gain):**
+Là phần hỗn loạn bị triệt tiêu sau khi phân chia:
+$$\text{Mức tăng thông tin} = (\text{Độ hỗn loạn ban đầu}) - (\text{Độ hỗn loạn còn lại sau khi chia})$$
+🍼 **Hình dung cho em bé:**
+Ban đầu cả hộp lẫn lộn lung tung ($Entropy = 1$ bit). Sau khi bạn chia xong:
+- Nút trái 100% màu Đỏ $\implies$ Sạch sẽ tinh tươm, không còn chút bất định nào ($Entropy = 0$).
+- Nút phải 100% màu Xanh $\implies$ Sạch sẽ tinh tươm, không còn chút bất định nào ($Entropy = 0$).
+Tất cả sự hỗn loạn đã biến mất hoàn toàn! Bạn đã thu được trọn vẹn $1 - 0 = 1$ bit thông tin (mức hoàn hảo tối đa)!
+
+### 2. Công thức toán & Bước tính chi tiết (Step-by-Step)
+📐 Công thức Information Gain của thuộc tính $A$:
+$$IG(S, A) = H(S) - \sum_{v \in \text{Values}(A)} \frac{|S_v|}{|S|} H(S_v)$$
+Theo câu B04: $H(S) = 1$ bit.
+Tính Entropy hai nút con:
+- Nút trái $S_{\text{left}}$ (4 đỏ, 0 xanh): $p_1 = 1, p_2 = 0 \implies H(S_{\text{left}}) = - (1 \log_2 1 + 0) = 0$ bit.
+- Nút phải $S_{\text{right}}$ (0 đỏ, 4 xanh): $p_1 = 0, p_2 = 1 \implies H(S_{\text{right}}) = 0$ bit.
+Entropy có trọng số của các nút con:
+$$H_{\text{after}} = \frac{4}{8} \times 0 + \frac{4}{8} \times 0 = 0 \text{ bit}$$
+Mức tăng thông tin:
+$$IG(S, A) = 1 - 0 = 1 \text{ bit}$$
+Chọn đáp án **A**.
+
+### 3. Bẫy đề thi & Tại sao các đáp án khác sai (Pitfalls)
+⚠️ **Phân tích bẫy:**
+- **Phương án C (0 bit):** Chỉ xảy ra khi phép phân chia hoàn toàn vô dụng, tỉ lệ các lớp ở các nút con không hề thay đổi so với nút cha.
+- **Phương án B & D:** Tính sai trọng số trung bình của các nút con.
+
+### 4. Mắt xích kiến thức & Liên hệ bài cũ
+📚 **Căn cứ lý thuyết:** Xem **§1.3 Cây quyết định & Information Gain**.
+🔗 **Liên hệ bài cũ:**
+- Câu **B04**: Đo độ bẩn/hỗn loạn của phòng ban đầu ($H = 1$).
+- Câu **B05**: Đo công sức dọn dẹp sạch sẽ căn phòng ($IG = 1$). Thuật toán cây quyết định luôn chọn thuộc tính có $IG$ lớn nhất để làm tiêu chuẩn rẽ nhánh!
+
+---
+
+### Câu 18 [OLP01-B06] — Phân hệ Module B (Thang điểm: 1.0đ)
+
+**Đề bài:** Cho bounding box dự đoán $B_p$ và bounding box nhãn thực tế $B_g$ có diện tích phần giao nhau (Intersection) là 30 pixel vuông, và diện tích phần hợp (Union) là 120 pixel vuông. Chỉ số IoU (Intersection over Union) bằng bao nhiêu và mô hình có được tính là phát hiện đúng theo ngưỡng tiêu chuẩn $\text{IoU} \ge 0.5$ hay không?
+
+- **A.** IoU = 0.50, Đạt chuẩn phát hiện đúng theo ngưỡng tiêu chuẩn
+- **B.** IoU = 0.25, Không đạt chuẩn phát hiện đúng (< 0.5)
+- **C.** IoU = 0.20, Không đạt chuẩn phát hiện đúng (< 0.5)
+- **D.** IoU = 0.75, Đạt chuẩn phát hiện đúng theo ngưỡng tiêu chuẩn
+
+**Đáp án chính xác:** `B`
+
+### 1. ELI5 — Bản chất cốt lõi (Giải thích như cho em bé)
+👶 **Chỉ số IoU (Intersection over Union) trong phát hiện vật thể (Object Detection):**
+Tưởng tượng bạn vẽ một chiếc khung viền quanh con mèo trong ảnh ($B_p$), còn cô giáo đã vẽ sẵn một chiếc khung chuẩn ($B_g$).
+- **Phần Giao (Intersection):** Là diện tích hai chiếc khung đè chồng khít lên nhau (30).
+- **Phần Hợp (Union):** Là tổng diện tích bao trùm của cả hai chiếc khung gộp lại (120).
+- **Tỉ số IoU:** Lấy phần trùng chia cho phần tổng: $\frac{30}{120} = \frac{1}{4} = 0.25$ (chỉ trùng nhau được 25%).
+Vì $0.25 < 0.5$, khung bạn vẽ bị lệch quá nhiều so với con mèo, máy chấm thi sẽ phạt đây là một dự đoán **SAI (False Positive)**!
+
+### 2. Công thức toán & Bước tính chi tiết (Step-by-Step)
+📐 Công thức tính chỉ số IoU:
+$$\text{IoU} = \frac{\text{Area}(B_p \cap B_g)}{\text{Area}(B_p \cup B_g)}$$
+Thay số:
+$$\text{IoU} = \frac{30}{120} = \frac{1}{4} = 0.25$$
+So sánh với ngưỡng đánh giá chuẩn trong PASCAL VOC / COCO ($threshold = 0.5$):
+$$\text{IoU} = 0.25 < 0.5 \implies \text{Không đạt (False Positive)}$$
+Chọn đáp án **B**.
+
+### 3. Bẫy đề thi & Tại sao các đáp án khác sai (Pitfalls)
+⚠️ **Phân tích bẫy:**
+- **Phương án A:** Nhầm $30/120$ thành $0.5$ hoặc tưởng lấy diện tích giao chia cho cái gì khác.
+- **Phương án C:** Nhầm mẫu số thành $30 + 120 = 150 \implies 30/150 = 0.2$. Cần nhớ Union đã bao gồm cả Intersection rồi, không được cộng thêm lần nữa!
+- **Phương án D:** Lấy $1 - 0.25 = 0.75$.
+
+### 4. Mắt xích kiến thức & Liên hệ bài cũ
+📚 **Căn cứ lý thuyết:** Xem **§3.6 Phát hiện vật thể & Chỉ số IoU**.
+🔗 IoU là trái tim của bài toán Object Detection: Nó dùng để xác định nhãn True Positive khi tính mAP, và làm tiêu chí triệt tiêu khung trùng lặp trong thuật toán **NMS (Non-Maximum Suppression)** ở câu C15!
+
+---
+
+### Câu 19 [OLP01-B07] — Phân hệ Module B (Thang điểm: 1.0đ)
+
+**Đề bài:** Một mô hình phân loại nhị phân dự đoán trên 200 bệnh nhân cho ra ma trận nhầm lẫn (Confusion Matrix): $TP = 80$, $FP = 20$, $FN = 40$, $TN = 60$. Độ chính xác dự đoán (Precision) và Độ bao phủ (Recall) của mô hình lần lượt là bao nhiêu?
+
+- **A.** Precision = 0.667, Recall = 0.800
+- **B.** Precision = 0.800, Recall = 0.571
+- **C.** Precision = 0.800, Recall = 0.667
+- **D.** Precision = 0.750, Recall = 0.667
+
+**Đáp án chính xác:** `C`
+
+### 1. ELI5 — Bản chất cốt lõi (Giải thích như cho em bé)
+👶 **Phân biệt Precision và Recall cực dễ nhớ:**
+- **Precision (Đoán trúng bao nhiêu):** Trong tất cả những người mà máy **bảo là có bệnh** ($TP + FP = 80 + 20 = 100$ người), thì thực sự có bao nhiêu người bị bệnh thật? $\implies \frac{80}{100} = 80\%$ ($0.80$).
+- **Recall (Bắt được bao nhiêu / Không bỏ sót):** Trong tất cả những người **thực sự mang mầm bệnh ngoài đời** ($TP + FN = 80 + 40 = 120$ người), máy đã bắt trúng được bao nhiêu người? $\implies \frac{80}{120} \approx 66.7\%$ ($0.667$).
+
+### 2. Công thức toán & Bước tính chi tiết (Step-by-Step)
+📐 Công thức tính các độ đo:
+1. Precision (Độ xác thực):
+$$\text{Precision} = \frac{TP}{TP + FP} = \frac{80}{80 + 20} = \frac{80}{100} = 0.800 \quad (80\%)$$
+2. Recall (Độ bao phủ / Sensitivity):
+$$\text{Recall} = \frac{TP}{TP + FN} = \frac{80}{80 + 40} = \frac{80}{120} = \frac{2}{3} \approx 0.667 \quad (66.7\%)$$
+Chọn đáp án **C**.
+
+### 3. Bẫy đề thi & Tại sao các đáp án khác sai (Pitfalls)
+⚠️ **Bẫy kinh điển:**
+- **Phương án A:** Bị đảo ngược vị trí giữa Precision và Recall.
+- **Phương án B:** Mẫu số của Recall lấy nhầm thành $TP + FP + FN = 140 \implies 80/140 = 0.571$.
+- **Phương án D:** Tính nhầm mẫu số Precision.
+
+### 4. Mắt xích kiến thức & Liên hệ bài cũ
+📚 **Căn cứ lý thuyết:** Xem **§1.7 Các độ đo đánh giá mô hình**.
+🔗 Ngay ở câu tiếp theo **B08**, ta sẽ kết hợp Precision = 0.8 và Recall = 0.667 này để tính F1-Score (Trung bình điều hòa)!
+
+---
+
+### Câu 20 [OLP01-B08] — Phân hệ Module B (Thang điểm: 1.0đ)
+
+**Đề bài:** Từ kết quả của mô hình ở câu B07 (Precision $P = 0.8$, Recall $R = 0.667 \approx 2/3$), chỉ số F1-Score (trung bình điều hòa giữa Precision và Recall) của mô hình là bao nhiêu?
+
+- **A.** Khoảng 0.733
+- **B.** 0.800
+- **C.** 0.667
+- **D.** Khoảng 0.727
+
+**Đáp án chính xác:** `D`
+
+### 1. ELI5 — Bản chất cốt lõi (Giải thích như cho em bé)
+👶 **Vì sao không dùng trung bình cộng mà phải dùng Trung bình điều hòa (Harmonic Mean)?**
+Nếu bạn dùng trung bình cộng: Một mô hình đoán mò có Precision = 1.0 nhưng Recall = 0.0 (không bắt được ai) vẫn được $0.5$ điểm — điều đó là gian lận!
+**F1-Score (Trung bình điều hòa)** có tính chất trừng phạt thẳng tay nếu một trong hai chỉ số bị kém. F1-score sẽ luôn bị kéo về phía con số nhỏ hơn.
+Ở đây trung bình cộng là $\frac{0.8 + 0.667}{2} = 0.7335$, nhưng F1-score thật phải thấp hơn con số này một chút $\implies$ Khoảng **0.727**!
+
+### 2. Công thức toán & Bước tính chi tiết (Step-by-Step)
+📐 Công thức F1-Score:
+$$F_1 = 2 \cdot \frac{\text{Precision} \cdot \text{Recall}}{\text{Precision} + \text{Recall}} = \frac{2 \cdot TP}{2 \cdot TP + FP + FN}$$
+Cách 1: Dùng phân số chính xác với $P = 4/5$ và $R = 2/3$:
+$$F_1 = 2 \cdot \frac{\frac{4}{5} \cdot \frac{2}{3}}{\frac{4}{5} + \frac{2}{3}} = 2 \cdot \frac{\frac{8}{15}}{\frac{12 + 10}{15}} = 2 \cdot \frac{\frac{8}{15}}{\frac{22}{15}} = 2 \cdot \frac{8}{22} = \frac{16}{22} = \frac{8}{11} \approx 0.72727 \implies 0.727$$
+Cách 2: Tính trực tiếp từ TP, FP, FN:
+$$F_1 = \frac{2 \times 80}{2 \times 80 + 20 + 40} = \frac{160}{160 + 60} = \frac{160}{220} = \frac{8}{11} \approx 0.727$$
+Chọn đáp án **D**.
+
+### 3. Bẫy đề thi & Tại sao các đáp án khác sai (Pitfalls)
+⚠️ **Phân tích bẫy:**
+- **Phương án A (0.733):** Tính nhầm theo trung bình cộng số học $\frac{0.8 + 0.667}{2} = 0.733$.
+- **Phương án B & C:** Chọn giá trị cực trị của Precision hoặc Recall.
+
+### 4. Mắt xích kiến thức & Liên hệ bài cũ
+📚 **Căn cứ lý thuyết:** Xem **§1.7 Các độ đo đánh giá mô hình**.
+🔗 **Mắt xích liên kết:**
+- Câu B07: Tính Precision (0.8) và Recall (0.667).
+- Câu B08: Ghép thành F1-score (0.727).
+F1-score là metric bắt buộc khi dữ liệu bị mất cân bằng lớp (như ở câu A11 và câu C19)!
+
+---
+
+### Câu 21 [OLP01-B09] — Phân hệ Module B (Thang điểm: 1.0đ)
+
+**Đề bài:** Cho hai vector đặc trưng (embeddings) trong không gian 2 chiều: $\mathbf{u} = [1, 1]$ và $\mathbf{v} = [0, 2]$. Độ tương đồng Cosine (Cosine Similarity) giữa hai vector này là bao nhiêu?
+
+- **A.** Khoảng 0.707 (bằng căn 2 chia 2)
+- **B.** Khoảng 0.000 (hai vector trực giao)
+- **C.** Khoảng 1.000 (hai vector cùng hướng)
+- **D.** Khoảng 0.500 (hai vector lệch góc 60 độ)
+
+**Đáp án chính xác:** `A`
+
+### 1. ELI5 — Bản chất cốt lõi (Giải thích như cho em bé)
+👶 **Cosine Similarity (Đo góc chỉ hướng):**
+Độ tương đồng Cosine không quan tâm hai mũi tên dài hay ngắn, nó chỉ quan tâm **hai mũi tên có chỉ về cùng một hướng hay không**.
+- Vector $\mathbf{u} = [1, 1]$ nằm ở góc $45^\circ$ (chỉ hướng Đông Bắc).
+- Vector $\mathbf{v} = [0, 2]$ nằm thẳng đứng ở trục Y, góc $90^\circ$ (chỉ hướng Bắc).
+Góc lệch giữa hai mũi tên là $90^\circ - 45^\circ = 45^\circ$.
+Cosine của góc $45^\circ$ bằng $\frac{\sqrt{2}}{2} \approx 0.7071$!
+
+### 2. Công thức toán & Bước tính chi tiết (Step-by-Step)
+📐 Công thức Cosine Similarity giữa hai vector:
+$$\cos(\theta) = \frac{\mathbf{u} \cdot \mathbf{v}}{\|\mathbf{u}\|_2 \|\mathbf{v}\|_2} = \frac{\sum_{i} u_i v_i}{\sqrt{\sum_{i} u_i^2} \sqrt{\sum_{i} v_i^2}}$$
+1. Tích vô hướng (Dot Product):
+$$\mathbf{u} \cdot \mathbf{v} = (1 \times 0) + (1 \times 2) = 0 + 2 = 2$$
+2. Độ dài chuẩn L2 của từng vector:
+$$\|\mathbf{u}\|_2 = \sqrt{1^2 + 1^2} = \sqrt{2}$$
+$$\|\mathbf{v}\|_2 = \sqrt{0^2 + 2^2} = \sqrt{4} = 2$$
+3. Tích độ dài: $\|\mathbf{u}\|_2 \|\mathbf{v}\|_2 = 2\sqrt{2}$.
+4. Cosine Similarity:
+$$\cos(\theta) = \frac{2}{2\sqrt{2}} = \frac{1}{\sqrt{2}} = \frac{\sqrt{2}}{2} \approx 0.7071$$
+Chọn đáp án **A**.
+
+### 3. Bẫy đề thi & Tại sao các đáp án khác sai (Pitfalls)
+⚠️ **Phân tích bẫy:**
+- **Phương án B (0.0):** Nhầm rằng hai vector trực giao vuông góc nhau.
+- **Phương án C (1.0):** Nhầm rằng hai vector cùng phương.
+- **Phương án D (0.5):** Tính nhầm giá trị $\cos(60^\circ)$.
+
+### 4. Mắt xích kiến thức & Liên hệ bài cũ
+📚 **Căn cứ lý thuyết:** Xem **§4.3 Vector Embeddings & Cosine Similarity**.
+🔗 Cosine Similarity là thước đo khoảng cách số 1 trong các hệ thống tìm kiếm ngữ nghĩa (Semantic Search), RAG (Retrieval-Augmented Generation), và so khớp khuôn mặt (FaceNet / ArcFace)!
+
+---
+
+### Câu 22 [OLP01-B10] — Phân hệ Module B (Thang điểm: 1.0đ)
+
+**Đề bài:** Trong thiết kế khối mạng nơ-ron tích chập (Conv Block) hoặc tầng kết nối đầy đủ (Dense Block) hiện đại trong PyTorch, thứ tự chuẩn mực kinh điển của các lớp là gì?
+
+- **A.** Linear/Conv -> ReLU (Activation) -> BatchNorm
+- **B.** Linear/Conv -> BatchNorm -> ReLU (Activation)
+- **C.** BatchNorm -> Linear/Conv -> ReLU
+- **D.** ReLU -> Linear/Conv -> BatchNorm
+
+**Đáp án chính xác:** `B`
+
+### 1. ELI5 — Bản chất cốt lõi (Giải thích như cho em bé)
+👶 **Quy tắc làm đẹp dữ liệu trước khi cắt gọt:**
+Tưởng tượng quy trình làm tượng gỗ:
+1. **Linear / Conv (Đẽo gọt thô):** Bạn nhân trọng số để biến đổi dữ liệu.
+2. **BatchNorm (Cân bằng & Chuẩn hóa):** Sau khi biến đổi, các con số có thể bị văng ra quá to hoặc quá nhỏ. Bạn phải gom chúng về trung bình 0 và phương sai 1 để ổn định dòng chảy thông tin.
+3. **ReLU (Kích hoạt phi tuyến):** Sau khi dữ liệu đã chuẩn chỉnh quanh số 0, bạn mới dùng hàm ReLU để cắt bỏ phần âm ($< 0$), giữ lại phần dương.
+Thứ tự vàng luôn là: **Tính toán $\implies$ Chuẩn hóa $\implies$ Phi tuyến (Linear -> BN -> Activation)**!
+
+### 2. Công thức toán & Bước tính chi tiết (Step-by-Step)
+📐 Theo bài báo gốc của Ioffe & Szegedy (2015) ' Batch Normalization ':
+Batch Normalization được áp dụng trên giá trị tiền kích hoạt (Pre-activation) $x = W u + b$:
+$$y = \text{Activation}(\text{BN}(W u))$$
+- Chú ý: Khi dùng BatchNorm ngay sau Linear/Conv, ta đặt `bias=False` vì BatchNorm đã có tham số dịch chuyển $\beta$ riêng, bias của Linear sẽ bị khử hoàn toàn:
+```python
+nn. Sequential(
+    nn. Conv2d(in_c, out_c, kernel_size=3, padding=1, bias=False),
+    nn. BatchNorm2d(out_c),
+    nn. ReLU(inplace=True)
+)
+```
+Chọn đáp án **B**.
+
+### 3. Bẫy đề thi & Tại sao các đáp án khác sai (Pitfalls)
+⚠️ **Phân tích bẫy:**
+- **Phương án A:** Đưa BatchNorm ra sau ReLU sẽ làm mất tác dụng của hàm chuẩn hóa đối với phân phối có phần âm, và phân phối sau ReLU bị chặt cụt tại 0 khiến BatchNorm hoạt động kém hiệu quả hơn.
+- **Phương án C & D:** Đặt sai thứ tự logic của mạng nơ-ron.
+
+### 4. Mắt xích kiến thức & Liên hệ bài cũ
+📚 **Căn cứ lý thuyết:** Xem **§2.8 Kỹ thuật Chuẩn hóa (BatchNorm, LayerNorm)**.
+🔗 Hãy nhớ: BatchNorm chuẩn hóa theo chiều Batch (hợp cho ảnh - CNN), còn LayerNorm chuẩn hóa theo chiều Feature (hợp cho văn bản - Transformer) như ta sẽ gặp ở câu C21!
+
+---
+
+### Câu 23 [OLP01-B11] — Phân hệ Module B (Thang điểm: 1.0đ)
+
+**Đề bài:** Khi sử dụng hàm mất mát `torch.nn. CrossEntropyLoss()` trong PyTorch cho bài toán phân loại đa lớp, đầu vào mô hình đưa vào hàm mất mát này phải ở dạng nào?
+
+- **A.** Xác suất đã qua hàm `torch.softmax()`
+- **B.** Nhãn dạng One-hot vector
+- **C.** Các giá trị Logits thô chưa qua hàm kích hoạt Softmax
+- **D.** Giá trị xác suất đã lấy log tự nhiên bằng `torch.log()`
+
+**Đáp án chính xác:** `C`
+
+### 1. ELI5 — Bản chất cốt lõi (Giải thích như cho em bé)
+👶 **Bẫy số học ' Hai lần Softmax ' trong PyTorch:**
+Trong PyTorch, hàm `nn. CrossEntropyLoss()` đã được các kỹ sư tích hợp sẵn hàm Softmax bên trong bụng nó rồi!
+Nếu bạn tự tiện gắn thêm một tầng `nn. Softmax()` ở cuối mô hình rồi mới ném vào `CrossEntropyLoss`, mô hình của bạn sẽ bị ép Softmax **2 lần liên tiếp**! Điều này làm hỏng toàn bộ gradient và khiến mạng học cực kỳ chậm hoặc sai lệch.
+Quy tắc: Tầng cuối cùng của mô hình chỉ cần xuất ra điểm số thô (**Logits**) là đủ!
+
+### 2. Công thức toán & Bước tính chi tiết (Step-by-Step)
+📐 Lý do kỹ thuật: Tính ổn định số học (Numerical Stability).
+Trong toán học:
+$$\mathcal{L}_{\text{CE}} = - \log(\text{softmax}(z_c)) = - \log\left( \frac{e^{z_c}}{\sum_j e^{z_j}} \right) = - z_c + \log\left( \sum_j e^{z_j} \right)$$
+Phép toán $\log(\sum e^z)$ được PyTorch cài đặt bằng hàm `LogSumExp` nội bộ với kỹ thuật trừ giá trị cực đại $\max(z)$ để chống tràn số (Overflow/Underflow):
+$$\text{LogSumExp}(z) = m + \log\left( \sum_j e^{z_j - m} \right), \quad m = \max_j(z_j)$$
+Do đó, `nn. CrossEntropyLoss()` yêu cầu input trực tiếp là **Logits thô**. Chọn **C**.
+
+### 3. Bẫy đề thi & Tại sao các đáp án khác sai (Pitfalls)
+⚠️ **Phân tích bẫy:**
+- **Phương án A:** Sai lầm phổ biến nhất của người mới học PyTorch: Thêm `F.softmax` vào output của `forward()` trước khi truyền vào CrossEntropyLoss.
+- **Phương án B:** Trong PyTorch, nhãn mục tiêu `target` của CrossEntropyLoss mặc định là tensor chứa chỉ số lớp dạng số nguyên `LongTensor` (Class indices $0, 1, \dots, C-1$), không cần one-hot.
+- **Phương án D:** Nếu đã qua `log_softmax`, hàm mất mát tương ứng phải là `nn. NLLLoss()` (Negative Log Likelihood Loss).
+
+### 4. Mắt xích kiến thức & Liên hệ bài cũ
+📚 **Căn cứ lý thuyết:** Xem **§2.4 Các hàm mất mát trong Deep Learning**.
+🔗 Tương tự đối với bài toán nhị phân, ở câu **B12** ngay sau đây, ta sẽ thấy hàm `nn. BCEWithLogitsLoss()` cũng nhận trực tiếp Logits thô thay vì nhận xác suất sau Sigmoid!
+
+---
+
+### Câu 24 [OLP01-B12] — Phân hệ Module B (Thang điểm: 1.0đ)
+
+**Đề bài:** Trong PyTorch, khi giải bài toán phân loại nhị phân (Binary Classification), vì sao lập trình viên luôn được khuyến nghị sử dụng `torch.nn. BCEWithLogitsLoss()` thay vì kết hợp `torch.sigmoid()` với `torch.nn. BCELoss()`?
+
+- **A.** Vì BCEWithLogitsLoss tính toán lan truyền thuận nhanh gấp đôi nhưng chấp nhận đánh đổi sai số số học do xấp xỉ Taylor
+- **B.** Vì hàm mất mát BCELoss thuần túy không hỗ trợ kỹ thuật lan truyền ngược tự động (Autograd) trên phần cứng tăng tốc GPU
+- **C.** Vì BCELoss bắt buộc kích thước lô dữ liệu (Batch Size) phải là lũy thừa của 2 để tối ưu hóa bộ nhớ đệm ma trận
+- **D.** Vì BCEWithLogitsLoss gộp phép tính Sigmoid và Log-Loss thành một biểu thức toán học ổn định số học (Log-Sum-Exp trick), triệt tiêu lỗi tràn số float
+
+**Đáp án chính xác:** `D`
+
+### 1. ELI5 — Bản chất cốt lõi (Giải thích như cho em bé)
+👶 **Hiện tượng tràn số trong máy tính (Overflow & Underflow):**
+Khi mạng nơ-ron dự đoán một con số quá lớn (ví dụ $z = 100$):
+- Nếu bạn tính $\text{sigmoid}(100)$, máy tính làm tròn thành $1.0$. Sau đó lấy $\log(1 - 1.0) = \log(0) = -\infty$ (Âm vô cùng)! Mô hình sẽ lập tức bị lỗi `NaN` (Not a Number) và sập toàn bộ quá trình huấn luyện!
+- `BCEWithLogitsLoss` dùng mẹo toán học gộp cả hai bước lại thành một công thức rút gọn, triệt tiêu hoàn toàn nguy cơ chia cho 0 hay $\log(0)$.
+
+### 2. Công thức toán & Bước tính chi tiết (Step-by-Step)
+📐 Biểu thức toán học gộp của `BCEWithLogitsLoss`:
+Hàm mất mát Binary Cross-Entropy với nhãn $y \in \{0, 1\}$ và logit $z$:
+$$\ell(z, y) = - [y \log(\sigma(z)) + (1 - y) \log(1 - \sigma(z))]$$
+Biến đổi đại số bằng định nghĩa $\sigma(z) = \frac{1}{1 + e^{-z}}$:
+$$\log(\sigma(z)) = - \log(1 + e^{-z})$$
+$$\log(1 - \sigma(z)) = - z - \log(1 + e^{-z})$$
+Thay vào hàm mất mát:
+$$\ell(z, y) = - [y (-\log(1 + e^{-z})) + (1 - y) (-z - \log(1 + e^{-z}))] = (1 - y) z + \log(1 + e^{-z}) = z - y z + \log(1 + e^{-z})$$
+Dạng tổng quát ổn định số học với mọi $z$:
+$$\ell(z, y) = \max(z, 0) - y z + \log(1 + e^{-|z|})$$
+Bằng cách dùng $|z|$, số mũ $e^{-|z|}$ luôn $\le 1$, bảo đảm 100% không bao giờ bị tràn số dương (Overflow)! Chọn **D**.
+
+### 3. Bẫy đề thi & Tại sao các đáp án khác sai (Pitfalls)
+⚠️ **Phân tích bẫy:**
+- **Phương án A:** BCEWithLogitsLoss vừa nhanh hơn vừa chính xác số học cao hơn, không hề kém chính xác.
+- **Phương án B & C:** Hoàn toàn bịa đặt, BCELoss vẫn chạy GPU bình thường và nhận mọi kích thước batch.
+
+### 4. Mắt xích kiến thức & Liên hệ bài cũ
+📚 **Căn cứ lý thuyết:** Xem **§2.4 Các hàm mất mát trong Deep Learning**.
+🔗 **Quy tắc bỏ túi PyTorch:**
+- Đa lớp: Dùng `CrossEntropyLoss(logits)` (câu B11).
+- Nhị phân: Dùng `BCEWithLogitsLoss(logits)` (câu B12).
+Không bao giờ tự ý gắn Softmax hay Sigmoid vào tầng cuối cùng khi train!
+
+---
+
+### Câu 25 [OLP01-B13] — Phân hệ Module B (Thang điểm: 1.0đ)
+
+**Đề bài:** Trong một vòng lặp huấn luyện PyTorch tiêu chuẩn cho một batch dữ liệu, thứ tự các dòng lệnh bắt buộc phải thực hiện là gì?
+
+- **A.** optimizer.zero_grad() -> outputs = model(inputs) -> loss = criterion(outputs, targets) -> loss.backward() -> optimizer.step()
+- **B.** outputs = model(inputs) -> loss = criterion(...) -> loss.backward() -> optimizer.step() -> optimizer.zero_grad()
+- **C.** loss.backward() -> optimizer.zero_grad() -> optimizer.step() -> outputs = model(inputs)
+- **D.** optimizer.step() -> outputs = model(inputs) -> loss.backward() -> optimizer.zero_grad()
+
+**Đáp án chính xác:** `A`
+
+### 1. ELI5 — Bản chất cốt lõi (Giải thích như cho em bé)
+👶 **Quy trình 5 bước huấn luyện PyTorch kinh điển:**
+1. **`optimizer.zero_grad()`:** Xóa sạch bảng điểm gradient cũ (vì PyTorch có tính năng mặc định là cộng dồn gradient, nếu không xóa thì vết đạo hàm cũ sẽ làm hỏng bước đi mới).
+2. **`outputs = model(inputs)`:** Đưa đề bài vào mô hình để làm bài (Lan truyền tiến - Forward pass).
+3. **`loss = criterion(outputs, targets)`:** Chấm điểm xem làm sai bao nhiêu (Tính hàm mất mát).
+4. **`loss.backward()`:** Lần ngược từ kết quả để tìm xem nơ-ron nào làm sai (Lan truyền ngược - Backward pass tính gradient).
+5. **`optimizer.step()`:** Sửa sai bằng cách cập nhật các trọng số theo hướng giảm lỗi (Cập nhật trọng số).
+Quy tắc: **Xóa bộ nhớ cũ $\implies$ Đoán $\implies$ Chấm lỗi $\implies$ Tìm nguyên nhân $\implies$ Sửa sai**!
+
+### 2. Công thức toán & Bước tính chi tiết (Step-by-Step)
+📐 Mã nguồn chuẩn mực:
+```python
+optimizer.zero_grad()                   # 1. Triệt tiêu gradient tích lũy: w.grad = 0
+outputs = model(inputs)                 # 2. Forward pass: y_hat = f(x; w)
+loss = criterion(outputs, targets)      # 3. Compute loss: L(y_hat, y)
+loss.backward()                         # 4. Backward pass: w.grad += dL/dw
+optimizer.step()                        # 5. Parameter update: w = w - lr * w.grad
+```
+Chọn đáp án **A**.
+
+### 3. Bẫy đề thi & Tại sao các đáp án khác sai (Pitfalls)
+⚠️ **Phân tích bẫy:**
+- **Phương án B:** Đặt `zero_grad()` ở cuối cùng dù chạy được nhưng dễ quên hoặc gây lỗi nếu có vòng lặp gradient accumulation.
+- **Phương án C:** Gọi `loss.backward()` trước khi forward là lỗi cú pháp runtime (loss chưa tồn tại).
+- **Phương án D:** Cập nhật `optimizer.step()` trước khi tính đạo hàm là hoàn toàn sai logic.
+
+### 4. Mắt xích kiến thức & Liên hệ bài cũ
+📚 **Căn cứ lý thuyết:** Xem **§2.3 Vòng lặp huấn luyện PyTorch chuẩn**.
+🔗 Cấu trúc này sẽ được bạn tự tay viết thành code ở bài thực hành lập trình **OLP01-BC2**!
+
+---
+
+### Câu 26 [OLP01-B14] — Phân hệ Module B (Thang điểm: 1.0đ)
+
+**Đề bài:** Khi khởi tạo trọng số cho các tầng ẩn sử dụng hàm kích hoạt ReLU trong mạng Deep Learning, phương pháp khởi tạo nào sau đây là TỐI ƯU NHẤT để chống hiện tượng triệt tiêu hoặc bùng nổ gradient (Vanishing/Exploding Gradient)?
+
+- **A.** Khởi tạo toàn bộ trọng số bằng 0 (Zero Initialization)
+- **B.** Khởi tạo Kaiming He (He Normal / Uniform Initialization)
+- **C.** Khởi tạo toàn bộ trọng số bằng 1 (Ones Initialization)
+- **D.** Khởi tạo Xavier / Glorot Initialization
+
+**Đáp án chính xác:** `B`
+
+### 1. ELI5 — Bản chất cốt lõi (Giải thích như cho em bé)
+👶 **Vì sao hàm ReLU cần phép khởi tạo riêng của Kaiming He?**
+Hàm ReLU có đặc điểm: Cứ số âm là nó biến thành số 0 (chặt bỏ đúng $50\%$ tín hiệu).
+Nếu bạn dùng phép khởi tạo Xavier thông thường, qua mỗi tầng nơ-ron, một nửa số tín hiệu bị mất đi, làm phương sai của tín hiệu teo tóp dần về 0 khi mạng đi sâu (Triệt tiêu gradient)!
+Năm 2015, giáo sư Kaiming He phát hiện ra điều này và nhân thêm một hệ số bù đắp $\sqrt{2}$ vào độ lệch chuẩn khởi tạo, giúp bù lại chính xác 50% tín hiệu bị ReLU triệt tiêu, giữ cho năng lượng tín hiệu luôn ổn định xuyên suốt hàng trăm tầng mạng!
+
+### 2. Công thức toán & Bước tính chi tiết (Step-by-Step)
+📐 So sánh công thức toán học:
+1. **Xavier / Glorot Initialization (Dành cho Tanh / Sigmoid):**
+$$\text{Var}(W) = \frac{2}{n_{\text{in}} + n_{\text{out}}}$$
+2. **Kaiming He Initialization (Dành riêng cho ReLU):**
+Do ReLU triệt tiêu một nửa phân phối đối xứng quanh 0, $\mathbb{E}[\text{ReLU}(z)^2] = \frac{1}{2} \text{Var}(z)$. Để bảo toàn phương sai $\text{Var}(y) = \text{Var}(x)$:
+$$\text{Var}(W) = \frac{2}{n_{\text{in}}}$$
+Trọng số được rút từ phân phối chuẩn:
+$$W \sim \mathcal{N}\left(0, \sqrt{\frac{2}{n_{\text{in}}}}\right)$$
+Trong PyTorch: `nn.init.kaiming_normal_(layer.weight, nonlinearity=' relu ')`. Chọn **B**.
+
+### 3. Bẫy đề thi & Tại sao các đáp án khác sai (Pitfalls)
+⚠️ **Phân tích bẫy:**
+- **Phương án A & C:** Khởi tạo toàn bộ bằng 0 hoặc 1 gây ra hiện tượng **Phá vỡ tính đối xứng (Symmetry Breaking Failure)**: Mọi nơ-ron trong cùng một tầng đều có cùng giá trị và cùng gradient, mạng biến thành một nơ-ron duy nhất dù có bao nhiêu tham số đi nữa!
+- **Phương án D:** Xavier tối ưu cho Sigmoid và Tanh, nhưng bị suy yếu phương sai khi dùng với ReLU.
+
+### 4. Mắt xích kiến thức & Liên hệ bài cũ
+📚 **Căn cứ lý thuyết:** Xem **§2.7 Kỹ thuật Khởi tạo trọng số (Weight Initialization)**.
+🔗 Kaiming He chính là tác giả của mạng **ResNet** đoạt giải nhất ImageNet năm 2015! Chính nhờ phép khởi tạo He và kiến trúc Skip Connection mà ông đã huấn luyện thành công mạng ResNet sâu tới 152 tầng!
+
+---
+
+### Câu 27 [OLP01-B15] — Phân hệ Module B (Thang điểm: 1.0đ)
+
+**Đề bài:** Trong NumPy, cho một mảng hai chiều `arr` có kích thước `shape = (3, 4)`. Khi thực hiện phép chuyển vị `arr. T` (hoặc `np.transpose(arr)`), kích thước mới của mảng kết quả là bao nhiêu?
+
+- **A.** (3, 4)
+- **B.** (12,)
+- **C.** (4, 3)
+- **D.** (3, 1, 4)
+
+**Đáp án chính xác:** `C`
+
+### 1. ELI5 — Bản chất cốt lõi (Giải thích như cho em bé)
+👶 **Phép chuyển vị ma trận (Transpose):**
+Tưởng tượng bạn lật nghiêng chiếc bàn chữ nhật:
+- Ban đầu bàn có **3 hàng và 4 cột** (kích thước $3 \times 4$).
+- Khi lật nghiêng (hàng biến thành cột, cột biến thành hàng): Chiếc bàn mới sẽ có **4 hàng và 3 cột** (kích thước $4 \times 3$)!
+
+### 2. Công thức toán & Bước tính chi tiết (Step-by-Step)
+📐 Định nghĩa phép chuyển vị ma trận trong đại số tuyến tính:
+Nếu ma trận $A \in \mathbb{R}^{m \times n}$ thì ma trận chuyển vị $A^T \in \mathbb{R}^{n \times m}$ với các phần tử thỏa mãn:
+$$(A^T)_{j, i} = A_{i, j}$$
+Với mảng NumPy có `shape = (3, 4)`:
+- Trục 0 (hàng): 3
+- Trục 1 (cột): 4
+Sau phép `arr. T`: Trục 0 và Trục 1 hoán đổi vị trí cho nhau $\implies$ `shape = (4, 3)`. Chọn **C**.
+
+### 3. Bẫy đề thi & Tại sao các đáp án khác sai (Pitfalls)
+⚠️ **Phân tích bẫy:**
+- **Phương án B (12,):** Là kết quả của hàm duỗi phẳng `arr.flatten()` hoặc `arr.reshape(-1)`.
+- **Phương án D:** Là kết quả của hàm thêm chiều `np.expand_dims(arr, axis=1)`.
+
+### 4. Mắt xích kiến thức & Liên hệ bài cũ
+📚 **Căn cứ lý thuyết:** Xem **§1.10 Đại số tuyến tính với NumPy**.
+🔗 Trong PyTorch Deep Learning, hàm `tensor. T` dùng cho ma trận 2D, còn với tensor nhiều chiều (ví dụ ảnh $B \times C \times H \times W$ chuyển sang $B \times H \times W \times C$), ta dùng hàm `tensor.permute(0, 2, 3, 1)`!
+
+---
+
+### Câu 28 [OLP01-B16] — Phân hệ Module B (Thang điểm: 1.0đ)
+
+**Đề bài:** Trong NumPy, cho mảng `A` có kích thước `(4, 1)` và mảng `B` có kích thước `(4,)`. Khi thực hiện phép cộng `C = A + B`, theo quy tắc Broadcasting của NumPy, mảng `C` có kích thước kết quả là bao nhiêu?
+
+- **A.** Báo lỗi ValueError vì không thể cộng hai mảng lệch chiều
+- **B.** (4, 1)
+- **C.** (4,)
+- **D.** (4, 4)
+
+**Đáp án chính xác:** `D`
+
+### 1. ELI5 — Bản chất cốt lõi (Giải thích như cho em bé)
+👶 **Bẫy Broadcasting kinh điển nhất của NumPy:**
+Rất nhiều người tưởng rằng `(4, 1)` cộng `(4,)` sẽ ra `(4, 1)`. Nhưng NumPy có quy tắc ngầm:
+1. Mảng $B$ có shape `(4,)` (chỉ có 1 chiều). NumPy sẽ tự động bù thêm số 1 vào **bên trái** để thành `(1, 4)` (1 hàng, 4 cột)!
+2. Mảng $A$ có shape `(4, 1)` (4 hàng, 1 cột).
+3. Khi cộng: Hàng của $B$ được nhân bản 4 lần xuống dưới, cột của $A$ được nhân bản 4 lần sang phải $\implies$ Tạo thành một ma trận vuông khổng lồ kích thước **(4, 4)**!
+
+### 2. Công thức toán & Bước tính chi tiết (Step-by-Step)
+📐 3 quy tắc Broadcasting chuẩn mực của NumPy:
+1. **Quy tắc 1 (Canh lề phải):** So sánh kích thước từng chiều từ phải sang trái. Nếu một mảng thiếu chiều, thêm chiều kích thước 1 vào bên trái:
+- Mảng A: `(4, 1)`
+- Mảng B: `(4,)` $\to$ được nâng chiều thành `(1, 4)`.
+2. **Quy tắc 2 (Kéo dãn chiều bằng 1):**
+- Chiều 1 (cột): A có 1 cột, B có 4 cột $\implies$ Hợp lệ, kéo dãn A thành 4 cột.
+- Chiều 0 (hàng): A có 4 hàng, B có 1 hàng $\implies$ Hợp lệ, kéo dãn B thành 4 hàng.
+3. **Quy tắc 3 (Kích thước kết quả):** Lấy giá trị lớn nhất của từng chiều:
+$$\text{shape}(C) = (\max(4, 1), \max(1, 4)) = (4, 4)$$
+Mã Python kiểm chứng:
+```python
+import numpy as np
+A = np.zeros((4, 1))
+B = np.zeros((4,))
+print((A + B).shape) # (4, 4)
+```
+Chọn đáp án **D**.
+
+### 3. Bẫy đề thi & Tại sao các đáp án khác sai (Pitfalls)
+⚠️ **Phân tích bẫy:**
+- **Phương án A:** Nghĩ rằng khác số chiều là báo lỗi.
+- **Phương án B & C:** Nghĩ rằng mảng 1 chiều sẽ tự cộng vào cột của ma trận $4 \times 1$. Đây là bẫy bug gây tràn bộ nhớ ngầm cực kỳ nguy hiểm trong code Python thực chiến!
+
+### 4. Mắt xích kiến thức & Liên hệ bài cũ
+📚 **Căn cứ lý thuyết:** Xem **§1.10 Đại số tuyến tính & Cơ chế Broadcasting**.
+🔗 Trong PyTorch, nếu bạn vô tình để loss dạng `(N, 1)` trừ nhãn dạng `(N,)`, PyTorch sẽ âm thầm tạo ma trận `(N, N)` và tính loss sai hoàn toàn! Luôn dùng `y.squeeze()` hoặc `y.view(-1, 1)` để cố định chiều!
+
+---
+
+### Câu 29 [OLP01-BC1] — Phân hệ Module B (Thang điểm: 1.0đ)
+
+**Đề bài:** Cho hàm Python tính toán diện tích giao (Intersection) giữa hai bounding box theo định dạng $[x_1, y_1, x_2, y_2]$:
+```python
+def compute_intersection(boxA, boxB):
+    xA = max(boxA[0], boxB[0])
+    yA = max(boxA[1], boxB[1])
+    xB = min(boxA[2], boxB[2])
+    yB = min(boxA[3], boxB[3])
+    interArea = max(0, xB - xA) * max(0, yB - yA)
+    return interArea
+```
+Nếu $boxA = [10, 20, 50, 60]$ và $boxB = [30, 40, 70, 80]$, giá trị `interArea` trả về bằng bao nhiêu và trường hợp nào hàm sẽ trả về đúng 0?
+
+- **A.** Trả về 400; và trả về 0 khi hai hộp không có vùng chồng lấn nhờ toán tử max(0, ...)
+- **B.** Trả về 600; và trả về 0 khi diện tích một trong hai hộp ban đầu bằng 0 nhờ toán tử min(..., 0)
+- **C.** Trả về 800; và trả về 0 khi tọa độ góc dưới-phải nhỏ hơn tọa độ góc trên-trái trong phép tính abs(...)
+- **D.** Trả về 300; và trả về 0 khi chỉ số IoU vượt quá ngưỡng Non-Maximum Suppression trong vòng lặp lọc
+
+**Đáp án chính xác:** `A`
+
+### 1. ELI5 — Bản chất cốt lõi (Giải thích như cho em bé)
+👶 **Hiểu nhanh bản chất:**
+- Vùng giao có tọa độ: $xA = \max(10, 30) = 30$, $yA = \max(20, 40) = 40$, $xB = \min(50, 70) = 50$, $yB = \min(60, 80) = 60$.
+- Chiều rộng giao: $50 - 30 = 20$. Chiều cao giao: $60 - 40 = 20$.
+- Diện tích giao: $20 \times 20 = 400$. Nếu hai hộp tách rời nhau, $xB < xA$ hoặc $yB < yA$, hàm `max(0, ...)` sẽ gán chiều dài bằng 0 để tránh diện tích âm.
+
+### 2. Công thức toán & Bước tính chi tiết (Step-by-Step)
+📐 $\text{interArea} = \max(0, 50 - 30) \times \max(0, 60 - 40) = 20 \times 20 = 400$. Chọn **A**.
+
+### 3. Bẫy đề thi & Tại sao các đáp án khác sai (Pitfalls)
+⚠️ **Cạm bẫy:** Tính nhầm diện tích từng hộp là $40 \times 40 = 1600$, hoặc không kiểm tra cận âm khi hai hộp không giao nhau.
+
+### 4. Mắt xích kiến thức & Căn cứ khoa học
+📚 **Căn cứ lý thuyết:** Xem **§3.6 Phát hiện Vật thể (Object Detection): IoU, NMS, mAP, YOLO vs R-CNN**.
+
+---
+
+### Câu 30 [OLP01-BC2] — Phân hệ Module B (Thang điểm: 1.0đ)
+
+**Đề bài:** Trong PyTorch, đoạn mã sau thực hiện tính toán độ tương đồng Cosine giữa ma trận vector truy vấn $Q \in \mathbb{R}^{B \times D}$ và ma trận vector khóa $K \in \mathbb{R}^{B \times D}$:
+```python
+import torch
+import torch.nn.functional as F
+
+Q_norm = F.normalize(Q, p=2, dim=-1)
+K_norm = F.normalize(K, p=2, dim=-1)
+similarity = torch.sum(Q_norm * K_norm, dim=-1)
+```
+Phát biểu nào sau đây giải thích chính xác nhất ý nghĩa hình học và kết quả của tensor `similarity`?
+
+- **A.** Là khoảng cách Euclid chuẩn hóa nằm trong đoạn [0, 2] dọc theo từng cặp vector tương ứng
+- **B.** Là độ tương đồng Cosine nằm trong đoạn [-1, 1], đạt cực đại 1 khi hai vector cùng hướng
+- **C.** Là tích vô hướng chưa chuẩn hóa có độ biến thiên tỉ lệ thuận với độ dài của các vector
+- **D.** Là ma trận vuông kích thước B x B đo tương quan giữa mọi cặp truy vấn và khóa trong batch
+
+**Đáp án chính xác:** `B`
+
+### 1. ELI5 — Bản chất cốt lõi (Giải thích như cho em bé)
+👶 **Hiểu nhanh bản chất:**
+`F.normalize` đưa mỗi vector về độ dài bằng 1 (chuẩn $L_2$). Khi hai vector đã có độ dài 1, tích vô hướng giữa chúng chính là $\cos(\theta) = \frac{u \cdot v}{\|u\| \|v\|}$. Giá trị luôn nằm trong đoạn $[-1, 1]$, bằng 1 khi song song cùng hướng và bằng -1 khi ngược hướng.
+
+### 2. Công thức toán & Bước tính chi tiết (Step-by-Step)
+📐 $\text{similarity}_i = \sum_{j=1}^D \hat{Q}_{i, j} \hat{K}_{i, j} = \hat{Q}_i \cdot \hat{K}_i = \cos(\theta_i) \in [-1, 1]$. Chọn **B**.
+
+### 3. Bẫy đề thi & Tại sao các đáp án khác sai (Pitfalls)
+⚠️ **Cạm bẫy:** Phương án D nhầm phép nhân từng phần tử `*` với phép nhân ma trận `torch.matmul(Q_norm, K_norm. T)` sinh ma trận $B \times B$.
+
+### 4. Mắt xích kiến thức & Căn cứ khoa học
+📚 **Căn cứ lý thuyết:** Xem **§4.2 Các Phương Pháp Biểu Diễn Từ (Word Representations)**.
+
+---
+
+### Câu 31 [OLP01-C01] — Phân hệ Module C (Thang điểm: 1.0đ)
+
+**Đề bài:** Thuật toán k-NN (k-Nearest Neighbors) được xếp vào nhóm thuật toán ' Lazy Learner ' (người học lười) và phi tham số (non-parametric). Phát biểu nào sau đây giải thích ĐÚNG NHẤT về bản chất này?
+
+- **A.** Không có pha huấn luyện tham số (Eager Training), chỉ lưu dữ liệu vào bộ nhớ và dồn toàn bộ tính toán vào thời điểm suy luận (Inference)
+- **B.** Học trước một tập trọng số cố định (Static Weights) nhưng chỉ cập nhật chúng khi gặp dữ liệu lỗi trong quá trình tối ưu hóa ngẫu nhiên
+- **C.** Biến đổi dữ liệu sang không gian vô hạn chiều (Infinite Space) bằng Kernel Trick và tính ma trận Gram trước khi phân loại ranh giới
+- **D.** Xây dựng cây quyết định nhị phân phân cấp (Binary Tree) để phân chia không gian đặc trưng thành các siêu phẳng trực giao trước khi dự báo
+
+**Đáp án chính xác:** `A`
+
+### 1. ELI5 — Bản chất cốt lõi (Giải thích như cho em bé)
+👶 **Thuật ngữ mới: Lazy Learner (Người học lười).**
+Tưởng tượng một học sinh lười: Suốt cả học kỳ không chịu học bài gì cả (không học công thức hay trọng số $w, b$, độ phức tạp huấn luyện là $\mathcal{O}(1)$), chỉ mang toàn bộ cuốn sách giáo khoa vào phòng thi.
+Khi giám thị phát đề thi (có câu hỏi mới $x_q$), học sinh này mới cuống cuồng lật từng trang sách, đo khoảng cách đến tất cả các bài tập cũ để tìm ra $k$ bài giống nhất rồi chép đáp án theo số đông!
+Vì thế, k-NN ' lười lúc học nhưng cực khổ lúc thi ' (Inference tốn rất nhiều thời gian và bộ nhớ: $\mathcal{O}(N \cdot d)$).
+
+### 2. Công thức toán & Bước tính chi tiết (Step-by-Step)
+📐 Quy trình toán học của k-NN:
+1. Cho tập huấn luyện $D = \{(x_i, y_i)\}_{i=1}^N$. Không có quá trình tối ưu hóa $\min_w \mathcal{L}(w)$.
+2. Với điểm cần dự đoán $x_q$, tính khoảng cách Minkowski bậc $p$ đến tất cả $N$ điểm:
+$$D(x_q, x_i) = \left( \sum_{j=1}^d |x_{q, j} - x_{i, j}|^p \right)^{1/p}$$
+3. Chọn ra tập con $\mathcal{N}_k(x_q)$ gồm $k$ điểm có khoảng cách nhỏ nhất.
+4. Dự đoán bằng biểu quyết đa số (Majority Voting):
+$$\hat{y} = \arg\max_c \sum_{i \in \mathcal{N}_k(x_q)} \mathbb{I}(y_i = c)$$
+Chọn đáp án **A**.
+
+### 3. Bẫy đề thi & Tại sao các đáp án khác sai (Pitfalls)
+⚠️ **Phân tích bẫy:**
+- **Phương án B:** Mô tả các mô hình có tham số (Parametric Models như Perceptron, Logistic Regression).
+- **Phương án C:** Mô tả Kernel SVM.
+- **Phương án D:** k-NN chạy được trên mọi số chiều $d$, tuy nhiên khi $d$ quá lớn sẽ gặp ' Lời nguyền số chiều ' (Curse of Dimensionality).
+
+### 4. Mắt xích kiến thức & Liên hệ bài cũ
+📚 **Căn cứ lý thuyết:** Xem **§1.1 k-NN (k-Nearest Neighbors — Lazy Learner)**.
+🔗 Ngay ở câu tiếp theo **C02**, ta sẽ phân tích ảnh hưởng sống còn của siêu tham số $k$ trong k-NN!
+
+---
+
+### Câu 32 [OLP01-C02] — Phân hệ Module C (Thang điểm: 1.0đ)
+
+**Đề bài:** Trong thuật toán k-NN, siêu tham số $k$ (số lượng láng giềng gần nhất) ảnh hưởng như thế nào đến sự đánh đổi giữa Độ chệch (Bias) và Phương sai (Variance) của mô hình?
+
+- **A.** Khi k = 1, ranh giới phân chia rất phẳng mượt, mô hình rơi vào trạng thái Underfitting (High Bias) do bỏ sót các biến động cục bộ
+- **B.** Khi k nhỏ (k = 1), mô hình có ranh giới phân chia phức tạp, nhạy cảm với nhiễu dẫn đến Overfitting; khi k lớn (k -> N), ranh giới mượt dần và thiên vị lớp đa số dẫn đến Underfitting
+- **C.** Giá trị k càng lớn thì mô hình càng dễ bị Overfitting (High Variance) do phải ghi nhớ đồng thời cấu trúc phân phối của toàn bộ tập dữ liệu mẫu
+- **D.** Siêu tham số k hoàn toàn không ảnh hưởng đến độ phức tạp của ranh giới quyết định mà chỉ làm thay đổi tốc độ tính toán ma trận khoảng cách
+
+**Đáp án chính xác:** `B`
+
+### 1. ELI5 — Bản chất cốt lõi (Giải thích như cho em bé)
+👶 **Hình dung cho em bé:**
+- **Khi $k = 1$ (Hỏi đúng 1 người hàng xóm gần nhất):** Nếu người hàng xóm đó là một kẻ quậy phá (điểm nhiễu / outlier), bạn sẽ tin theo răm rắp! Ranh giới phân chia sẽ bị xé nhỏ ngoằn ngoèo, ôm sát từng điểm dữ liệu $\implies$ **Overfitting (Học vẹt, nhạy cảm với nhiễu)**.
+- **Khi $k$ rất lớn (Hỏi ý kiến cả làng $k \to N$):** Ý kiến của người gần bạn bị chìm nghỉm giữa đám đông. Cả làng có nhiều người thích màu gì thì bạn chọn màu đó $\implies$ Ranh giới phẳng lì, dự đoán theo lớp đa số $\implies$ **Underfitting (Quá đơn giản)**.
+
+### 2. Công thức toán & Bước tính chi tiết (Step-by-Step)
+📐 Phân tích Bias-Variance Tradeoff theo $k$:
+- $k \to 1$: Mô hình có độ phức tạp cao (High Model Complexity), sai số trên tập train bằng 0 ($Train\_Acc = 100\%$), nhưng phương sai rất lớn:
+$$\text{Var}[\hat{f}(x)] \text{ cao}, \quad \text{Bias}[\hat{f}(x)] \text{ thấp} \implies \text{Overfitting}$$
+- $k \to N$: Mô hình dự đoán nhãn cố định $\hat{y} = \arg\max_c N_c$ cho mọi điểm đầu vào:
+$$\text{Bias}[\hat{f}(x)] \text{ cao}, \quad \text{Var}[\hat{f}(x)] \text{ thấp} \implies \text{Underfitting}$$
+Do đó, ta luôn dùng Cross-Validation để tìm giá trị $k$ tối ưu ở vùng trũng của sai số kiểm định. Chọn **B**.
+
+### 3. Bẫy đề thi & Tại sao các đáp án khác sai (Pitfalls)
+⚠️ **Phân tích bẫy:**
+- **Phương án A & C:** Bị ngược hoàn toàn bản chất. Rất nhiều thí sinh nhầm tưởng $k$ lớn là nhớ nhiều nên overfit — thực tế $k$ lớn là lấy trung bình của nhiều người nên mô hình phẳng mượt và underfit!
+
+### 4. Mắt xích kiến thức & Liên hệ bài cũ
+📚 **Căn cứ lý thuyết:** Xem **§1.1 k-NN & §1.5 Bias-Variance Tradeoff**.
+🔗 **Liên hệ bài cũ:** Ở câu **C01**, ta đã biết k-NN lấy vote đa số của $k$ điểm láng giềng. Câu C02 khẳng định vai trò tối quan trọng của việc chọn $k$ phù hợp!
+
+---
+
+### Câu 33 [OLP01-C03] — Phân hệ Module C (Thang điểm: 1.0đ)
+
+**Đề bài:** Trong thuật toán Support Vector Machine (SVM) tuyến tính dạng lề cứng (Hard-margin), khoảng cách lề (Margin) giữa hai siêu phẳng hỗ trợ phân tách hai lớp dữ liệu được tính bằng công thức nào?
+
+- **A.** Margin = ||w|| / 2
+- **B.** $\text{Margin} = \frac{1}{\|w\|^2}$
+- **C.** Margin = 2 / ||w||
+- **D.** Margin = 2 ||w||
+
+**Đáp án chính xác:** `C`
+
+### 1. ELI5 — Bản chất cốt lõi (Giải thích như cho em bé)
+👶 **Hình dung cho em bé:**
+SVM giống như một người mở đường: Cần xây một con đường cao tốc ngăn cách giữa hai ngôi làng.
+Con đường cao tốc này phải có bề rộng lề (Margin) **càng rộng càng tốt** để xe cộ chạy an toàn không bị va chạm vào nhà dân hai bên.
+Khoảng cách an toàn này tỉ lệ nghịch với độ dài của vector pháp tuyến $w$: Bề rộng lề chính là $\frac{2}{\|w\|}$. Muốn lề to nhất, ta phải thu nhỏ $\|w\|$ lại!
+
+### 2. Công thức toán & Bước tính chi tiết (Step-by-Step)
+📐 Chứng minh toán học hình học:
+Hai siêu phẳng hỗ trợ đi qua các điểm Support Vectors của hai lớp được định nghĩa bởi:
+$$w^T x + b = +1 \quad \text{và} \quad w^T x + b = -1$$
+Vector pháp tuyến đơn vị vuông góc với hai siêu phẳng là $u = \frac{w}{\|w\|}$.
+Khoảng cách hình học giữa hai mặt phẳng song song này là hình chiếu của vector nối hai điểm trên hai mặt phẳng lên phương pháp tuyến:
+$$\text{Margin} = \frac{(w^T x_1 + b) - (w^T x_2 + b)}{\|w\|} = \frac{1 - (-1)}{\|w\|} = \frac{2}{\|w\|}$$
+Bài toán tối đa hóa lề $\max_w \frac{2}{\|w\|}$ tương đương với bài toán quy hoạch toàn phương lồi:
+$$\min_{w, b} \frac{1}{2} \|w\|^2 \quad \text{s.t.} \quad y_i(w^T x_i + b) \ge 1, \quad \forall i=1,\dots, N$$
+Chọn đáp án **C**.
+
+### 3. Bẫy đề thi & Tại sao các đáp án khác sai (Pitfalls)
+⚠️ **Phân tích bẫy:**
+- **Phương án A & D:** Đảo ngược vị trí của $\|w\|$ lên tử số. Nếu lề bằng $\|w\|/2$, khi tăng $\|w\|$ lên vô cùng lề sẽ to vô hạn $\implies$ Vô lý hình học.
+- **Phương án B:** Nhầm với hàm mục tiêu $\frac{1}{2}\|w\|^2$ trong bài toán tối ưu.
+
+### 4. Mắt xích kiến thức & Liên hệ bài cũ
+📚 **Căn cứ lý thuyết:** Xem **§1.2 Support Vector Machines (SVM)**.
+🔗 Khái niệm độ rộng lề $\frac{2}{\|w\|}$ là nền tảng để hiểu vì sao hàm mục tiêu SVM lại chứa số hạng $\frac{1}{2}\|w\|^2$ — chính là số hạng L2 Regularization (Weight Decay) mà ta sẽ gặp lại ở câu C10!
+
+---
+
+### Câu 34 [OLP01-C04] — Phân hệ Module C (Thang điểm: 1.0đ)
+
+**Đề bài:** Khi sử dụng SVM với hàm nhân RBF (Radial Basis Function Kernel), nếu siêu tham số $\gamma$ (Gamma) được thiết lập ở giá trị quá lớn, mô hình sẽ có xu hướng:
+
+- **A.** Ranh giới phân chia trở thành siêu phẳng tuyến tính đơn giản và mô hình rơi vào trạng thái Underfitting (High Bias)
+- **B.** Thuật toán tối ưu hàm lồi không thể hội tụ do ma trận Gram bị suy biến và mất tính chất nửa xác định dương
+- **C.** Khoảng cách lề phân cách (Margin) tăng lên mức tối đa và bao trùm toàn bộ không gian đặc trưng của tập dữ liệu
+- **D.** Ranh giới phân chia ôm sát cục bộ quanh từng điểm dữ liệu, dẫn đến Overfitting (High Variance)
+
+**Đáp án chính xác:** `D`
+
+### 1. ELI5 — Bản chất cốt lõi (Giải thích như cho em bé)
+👶 **Hình dung siêu tham số Gamma như ngọn núi lửa:**
+- Hàm RBF Kernel giống như việc bạn dựng một ngọn núi nhọn xung quanh mỗi điểm dữ liệu: $K(x, x ') = \exp(-\gamma \|x - x '\|^2)$.
+- **Khi Gamma rất nhỏ:** Chân núi thoai thoải và trải rộng khắp nơi, các ngọn núi hòa vào nhau thành một ngọn đồi mượt mà $\implies$ Mô hình phẳng mượt.
+- **Khi Gamma quá lớn:** Ngọn núi nhọn hoắt như cây kim và chỉ có bán kính ảnh hưởng cực kỳ hẹp. Mỗi điểm dữ liệu trở thành một chiếc gai nhọn riêng lẻ, mô hình chỉ chăm chăm nhớ từng điểm đơn lẻ $\implies$ **Overfitting (Học vẹt, ranh giới phức tạp)**!
+
+### 2. Công thức toán & Bước tính chi tiết (Step-by-Step)
+📐 Công thức RBF Kernel (Gaussian Kernel):
+$$K(x, x ') = \exp(-\gamma \|x - x '\|^2) = \exp\left(-\frac{\|x - x '\|^2}{2\sigma^2}\right), \quad \gamma = \frac{1}{2\sigma^2}$$
+- Khi $\gamma \to \infty$ (tương đương $\sigma \to 0$):
+$$K(x, x ') \to 0 \quad \text{với mọi } x \ne x ', \quad K(x, x) = 1$$
+Mỗi điểm dữ liệu huấn luyện chỉ tương tác với chính nó. Ma trận Kernel trở thành ma trận đơn vị $K \approx I$.
+Hàm quyết định $f(x) = \text{sign}\left(\sum_{i} \alpha_i y_i K(x_i, x) + b\right)$ sẽ tạo ra các ' hòn đảo ' cô lập quanh từng mẫu huấn luyện, gây ra hiện tượng **Overfitting trầm trọng**. Chọn **D**.
+
+### 3. Bẫy đề thi & Tại sao các đáp án khác sai (Pitfalls)
+⚠️ **Phân tích bẫy:**
+- **Phương án A:** Bị ngược. Khi Gamma rất NHỎ ($\gamma \to 0$), RBF Kernel mới gần như tuyến tính và gây Underfitting.
+
+### 4. Mắt xích kiến thức & Liên hệ bài cũ
+📚 **Căn cứ lý thuyết:** Xem **§1.2 Support Vector Machines & RBF Kernel**.
+🔗 **Mối liên hệ tương đồng:**
+- Trong k-NN (câu C02): $k$ nhỏ $\implies$ Overfitting.
+- Trong SVM RBF (câu C04): $\gamma$ lớn $\implies$ Overfitting.
+Cả hai đều cùng chung bản chất: Bán kính lân cận cục bộ bị thu hẹp quá mức!
+
+---
+
+### Câu 35 [OLP01-C05] — Phân hệ Module C (Thang điểm: 1.0đ)
+
+**Đề bài:** Trong thuật toán cây quyết định ID3 và lý thuyết thông tin Shannon, độ hỗn loạn thông tin (Entropy) của phân phối xác suất rời rạc $p = (p_1, \dots, p_C)$ được tính theo công thức nào và sử dụng logarit cơ số mấy?
+
+- **A.** $H(S) = -\sum_{i=1}^c p_i \log_2(p_i)$, sử dụng logarit cơ số 2 với đơn vị đo là bit (hoặc shannon)
+- **B.** $H(S) = \sum_{i=1}^c p_i \ln(p_i)$, sử dụng logarit tự nhiên với đơn vị là nat
+- **C.** $H(S) = 1 - \sum_{i=1}^c p_i^2$, sử dụng logarit cơ số 10
+- **D.** $H(S) = -\sum_{i=1}^c p_i^2 \log_2(p_i)$, sử dụng logarit cơ số 2
+
+**Đáp án chính xác:** `A`
+
+### 1. ELI5 — Bản chất cốt lõi (Giải thích như cho em bé)
+👶 **Vì sao lại là cơ số 2 và dấu trừ?**
+- Vì trong máy tính, mọi thông tin đều được mã hóa bằng nhị phân (0 và 1). Cơ số 2 giúp mỗi bit thông tin đo lường tương đương với một câu hỏi Đúng/Sai (Yes/No).
+- Do xác suất $p_i \le 1$ nên $\log_2(p_i)$ luôn là một số âm. Vì vậy Claude Shannon đã đặt thêm **dấu trừ ($-$)** ở phía trước để độ hỗn loạn Entropy luôn là một con số dương!
+
+### 2. Công thức toán & Bước tính chi tiết (Step-by-Step)
+📐 Định nghĩa chuẩn của Shannon Entropy:
+$$H(S) = - \sum_{i=1}^C p_i \log_2(p_i)$$
+Quy ước: Nếu $p_i = 0$ thì $0 \log_2(0) = \lim_{p \to 0^+} p \log_2(p) = 0$.
+- Đơn vị đo: **bit** (shannon) khi dùng $\log_2$; nếu dùng $\ln$ đơn vị là **nat**; nếu dùng $\log_{10}$ đơn vị là **hartley**.
+- Thuật toán cây quyết định ID3 và C4.5 chuẩn mực của Ross Quinlan sử dụng $\log_2$ (bit). Chọn **A**.
+
+### 3. Bẫy đề thi & Tại sao các đáp án khác sai (Pitfalls)
+⚠️ **Phân tích bẫy:**
+- **Phương án B:** Thiếu dấu trừ và dùng $\ln$ (thường dùng trong hàm Cross-Entropy của Deep Learning, không phải chuẩn ID3).
+- **Phương án C:** Đây là công thức của Gini Impurity trong thuật toán CART, không phải Entropy.
+- **Phương án D:** Thừa số hạng $p_i^2$.
+
+### 4. Mắt xích kiến thức & Liên hệ bài cũ
+📚 **Căn cứ lý thuyết:** Xem **§1.3 Cây quyết định & Shannon Entropy**.
+🔗 Chúng ta đã trực tiếp áp dụng công thức này để tính tay ở câu **B04** ($H = 1$ bit) và câu **B05** ($IG = 1$ bit)!
+
+---
+
+### Câu 36 [OLP01-C06] — Phân hệ Module C (Thang điểm: 1.0đ)
+
+**Đề bài:** Khi xây dựng cây quyết định (Decision Tree), tại mỗi nút phân chia, thuật toán ID3 lựa chọn thuộc tính nào để rẽ nhánh tiếp theo?
+
+- **A.** Thuộc tính có Số lượng giá trị rời rạc (Number of Distinct Values) lớn nhất để tạo ra số lượng nhánh con tối đa
+- **B.** Thuộc tính có Mức tăng thông tin (Information Gain — IG) lớn nhất để giảm độ bất định của phân phối nhãn
+- **C.** Thuộc tính có Tỷ lệ phân tách đồng đều (Split Information — SI) nhỏ nhất để cân bằng số lượng mẫu giữa các nhánh
+- **D.** Thuộc tính có Phương sai dữ liệu nhãn (Label Variance — LV) cực đại để phân tách ranh giới các cụm mẫu
+
+**Đáp án chính xác:** `B`
+
+### 1. ELI5 — Bản chất cốt lõi (Giải thích như cho em bé)
+👶 **Nguyên lý chia để trị thông minh:**
+Tưởng tượng bạn chơi trò đoán đồ vật bằng 20 câu hỏi Yes/No:
+Bạn sẽ luôn muốn đặt câu hỏi nào mà sau khi nghe câu trả lời, bạn **loại bỏ được nhiều phương án nhất** (giảm độ hoang mang nhiều nhất).
+Đó chính là câu hỏi có **Information Gain lớn nhất**! Thuật toán cây quyết định sẽ luôn ưu tiên thuộc tính này đặt lên đầu tiên để cây vừa ngắn vừa phân loại chuẩn nhất!
+
+### 2. Công thức toán & Bước tính chi tiết (Step-by-Step)
+📐 Tiêu chí lựa chọn thuộc tính tối ưu trong ID3:
+$$A^* = \arg\max_{A} IG(S, A) = \arg\max_{A} \left[ H(S) - \sum_{v \in \text{Values}(A)} \frac{|S_v|}{|S|} H(S_v) \right]$$
+Do $H(S)$ là hằng số đối với nút hiện tại, việc tối đa hóa $IG(S, A)$ tương đương với việc tối thiểu hóa Entropy còn lại của các nút con (Entropy sau phân chia càng gần 0 càng tốt). Chọn **B**.
+
+### 3. Bẫy đề thi & Tại sao các đáp án khác sai (Pitfalls)
+⚠️ **Phân tích bẫy:**
+- **Phương án A:** Đây chính là nhược điểm chí mạng của ID3 (thiên vị các thuộc tính có quá nhiều giá trị như ID khách hàng), làm cây bị overfit. Thuật toán C4.5 sau này đã sửa bằng cách dùng Gain Ratio.
+
+### 4. Mắt xích kiến thức & Liên hệ bài cũ
+📚 **Căn cứ lý thuyết:** Xem **§1.3 Cây quyết định & Information Gain**.
+🔗 Liên hệ trực tiếp với bài tập tính tay ở câu **B05**, nơi ta đã chứng minh thuộc tính có $IG = 1$ bit là sự lựa chọn tối ưu tuyệt đối!
+
+---
+
+### Câu 37 [OLP01-C07] — Phân hệ Module C (Thang điểm: 1.0đ)
+
+**Đề bài:** Một kỹ sư AI huấn luyện mô hình phân loại ảnh và ghi nhận kết quả: Độ chính xác trên tập Train đạt 99.2%, nhưng độ chính xác trên tập Validation chỉ đạt 70.1% (chênh lệch tới gần 29%). Hiện tượng này là triệu chứng rõ rệt của vấn đề gì và giải pháp khắc phục là gì?
+
+- **A.** Mô hình bị Underfitting (High Bias); giải pháp là tăng số lượng tầng ẩn và mở rộng dung lượng tham số của mạng nơ-ron
+- **B.** Dữ liệu huấn luyện quá sạch; giải pháp là chèn thêm 30% nhãn nhiễu ngẫu nhiên vào tập huấn luyện để làm phẳng phân phối
+- **C.** Mô hình bị Overfitting (High Variance); giải pháp là tăng cường dữ liệu (Data Augmentation), áp dụng Regularization (L1/L2, Dropout), và Early Stopping
+- **D.** Hiện tượng hội tụ tự nhiên bình thường; giải pháp là tiếp tục tăng số epoch huấn luyện lên gấp đôi với learning rate giữ nguyên
+
+**Đáp án chính xác:** `C`
+
+### 1. ELI5 — Bản chất cốt lõi (Giải thích như cho em bé)
+👶 **Bệnh ' Học vẹt ' (Overfitting):**
+- Học sinh làm bài tập ở nhà (tập Train) được 99 điểm vì chép thuộc lòng đáp án từng câu hỏi trong đề cương.
+- Nhưng khi vào phòng thi gặp bài kiểm tra mới (tập Validation), học sinh này chỉ được 70 điểm vì không hiểu bản chất!
+Khoảng cách chênh lệch khổng lồ giữa Train (99%) và Val (70%) chính là bằng chứng tố cáo mô hình đang **Học vẹt (Overfitting)**!
+
+### 2. Công thức toán & Bước tính chi tiết (Step-by-Step)
+📐 Phân rã sai số kỳ vọng:
+$$\text{Generalization Error} = \text{Validation Loss} - \text{Train Loss}$$
+Khi Generalization Error lớn và $\text{Train Loss} \to 0$, mô hình có Phương sai cao (High Variance): Mô hình ghi nhớ cả các nhiễu ngẫu nhiên trong tập train.
+Các giải pháp kỹ thuật đã được chứng minh hiệu quả:
+1. **Thu hẹp không gian trọng số:** Thêm phạt $\lambda \|w\|_2^2$ (L2 Regularization / Weight Decay) hoặc Dropout.
+2. **Mở rộng dữ liệu:** Data Augmentation (xoay, lật, cắt ảnh), thu thập thêm dữ liệu thật.
+3. **Cắt ngang quá trình học:** Early Stopping (dừng train khi Val Loss bắt đầu tăng). Chọn **C**.
+
+### 3. Bẫy đề thi & Tại sao các đáp án khác sai (Pitfalls)
+⚠️ **Phân tích bẫy:**
+- **Phương án A:** Underfitting là khi cả Train Acc và Val Acc đều thấp (ví dụ Train 65%, Val 60%).
+
+### 4. Mắt xích kiến thức & Liên hệ bài cũ
+📚 **Căn cứ lý thuyết:** Xem **§1.5 Overfitting, Underfitting & Bias-Variance Tradeoff**.
+🔗 Ở câu **C08**, **C09**, **C10** tiếp theo, ta sẽ đi sâu vào các công cụ mạnh mẽ nhất để triệt tiêu căn bệnh Overfitting này!
+
+---
+
+### Câu 38 [OLP01-C08] — Phân hệ Module C (Thang điểm: 1.0đ)
+
+**Đề bài:** Khi đánh giá hiệu năng mô hình trên tập dữ liệu phân loại có mất cân bằng lớp nghiêm trọng (Imbalanced Data), kỹ thuật Cross-Validation nào là BẮT BUỘC phải áp dụng?
+
+- **A.** K-Fold ngẫu nhiên thông thường (Standard K-Fold)
+- **B.** Leave-One-Out Cross-Validation (LOOCV)
+- **C.** Chỉ chia một lần Train/Val ngẫu nhiên không cần lặp
+- **D.** Stratified K-Fold Cross-Validation (K-Fold phân tầng)
+
+**Đáp án chính xác:** `D`
+
+### 1. ELI5 — Bản chất cốt lõi (Giải thích như cho em bé)
+👶 **Vì sao K-Fold thường bị hỏng khi gặp dữ liệu lệch?**
+Giả sử bài toán phát hiện gian lận chỉ có 1% mẫu gian lận.
+Nếu dùng K-Fold ngẫu nhiên chia thành 10 phần: Rất có thể Fold số 1 không có một mẫu gian lận nào, trong khi Fold số 5 lại chứa hết cả đám! Kết quả chấm điểm sẽ nhảy lung tung và không đáng tin cậy.
+**Stratified K-Fold (Phân tầng):** Bắt buộc mỗi Fold đều phải giữ nguyên tỉ lệ chính xác 1% gian lận và 99% bình thường, giúp bài thi thử phản ánh trung thực năng lực của mô hình!
+
+### 2. Công thức toán & Bước tính chi tiết (Step-by-Step)
+📐 Nguyên lý chia mẫu phân tầng:
+Cho tập dữ liệu $D$ với $C$ lớp, tỉ lệ mỗi lớp là $p_c = \frac{N_c}{N}$.
+Stratified K-Fold phân chia $D$ thành $K$ tập con không giao nhau $D_1, \dots, D_K$ sao cho trong mỗi fold $D_k$:
+$$\frac{|D_k \cap \text{Class } c|}{|D_k|} = p_c \pm \epsilon, \quad \forall c \in \{1, \dots, C\}$$
+Chọn đáp án **D**.
+
+### 3. Bẫy đề thi & Tại sao các đáp án khác sai (Pitfalls)
+⚠️ **Phân tích bẫy:**
+- **Phương án A:** Standard K-Fold không đảm bảo tỉ lệ lớp, rất dễ làm mất hoàn toàn lớp thiểu số trong tập kiểm định.
+- **Phương án B:** LOOCV có chi phí tính toán cực kỳ đắt đỏ (huấn luyện $N$ lần) và phương sai kiểm định rất lớn.
+
+### 4. Mắt xích kiến thức & Liên hệ bài cũ
+📚 **Căn cứ lý thuyết:** Xem **§1.5 K-Fold Cross-Validation & §5.6 Chiến lược lấy mẫu**.
+🔗 **Mối liên hệ mật thiết:** Ở câu **A11**, ta đã biết Stratified Sampling khi chia tập đơn. Đến câu **C08**, kỹ thuật này được nâng cấp thành quy trình kiểm định chéo $K$ lần hoàn chỉnh!
+
+---
+
+### Câu 39 [OLP01-C09] — Phân hệ Module C (Thang điểm: 1.0đ)
+
+**Đề bài:** Điểm khác biệt cốt lõi về mặt toán học và ứng dụng của kỹ thuật điều chuẩn L1 Regularization (Lasso) so với L2 Regularization (Ridge) là gì?
+
+- **A.** L1 ép nhiều trọng số w về đúng bằng 0, tạo mô hình thưa (Sparsity) và thực hiện chọn lọc đặc trưng tự động (Feature Selection)
+- **B.** L1 giữ lại toàn bộ đặc trưng mô hình (Full Representation) và chỉ thu nhỏ đồng đều độ lớn tuyệt đối của toàn bộ vector trọng số
+- **C.** L1 không kiểm soát hiện tượng quá khớp (Overfitting Reduction) mà chỉ đóng vai trò tăng tốc độ hội tụ của các thuật toán Gradient
+- **D.** L1 chỉ dùng cho bài toán phân loại nhị phân (Binary Tasks) sử dụng hàm mất mát Hinge Loss chứ không dùng được cho bài toán hồi quy
+
+**Đáp án chính xác:** `A`
+
+### 1. ELI5 — Bản chất cốt lõi (Giải thích như cho em bé)
+👶 **Hình dung cho em bé:**
+- **L2 (Ridge - Người hòa giải):** Giống như bắt tất cả các nơ-ron phải cùng nhau giảm bớt cân nặng, các trọng số nhỏ đều về gần 0 nhưng **không bao giờ biến mất hoàn toàn**.
+- **L1 (Lasso - Lưỡi gươm dứt khoát):** Giống như một cuộc thanh lọc: Trọng số nào không thực sự quan trọng sẽ bị chém đứt **về chính xác số 0**!
+Nhờ vậy, L1 giúp ta tự động vứt bỏ các cột dữ liệu thừa thãi, chỉ giữ lại những đặc trưng tinh túy nhất (**Chọn lọc đặc trưng tự động**)!
+
+### 2. Công thức toán & Bước tính chi tiết (Step-by-Step)
+📐 So sánh toán học hàm mất mát:
+$$\mathcal{L}_{\text{L1}}(w) = \mathcal{L}_0(w) + \lambda \sum_{j=1}^d |w_j|$$
+$$\mathcal{L}_{\text{L2}}(w) = \mathcal{L}_0(w) + \frac{\lambda}{2} \sum_{j=1}^d w_j^2$$
+- Dưới góc nhìn hình học: Đường đẳng mức của chuẩn $L_1$ là hình thoi có các góc nhọn nằm ngay trên các trục tọa độ. Khi elip hàm loss $\mathcal{L}_0$ tiếp xúc với hình thoi, điểm tiếp xúc tối ưu hầu như luôn rơi vào các góc nhọn trên trục tọa độ, nơi các tọa độ khác có $w_j = 0$ tuyệt đối.
+- Dưới góc nhìn Bayes (câu A08): L1 tương đương tiên nghiệm Laplace Prior (phân phối có đỉnh nhọn tại 0). Chọn **A**.
+
+### 3. Bẫy đề thi & Tại sao các đáp án khác sai (Pitfalls)
+⚠️ **Phân tích bẫy:**
+- **Phương án B:** Mô tả đặc tính của L2 Ridge, không phải L1.
+
+### 4. Mắt xích kiến thức & Liên hệ bài cũ
+📚 **Căn cứ lý thuyết:** Xem **§1.6 Regularization L1 vs L2**.
+🔗 Ngay ở câu tiếp theo **C10**, ta sẽ đối chiếu với ưu thế vượt trội của L2 Ridge khi dữ liệu có hiện tượng đa cộng tuyến!
+
+---
+
+### Câu 40 [OLP01-C10] — Phân hệ Module C (Thang điểm: 1.0đ)
+
+**Đề bài:** Trong trường hợp tập dữ liệu chứa nhiều đặc trưng có độ tương quan tuyến tính rất cao với nhau (hiện tượng Đa cộng tuyến — Multicollinearity), kỹ thuật L2 Regularization (Ridge) thường được ưu tiên hơn L1 (Lasso) vì lý do gì?
+
+- **A.** Vì L1 sẽ chọn ngẫu nhiên 1 đặc trưng và loại bỏ các đặc trưng còn lại một cách không ổn định, trong khi L2 co đều các hệ số trọng số và luôn đảm bảo ma trận $(X^T X + \lambda I)$ khả nghịch
+- **B.** Vì L2 tính toán không cần ma trận
+- **C.** Vì L2 luôn đưa toàn bộ trọng số về chính xác bằng 0
+- **D.** Vì L2 không cần siêu tham số lambda
+
+**Đáp án chính xác:** `B`
+
+### 1. ELI5 — Bản chất cốt lõi (Giải thích như cho em bé)
+👶 **Hình dung cho em bé:**
+Tưởng tượng có 3 người bạn làm việc nhóm hệt như nhau (3 đặc trưng tương quan mạnh):
+- **L1 Lasso:** Sẽ bốc thăm ngẫu nhiên chọn 1 người và sa thải 2 người còn lại. Lần sau chạy lại có thể nó lại chọn người khác $\implies$ Kết quả rất bất ổn định!
+- **L2 Ridge:** Chia đều trách nhiệm cho cả 3 người, hạ bớt gánh nặng của mỗi người xuống một chút để cùng nhau gánh vác $\implies$ Mô hình rất ổn định và bền vững!
+
+### 2. Công thức toán & Bước tính chi tiết (Step-by-Step)
+📐 Nghiệm giải tích của Ridge Regression:
+Khi có đa cộng tuyến, ma trận Gram $\mathbf{X}^T \mathbf{X}$ bị suy biến (Singular) hoặc gần suy biến, định thức $\approx 0$ khiến nghịch đảo $(\mathbf{X}^T \mathbf{X})^{-1}$ phát nổ phương sai.
+Với L2 Regularization:
+$$\hat{\mathbf{w}}_{\text{Ridge}} = (\mathbf{X}^T \mathbf{X} + \lambda \mathbf{I})^{-1} \mathbf{X}^T \mathbf{y}$$
+Do $\lambda > 0$, ma trận $\mathbf{X}^T \mathbf{X} + \lambda \mathbf{I}$ luôn luôn **xác định dương (Positive Definite)** và đảm bảo khả nghịch 100%, triệt tiêu hoàn toàn sự bấp bênh của đa cộng tuyến. Chọn **A**.
+
+### 3. Bẫy đề thi & Tại sao các đáp án khác sai (Pitfalls)
+⚠️ **Phân tích bẫy:**
+- **Phương án C:** Ép trọng số về 0 là tính chất của L1 (câu C09).
+
+### 4. Mắt xích kiến thức & Liên hệ bài cũ
+📚 **Căn cứ lý thuyết:** Xem **§1.6 Regularization L1 vs L2**.
+🔗 **Cặp bài trùng L1 vs L2:**
+- Câu C09: Khi cần loại bỏ biến thừa $\implies$ Dùng L1 Lasso (Sparse).
+- Câu C10: Khi các biến dính líu tương quan $\implies$ Dùng L2 Ridge (Weight Decay).
+Khi muốn cả hai: Dùng **ElasticNet** (kết hợp cả L1 và L2)!
+
+---
+
+### Câu 41 [OLP01-C11] — Phân hệ Module C (Thang điểm: 1.0đ)
+
+**Đề bài:** Vì sao thuật toán tối ưu hóa Adam (Adaptive Moment Estimation) thường được coi là thuật toán tối ưu mặc định đầu tiên khi huấn luyện các mô hình Deep Learning hiện đại?
+
+- **A.** Vì Adam luôn luôn đảm bảo tìm ra điểm cực tiểu toàn cục duy nhất (Global Minimum) ngay cả với các hàm mất mát không lồi phức tạp
+- **B.** Vì Adam không cần tính toán gradient bậc một mà ước lượng hướng tối ưu thuần túy dựa trên các phép xấp xỉ sai phân hữu hạn
+- **C.** Vì Adam kết hợp ưu điểm của Momentum (quán tính) và RMSprop (tốc độ học thích ứng theo từng tham số), hội tụ nhanh và ít phụ thuộc vào việc tinh chỉnh learning rate ban đầu
+- **D.** Vì Adam tiêu tốn ít dung lượng bộ nhớ VRAM hơn thuật toán SGD thuần nhờ loại bỏ hoàn toàn các biến trạng thái trung gian
+
+**Đáp án chính xác:** `C`
+
+### 1. ELI5 — Bản chất cốt lõi (Giải thích như cho em bé)
+👶 **Adam = Hòn đá lăn có trớn (Momentum) + Chiếc phanh thông minh (RMSprop):**
+- **Momentum (Moment bậc 1):** Giống như hòn đá lăn xuống dốc, có trớn đẩy nó vượt qua những ổ gà gập ghềnh (cực tiểu địa phương) mà không bị kẹt lại.
+- **RMSprop (Moment bậc 2):** Đo độ dốc của từng bánh xe. Tham số nào có độ dốc quá lớn thì phanh chậm lại, tham số nào độ dốc phẳng lì thì nhấn ga chạy nhanh hơn (Learning rate thích ứng riêng cho từng nơ-ron).
+Nhờ kết hợp cả hai, Adam leo đèo lội suối rất nhanh và bạn không cần phải tốn công vất vả dò tìm Learning rate!
+
+### 2. Công thức toán & Bước tính chi tiết (Step-by-Step)
+📐 Các bước cập nhật của Adam:
+1. Moment bậc 1 (Trung bình động gradient có quán tính):
+$$m_t = \beta_1 m_{t-1} + (1 - \beta_1) g_t$$
+2. Moment bậc 2 (Trung bình động bình phương gradient):
+$$v_t = \beta_2 v_{t-1} + (1 - \beta_2) g_t^2$$
+3. Hiệu chỉnh độ lệch ban đầu (Bias correction):
+$$\hat{m}_t = \frac{m_t}{1 - \beta_1^t}, \quad \hat{v}_t = \frac{v_t}{1 - \beta_2^t}$$
+4. Cập nhật tham số:
+$$\theta_t = \theta_{t-1} - \frac{\eta}{\sqrt{\hat{v}_t} + \epsilon} \hat{m}_t$$
+Giá trị mặc định chuẩn: $\beta_1 = 0.9, \beta_2 = 0.999, \epsilon = 10^{-8}$. Chọn **C**.
+
+### 3. Bẫy đề thi & Tại sao các đáp án khác sai (Pitfalls)
+⚠️ **Phân tích bẫy:**
+- **Phương án A:** Mạng nơ-ron sâu là bài toán tối ưu phi lồi (Non-convex), không thuật toán nào cam kết tìm được cực tiểu toàn cục.
+- **Phương án D:** Adam tốn bộ nhớ gấp 3 lần SGD thuần vì phải lưu thêm 2 tensor $m_t$ và $v_t$ cho từng tham số.
+
+### 4. Mắt xích kiến thức & Liên hệ bài cũ
+📚 **Căn cứ lý thuyết:** Xem **§2.5 Các thuật toán tối ưu hóa (Optimizers)**.
+🔗 Trong huấn luyện Transformer hiện đại, biến thể **AdamW** (Adam kèm Weight Decay tách rời) là chuẩn mực số 1 thế giới!
+
+---
+
+### Câu 42 [OLP01-C12] — Phân hệ Module C (Thang điểm: 1.0đ)
+
+**Đề bài:** Trong các chiến lược điều chỉnh tốc độ học (Learning Rate Scheduling) hiện đại cho Transformer và ResNet, chiến lược nào được coi là chuẩn mực tối ưu nhất?
+
+- **A.** Khởi đầu bằng learning rate cực lớn và tiếp tục tăng tuyến tính theo từng epoch để vượt qua các rào cản thế năng cực tiểu địa phương
+- **B.** Giữ learning rate cố định ở mức siêu nhỏ (1e-6) từ đầu đến cuối để tránh hoàn toàn hiện tượng dao động gradient quanh điểm hội tụ
+- **C.** Thay đổi learning rate ngẫu nhiên sau mỗi mini-batch theo phân phối đều để tăng cường khả năng khám phá không gian tham số
+- **D.** Sử dụng giai đoạn khởi động làm ấm (Warmup: tăng tuyến tính từ 0 lên cực đại) kết hợp với suy giảm dần theo hàm Cosine (Cosine Annealing Decay)
+
+**Đáp án chính xác:** `D`
+
+### 1. ELI5 — Bản chất cốt lõi (Giải thích như cho em bé)
+👶 **Chiến lược lái xe chuyên nghiệp:**
+1. **Giai đoạn khởi động (Warmup):** Khi mô hình mới xuất phát, các trọng số còn hỗn loạn. Nếu đạp ga hết cỡ ngay lập tức, xe sẽ bị lật bánh (gradient phát nổ). Ta phải khởi động từ từ, tăng nhẹ ga từ 0 lên tốc độ tối đa trong vài vòng đầu.
+2. **Giai đoạn hạ ga (Cosine Decay):** Khi xe đã gần đến đích (mô hình đã học được các nét cơ bản), ta từ từ nhả chân ga nhẹ nhàng theo hình sóng êm ái (Cosine) để xe đỗ vừa khít vào điểm đỗ tối ưu nhất mà không bị vọt lố qua đà!
+
+### 2. Công thức toán & Bước tính chi tiết (Step-by-Step)
+📐 Công thức Cosine Decay with Linear Warmup:
+1. Khi $t \le T_{\text{warmup}}$:
+$$\eta_t = \eta_{\text{max}} \cdot \frac{t}{T_{\text{warmup}}}$$
+2. Khi $T_{\text{warmup}} < t \le T_{\text{total}}$:
+$$\eta_t = \eta_{\text{min}} + \frac{1}{2} (\eta_{\text{max}} - \eta_{\text{min}}) \left(1 + \cos\left(\pi \frac{t - T_{\text{warmup}}}{T_{\text{total}} - T_{\text{warmup}}}\right)\right)$$
+Chiến lược này giúp mô hình ổn định tuyệt đối ở giai đoạn đầu và đạt độ hội tụ cực tiểu sâu nhất ở giai đoạn cuối. Chọn **D**.
+
+### 3. Bẫy đề thi & Tại sao các đáp án khác sai (Pitfalls)
+⚠️ **Phân tích bẫy:**
+- **Phương án A:** Làm mô hình phát nổ gradient (Divergence / NaN).
+- **Phương án B:** Học quá chậm, dễ bị mắc kẹt ở điểm yên ngựa (Saddle point).
+
+### 4. Mắt xích kiến thức & Liên hệ bài cũ
+📚 **Căn cứ lý thuyết:** Xem **§2.6 Kỹ thuật điều chỉnh Learning Rate**.
+🔗 Chiến lược Linear Warmup + Cosine Annealing là cấu hình mặc định trong bài báo gốc của Vision Transformer (ViT), BERT, GPT-3, và LLaMA!
+
+---
+
+### Câu 43 [OLP01-C13] — Phân hệ Module C (Thang điểm: 1.0đ)
+
+**Đề bài:** Kiến trúc mạng tích chập kinh điển VGGNet (Simonyan & Zisserman, 2014) nổi tiếng với nguyên lý thiết kế đột phá nào sau đây?
+
+- **A.** Thay thế các kernel tích chập kích thước lớn (như 5x5, 7x7) bằng việc xếp chồng nhiều tầng tích chập nhỏ 3x3 liên tiếp
+- **B.** Chỉ sử dụng duy nhất các kernel kích thước 11x11 ở mọi tầng tích chập để bao quát trường tiếp nhận (Receptive Field) cực đại
+- **C.** Sử dụng đường tắt Residual Connection bỏ qua các tầng nơ-ron để triệt tiêu hiện tượng suy thoái hiệu năng khi mạng quá sâu
+- **D.** Sử dụng cơ chế Self-Attention thay cho toàn bộ các lớp tích chập nhằm mô hình hóa tương quan ngữ cảnh toàn cục không gian
+
+**Đáp án chính xác:** `A`
+
+### 1. ELI5 — Bản chất cốt lõi (Giải thích như cho em bé)
+👶 **Phép thuật của việc ghép hai chiếc kính nhỏ 3x3:**
+Thay vì dùng một chiếc kính lúp cồng kềnh $5 \times 5$:
+VGG xếp chồng **hai chiếc kính nhỏ $3 \times 3$ liên tiếp**:
+- Cả hai cách đều có cùng tầm nhìn (Vùng tiếp nhận Receptive Field) bằng đúng $5 \times 5$!
+- Nhưng hai chiếc kính $3 \times 3$ chỉ tốn $2 \times (3 \times 3) = 18$ trọng số, trong khi chiếc kính $5 \times 5$ tốn tận $25$ trọng số (tiết kiệm $28\%$ phép tính).
+- Hơn thế nữa, giữa 2 tầng $3 \times 3$ ta được chèn thêm một hàm kích hoạt ReLU, giúp mô hình học được nhiều đường cong phi tuyến phức tạp hơn!
+
+### 2. Công thức toán & Bước tính chi tiết (Step-by-Step)
+📐 Chứng minh toán học:
+1. **Receptive Field (RF):**
+$$\text{RF}_2 = \text{RF}_1 + (K_2 - 1) = 3 + (3 - 1) = 5$$
+Hai lớp Conv $3 \times 3$ tương đương một lớp Conv $5 \times 5$. Ba lớp Conv $3 \times 3$ tương đương một lớp Conv $7 \times 7$.
+2. **Số lượng tham số (với $C$ kênh):**
+- Một lớp $7 \times 7$: $7^2 \cdot C^2 = 49 C^2$.
+- Ba lớp $3 \times 3$: $3 \cdot (3^2 \cdot C^2) = 27 C^2$ (giảm tới $45\%$ tham số).
+Chọn đáp án **A**.
+
+### 3. Bẫy đề thi & Tại sao các đáp án khác sai (Pitfalls)
+⚠️ **Phân tích bẫy:**
+- **Phương án B:** Kernel $11 \times 11$ là đặc trưng của AlexNet (tầng 1).
+- **Phương án C:** Residual Connection là của ResNet (2015).
+- **Phương án D:** Self-Attention là của Vision Transformer (ViT, 2020).
+
+### 4. Mắt xích kiến thức & Liên hệ bài cũ
+📚 **Căn cứ lý thuyết:** Xem **§3.3 Lịch sử các kiến trúc CNN kinh điển**.
+🔗 Nhờ nguyên lý xếp chồng $3 \times 3$ này, ta đã tính toán kích thước đầu ra $32 \times 32$ rất dễ dàng ở câu **B01**!
+
+---
+
+### Câu 44 [OLP01-C14] — Phân hệ Module C (Thang điểm: 1.0đ)
+
+**Đề bài:** Điểm khác biệt cốt lõi giữa kết nối tắt (Skip Connection) trong kiến trúc ResNet so với U-Net là gì?
+
+- **A.** ResNet sử dụng phép nối chuỗi (Concatenation) dọc theo trục kênh; U-Net sử dụng phép cộng phần tử (Element-wise Addition) để bảo toàn kích thước kênh
+- **B.** ResNet sử dụng phép cộng phần tử (Element-wise Addition) bảo toàn số kênh; U-Net sử dụng phép nối chuỗi (Concatenation) ghép kênh từ Encoder sang Decoder
+- **C.** ResNet sử dụng tích vô hướng ma trận (Dot-Product Attention) đa đầu; U-Net sử dụng phép tích chập nhóm sâu (Depthwise Convolution) kết hợp kích hoạt
+- **D.** ResNet sử dụng phép nhân từng phần tử (Hadamard Product) giữa tensor; U-Net sử dụng kết nối tắt tuần tự (Sequential Highway Connection) truyền thẳng
+
+**Đáp án chính xác:** `B`
+
+### 1. ELI5 — Bản chất cốt lõi (Giải thích như cho em bé)
+👶 **Phép Cộng (Add) vs Phép Ghép (Concat):**
+- **ResNet (Phép Cộng):** Giống như bạn lấy 2 tờ giấy trong suốt vẽ cùng kích thước đặt đè lên nhau rồi cộng nét lại ($F(x) + x$). Kích thước và số lượng kênh không hề thay đổi, siêu nhẹ nhàng và giúp đạo hàm trôi tuột về các tầng trước mà không bị chặn lại!
+- **U-Net (Phép Ghép):** Giống như bạn lấy cả chồng giấy bản đồ chi tiết của bên Encoder đem dán dính cạnh vào chồng giấy của Decoder ($torch.cat([x_1, x_2], dim=1)$). Số lượng kênh sẽ bị tăng gấp đôi!
+
+### 2. Công thức toán & Bước tính chi tiết (Step-by-Step)
+📐 So sánh hai cơ chế:
+1. **ResNet Residual Block (He et al., 2015):**
+$$y = \mathcal{F}(x, \{W_i\}) + x$$
+Phép cộng phần tử `torch.add(F_x, x)` yêu cầu $\mathcal{F}(x)$ và $x$ phải có cùng số kênh và cùng kích thước không gian.
+Đạo hàm lan truyền ngược:
+$$\frac{\partial \mathcal{E}}{\partial x} = \frac{\partial \mathcal{E}}{\partial y} \left( \frac{\partial \mathcal{F}}{\partial x} + 1 \right)$$
+Số hạng $+1$ bảo đảm gradient không bao giờ bị triệt tiêu về 0!
+2. **U-Net Skip Connection (Ronneberger et al., 2015):**
+$$y = [\mathcal{F}_{\text{encoder}}, \mathcal{F}_{\text{decoder}}]$$
+Phép nối kênh `torch.cat([feat_enc, feat_dec], dim=1)` giúp Decoder khôi phục lại các chi tiết không gian sắc nét của ảnh gốc. Chọn **B**.
+
+### 3. Bẫy đề thi & Tại sao các đáp án khác sai (Pitfalls)
+⚠️ **Phân tích bẫy:**
+- **Phương án A:** Bị đảo ngược vị trí giữa ResNet và U-Net.
+
+### 4. Mắt xích kiến thức & Liên hệ bài cũ
+📚 **Căn cứ lý thuyết:** Xem **§3.3 ResNet & §3.4 U-Net Segmentation**.
+🔗 Ta sẽ tiếp tục gặp lại câu hỏi chuyên sâu về U-Net ở câu **C23**!
+
+---
+
+### Câu 45 [OLP01-C15] — Phân hệ Module C (Thang điểm: 1.0đ)
+
+**Đề bài:** Thuật toán Triệt tiêu Phi cực đại (Non-Maximum Suppression — NMS) đóng vai trò gì trong giai đoạn hậu xử lý (Post-processing) của các mô hình phát hiện vật thể (Object Detection như YOLO, Faster R-CNN)?
+
+- **A.** Mở rộng kích thước tất cả các bounding box (Box Dilation) để bao trọn vùng ngữ cảnh xung quanh đối tượng cần phát hiện
+- **B.** Tính toán hàm mất mát hồi quy tọa độ (Bounding Box Loss) kết hợp chuẩn hóa ma trận hiệp phương sai của anchor box
+- **C.** Lọc bỏ các bounding box bị trùng lặp xung quanh cùng một vật thể, chỉ giữ lại chiếc hộp có điểm tin cậy (Confidence Score) cao nhất
+- **D.** Nội suy spline đa thức giữa các bounding box lân cận để tăng độ mịn tọa độ trước khi đưa vào hàm kích hoạt Softmax
+
+**Đáp án chính xác:** `C`
+
+### 1. ELI5 — Bản chất cốt lõi (Giải thích như cho em bé)
+👶 **Hình dung cho em bé:**
+Khi nhìn một chú chó trong ảnh, mô hình AI quá hăng hái nên đã vẽ ra **hàng chục chiếc khung chữ nhật** đè chằng chịt lên cùng chú chó đó!
+Nếu để nguyên thì bức ảnh trông sẽ như một mớ mạng nhện.
+**Thuật toán NMS** đóng vai trò như trọng tài:
+1. Tìm chiếc khung đẹp nhất, có điểm tin cậy cao nhất của chú chó.
+2. Quét tất cả các chiếc khung xung quanh: Khung nào đè trùng lên chiếc khung đẹp nhất này (có $IoU \ge 0.5$, như câu B06) thì **xóa sổ ngay lập tức**!
+Kết quả: Mỗi chú chó chỉ còn lại duy nhất một chiếc khung chuẩn nhất!
+
+### 2. Công thức toán & Bước tính chi tiết (Step-by-Step)
+📐 Quy trình thuật toán NMS:
+1. Đầu vào: Tập các hộp $\mathcal{B} = \{b_1, \dots, b_m\}$ kèm điểm số tương ứng $\mathcal{S} = \{s_1, \dots, s_m\}$, ngưỡng $\text{IoU}_{\text{thresh}}$ (thường là $0.45 - 0.5$).
+2. Khởi tạo tập kết quả giữ lại $\mathcal{D} = \emptyset$.
+3. Trong khi $\mathcal{B} \ne \emptyset$:
+   - Chọn hộp $m = \arg\max s_i$ trong $\mathcal{B}$.
+   - Đưa $m$ vào $\mathcal{D}$, xóa $m$ khỏi $\mathcal{B}$.
+   - Với mọi hộp $b_i \in \mathcal{B}$: Nếu $\text{IoU}(m, b_i) \ge \text{IoU}_{\text{thresh}}$, xóa $b_i$ khỏi $\mathcal{B}$.
+4. Trả về tập các hộp tối ưu $\mathcal{D}$. Chọn **C**.
+
+### 3. Bẫy đề thi & Tại sao các đáp án khác sai (Pitfalls)
+⚠️ **Phân tích bẫy:**
+- NMS là bước hậu xử lý (Inference time post-processing), không tham gia vào quá trình tính Loss hay backprop.
+
+### 4. Mắt xích kiến thức & Liên hệ bài cũ
+📚 **Căn cứ lý thuyết:** Xem **§3.6 Phát hiện vật thể & Thuật toán NMS**.
+🔗 NMS sử dụng trực tiếp công thức tính **IoU** mà ta đã thực hành tính tay ở câu **B06**!
+
+---
+
+### Câu 46 [OLP01-C16] — Phân hệ Module C (Thang điểm: 1.0đ)
+
+**Đề bài:** So sánh đúng đắn nhất giữa hai họ mô hình phát hiện vật thể: 1-stage detector (như YOLO, SSD) và 2-stage detector (như Faster R-CNN) là gì?
+
+- **A.** 1-stage detector (YOLO) chỉ trích xuất đặc trưng đa tỉ lệ qua FPN; 2-stage detector (Faster R-CNN) quét trực tiếp ảnh thô không cần backbone
+- **B.** 1-stage detector (YOLO) tối ưu hóa độ chính xác phát hiện vật thể nhỏ; 2-stage detector (Faster R-CNN) tối ưu tốc độ suy luận thời gian thực
+- **C.** 1-stage detector (YOLO) chỉ phân loại mà không hồi quy tọa độ; 2-stage detector (Faster R-CNN) chỉ hồi quy tọa độ mà không phân loại nhãn lớp
+- **D.** 1-stage detector (YOLO) dự đoán trực tiếp tọa độ và lớp trong 1 lần quét; 2-stage detector (Faster R-CNN) đề xuất vùng (RPN) trước rồi mới phân loại
+
+**Đáp án chính xác:** `D`
+
+### 1. ELI5 — Bản chất cốt lõi (Giải thích như cho em bé)
+👶 **1-Stage (YOLO - Vận động viên chạy nước rút):**
+Quét qua bức ảnh đúng một lần là chỉ ngay ra vị trí và tên các con vật. Tốc độ cực nhanh (trên 60 khung hình/giây), chạy mượt mà theo thời gian thực trên camera và điện thoại!
+👶 **2-Stage (Faster R-CNN - Thám tử tỉ mỉ):**
+- Bước 1: Dùng kính lúp khoanh tròn các vùng nghi ngờ có vật thể (Region Proposal Network).
+- Bước 2: Soi kỹ từng vùng đó để kết luận. Rất chính xác (nhất là với các đồ vật tí hon), nhưng tốn nhiều thời gian hơn!
+
+### 2. Công thức toán & Bước tính chi tiết (Step-by-Step)
+- 1-stage: Bài toán hồi quy trực tiếp từ tensor đặc trưng $S \times S \times (B \cdot 5 + C)$.
+- 2-stage: Gồm hai mạng nối tiếp RPN + RoI Pooling/RoIAlign + Classification Head.
+Chọn đáp án **D**.
+
+### 3. Bẫy đề thi & Pitfalls
+Thường bẫy ở tốc độ và độ chính xác: YOLO thiên về tốc độ (Real-time), Faster R-CNN thiên về độ chính xác chi tiết.
+
+### 4. Mắt xích kiến thức & Liên hệ bài cũ
+Xem **§3.6 Phát hiện vật thể (1-Stage vs 2-Stage)**.
+
+---
+
+### Câu 47 [OLP01-C17] — Phân hệ Module C (Thang điểm: 1.0đ)
+
+**Đề bài:** Vì sao mô hình Rừng ngẫu nhiên (Random Forest) có khả năng chống hiện tượng Overfitting vượt trội hơn hẳn so với một Cây quyết định đơn lẻ (Decision Tree)?
+
+- **A.** Nhờ kết hợp kỹ thuật lấy mẫu lặp lại (Bootstrap Aggregating) và ngẫu nhiên hóa không gian đặc trưng (Random Subspace) giúp giảm phương sai (Variance Reduction)
+- **B.** Vì Random Forest không bao giờ bị overfit trong bất kỳ tình huống nào do các cây con hoàn toàn triệt tiêu sai số ngẫu nhiên
+- **C.** Vì mỗi cây quyết định trong rừng chỉ được huấn luyện trên một mẫu dữ liệu duy nhất nên không thể ghi nhớ phân phối phức tạp
+- **D.** Vì Random Forest triệt tiêu hoàn toàn thành phần độ chệch (Bias Reduction) nhờ cơ chế biểu quyết đa số giữa các cây độc lập
+
+**Đáp án chính xác:** `A`
+
+### 1. ELI5 — Bản chất cốt lõi (Giải thích như cho em bé)
+👶 Một cây quyết định đơn lẻ giống như một chuyên gia bảo thủ: Rất dễ bị học vẹt và phán đoán sai lầm.
+Rừng ngẫu nhiên (Random Forest) tập hợp ý kiến của **100 người khác nhau**:
+- Mỗi người được cho xem một góc nhìn khác nhau của cuốn sách (Bootstrap sample).
+- Ở mỗi câu hỏi, mỗi người chỉ được nhìn vào một vài gợi ý ngẫu nhiên (Random features).
+Khi gom 100 ý kiến độc lập đó lại để biểu quyết (Voting), các sai sót cá nhân sẽ tự triệt tiêu lẫn nhau, giúp kết quả chung vô cùng sáng suốt và ổn định!
+
+### 2. Công thức toán & Bước tính chi tiết (Step-by-Step)
+Phương sai của trung bình $B$ biến ngẫu nhiên có tương quan $\rho$ và phương sai $\sigma^2$:
+$$\text{Var}(\bar{X}) = \rho \sigma^2 + \frac{1 - \rho}{B} \sigma^2$$
+Nhờ ngẫu nhiên hóa đặc trưng tại mỗi node ($m \approx \sqrt{p}$), Random Forest giảm thiểu hệ số tương quan $\rho$ giữa các cây, từ đó kéo tụt phương sai $\text{Var}$ của toàn bộ mô hình xuống mức tối thiểu! Chọn **A**.
+
+### 3. Bẫy đề thi & Pitfalls
+Random Forest vẫn có thể bị overfit nếu dữ liệu quá nhiễu hoặc số lượng cây quá ít. Nó giảm Variance là chính, không phải giảm Bias.
+
+### 4. Mắt xích kiến thức & Liên hệ bài cũ
+Xem **§1.4 Random Forest & Phương pháp Ensemble**.
+
+---
+
+### Câu 48 [OLP01-C18] — Phân hệ Module C (Thang điểm: 1.0đ)
+
+**Đề bài:** Khi đánh giá chất lượng phân cụm của thuật toán K-Means mà không có nhãn thực tế, chỉ số Silhouette Score được sử dụng như thế nào?
+
+- **A.** Silhouette Score nằm trong khoảng [-1, 0]; giá trị âm càng sâu chứng tỏ các cụm dữ liệu phân tách càng rõ rệt và tách bạch
+- **B.** Silhouette Score nằm trong khoảng [-1, 1]; giá trị trung bình càng gần 1 chứng tỏ các cụm dữ liệu phân tách rõ ràng và liên kết nội bộ chặt chẽ
+- **C.** Silhouette Score nằm trong khoảng [0, 100]; chỉ áp dụng được cho bài toán học có giám sát khi đã có sẵn nhãn phân lớp kiểm định
+- **D.** Silhouette Score đo lường tỷ lệ cân bằng giữa độ chính xác Precision và độ bao phủ Recall của các điểm trung tâm cụm Voronoi
+
+**Đáp án chính xác:** `B`
+
+### 1. ELI5 — Bản chất cốt lõi (Giải thích như cho em bé)
+👶 **Chỉ số Silhouette (Đo độ hạnh phúc của từng điểm dữ liệu):**
+- $a(i)$: Khoảng cách từ bạn đến các bạn cùng nhóm (Càng nhỏ càng tốt - nội bộ đoàn kết).
+- $b(i)$: Khoảng cách từ bạn đến nhóm hàng xóm gần nhất (Càng lớn càng tốt - phân tách rõ ràng).
+Nếu điểm số gần bằng **+1**: Bạn rất gần bạn cùng nhóm và ở rất xa người nhóm khác $\implies$ Chia nhóm xuất sắc!
+Nếu điểm số bị **âm (< 0)**: Bạn bị xếp nhầm nhóm rồi, bạn gần nhóm hàng xóm hơn nhóm của mình!
+
+### 2. Công thức toán & Bước tính chi tiết (Step-by-Step)
+$$s(i) = \frac{b(i) - a(i)}{\max(a(i), b(i))}, \quad s(i) \in [-1, 1]$$
+Giá trị trung bình toàn bộ tập dữ liệu càng gần 1 thì cấu trúc phân cụm càng lý tưởng. Chọn **B**.
+
+### 3. Bẫy đề thi & Pitfalls
+Nhầm giá trị âm là tốt, hoặc nhầm sang bài toán học có giám sát.
+
+### 4. Mắt xích kiến thức & Liên hệ bài cũ
+Xem **§1.8 Phân cụm K-Means & Độ đo Silhouette**.
+
+---
+
+### Câu 49 [OLP01-C19] — Phân hệ Module C (Thang điểm: 1.0đ)
+
+**Đề bài:** Trong một bài toán phát hiện giao dịch gian lận với tỉ lệ mất cân bằng cực hạn (1 ca gian lận trên 99 ca bình thường), giải pháp kết hợp nào sau đây là CHUẨN MỰC NHẤT?
+
+- **A.** Sử dụng độ đo Accuracy để tối ưu hóa mô hình và dừng huấn luyện sớm khi độ chính xác toàn cục trên tập Train chạm ngưỡng 99%
+- **B.** Áp dụng kỹ thuật Undersampling ngẫu nhiên loại bỏ 98% dữ liệu lớp bình thường để đạt được tập dữ liệu cân bằng tuyệt đối 1:1
+- **C.** Sử dụng kỹ thuật SMOTE (hoặc Class Weights / Focal Loss) để xử lý mất cân bằng và bắt buộc đánh giá bằng F1-score / PR-AUC thay cho Accuracy
+- **D.** Nhân bản y nguyên các mẫu nhãn hiếm lên 100 lần (Oversampling thuần túy không sinh mới) và tiếp tục sử dụng hàm mất mát CE chuẩn
+
+**Đáp án chính xác:** `C`
+
+### 1. ELI5 — Bản chất cốt lõi (Giải thích như cho em bé)
+👶 **Cái bẫy lừa người của Accuracy 99%:**
+Một mô hình ngốc nghếch chỉ cần đoán ' TẤT CẢ ĐỀU BÌNH THƯỜNG ' thì cũng đã đạt ngay độ chính xác **99%** mà không cần học hành gì cả! Nhưng nó hoàn toàn vô dụng vì để lọt 100% tội phạm gian lận.
+Vì vậy, ta phải:
+1. Dùng thuật toán **SMOTE** (sinh thêm các điểm gian lận nhân tạo nằm giữa các điểm cũ) hoặc phạt nặng khi đoán sai ca gian lận (**Class Weights / Focal Loss**).
+2. Chấm điểm bằng **F1-Score / PR-AUC** (như đã học ở câu B08) để đo đúng năng lực bắt tội phạm!
+
+### 2. Công thức toán & Bước tính chi tiết (Step-by-Step)
+SMOTE (Synthetic Minority Over-sampling Technique):
+$$x_{\text{new}} = x_i + \lambda (x_{zi} - x_i), \quad \lambda \sim U(0, 1)$$
+Chọn đáp án **C**.
+
+### 3. Bẫy đề thi & Pitfalls
+Tin vào Accuracy khi dữ liệu mất cân bằng là sai lầm sơ đẳng nhất trong AI.
+
+### 4. Mắt xích kiến thức & Liên hệ bài cũ
+Xem **§1.9 Xử lý dữ liệu mất cân bằng (Imbalanced Data)**. Liên hệ lại câu **A11** và câu **B08**.
+
+---
+
+### Câu 50 [OLP01-C20] — Phân hệ Module C (Thang điểm: 1.0đ)
+
+**Đề bài:** Trong thiết kế mạng nơ-ron sâu hiện đại, lựa chọn hàm kích hoạt (Activation Function) nào sau đây là CHUẨN XÁC NHẤT cho các tầng ẩn (Hidden layers) và tầng đầu ra (Output layer)?
+
+- **A.** Tầng ẩn dùng hàm Sigmoid (đạo hàm trơn liên tục); tầng ra dùng hàm Softmax (chuẩn hóa xác suất) cho mọi bài toán học máy
+- **B.** Tầng ẩn dùng hàm Softmax (chuẩn hóa khoảng [0, 1]); tầng ra dùng hàm ReLU (kích hoạt phi tuyến) để tính toán lan truyền ngược
+- **C.** Không cần sử dụng hàm kích hoạt phi tuyến (Non-linear Mapping) ở các tầng ẩn nếu mạng nơ-ron đã xếp chồng đủ sâu qua các lớp Dense
+- **D.** Tầng ẩn dùng ReLU hoặc GELU/SiLU (tránh triệt tiêu gradient); tầng ra dùng Sigmoid (cho nhị phân) hoặc Softmax (cho đa lớp)
+
+**Đáp án chính xác:** `D`
+
+### 1. ELI5 — Bản chất cốt lõi (Giải thích như cho em bé)
+👶 **Quy tắc chọn hàm kích hoạt:**
+- **Tầng ẩn bên trong (Hidden):** Phải dùng **ReLU hoặc GELU/SiLU**. Vì hàm Sigmoid cũ kỹ có độ dốc quá phẳng ở hai đầu, khiến đạo hàm bị triệt tiêu (biến mất về 0) khi mạng đi sâu. ReLU có đạo hàm bằng 1 ở miền dương, giúp tín hiệu chảy băng băng qua hàng trăm tầng!
+- **Tầng ra (Output):** Tùy thuộc bài thi:
+  + Chọn 1 trong nhiều phương án (loại trừ nhau): Dùng **Softmax** (tổng xác suất = 100%).
+  + Có/Không hoặc gán nhiều nhãn cùng lúc: Dùng **Sigmoid** (mỗi lớp độc lập từ 0 đến 1).
+
+### 2. Công thức toán & Bước tính chi tiết (Step-by-Step)
+- Nếu không có phi tuyến: Tích các ma trận $W_L \dots W_2 W_1 x = W_{\text{eff}} x$ suy biến thành một mô hình tuyến tính đơn giản!
+- Đạo hàm Sigmoid: $\sigma '(z) = \sigma(z)(1 - \sigma(z)) \le 0.25$. Qua 10 tầng, gradient giảm $0.25^{10} \approx 10^{-6}$ (Vanishing Gradient).
+Chọn đáp án **D**.
+
+### 3. Bẫy đề thi & Pitfalls
+Dùng Sigmoid ở tầng ẩn là nguyên nhân chính khiến mạng nơ-ron trước năm 2010 không thể huấn luyện sâu được.
+
+### 4. Mắt xích kiến thức & Liên hệ bài cũ
+Xem **§2.2 Các hàm kích hoạt trong Deep Learning**.
+
+---
+
+### Câu 51 [OLP01-C21] — Phân hệ Module C (Thang điểm: 1.0đ)
+
+**Đề bài:** Vì sao trong các kiến trúc Transformer và mô hình xử lý ngôn ngữ tự nhiên (NLP), chuẩn hóa tầng (Layer Normalization) luôn được ưu tiên sử dụng thay thế hoàn toàn cho chuẩn hóa theo lô (Batch Normalization)?
+
+- **A.** LayerNorm tính độc lập trên từng mẫu theo chiều đặc trưng (Feature Dimension); BatchNorm tính dọc batch và kém ổn định khi chuỗi đổi độ dài
+- **B.** LayerNorm sử dụng ít tham số học hơn BatchNorm (Parameter Reduction) và hoàn toàn triệt tiêu nhu cầu chuẩn hóa dữ liệu đầu vào
+- **C.** BatchNorm không thể tính được gradient lan truyền ngược (Autograd Failure); LayerNorm tự động chuyển đổi vector token về phân phối đều
+- **D.** LayerNorm tăng tốc độ tính toán phần cứng GPU (Hardware Speedup) gấp 5 lần so với BatchNorm nhờ bỏ qua hoàn toàn các bước tính phương sai
+
+**Đáp án chính xác:** `A`
+
+### 1. ELI5 — Bản chất cốt lõi (Giải thích như cho em bé)
+👶 **Sự khác biệt giữa BatchNorm và LayerNorm:**
+- **BatchNorm (So sánh cả lớp):** Tính điểm trung bình của cả phòng thi. Nếu trong NLP, mỗi câu văn có độ dài ngắn khác nhau (có câu 5 từ, có câu 50 từ), việc tính trung bình dọc theo cột của cả lớp sẽ bị thủng lỗ chỗ (do chèn padding). Hơn nữa, khi kích thước Batch nhỏ ($B=1, 2$), BatchNorm sẽ bị sai lệch nghiêm trọng.
+- **LayerNorm (Tự soi gương chính mình):** Chuẩn hóa tất cả các từ trong duy nhất **bản thân câu văn đó**. Bất kể độ dài câu là bao nhiêu, bất kể Batch size lớn hay nhỏ hay bằng 1, LayerNorm đều tính toán chuẩn xác và độc lập!
+
+### 2. Công thức toán & Bước tính chi tiết (Step-by-Step)
+LayerNorm tính toán trên trục đặc trưng $d$:
+$$\mu = \frac{1}{d} \sum_{i=1}^d x_i, \quad \sigma^2 = \frac{1}{d} \sum_{i=1}^d (x_i - \mu)^2$$
+$$\text{LN}(x) = \frac{x - \mu}{\sqrt{\sigma^2 + \epsilon}} \odot \gamma + \beta$$
+Không lưu trữ `running_mean` hay `running_var` như BatchNorm. Chọn **A**.
+
+### 3. Bẫy đề thi & Pitfalls
+Nghĩ rằng BatchNorm luôn tốt hơn trong mọi bài toán. Với Text và Speech, LayerNorm là vua.
+
+### 4. Mắt xích kiến thức & Liên hệ bài cũ
+Xem **§2.8 Kỹ thuật Chuẩn hóa (BatchNorm vs LayerNorm)**. Đối chiếu với câu **B10**!
+
+---
+
+### Câu 52 [OLP01-C22] — Phân hệ Module C (Thang điểm: 1.0đ)
+
+**Đề bài:** Khi tăng số lượng tầng của mạng CNN lên rất sâu (từ 20 tầng lên 56 tầng), hiện tượng suy thoái hiệu năng (Degradation Problem) xảy ra: Cả lỗi trên tập Train và tập Test đều tăng cao (không phải do Overfitting). Kiến trúc ResNet đã giải quyết triệt để vấn đề này bằng giải pháp nào?
+
+- **A.** Tăng kích thước kernel tích chập lên 11x11 ở mọi tầng để mở rộng trường tiếp nhận (Receptive Field) bao trọn toàn bộ ảnh đầu vào
+- **B.** Thêm các kết nối tắt đồng nhất (Identity Shortcut Connection) cho phép mạng học phần dư F(x) = H(x) - x, tạo đường cao tốc gradient không suy giảm
+- **C.** Thay thế toàn bộ các hàm kích hoạt phi tuyến ReLU bằng hàm Sigmoid để thu hẹp dải giá trị gradient trong khoảng [0, 0.25]
+- **D.** Giảm kích thước mini-batch xuống bằng 1 kết hợp với bộ tối ưu hóa SGD thuần túy để tăng cường tính ngẫu nhiên của đường đi gradient
+
+**Đáp án chính xác:** `B`
+
+### 1. ELI5 — Bản chất cốt lõi (Giải thích như cho em bé)
+👶 **Bài toán suy thoái (Degradation) & Con đường cao tốc:**
+Khi một mạng có 56 tầng, về lý thuyết nó phải giỏi hơn hoặc ít nhất là bằng mạng 20 tầng (chỉ cần 36 tầng sau học phép đồng nhất: không làm gì cả, giữ nguyên kết quả).
+Nhưng thực tế mạng sâu truyền thống học phép đồng nhất cực kỳ khó!
+Kaiming He giải quyết bằng cách: **Bắc một cây cầu vượt (Shortcut)** đưa thẳng $x$ qua đầu các tầng nơ-ron: $F(x) + x$.
+Nếu các tầng nơ-ron không nghĩ ra điều gì mới, nó chỉ cần cho trọng số bằng 0 $\implies$ Đầu ra vẫn giữ nguyên $x$ ban đầu! Cây cầu vượt này cũng là con đường cao tốc cho đạo hàm chảy ngược về gốc mà không sợ bị nghẽn!
+
+### 2. Công thức toán & Bước tính chi tiết (Step-by-Step)
+Thay vì xấp xỉ hàm mục tiêu $H(x)$, các tầng nơ-ron chỉ cần xấp xỉ phần dư:
+$$\mathcal{F}(x) = H(x) - x \implies H(x) = \mathcal{F}(x) + x$$
+Gradient luôn có số hạng $+1$ bảo toàn dòng chảy ngược: $\frac{\partial \mathcal{E}}{\partial x} = \frac{\partial \mathcal{E}}{\partial y} (\frac{\partial \mathcal{F}}{\partial x} + 1)$. Chọn **B**.
+
+### 3. Bẫy đề thi & Pitfalls
+Nhầm lẫn Degradation với Overfitting. Degradation làm Train Loss TĂNG, trong khi Overfitting làm Train Loss GIẢM.
+
+### 4. Mắt xích kiến thức & Liên hệ bài cũ
+Xem **§3.3 Kiến trúc ResNet & Bài toán suy thoái**. Liên hệ câu **B14** và **C14**!
+
+---
+
+### Câu 53 [OLP01-C23] — Phân hệ Module C (Thang điểm: 1.0đ)
+
+**Đề bài:** Trong kiến trúc mạng U-Net dùng cho phân vùng ảnh y tế (Medical Image Segmentation), các đường nối tắt (Skip Connections) từ Encoder sang Decoder thực hiện phép toán nào?
+
+- **A.** Phép cộng từng phần tử (Element-wise Addition) giữa các bản đồ đặc trưng tương ứng
+- **B.** Phép nhân từng phần tử (Hadamard Product) dọc theo không gian hai chiều của ảnh
+- **C.** Phép nối chuỗi (Concatenation) các bản đồ đặc trưng dọc theo trục kênh (Channel dimension)
+- **D.** Phép tích chập nhóm sâu (Depthwise Separable Convolution) thay thế hoàn toàn cho đường nối
+
+**Đáp án chính xác:** `C`
+
+### 1. ELI5 — Bản chất cốt lõi (Giải thích như cho em bé)
+👶 Trong U-Net, nhánh Encoder nén ảnh nhỏ lại để hiểu ngữ nghĩa lớn, nhưng làm mất đi các chi tiết biên góc cạnh chính xác của khối u.
+Nhánh Decoder phóng to ảnh trở lại. Nhờ có đường nối tắt **ghép thêm (Concatenate)** toàn bộ các bản đồ đặc trưng độ phân giải cao từ Encoder vào, Decoder có đủ thông tin chi tiết để vẽ viền khối u chuẩn xác đến từng pixel!
+
+### 2. Công thức toán & Bước tính chi tiết (Step-by-Step)
+Code PyTorch chuẩn của U-Net Decoder:
+```python
+x = torch.cat([upsampled_feat, encoder_feat], dim=1)
+```
+Số lượng kênh đầu vào của tầng Conv tiếp theo sẽ bằng $C_{\text{up}} + C_{\text{enc}}$. Chọn **C**.
+
+### 3. Bẫy đề thi & Pitfalls
+Nhầm U-Net dùng phép Add của ResNet (đã phân tích kỹ ở câu C14).
+
+### 4. Mắt xích kiến thức & Liên hệ bài cũ
+Xem **§3.4 U-Net & Phân vùng ảnh**. Liên hệ đối chiếu câu **C14**!
+
+---
+
+### Câu 54 [OLP01-C24] — Phân hệ Module C (Thang điểm: 1.0đ)
+
+**Đề bài:** Phát biểu nào sau đây là CHÍNH XÁC NHẤT về cơ chế hoạt động của mô hình Vision Transformer (ViT — Dosovitskiy et al., 2020)?
+
+- **A.** ViT sử dụng các tầng Conv2D 3x3 xếp chồng sâu để trích xuất đặc trưng phân cấp mà không cần bất kỳ khối Transformer nào trong toàn bộ mạng
+- **B.** ViT tự động học quan hệ không gian tuyệt đối giữa các điểm ảnh mà hoàn toàn không cần cơ chế mã hóa vị trí (Positional Encoding) khi huấn luyện
+- **C.** ViT hoạt động vượt trội hơn ResNet ngay cả khi chỉ được huấn luyện trên các tập dữ liệu cực nhỏ dưới 1.000 mẫu mà không dùng tiền huấn luyện
+- **D.** ViT chia ảnh thành các patches, chiếu thành token, thêm token [CLS] và Positional Encoding rồi xử lý bằng Transformer Encoder không cần tích chập
+
+**Đáp án chính xác:** `D`
+
+### 1. ELI5 — Bản chất cốt lõi (Giải thích như cho em bé)
+👶 **Cách ViT xem tranh:**
+Thay vì dùng kính lúp trượt quét qua từng điểm ảnh (CNN), ViT lấy chiếc kéo cắt bức ảnh thành **16 mảnh ghép vuông nhỏ** (ví dụ mỗi mảnh $16 \times 16$ pixel).
+Nó coi mỗi mảnh ghép như một **' từ ngữ ' trong một câu văn**, đánh số thứ tự từ 1 đến 16 (Positional Encoding), dán thêm một mảnh ghép đại diện `[CLS]`, rồi đưa toàn bộ vào cỗ máy Transformer để các mảnh ghép tự ' nói chuyện ' và so sánh sự liên quan với nhau (Self-Attention)!
+
+### 2. Công thức toán & Bước tính chi tiết (Step-by-Step)
+- Ảnh $H \times W \times C$ chia thành $N = \frac{HW}{P^2}$ patches.
+- Chiếu tuyến tính mỗi patch kích thước $P^2 C$ thành vector $D$ chiều: $x_p E$.
+- Chuỗi token đầu vào:
+$$z_0 = [x_{\text{class}}; x_p^1 E; \dots; x_p^N E] + E_{\text{pos}}$$
+Nhược điểm: ViT thiếu Inductive Bias (tính bất biến dịch chuyển của CNN) nên cần tập dữ liệu khổng lồ (JFT-300M, ImageNet-21k) để tiền huấn luyện. Chọn **D**.
+
+### 3. Bẫy đề thi & Pitfalls
+ViT không dùng Conv ở backbone và bắt buộc phải có Positional Encoding vì Transformer có tính hoán vị bất biến.
+
+### 4. Mắt xích kiến thức & Liên hệ bài cũ
+Xem **§3.5 Vision Transformer (ViT)**.
+
+---
+
+### Câu 55 [OLP01-C25] — Phân hệ Module C (Thang điểm: 1.0đ)
+
+**Đề bài:** Điểm khác biệt bản chất giữa Phân vùng theo ngữ nghĩa (Semantic Segmentation) và Phân vùng theo thực thể (Instance Segmentation) là gì?
+
+- **A.** Semantic Segmentation chỉ gán nhãn lớp cho từng pixel mà không phân biệt các cá thể khác nhau cùng lớp; trong khi Instance Segmentation vừa gán nhãn pixel vừa tách riêng biệt từng cá thể đối tượng
+- **B.** Semantic Segmentation là bài toán dự đoán một nhãn duy nhất cho toàn bộ bức ảnh; trong khi Instance Segmentation chỉ hồi quy tọa độ bounding box
+- **C.** Semantic Segmentation phân định ranh giới từng đối tượng độc lập; trong khi Instance Segmentation không thể xác định vị trí không gian của đối tượng
+- **D.** Hai bài toán này hoàn toàn đồng nhất về mặt bản chất định nghĩa toán học cũng như các thang đo đánh giá chất lượng phân vùng (mIoU)
+
+**Đáp án chính xác:** `A`
+
+### 1. ELI5 — Bản chất cốt lõi (Giải thích như cho em bé)
+👶 **Hình dung cho em bé:**
+Trong bức ảnh có 3 chú cún con đứng cạnh nhau:
+- **Semantic Segmentation (Tô màu theo loại):** Coi cả 3 chú cún là một mảng màu tím lớn duy nhất ghi nhãn ' Chó ', không thèm quan tâm đâu là con cún số 1, số 2 hay số 3.
+- **Instance Segmentation (Đếm từng cá thể):** Thông minh hơn nhiều! Nó tô chú cún A màu đỏ, chú cún B màu xanh, chú cún C màu vàng, tách bạch ranh giới của từng đứa một!
+
+### 2. Công thức toán & Bước tính chi tiết (Step-by-Step)
+- Semantic: Output là ma trận $H \times W$ trong đó mỗi phần tử mang giá trị $c \in \{0, \dots, C-1\}$. Mô hình tiêu biểu: U-Net, DeepLabV3.
+- Instance: Kết hợp giữa Object Detection và Segmentation: Phát hiện từng box trước rồi tạo mask cho từng box (ví dụ Mask R-CNN). Chọn **A**.
+
+### 3. Bẫy đề thi & Pitfalls
+Nhầm lẫn giữa Semantic (chỉ phân lớp pixel) và Instance (tách từng đối tượng riêng).
+
+### 4. Mắt xích kiến thức & Liên hệ bài cũ
+Xem **§3.7 Các tác vụ phân vùng ảnh (Segmentation)**.
+
+---
+
+### Câu 56 [OLP01-C26] — Phân hệ Module C (Thang điểm: 1.0đ)
+
+**Đề bài:** Mô hình sinh ảnh khuếch tán (Diffusion Models như DDPM, Stable Diffusion) hoạt động dựa trên nguyên lý cốt lõi nào?
+
+- **A.** Huấn luyện hai mạng nơ-ron đối kháng gồm Generator sinh ảnh giả và Discriminator phân biệt ảnh thật theo nguyên lý lý thuyết trò chơi minimax
+- **B.** Quá trình khuếch tán thuận thêm dần nhiễu Gaussian vào ảnh; mô hình nơ-ron học quá trình ngược để dự đoán và loại bỏ nhiễu từng bước khôi phục ảnh
+- **C.** Nén ảnh trực tiếp vào không gian vector tiềm ẩn một chiều bằng VAE rồi tái tạo lại bằng phép nội suy ma trận nghịch đảo Moore-Penrose giải tích
+- **D.** Ghép nối các mẩu patch tương đồng từ cơ sở dữ liệu mẫu có sẵn dựa trên độ đo khoảng cách Euclid trong không gian biểu diễn màu sắc RGB chuẩn
+
+**Đáp án chính xác:** `B`
+
+### 1. ELI5 — Bản chất cốt lõi (Giải thích như cho em bé)
+👶 **Hình dung bức tranh bị rắc cát:**
+- **Pha thuận (Làm hỏng tranh):** Bạn cầm bức tranh đẹp rồi từ từ rắc từng hạt cát lên (thêm nhiễu Gaussian) qua 1,000 bước. Cuối cùng bức tranh biến thành một bãi cát xám xịt (nhiễu trắng hoàn toàn).
+- **Pha ngược (Học cách vẽ lại):** Mạng nơ-ron được dạy cách đoán xem ở mỗi bước, hạt cát nào đã được rắc vào để nhặt hạt cát đó ra! Khi được huấn luyện thành thạo, bạn chỉ cần ném cho nó một bức ảnh toàn cát ngẫu nhiên, nó sẽ nhặt sạch cát từng bước một và tạo ra một bức tranh tuyệt đẹp hoàn toàn mới!
+
+### 2. Công thức toán & Bước tính chi tiết (Step-by-Step)
+Mục tiêu huấn luyện của DDPM (Ho et al., 2020) cực kỳ thanh lịch: Mô hình $U\text{-Net } \epsilon_\theta$ học cách dự đoán vector nhiễu $\epsilon$:
+$$\mathcal{L}_{\text{simple}}(\theta) = \mathbb{E}_{t, x_0, \epsilon} \left[ \| \epsilon - \epsilon_\theta(x_t, t) \|^2 \right]$$
+Chọn đáp án **B**.
+
+### 3. Bẫy đề thi & Pitfalls
+Diffusion không dùng cơ chế đối kháng Min-Max như GAN, nên huấn luyện rất ổn định và không bao giờ bị sụp đổ mode (Mode Collapse).
+
+### 4. Mắt xích kiến thức & Liên hệ bài cũ
+Xem **§3.8 Mô hình sinh (Generative AI: GAN vs Diffusion)**.
+
+---
+
+### Câu 57 [OLP01-C27] — Phân hệ Module C (Thang điểm: 1.0đ)
+
+**Đề bài:** Khi bạn chỉ có một tập dữ liệu y tế rất nhỏ gồm 500 ảnh chụp X-quang và muốn áp dụng mạng ResNet-50 đã tiền huấn luyện trên ImageNet, chiến lược Học chuyển giao (Transfer Learning) nào là HỢP LÝ NHẤT?
+
+- **A.** Khởi tạo lại toàn bộ trọng số mạng ngẫu nhiên và huấn luyện lại từ đầu (Train from scratch) với tốc độ học (Learning Rate) thiết lập thật cao
+- **B.** Mở khóa toàn bộ trọng số của Backbone và tiến hành Fine-tuning tất cả các tầng với tốc độ học (Learning Rate) cực đại để thích ứng nhanh
+- **C.** Đóng băng (Freeze) toàn bộ Backbone trích xuất đặc trưng, chỉ huấn luyện Classification Head với learning rate nhỏ và Data Augmentation mạnh
+- **D.** Không sử dụng mô hình tiền huấn luyện vì các đặc trưng hình ảnh tự nhiên của ImageNet hoàn toàn không thể chuyển giao sang ảnh chụp X-quang
+
+**Đáp án chính xác:** `C`
+
+### 1. ELI5 — Bản chất cốt lõi (Giải thích như cho em bé)
+👶 **Quy tắc vàng của Transfer Learning khi ít dữ liệu:**
+Bạn chỉ có 500 ảnh — đây là một lượng dữ liệu quá bé nhỏ!
+Nếu bạn mở khóa toàn bộ mạng ResNet (hơn 25 triệu tham số) ra huấn luyện, mô hình sẽ lập tức bị **Overfitting nặng** và xóa sạch vốn hiểu biết quý báu đã học từ ImageNet!
+Cách thông minh nhất: **Khóa cứng (Freeze)** toàn bộ phần thân mạng (Backbone) lại để mượn đôi mắt tinh tường trích xuất đường nét của nó, bạn chỉ cần thay chiếc đầu mới (Linear Classifier) và huấn luyện duy nhất chiếc đầu này thôi!
+
+### 2. Công thức toán & Bước tính chi tiết (Step-by-Step)
+Code PyTorch chuẩn:
+```python
+model = torchvision.models.resnet50(weights=' IMAGENET1K_V2')
+for param in model.parameters():
+    param.requires_grad = False  # Dong bang backbone
+model.fc = nn. Linear(model.fc.in_features, num_classes)  # Chi train head
+```
+Chọn đáp án **C**.
+
+### 3. Bẫy đề thi & Pitfalls
+Train từ đầu với 500 ảnh chắc chắn thất bại thảm hại do thiếu dữ liệu trầm trọng.
+
+### 4. Mắt xích kiến thức & Liên hệ bài cũ
+Xem **§3.9 Chiến lược Transfer Learning & Fine-tuning**. Liên hệ câu **C07** về chống Overfitting!
+
+---
+
+### Câu 58 [OLP01-C28] — Phân hệ Module C (Thang điểm: 1.0đ)
+
+**Đề bài:** Thứ tự chuẩn xác của một quy trình tiền xử lý văn bản (NLP Preprocessing Pipeline) truyền thống trước khi đưa vào mô hình học máy là gì?
+
+- **A.** Loại bỏ từ dừng (Stopwords) -> Tách từ (Tokenization) -> Gán nhãn từ loại (POS Tagging) -> Đưa về dạng từ điển chuẩn (Lemmatization)
+- **B.** Gán nhãn từ loại (POS) -> Cắt tỉa từ (Stemming) -> Tách từ (Tokenization) -> Xóa ký tự đặc biệt -> Loại bỏ từ dừng (Stopwords)
+- **C.** Cắt tỉa từ (Stemming) thay thế hoàn toàn cho bước tách từ -> Gán nhãn từ loại (POS Tagging) -> Loại bỏ toàn bộ từ dừng (Stopwords)
+- **D.** Tách từ (Tokenization) -> Xóa ký tự đặc biệt -> Rút gọn gốc từ / Đưa về từ điển (Stemming/Lemmatization) -> Gán nhãn POS -> Bỏ từ dừng (Stopwords)
+
+**Đáp án chính xác:** `D`
+
+### 1. ELI5 — Bản chất cốt lõi (Giải thích như cho em bé)
+👶 **Trình tự chế biến văn bản:**
+1. **Tokenization (Cắt bánh mì thành từng lát):** Cắt cả đoạn văn bản dài thành từng từ riêng biệt. (Bước này bắt buộc phải làm đầu tiên, vì chưa cắt thành từ thì làm sao biết từ nào mà chuẩn hóa!).
+2. **Normalization:** Chuyển về chữ thường, dọn sạch dấu câu thừa.
+3. **Stemming / Lemmatization:** Đưa các từ biến thể về dạng gốc (ví dụ ' running ', ' ran ' đều đưa về ' run ').
+4. **POS Tagging:** Xác định từ nào là danh từ, động từ.
+5. **Stopwords Removal:** Nhặt bỏ các từ vụn vặt không mang nhiều ngữ nghĩa (như ' và ', ' thì ', ' là ', ' mà '). Chọn **D**.
+
+### 2. Công thức toán & Bước tính chi tiết (Step-by-Step)
+Thứ tự logic phụ thuộc dữ liệu: Cần tokenization trước để có danh sách token, sau đó mới áp dụng được từ điển từ dừng và mô hình ngôn ngữ.
+
+### 3. Bẫy đề thi & Pitfalls
+Đảo bước loại stopwords lên trước tokenization là sai logic xử lý chuỗi.
+
+### 4. Mắt xích kiến thức & Liên hệ bài cũ
+Xem **§4.1 Pipeline tiền xử lý văn bản trong NLP**.
+
+---
+
+### Câu 59 [OLP01-C29] — Phân hệ Module C (Thang điểm: 1.0đ)
+
+**Đề bài:** Khi xử lý văn bản tiếng Việt trên mạng xã hội có nhiều từ viết tắt, từ lóng hoặc lỗi chính tả gây ra hiện tượng từ ngoài từ điển (Out-Of-Vocabulary — OOV), mô hình nhúng từ (Word Embedding) nào sau đây xử lý HIỆU QUẢ NHẤT?
+
+- **A.** FastText (sử dụng n-gram cấp độ ký tự / Subword) có khả năng sinh vector biểu diễn cho các từ chưa từng xuất hiện
+- **B.** One-Hot Encoding (biểu diễn thưa đơn vị) với kích thước từ điển cố định phản ánh chính xác ngữ cảnh ngữ nghĩa
+- **C.** TF-IDF truyền thống (tần suất từ - nghịch đảo tần suất văn bản) tự động sửa lỗi chính tả bằng ma trận đồng xuất hiện
+- **D.** Word2Vec phiên bản chuẩn ban đầu (Skip-Gram / CBOW) ánh xạ toàn bộ các từ lỗi chính tả về vector trung bình của từ điển
+
+**Đáp án chính xác:** `A`
+
+### 1. ELI5 — Bản chất cốt lõi (Giải thích như cho em bé)
+👶 **Vũ khí trị từ viết sai chính tả của FastText:**
+- Word2Vec coi mỗi từ là một khối nguyên vẹn. Nếu gặp từ lạ hoặc gõ sai như ' hocsinh ' (thiếu dấu) hay ' hocc ', Word2Vec sẽ chịu chết và gán nhãn `<UNK>` (Không biết).
+- **FastText (Facebook AI):** Tách từ thành các mảnh ghép ký tự nhỏ (Character n-grams), ví dụ `<ho`, `hoc`, `oc>`, v.v.
+Khi gặp một từ lạ chưa từng thấy, FastText chỉ việc gom vector của các mảnh ghép ký tự quen thuộc lại để đoán nghĩa $\implies$ Trị dứt điểm căn bệnh từ ngoài từ điển (OOV)!
+
+### 2. Công thức toán & Bước tính chi tiết (Step-by-Step)
+Biểu diễn vector của từ $w$ trong FastText:
+$$v_w = \sum_{g \in \mathcal{G}_w} z_g$$
+Trong đó $\mathcal{G}_w$ là tập hợp các n-gram ký tự của từ $w$. Chọn **A**.
+
+### 3. Bẫy đề thi & Pitfalls
+Word2Vec không có thông tin subword nên hoàn toàn bất lực trước từ OOV.
+
+### 4. Mắt xích kiến thức & Liên hệ bài cũ
+Xem **§4.2 Các mô hình biểu diễn từ (Word2Vec vs FastText)**.
+
+---
+
+### Câu 60 [OLP01-C30] — Phân hệ Module C (Thang điểm: 1.0đ)
+
+**Đề bài:** Bạn cần xây dựng 2 hệ thống AI: Hệ thống 1 dùng để phân tích cảm xúc đánh giá sản phẩm (Sentiment Analysis); Hệ thống 2 dùng để tự động sinh bài viết mô tả sản phẩm (Product Description Generation). Lựa chọn kiến trúc nền tảng nào sau đây là TỐI ƯU NHẤT?
+
+- **A.** Hệ thống 1 dùng GPT (Decoder-only sinh tự hồi quy); Hệ thống 2 dùng BERT (Encoder-only hiểu ngữ cảnh hai chiều)
+- **B.** Hệ thống 1 dùng BERT (Encoder-only, hiểu ngữ cảnh hai chiều); Hệ thống 2 dùng GPT (Decoder-only, tự hồi quy sinh từ tiếp theo theo chiều xuôi)
+- **C.** Cả hai hệ thống đều dùng BERT vì cơ chế chú ý Masked LM của BERT sinh văn bản tự do mạch lạc hơn GPT rất nhiều
+- **D.** Cả hai hệ thống đều bắt buộc dùng RNN truyền thống kết hợp LSTM để duy trì bộ nhớ dài hạn ổn định hơn Transformer
+
+**Đáp án chính xác:** `B`
+
+### 1. ELI5 — Bản chất cốt lõi (Giải thích như cho em bé)
+👶 **Phân biệt nhiệm vụ của BERT và GPT:**
+- **BERT (Thanh tra hiểu bài - Encoder):** Được nhìn cả câu văn từ trái sang phải và từ phải sang trái cùng lúc (Hai chiều). Nó rất giỏi việc **Đọc hiểu, phân loại cảm xúc, tìm ý chính**. Nhưng nó không biết viết văn tiếp theo.
+- **GPT (Nhà văn kể chuyện - Decoder):** Viết văn theo kiểu đoán từ tiếp theo từ trái sang phải (Autoregressive). Nó cực kỳ giỏi việc **Sinh văn bản, viết truyện, trả lời câu hỏi**. Chọn **B**!
+
+### 2. Công thức toán & Bước tính chi tiết (Step-by-Step)
+- BERT: Masked Language Model $P(w_i \mid w_{\backslash i})$ (Hai chiều). Phù hợp NLU (Natural Language Understanding).
+- GPT: Causal Language Model $P(w_t \mid w_{<t})$ (Một chiều). Phù hợp NLG (Natural Language Generation).
+
+### 3. Bẫy đề thi & Pitfalls
+Đảo ngược vai trò giữa BERT và GPT.
+
+### 4. Mắt xích kiến thức & Liên hệ bài cũ
+Xem **§4.6 Mô hình ngôn ngữ lớn (BERT vs GPT)**.
+
+---
+
+### Câu 61 [OLP01-E01] — Phân hệ Module C (Thang điểm: 1.0đ)
+
+**Đề bài:** [SCENARIO AUDIT - FACE ANTI-SPOOFING] Bạn được giao thiết kế hệ thống phát hiện khuôn mặt giả mạo (Anti-Spoofing: phân biệt mặt thật vs mặt in trên giấy/màn hình điện thoại). Để ngăn mô hình học thuộc lòng đặc trưng nhận dạng danh tính người dùng (Identity Leakage) thay vì học đặc trưng gian lận bề mặt (Spoof Texture), phương pháp chia tập dữ liệu huấn luyện nào là BẮT BUỘC?
+
+- **A.** Random Split ngẫu nhiên trên toàn bộ khung hình video để tối đa hóa độ đa dạng dữ liệu
+- **B.** Stratified K-Fold phân tầng theo nhãn thật/giả mà không quan tâm đến danh tính người dùng
+- **C.** Subject-Independent Split đảm bảo một người xuất hiện ở Train thì không bao giờ có ở Val
+- **D.** Time-Series Rolling Window chia theo mốc thời gian ghi hình của từng phiên đăng nhập
+
+**Đáp án chính xác:** `C`
+
+### 1. ELI5 — Bản chất cốt lõi (Giải thích như cho em bé)
+👶 **Hiểu nhanh bản chất:**
+Nếu cùng một người có mặt ở cả tập Train lẫn tập Validation, mô hình sẽ ' nhớ mặt ' người đó thay vì học xem da mặt có vân giấy hay ánh sáng màn hình hay không. Bắt buộc phải chia tách theo danh tính người (Subject-Independent / GroupKFold theo User ID).
+
+### 2. Công thức toán & Bước tính chi tiết (Step-by-Step)
+📐 GroupKFold theo `subject_id` loại bỏ rò rỉ thông tin danh tính giữa tập huấn luyện và kiểm thử. Chọn **C**.
+
+### 3. Bẫy đề thi & Tại sao các đáp án khác sai (Pitfalls)
+⚠️ **Cạm bẫy:** Random Split làm rò rỉ nặng nề (Data Leakage), dẫn đến độ chính xác validation 99% nhưng triển khai thực tế thất bại hoàn toàn.
+
+### 4. Mắt xích kiến thức & Căn cứ khoa học
+📚 **Căn cứ lý thuyết:** Xem **§1.5 Đánh Giá Mô Hình & Cross-Validation**.
+
+---
+
+### Câu 62 [OLP01-E02] — Phân hệ Module C (Thang điểm: 1.0đ)
+
+**Đề bài:** [SCENARIO AUDIT - LEGAL RAG SYSTEM] Trong một hệ thống Hỏi Đáp Pháp Luật (Legal QA) sử dụng mô hình RAG (Retrieval-Augmented Generation), khi người dùng truy vấn một điều luật cụ thể chứa các mã số chính xác (ví dụ ' Khoản 2 Điều 135 Bộ luật Hình sự '), hệ thống Retriever thuần Dense Embedding (như BGE/Contriever) thường tìm kiếm thất bại. Kiến trúc kết hợp nào sau đây là giải pháp tối ưu nhất?
+
+- **A.** Thay thế hoàn toàn mô hình ngôn ngữ sinh văn bản LLM bằng một mạng nơ-ron tích chập 1D
+- **B.** Hybrid Search kết hợp BM25 (khớp từ khóa chính xác) và Dense Retriever (khớp ngữ nghĩa)
+- **C.** Tăng kích thước đoạn văn bản (Chunk Size) lên 8000 token để chứa trọn vẹn toàn bộ bộ luật
+- **D.** Bỏ qua bước trích xuất tài liệu Retriever và để mô hình LLM tự suy luận từ tham số nội tại
+
+**Đáp án chính xác:** `B`
+
+### 1. ELI5 — Bản chất cốt lõi (Giải thích như cho em bé)
+👶 **Hiểu nhanh bản chất:**
+Dense Embedding rất giỏi hiểu ngữ nghĩa chung nhưng rất dốt khi tìm số hiệu chính xác như ' Điều 135'. Ngược lại, thuật toán BM25 (Sparse) lại bắt từ khóa cực kỳ chính xác. Kết hợp cả hai (Hybrid Search) bằng thuật toán Reciprocal Rank Fusion (RRF) mang lại kết quả hoàn hảo.
+
+### 2. Công thức toán & Bước tính chi tiết (Step-by-Step)
+📐 RRF Score: $\text{RRF}(d) = \sum_{m \in M} \frac{1}{k + r_m(d)}$. Chọn **B**.
+
+### 3. Bẫy đề thi & Tại sao các đáp án khác sai (Pitfalls)
+⚠️ **Cạm bẫy:** Phương án D dựa vào ảo giác (Hallucination) của LLM, vi phạm nghiêm trọng yêu cầu chính xác pháp lý.
+
+### 4. Mắt xích kiến thức & Căn cứ khoa học
+📚 **Căn cứ lý thuyết:** Xem **§4.2 Các Phương Pháp Biểu Diễn Từ (Word Representations)**.
+
+---
+
+### Câu 63 [OLP01-E03] — Phân hệ Module C (Thang điểm: 1.0đ)
+
+**Đề bài:** [SCENARIO AUDIT - CREDIT RISK IMBALANCE] Trong bài toán dự báo rủi ro tín dụng ngân hàng với dữ liệu bảng (Tabular Data), tập dữ liệu có 1.000.000 giao dịch nhưng chỉ có 1.000 giao dịch vỡ nợ (tỉ lệ 0.1%). Khi huấn luyện mô hình cây quyết định Gradient Boosting (như LightGBM), chiến lược nào sau đây mang lại hiệu quả vượt trội và bảo toàn tính toàn vẹn của dữ liệu?
+
+- **A.** Sử dụng độ đo Accuracy (Overall Accuracy) để tối ưu hóa và dừng sớm khi mô hình đạt độ chính xác 99.9% trên tập huấn luyện
+- **B.** Áp dụng trọng số lớp scale_pos_weight = 999 (Class Weighting) và đánh giá bằng chỉ số PR-AUC (Average Precision)
+- **C.** Xóa ngẫu nhiên 999.000 giao dịch bình thường (Random Undersampling) để cân bằng tỉ lệ 1:1 trước khi tiến hành huấn luyện mô hình
+- **D.** Nội suy nhân bản các mẫu vỡ nợ (Gaussian Augmentation) bằng phép cộng nhiễu Gaussian trắng mà không tiến hành chuẩn hóa dữ liệu
+
+**Đáp án chính xác:** `B`
+
+### 1. ELI5 — Bản chất cốt lõi (Giải thích như cho em bé)
+👶 **Hiểu nhanh bản chất:**
+Với dữ liệu cực kỳ mất cân bằng (0.1%), đoán bừa toàn bộ là ' không vỡ nợ ' cũng đạt Accuracy 99.9% nhưng vô dụng. Phải đặt trọng số phạt thật nặng khi đoán sai ca vỡ nợ (`scale_pos_weight = 999` trong LightGBM) và theo dõi diện tích dưới đường cong Precision-Recall (PR-AUC).
+
+### 2. Công thức toán & Bước tính chi tiết (Step-by-Step)
+📐 $\text{scale\_pos\_weight} = \frac{N_{\text{neg}}}{N_{\text{pos}}} = \frac{999.000}{1.000} = 999$. PR-AUC tập trung trực tiếp vào lớp thiểu số thay vì bị lớp đa số làm lu mờ như ROC-AUC. Chọn **B**.
+
+### 3. Bẫy đề thi & Tại sao các đáp án khác sai (Pitfalls)
+⚠️ **Cạm bẫy:** Phương án C xóa dữ liệu (Undersampling quá đà) làm mất 99.9% thông tin quý giá của khách hàng tốt.
+
+### 4. Mắt xích kiến thức & Căn cứ khoa học
+📚 **Căn cứ lý thuyết:** Xem **§1.7 Xử Lý Dữ Liệu Mất Cân Bằng (Imbalanced Data)**.
+
+---
+
+### Câu 64 [OLP01-E04] — Phân hệ Module C (Thang điểm: 1.0đ)
+
+**Đề bài:** [SCENARIO AUDIT - EDGE AI QUANTIZATION] Khi triển khai mô hình mạng nơ-ron nhận diện đối tượng lên thiết bị nhúng phần cứng giới hạn (Edge Device) sử dụng kỹ thuật lượng tử hóa sau huấn luyện Post-Training Quantization từ FP32 (32-bit float) sang INT8 (8-bit integer), hiện tượng nào sau đây diễn ra trên mô hình?
+
+- **A.** Dung lượng bộ nhớ trọng số giảm xấp xỉ 4 lần và tốc độ tính toán số nguyên tăng tốc vượt trội
+- **B.** Độ chính xác của mô hình luôn tăng lên do số nguyên INT8 không bị ảnh hưởng bởi tràn số
+- **C.** Số lượng tham số của mô hình tăng gấp 4 lần do phải lưu thêm ma trận ánh xạ tỉ lệ scale
+- **D.** Thời gian huấn luyện lại mô hình kéo dài gấp 10 lần so với huấn luyện mô hình số thực FP32
+
+**Đáp án chính xác:** `A`
+
+### 1. ELI5 — Bản chất cốt lõi (Giải thích như cho em bé)
+👶 **Hiểu nhanh bản chất:**
+Số thực 32-bit tốn 4 byte bộ nhớ, còn số nguyên 8-bit chỉ tốn 1 byte. Chuyển từ FP32 sang INT8 giúp mô hình nhẹ đi đúng 4 lần (ví dụ từ 100MB xuống 25MB) và chip phần cứng tính toán số nguyên nhanh hơn rất nhiều so với số thực.
+
+### 2. Công thức toán & Bước tính chi tiết (Step-by-Step)
+📐 Ánh xạ affine: $q = \text{round}(r / S) + Z$. Kích thước giảm: $\frac{32 \text{ bits}}{8 \text{ bits}} = 4 \times$. Chọn **A**.
+
+### 3. Bẫy đề thi & Tại sao các đáp án khác sai (Pitfalls)
+⚠️ **Cạm bẫy:** Phương án B sai vì lượng tử hóa INT8 luôn gây ra một sai số làm tròn nhỏ (Quantization Noise), có thể làm giảm nhẹ độ chính xác chứ không bao giờ tự tăng.
+
+### 4. Mắt xích kiến thức & Căn cứ khoa học
+📚 **Căn cứ lý thuyết:** Xem **§3.7 Các Kiến Trúc Deep Learning Tiêu Biểu & SOTA**.
+
+---
+
+### Câu 65 [OLP01-M65] — Phân hệ Module A (Thang điểm: 1.0đ)
+
+**Đề bài:** Cho hàm mục tiêu lồi khả vi hai lần $f(w)$. Điều kiện cần và đủ để ma trận Hessian $H = \nabla^2 f(w)$ bảo đảm hàm số đạt cực tiểu toàn cục duy nhất tại điểm dừng $\nabla f(w^*) = 0$ là gì?
+
+- **A.** Ma trận Hessian $H$ có định thức bằng 0 và tất cả các phần tử trên đường chéo chính mang dấu âm chặt chẽ
+- **B.** Ma trận Hessian $H$ là ma trận đối xứng xác định dương với tất cả các trị riêng đều strictly dương
+- **C.** Ma trận Hessian $H$ là ma trận trực giao có chuẩn Frobenius bằng 1 trên toàn bộ không gian số thực
+- **D.** Ma trận Hessian $H$ có tổng các phần tử trên mỗi hàng bằng đúng 1 theo chuẩn phân phối ngẫu nhiên Markov
+
+**Đáp án chính xác:** `B`
+
+### 1. ELI5 — Bản chất cốt lõi (Giải thích như cho em bé)
+👶 **Hiểu nhanh bản chất:**
+Để đáy thung lũng là điểm thấp nhất duy nhất (cực tiểu toàn cục), mặt cong của hàm số phải luôn cong lên theo mọi hướng. Trong toán học, độ cong theo mọi hướng đều dương tương đương với ma trận Hessian là ma trận xác định dương (Positive Definite: $x^T H x > 0$ với mọi $x \ne 0$).
+
+### 2. Công thức toán & Bước tính chi tiết (Step-by-Step)
+📐 $\nabla^2 f(w^*) \succ 0 \iff \lambda_i > 0, \forall i$. Chọn **B**.
+
+### 3. Bẫy đề thi & Tại sao các đáp án khác sai (Pitfalls)
+⚠️ **Cạm bẫy:** Phương án A là điều kiện suy biến hoặc cực đại; Phương án C và D không liên quan đến tính lồi của hàm số.
+
+### 4. Mắt xích kiến thức & Căn cứ khoa học
+📚 **Căn cứ lý thuyết:** Xem **§1.1 Cơ Sở Tối Ưu Hóa & Gradient Descent**.
+
+---
+
+### Câu 66 [OLP01-M66] — Phân hệ Module A (Thang điểm: 1.0đ)
+
+**Đề bài:** Thuật toán tối ưu hóa AdamW khắc phục hạn chế cốt lõi nào của thuật toán Adam tiêu chuẩn khi kết hợp với kỹ thuật suy giảm trọng số L2 Regularization (Weight Decay)?
+
+- **A.** Loại bỏ hoàn toàn bước ước lượng moment bậc 1 (Momentum Dropout) để giảm thiểu bộ nhớ đệm trạng thái gradient khi tính toán
+- **B.** Tách rời bước suy giảm trọng số khỏi bước cập nhật thích ứng theo moment bậc 2 (Decoupled Weight Decay)
+- **C.** Tự động đảo ngược chiều vector gradient (Gradient Inversion) khi hàm mất mát rơi vào điểm yên ngựa cục bộ trong không gian
+- **D.** Nhân đôi tốc độ học khi giá trị moment bậc 2 đạt ngưỡng cực tiểu (Learning Rate Warmup) nhằm tăng tốc độ hội tụ của các trọng số
+
+**Đáp án chính xác:** `B`
+
+### 1. ELI5 — Bản chất cốt lõi (Giải thích như cho em bé)
+👶 **Hiểu nhanh bản chất:**
+Trong Adam chuẩn, số hạng phạt L2 bị chia cho căn bậc hai của moment bậc 2 (adaptive scale), khiến các trọng số có gradient lớn lại bị phạt ít hơn! AdamW tách riêng bước phạt co nhỏ trọng số $w \leftarrow w - \eta \lambda w$ ra khỏi phép chia gradient, giúp Weight Decay hoạt động đúng bản chất.
+
+### 2. Công thức toán & Bước tính chi tiết (Step-by-Step)
+📐 AdamW: $w_{t+1} = w_t - \eta_t \lambda w_t - \alpha \frac{m_t}{\sqrt{v_t} + \epsilon}$. Chọn **B**.
+
+### 3. Bẫy đề thi & Tại sao các đáp án khác sai (Pitfalls)
+⚠️ **Cạm bẫy:** AdamW không hề bỏ moment bậc 1 (loại A) hay đảo chiều gradient (loại C).
+
+### 4. Mắt xích kiến thức & Căn cứ khoa học
+📚 **Căn cứ lý thuyết:** Xem **§2.4 Thuật Toán Tối Ưu: SGD, Momentum, Adam, AdamW**.
+
+---
+
+### Câu 67 [OLP01-M67] — Phân hệ Module A (Thang điểm: 1.0đ)
+
+**Đề bài:** Khi áp dụng kỹ thuật làm mịn nhãn Label Smoothing với hệ số $\epsilon = 0.1$ cho bài toán phân loại nhị phân (nhãn gốc $y = 1$), vector xác suất mục tiêu sau khi làm mịn là gì?
+
+- **A.** Nhãn lớp dương là 0.90 và nhãn lớp âm là 0.10 (giữ nguyên không gian xác suất 2 lớp chuẩn hóa)
+- **B.** Nhãn lớp dương là 0.95 và nhãn lớp âm là 0.05 (phân bổ đều phần dư $\epsilon$ cho $K=2$ lớp)
+- **C.** Nhãn lớp dương là 1.00 và nhãn lớp âm là 0.10 (cộng thêm nhiễu trắng vào nhãn thực tế)
+- **D.** Nhãn lớp dương là 0.80 và nhãn lớp âm là 0.20 (nhân đôi hệ số phạt chống tự tin thái quá)
+
+**Đáp án chính xác:** `B`
+
+### 1. ELI5 — Bản chất cốt lõi (Giải thích như cho em bé)
+👶 **Hiểu nhanh bản chất:**
+Thay vì ép mạng phải tin 100% vào nhãn 1 (làm logit phóng to vô cực), Label Smoothing lấy đi $\epsilon = 0.1$ chia đều cho cả 2 lớp ($0.1 / 2 = 0.05$). Lớp đúng nhận $1 - 0.1 + 0.05 = 0.95$, lớp sai nhận $0.05$.
+
+### 2. Công thức toán & Bước tính chi tiết (Step-by-Step)
+📐 $y_k^{\text{smooth}} = (1 - \epsilon) y_k + \frac{\epsilon}{K}$.
+Với $K = 2, y_1 = 1, y_2 = 0$: $y_1^{\text{smooth}} = (1 - 0.1)(1) + \frac{0.1}{2} = 0.9 + 0.05 = 0.95$; $y_2^{\text{smooth}} = 0.05$. Chọn **B**.
+
+### 3. Bẫy đề thi & Tại sao các đáp án khác sai (Pitfalls)
+⚠️ **Cạm bẫy:** Phương án A tính nhầm công thức không cộng phần phân bổ của chính lớp đó ($1 - \epsilon = 0.90$).
+
+### 4. Mắt xích kiến thức & Căn cứ khoa học
+📚 **Căn cứ lý thuyết:** Xem **§2.3 Hàm Mất Mát (Loss Functions)**.
+
+---
+
+### Câu 68 [OLP01-M68] — Phân hệ Module A (Thang điểm: 1.0đ)
+
+**Đề bài:** Hàm mất mát Huber Loss với ngưỡng $\delta > 0$ sở hữu ưu điểm vượt trội nào khi so sánh với hàm mất mát MSE và MAE trong bài toán hồi quy có dữ liệu nhiễu ngoại lai (Outliers)?
+
+- **A.** Hoạt động như MSE khi sai số nhỏ $|e| \le \delta$ (đạo hàm mượt) và như MAE khi sai số lớn (chống nổ gradient)
+- **B.** Luôn luôn trả về giá trị 0 khi sai số vượt quá ngưỡng $\delta$ (Outlier Truncation) để loại bỏ hoàn toàn các điểm dữ liệu ngoại lai
+- **C.** Tính toán ma trận nghịch đảo nhanh hơn MSE (Finite Difference) nhờ áp dụng các toán tử vi phân xấp xỉ bậc một cục bộ
+- **D.** Triệt tiêu hoàn toàn thành phần sai số ngẫu nhiên (Uniform Normalization) bằng cách chuẩn hóa dữ liệu phân phối về dạng đều
+
+**Đáp án chính xác:** `A`
+
+### 1. ELI5 — Bản chất cốt lõi (Giải thích như cho em bé)
+👶 **Hiểu nhanh bản chất:**
+MSE bị nhược điểm là bình phương sai số, gặp điểm dị biệt (outlier) lớn thì gradient phát nổ văng ra xa. MAE chống dị biệt tốt nhưng không có đạo hàm trơn ở điểm 0. Huber Loss ghép 2 hàm: ở gần điểm 0 dùng parabol (MSE) cho mượt mà, ở xa dùng đường thẳng (MAE) để không bị điểm dị biệt lôi kéo quá đà.
+
+### 2. Công thức toán & Bước tính chi tiết (Step-by-Step)
+📐 $L_\delta(e) = \begin{cases} \frac{1}{2} e^2 & \text{nếu } |e| \le \delta \\ \delta (|e| - \frac{1}{2}\delta) & \text{ngược lại} \end{cases}$. Đạo hàm bị chặn trong $[-\delta, \delta]$. Chọn **A**.
+
+### 3. Bẫy đề thi & Tại sao các đáp án khác sai (Pitfalls)
+⚠️ **Cạm bẫy:** Huber Loss không gán sai số bằng 0 (loại B) mà chỉ chặn tốc độ tăng gradient tuyến tính.
+
+### 4. Mắt xích kiến thức & Căn cứ khoa học
+📚 **Căn cứ lý thuyết:** Xem **§2.3 Hàm Mất Mát (Loss Functions)**.
+
+---
+
+### Câu 69 [OLP01-M69] — Phân hệ Module A (Thang điểm: 1.0đ)
+
+**Đề bài:** Trong kỹ thuật Inverted Dropout với xác suất giữ lại nơ-ron là $p = 0.8$ (tức xác suất rơi $1 - p = 0.2$), trong pha huấn luyện Training, các giá trị kích hoạt còn giữ lại được nhân với hệ số tỉ lệ nào?
+
+- **A.** Nhân với $1.0$ (không thay đổi giá trị kích hoạt trong pha huấn luyện)
+- **B.** Nhân với $1 / p = 1 / 0.8 = 1.25$ để bảo toàn kỳ vọng toán học khi sang pha Inference
+- **C.** Nhân với $p = 0.8$ để giảm dần năng lượng lan truyền của tín hiệu qua các tầng
+- **D.** Nhân với $(1 - p) = 0.2$ nhằm triệt tiêu các đặc trưng có tần số xuất hiện quá cao
+
+**Đáp án chính xác:** `B`
+
+### 1. ELI5 — Bản chất cốt lõi (Giải thích như cho em bé)
+👶 **Hiểu nhanh bản chất:**
+Khi tắt ngẫu nhiên 20% nơ-ron, tổng tín hiệu truyền đi bị hao hụt 20%. Inverted Dropout phóng to 80% nơ-ron còn lại lên $1 / 0.8 = 1.25$ lần ngay lúc học. Nhờ đó, lúc thi (Inference) chỉ cần giữ nguyên mạng chạy thẳng, không cần phải nhân chia thêm bất kỳ hệ số nào!
+
+### 2. Công thức toán & Bước tính chi tiết (Step-by-Step)
+📐 $h_{\text{train}} = \frac{m \odot h}{p}$ với $m \sim \text{Bernoulli}(p) \implies \mathbb{E}[h_{\text{train}}] = \frac{p \cdot h}{p} = h$. Chọn **B**.
+
+### 3. Bẫy đề thi & Tại sao các đáp án khác sai (Pitfalls)
+⚠️ **Cạm bẫy:** Phương án C là Dropout cổ điển (Standard Dropout), lúc inference phải nhân $p$ rất phiền phức.
+
+### 4. Mắt xích kiến thức & Căn cứ khoa học
+📚 **Căn cứ lý thuyết:** Xem **§2.6 Kỹ Thuật Điều Hòa: Dropout, Batch Normalization, Layer Normalization**.
+
+---
+
+### Câu 70 [OLP01-M70] — Phân hệ Module A (Thang điểm: 1.0đ)
+
+**Đề bài:** Cho phân phối xác suất thực tế $P$ và phân phối xấp xỉ $Q$ của một biến ngẫu nhiên rời rạc. Độ phân kỳ Kullback-Leibler (KL Divergence) $D_{KL}(P \parallel Q)$ sở hữu tính chất toán học cơ bản nào sau đây?
+
+- **A.** Có tính chất đối xứng hoàn toàn: $D_{KL}(P \parallel Q) = D_{KL}(Q \parallel P)$ với mọi phân phối
+- **B.** Luôn không âm $D_{KL}(P \parallel Q) \ge 0$, đạt bằng 0 khi và chỉ khi hai phân phối đồng nhất $P = Q$
+- **C.** Có thể nhận giá trị âm khi độ hỗn loạn của phân phối $Q$ lớn hơn độ hỗn loạn của $P$
+- **D.** Thỏa mãn bất đẳng thức tam giác và được coi là một khoảng cách Metric hình học chuẩn
+
+**Đáp án chính xác:** `B`
+
+### 1. ELI5 — Bản chất cốt lõi (Giải thích như cho em bé)
+👶 **Hiểu nhanh bản chất:**
+Độ phân kỳ KL đo lường ' lượng thông tin bị lãng phí ' khi dùng $Q$ để mô phỏng $P$. Nó luôn lớn hơn hoặc bằng 0 (bất đẳng thức Gibbs). Tuy nhiên, nó KHÔNG phải khoảng cách hình học vì nó bất đối xứng: $D_{KL}(P \parallel Q) \ne D_{KL}(Q \parallel P)$!
+
+### 2. Công thức toán & Bước tính chi tiết (Step-by-Step)
+📐 $D_{KL}(P \parallel Q) = \sum_x P(x) \log\left(\frac{P(x)}{Q(x)}\right) \ge 0$. Đạt 0 khi $P(x) = Q(x)$ hầu chắc chắn. Chọn **B**.
+
+### 3. Bẫy đề thi & Tại sao các đáp án khác sai (Pitfalls)
+⚠️ **Cạm bẫy:** KL không đối xứng (loại A) và không thỏa mãn bất đẳng thức tam giác (loại D).
+
+### 4. Mắt xích kiến thức & Căn cứ khoa học
+📚 **Căn cứ lý thuyết:** Xem **§5.1 Khái Niệm Xác Suất & Định Lý Bayes**.
+
+---
+
+### Câu 71 [OLP01-M71] — Phân hệ Module A (Thang điểm: 1.0đ)
+
+**Đề bài:** Theo định lý Eckart-Young-Mirsky, khi xấp xỉ ma trận dữ liệu $A \in \mathbb{R}^{m \times n}$ bằng ma trận có hạng $k < \text{rank}(A)$ theo chuẩn Frobenius, ma trận xấp xỉ tối ưu $A_k$ được tạo thành bằng cách nào từ phân tích SVD $A = U \Sigma V^T$?
+
+- **A.** Chỉ giữ lại $k$ giá trị kỳ dị nhỏ nhất trong ma trận đường chéo $\Sigma$ và gán 0 cho các giá trị còn lại
+- **B.** Đảo ngược thứ tự các cột của ma trận $U$ và $V$ để triệt tiêu các thành phần tần số cao
+- **C.** Chỉ giữ lại $k$ giá trị kỳ dị lớn nhất $\sigma_1 \ge \sigma_2 \ge \dots \ge \sigma_k$ và các vector kỳ dị tương ứng
+- **D.** Thay thế ma trận $\Sigma$ bằng ma trận đơn vị $I_k$ có cùng kích thước để chuẩn hóa độ biến thiên
+
+**Đáp án chính xác:** `C`
+
+### 1. ELI5 — Bản chất cốt lõi (Giải thích như cho em bé)
+👶 **Hiểu nhanh bản chất:**
+Phân tích SVD sắp xếp các giá trị kỳ dị $\sigma_i$ từ lớn nhất đến nhỏ nhất. Để nén ma trận mà giữ được nhiều thông tin nhất (sai số nhỏ nhất), ta chỉ cần giữ lại $k$ giá trị kỳ dị to nhất và bỏ đi các giá trị nhỏ. Đó chính là định lý Eckart-Young.
+
+### 2. Công thức toán & Bước tính chi tiết (Step-by-Step)
+📐 $A_k = \sum_{i=1}^k \sigma_i u_i v_i^T$. Sai số chuẩn Frobenius: $\|A - A_k\|_F^2 = \sum_{i=k+1}^r \sigma_i^2$. Chọn **C**.
+
+### 3. Bẫy đề thi & Tại sao các đáp án khác sai (Pitfalls)
+⚠️ **Cạm bẫy:** Phương án A giữ giá trị kỳ dị nhỏ nhất là ngược hoàn toàn (sai số cực đại).
+
+### 4. Mắt xích kiến thức & Căn cứ khoa học
+📚 **Căn cứ lý thuyết:** Xem **§1.1 Cơ Sở Tối Ưu Hóa & Gradient Descent**.
+
+---
+
+### Câu 72 [OLP01-M72] — Phân hệ Module A (Thang điểm: 1.0đ)
+
+**Đề bài:** Trong thuật toán PCA (Principal Component Analysis), tỉ lệ phương sai được giải thích (Explained Variance Ratio) bởi thành phần chính thứ $k$ tương ứng với ma trận hiệp phương sai có các trị riêng $\lambda_1 \ge \lambda_2 \ge \dots \ge \lambda_d$ được tính bằng công thức nào?
+
+- **A.** Tỉ số giữa căn bậc hai của trị riêng $\sqrt{\lambda_k}$ trên tổng căn bậc hai của toàn bộ trị riêng
+- **B.** Tỉ số giữa logarit tự nhiên $\ln(\lambda_k)$ trên tổng entropy của ma trận hiệp phương sai
+- **C.** Tỉ số giữa trị riêng $\lambda_k$ trên tổng của tất cả các trị riêng: $\frac{\lambda_k}{\sum_{i=1}^d \lambda_i}$
+- **D.** Tỉ số giữa bình phương trị riêng $\lambda_k^2$ trên tổng vết (Trace) của ma trận dữ liệu ban đầu
+
+**Đáp án chính xác:** `C`
+
+### 1. ELI5 — Bản chất cốt lõi (Giải thích như cho em bé)
+👶 **Hiểu nhanh bản chất:**
+Tổng phương sai của toàn bộ dữ liệu chính là tổng các trị riêng (vết của ma trận hiệp phương sai: $\text{Tr}(\Sigma) = \sum \lambda_i$). Mỗi trục thành phần chính mang phương sai bằng chính $\lambda_k$. Tỉ lệ phần trăm thông tin trục đó gánh vác chính là $\lambda_k / \sum \lambda_i$.
+
+### 2. Công thức toán & Bước tính chi tiết (Step-by-Step)
+📐 $\text{EVR}_k = \frac{\lambda_k}{\sum_{i=1}^d \lambda_i}$. Chọn **C**.
+
+### 3. Bẫy đề thi & Tại sao các đáp án khác sai (Pitfalls)
+⚠️ **Cạm bẫy:** Không có căn bậc hai hay bình phương ở đây; trị riêng $\lambda_k$ vốn dĩ đã là phương sai (variance) trên trục chính.
+
+### 4. Mắt xích kiến thức & Căn cứ khoa học
+📚 **Căn cứ lý thuyết:** Xem **§1.4 Giảm Chiều Dữ Liệu (Dimensionality Reduction)**.
+
+---
+
+### Câu 73 [OLP01-M73] — Phân hệ Module A (Thang điểm: 1.0đ)
+
+**Đề bài:** Trong mô hình Logistic Regression cho phân loại nhị phân với hàm sigmoid $\hat{y} = \sigma(w^T x)$ và hàm mất mát Binary Cross-Entropy $L = -[y \ln(\hat{y}) + (1-y)\ln(1-\hat{y})]$, gradient của hàm mất mát theo vector trọng số $w$ có dạng đại số nào?
+
+- **A.** $\nabla_w L = 2 (\hat{y} - y)^2 x$ với hệ số co dãn bậc hai theo khoảng cách Euclid giữa hai điểm
+- **B.** $\nabla_w L = \frac{\hat{y} - y}{\hat{y}(1 - \hat{y})} x$ có mẫu số suy biến khi dự báo tiến gần đến 0 hoặc 1
+- **C.** $\nabla_w L = (\hat{y} - y) x$, triệt tiêu hoàn toàn số hạng đạo hàm của hàm sigmoid ở mẫu số
+- **D.** $\nabla_w L = -y (1 - \hat{y}) x + (1 - y) \hat{y} x$ phụ thuộc trực tiếp vào nghịch đảo chuẩn L2 của x
+
+**Đáp án chính xác:** `C`
+
+### 1. ELI5 — Bản chất cốt lõi (Giải thích như cho em bé)
+👶 **Hiểu nhanh bản chất:**
+Khi dùng Cross-Entropy kết hợp Sigmoid, đạo hàm của BCE có mẫu số $\hat{y}(1-\hat{y})$, trong khi đạo hàm của Sigmoid lại là $\hat{y}(1-\hat{y})$. Hai thành phần này triệt tiêu lẫn nhau một cách kỳ diệu, cho ra gradient cực kỳ đơn giản: $(\hat{y} - y) x$. Lỗi dự báo càng lớn thì cập nhật càng mạnh!
+
+### 2. Công thức toán & Bước tính chi tiết (Step-by-Step)
+📐 $\frac{\partial L}{\partial w} = \frac{\partial L}{\partial \hat{y}} \frac{\partial \hat{y}}{\partial z} \frac{\partial z}{\partial w} = \left(\frac{\hat{y} - y}{\hat{y}(1-\hat{y})}\right) (\hat{y}(1-\hat{y})) x = (\hat{y} - y) x$. Chọn **C**.
+
+### 3. Bẫy đề thi & Tại sao các đáp án khác sai (Pitfalls)
+⚠️ **Cạm bẫy:** Phương án B quên triệt tiêu đạo hàm của sigmoid $\sigma '(z) = \sigma(z)(1-\sigma(z))$.
+
+### 4. Mắt xích kiến thức & Căn cứ khoa học
+📚 **Căn cứ lý thuyết:** Xem **§1.2 Hồi Quy Tuyến Tính & Logistic Regression**.
+
+---
+
+### Câu 74 [OLP01-M74] — Phân hệ Module A (Thang điểm: 1.0đ)
+
+**Đề bài:** Trong mô hình Soft-Margin SVM, siêu tham số $C > 0$ trong hàm mục tiêu $\min \frac{1}{2}\|w\|^2 + C \sum_{i=1}^n \xi_i$ đóng vai trò gì trong việc cân bằng giữa độ rộng lề (Margin) và sai số phân loại?
+
+- **A.** Khi $C$ rất nhỏ, mô hình ưu tiên mở rộng lề tối đa và chấp nhận cho phép nhiều điểm vi phạm lề hơn
+- **B.** Khi $C \to \infty$, mô hình sẽ chuyển thành Hard-Margin SVM và tuyệt đối không cho phép bất kỳ điểm vi phạm nào
+- **C.** Khi $C$ tăng cao, mô hình có xu hướng phạt nặng các biến bù $\xi_i$, dẫn đến lề hẹp hơn và nguy cơ Overfitting cao
+- **D.** Tất cả các khẳng định trên đều phản ánh chính xác bản chất toán học của tham số điều hòa $C$
+
+**Đáp án chính xác:** `D`
+
+### 1. ELI5 — Bản chất cốt lõi (Giải thích như cho em bé)
+👶 **Hiểu nhanh bản chất:**
+- $C$ là ' mức độ nghiêm khắc ' đối với điểm phạm luật. Nếu $C$ nhỏ: dễ tính, lề rộng thênh thang, chấp nhận vài điểm lạc loài (chống overfitting). Nếu $C$ lớn: cực kỳ khắt khe, lề bị bóp hẹp lại để không điểm nào vi phạm (nguy cơ overfitting). Khi $C \to \infty$, nó trở về Hard-Margin nguyên bản.
+
+### 2. Công thức toán & Bước tính chi tiết (Step-by-Step)
+📐 Trade-off giữa $\frac{1}{2}\|w\|^2$ (tối đa hóa margin $\frac{2}{\|w\|}$) và $C \sum \xi_i$. Cả A, B, C đều đúng. Chọn **D**.
+
+### 3. Bẫy đề thi & Tại sao các đáp án khác sai (Pitfalls)
+⚠️ **Cạm bẫy:** Thí sinh hay quên rằng $C$ lớn tương ứng với phạt nặng (lề hẹp), ngược lại với hệ số $\lambda$ trong Ridge Regression ($C \sim 1/\lambda$).
+
+### 4. Mắt xích kiến thức & Căn cứ khoa học
+📚 **Căn cứ lý thuyết:** Xem **§1.3 Support Vector Machines (SVM)**.
+
+---
+
+### Câu 75 [OLP01-M75] — Phân hệ Module A (Thang điểm: 1.0đ)
+
+**Đề bài:** Cho một nút trong Cây Quyết Định (Decision Tree) chứa 6 mẫu lớp Dương (+1) và 4 mẫu lớp Âm (-1). Chỉ số độ vẩn đục Gini Impurity của nút này bằng bao nhiêu?
+
+- **A.** 0.52 (đo lường độ hỗn loạn vượt quá mức cân bằng phân phối nhị thức đồng đều)
+- **B.** 0.36 (bình phương xác suất xuất hiện của lớp đa số trong tập mẫu huấn luyện)
+- **C.** 0.48 (tính theo công thức $1 - (0.6^2 + 0.4^2) = 1 - (0.36 + 0.16) = 0.48$)
+- **D.** 0.24 (tích xác suất xuất hiện giữa hai lớp nhân với hệ số suy giảm entropy)
+
+**Đáp án chính xác:** `C`
+
+### 1. ELI5 — Bản chất cốt lõi (Giải thích như cho em bé)
+👶 **Hiểu nhanh bản chất:**
+Gini đo độ ' không tinh khiết '. Nút có xác suất chọn lớp dương là $p_1 = 6/10 = 0.6$, lớp âm là $p_2 = 4/10 = 0.4$. Gini lấy 1 trừ đi tổng bình phương các xác suất: $1 - (0.6^2 + 0.4^2) = 1 - (0.36 + 0.16) = 0.48$.
+
+### 2. Công thức toán & Bước tính chi tiết (Step-by-Step)
+📐 $\text{Gini} = 1 - \sum_{k=1}^K p_k^2 = 1 - (0.6^2 + 0.4^2) = 1 - 0.52 = 0.48$. Chọn **C**.
+
+### 3. Bẫy đề thi & Tại sao các đáp án khác sai (Pitfalls)
+⚠️ **Cạm bẫy:** Phương án A là tổng bình phương $0.52$ chứ chưa lấy $1 - 0.52$.
+
+### 4. Mắt xích kiến thức & Căn cứ khoa học
+📚 **Căn cứ lý thuyết:** Xem **§1.6 Cây Quyết Định (Decision Trees)**.
+
+---
+
+### Câu 76 [OLP01-M76] — Phân hệ Module A (Thang điểm: 1.0đ)
+
+**Đề bài:** Trong mô hình Random Forest sử dụng kỹ thuật Bootstrap Aggregation (Bagging), tỉ lệ xấp xỉ của các mẫu dữ liệu huấn luyện KHÔNG BAO GIỜ được chọn vào một cây quyết định cụ thể (Out-of-Bag samples) là bao nhiêu khi số lượng mẫu $N \to \infty$?
+
+- **A.** Khoảng 50.0% (tương ứng với phép tung đồng xu ngẫu nhiên độc lập tại mỗi lượt rút)
+- **B.** Khoảng 63.2% (tương đương với xác suất $1 - 1/e$ mẫu được chọn ít nhất một lần)
+- **C.** Khoảng 25.0% (giới hạn phần tư thấp nhất theo phân phối siêu bội không hoàn lại)
+- **D.** Khoảng 36.8% (tương đương với giới hạn toán học $\lim_{N \to \infty} (1 - 1/N)^N = 1/e$)
+
+**Đáp án chính xác:** `D`
+
+### 1. ELI5 — Bản chất cốt lõi (Giải thích như cho em bé)
+👶 **Hiểu nhanh bản chất:**
+Mỗi lần rút có hoàn lại, xác suất một mẫu KHÔNG được chọn là $1 - 1/N$. Rút $N$ lần độc lập, xác suất mẫu đó trượt toàn bộ là $(1 - 1/N)^N$. Khi $N$ rất lớn, con số này hội tụ về $1/e \approx 0.368$ (36.8%). Các mẫu bị trượt này gọi là Out-of-Bag (OOB), dùng để test mô hình miễn phí mà không cần tập validation riêng!
+
+### 2. Công thức toán & Bước tính chi tiết (Step-by-Step)
+📐 $P(\text{OOB}) = \lim_{N \to \infty} \left(1 - \frac{1}{N}\right)^N = e^{-1} \approx 0.367879$. Chọn **D**.
+
+### 3. Bẫy đề thi & Tại sao các đáp án khác sai (Pitfalls)
+⚠️ **Cạm bẫy:** Phương án B là tỉ lệ mẫu ĐƯỢC CHỌN ($1 - 1/e \approx 63.2\%$), câu hỏi hỏi mẫu KHÔNG được chọn.
+
+### 4. Mắt xích kiến thức & Căn cứ khoa học
+📚 **Căn cứ lý thuyết:** Xem **§1.6 Cây Quyết Định (Decision Trees)**.
+
+---
+
+### Câu 77 [OLP01-M77] — Phân hệ Module A (Thang điểm: 1.0đ)
+
+**Đề bài:** Trong thuật toán AdaBoost phân loại nhị phân $y_i \in \{-1, +1\}$, sau khi huấn luyện bộ phân loại yếu $h_m(x)$ có sai số có trọng số $\epsilon_m < 0.5$, trọng số của các mẫu bị dự đoán SAI được cập nhật theo cơ chế nào?
+
+- **A.** Nhân với hệ số $\exp(-\alpha_m) < 1$ để giảm thiểu ảnh hưởng của các mẫu nhiễu đến các vòng lặp phân loại tiếp theo
+- **B.** Chia đều toàn bộ sai số cho kích thước tập dữ liệu và đặt lại trọng số ban đầu của tất cả các mẫu bằng $1/N$
+- **C.** Gán trọng số mẫu bằng 0 để loại bỏ hoàn toàn các mẫu khó nhận dạng khỏi các vòng lặp huấn luyện kế tiếp
+- **D.** Nhân với hệ số $\exp(\alpha_m) > 1$ với $\alpha_m = \frac{1}{2}\ln\left(\frac{1-\epsilon_m}{\epsilon_m}\right)$ để buộc mô hình sau phải chú ý
+
+**Đáp án chính xác:** `D`
+
+### 1. ELI5 — Bản chất cốt lõi (Giải thích như cho em bé)
+👶 **Hiểu nhanh bản chất:**
+AdaBoost hoạt động như một gia sư kiên nhẫn: câu nào học sinh làm sai, gia sư sẽ đánh dấu đỏ và tăng trọng số phạt (nhân thêm $\exp(\alpha_m) > 1$). Cây tiếp theo bắt buộc phải tập trung toàn lực vào các câu sai này để sửa chữa!
+
+### 2. Công thức toán & Bước tính chi tiết (Step-by-Step)
+📐 $w_i^{(m+1)} = w_i^{(m)} \exp(-\alpha_m y_i h_m(x_i))$. Khi đoán sai, $y_i h_m(x_i) = -1 \implies \exp(\alpha_m) > 1$. Chọn **D**.
+
+### 3. Bẫy đề thi & Tại sao các đáp án khác sai (Pitfalls)
+⚠️ **Cạm bẫy:** Phương án A là công thức cập nhật cho các mẫu đoán ĐÚNG ($y_i h_m(x_i) = +1$).
+
+### 4. Mắt xích kiến thức & Căn cứ khoa học
+📚 **Căn cứ lý thuyết:** Xem **§1.6 Cây Quyết Định (Decision Trees)**.
+
+---
+
+### Câu 78 [OLP01-M78] — Phân hệ Module B (Thang điểm: 1.0đ)
+
+**Đề bài:** Trong thuật toán Gradient Boosting cho bài toán hồi quy với hàm mất mát MSE $L(y, \hat{y}) = \frac{1}{2}(y - \hat{y})^2$, mục tiêu mà mỗi cây quyết định mới ở bước $m$ được huấn luyện để xấp xỉ (Pseudo-Residuals) chính là đại lượng nào?
+
+- **A.** Bình phương sai số chuẩn hóa của mô hình tích lũy từ bước khởi tạo ban đầu theo phân phối Student-t (Cumulative Error)
+- **B.** Đạo hàm bậc hai của hàm mục tiêu theo từng vector đặc trưng đầu vào của dữ liệu quan sát được (Hessian Matrix)
+- **C.** Hiệu số phần dư sai số thực tế $r_{im} = y_i - F_{m-1}(x_i)$ tương ứng với gradient âm của hàm mất mát
+- **D.** Xác suất hậu nghiệm Bayes của nhãn mục tiêu điều kiện theo dự đoán của cây quyết định tiền nhiệm (Posterior Probability)
+
+**Đáp án chính xác:** `C`
+
+### 1. ELI5 — Bản chất cốt lõi (Giải thích như cho em bé)
+👶 **Hiểu nhanh bản chất:**
+Gradient Boosting học theo cơ chế ' bù trừ phần dư ': nếu hiện tại đang dự báo thiếu 5 đơn vị ($y - F(x) = +5$), cây mới sẽ học để sinh ra đúng +5. Trong MSE, gradient âm của loss chính là $-(F(x) - y) = y - F(x)$!
+
+### 2. Công thức toán & Bước tính chi tiết (Step-by-Step)
+📐 $r_{im} = -\left[\frac{\partial L(y_i, F(x_i))}{\partial F(x_i)}\right]_{F=F_{m-1}} = y_i - F_{m-1}(x_i)$. Chọn **C**.
+
+### 3. Bẫy đề thi & Tại sao các đáp án khác sai (Pitfalls)
+⚠️ **Cạm bẫy:** Pseudo-residuals là gradient âm bậc nhất (First-order), không phải đạo hàm bậc hai (Hessian như trong XGBoost).
+
+### 4. Mắt xích kiến thức & Căn cứ khoa học
+📚 **Căn cứ lý thuyết:** Xem **§1.6 Cây Quyết Định (Decision Trees)**.
+
+---
+
+### Câu 79 [OLP01-M79] — Phân hệ Module B (Thang điểm: 1.0đ)
+
+**Đề bài:** Thuật toán phân cụm K-Means khởi tạo ngẫu nhiên tâm cụm theo giải thuật K-Means++ mang lại ưu thế vượt trội nào so với khởi tạo ngẫu nhiên đều (Standard Random Initialization)?
+
+- **A.** Chọn tâm cụm tiếp theo với xác suất tỉ lệ thuận với bình phương khoảng cách đến tâm cụm gần nhất $D(x)^2$
+- **B.** Đảm bảo thuật toán luôn luôn tìm ra nghiệm tối ưu toàn cục mà không bao giờ rơi vào cực tiểu địa phương
+- **C.** Giảm độ phức tạp tính toán của mỗi vòng lặp cập nhật từ $O(NKd)$ xuống còn $O(d \log K)$
+- **D.** Tự động xác định số lượng cụm $K$ tối ưu thông qua phép phân rã phổ ma trận kề
+
+**Đáp án chính xác:** `A`
+
+### 1. ELI5 — Bản chất cốt lõi (Giải thích như cho em bé)
+👶 **Hiểu nhanh bản chất:**
+Khởi tạo ngẫu nhiên bình thường dễ chọn phải 2 tâm cụm sát vách nhau. K-Means++ sửa lỗi này bằng cách: tâm cụm tiếp theo được bốc ngẫu nhiên nhưng ưu tiên các điểm ở xa tít các tâm đã chọn (xác suất tỉ lệ với $D(x)^2$). Nhờ các tâm trải đều ngay từ đầu, mô hình hội tụ cực nhanh và kết quả tốt hơn hẳn.
+
+### 2. Công thức toán & Bước tính chi tiết (Step-by-Step)
+📐 $P(x) = \frac{D(x)^2}{\sum_{x ' \in X} D(x ')^2}$. K-Means++ có bảo đảm cận lý thuyết $O(\log K)$-competitive. Chọn **A**.
+
+### 3. Bẫy đề thi & Tại sao các đáp án khác sai (Pitfalls)
+⚠️ **Cạm bẫy:** Phương án B sai vì K-Means là bài toán NP-hard, K-Means++ chỉ giảm nguy cơ bẫy cực tiểu địa phương chứ không chứng minh luôn tìm ra toàn cục.
+
+### 4. Mắt xích kiến thức & Căn cứ khoa học
+📚 **Căn cứ lý thuyết:** Xem **§1.4 Giảm Chiều Dữ Liệu (Dimensionality Reduction)**.
+
+---
+
+### Câu 80 [OLP01-M80] — Phân hệ Module B (Thang điểm: 1.0đ)
+
+**Đề bài:** Trong mô hình Gaussian Mixture Model (GMM) huấn luyện bằng thuật toán Kỳ vọng - Cực đại hóa (EM Algorithm), bước E-step thực hiện phép tính toán nào?
+
+- **A.** Tối ưu hóa vector kỳ vọng $\mu_k$ và ma trận hiệp phương sai $\Sigma_k$ bằng giải thuật Gradient Descent
+- **B.** Tính toán xác suất hậu nghiệm (Responsibility) $\gamma_{ik} = P(z_i = k \mid x_i)$ điểm dữ liệu thuộc về từng thành phần
+- **C.** Gán nhãn cứng duy nhất (Hard Assignment) cho mỗi điểm dữ liệu vào thành phần Gauss gần nhất
+- **D.** Cập nhật trọng số pha trộn $\pi_k$ bằng cách lấy trung bình cộng khoảng cách Mahalanobis
+
+**Đáp án chính xác:** `B`
+
+### 1. ELI5 — Bản chất cốt lõi (Giải thích như cho em bé)
+👶 **Hiểu nhanh bản chất:**
+- Bước E (Expectation): Đang có các quả chuông Gauss hiện tại, tính xem mỗi điểm dữ liệu thuộc về quả chuông nào với xác suất bao nhiêu phần trăm (gọi là ' trách nhiệm ' $\gamma_{ik}$).
+- Bước M (Maximization): Cầm bảng xác suất đó đi cân chỉnh lại tâm $\mu$, độ bè $\Sigma$ và trọng số $\pi$ của các quả chuông.
+
+### 2. Công thức toán & Bước tính chi tiết (Step-by-Step)
+📐 E-step: $\gamma_{ik} = \frac{\pi_k \mathcal{N}(x_i \mid \mu_k, \Sigma_k)}{\sum_{j=1}^K \pi_j \mathcal{N}(x_i \mid \mu_j, \Sigma_j)}$. Chọn **B**.
+
+### 3. Bẫy đề thi & Tại sao các đáp án khác sai (Pitfalls)
+⚠️ **Cạm bẫy:** Phương án C là K-Means (Hard clustering), còn GMM là Soft clustering thông qua xác suất hậu nghiệm.
+
+### 4. Mắt xích kiến thức & Căn cứ khoa học
+📚 **Căn cứ lý thuyết:** Xem **§5.2 Các Phân Phối Xác Suất Thông Dụng**.
+
+---
+
+### Câu 81 [OLP01-M81] — Phân hệ Module B (Thang điểm: 1.0đ)
+
+**Đề bài:** Khi lan truyền ngược (Backpropagation) qua tầng kích hoạt $y = \text{ReLU}(z) = \max(0, z)$, nếu gradient từ tầng trên gửi về là $\frac{\partial L}{\partial y}$, gradient tại đầu vào $\frac{\partial L}{\partial z}$ được xác định bằng công thức nào?
+
+- **A.** $\frac{\partial L}{\partial z} = \frac{\partial L}{\partial y}$ nếu $z > 0$, và bằng $0$ nếu $z < 0$ (cho phép đạo hàm dưới subgradient tại $z=0$)
+- **B.** $\frac{\partial L}{\partial z} = \frac{\partial L}{\partial y} \cdot \frac{1}{1 + e^{-z}}$ theo hàm sigmoid điều hòa gradient
+- **C.** $\frac{\partial L}{\partial z} = \frac{\partial L}{\partial y} \cdot (1 - y^2)$ theo vi phân của hàm tiếp tuyến hyperbolic
+- **D.** $\frac{\partial L}{\partial z} = \text{sign}(z) \cdot \frac{\partial L}{\partial y}$ trên toàn bộ trục số thực khả vi
+
+**Đáp án chính xác:** `A`
+
+### 1. ELI5 — Bản chất cốt lõi (Giải thích như cho em bé)
+👶 **Hiểu nhanh bản chất:**
+ReLU như một chiếc công tắc: nếu $z > 0$, công tắc mở cho dòng gradient đi qua nguyên vẹn ($1 \times \frac{\partial L}{\partial y}$). Nếu $z < 0$, công tắc ngắt hoàn toàn và chặn gradient về 0 ($0 \times \frac{\partial L}{\partial y}$).
+
+### 2. Công thức toán & Bước tính chi tiết (Step-by-Step)
+📐 $\frac{\partial y}{\partial z} = \mathbb{I}(z > 0) \implies \frac{\partial L}{\partial z} = \frac{\partial L}{\partial y} \cdot \mathbb{I}(z > 0)$. Chọn **A**.
+
+### 3. Bẫy đề thi & Tại sao các đáp án khác sai (Pitfalls)
+⚠️ **Cạm bẫy:** Phương án C là đạo hàm của $\tanh(z)$, Phương án B là đạo hàm sigmoid.
+
+### 4. Mắt xích kiến thức & Căn cứ khoa học
+📚 **Căn cứ lý thuyết:** Xem **§2.2 Các Hàm Kích Hoạt (Activation Functions)**.
+
+---
+
+### Câu 82 [OLP01-M82] — Phân hệ Module B (Thang điểm: 1.0đ)
+
+**Đề bài:** Một ảnh đầu vào kích thước không gian $W \times H = 32 \times 32$ được đưa qua một tầng tích chập Conv2D có kích thước kernel $K = 5$, padding $P = 2$, stride $S = 2$. Kích thước không gian của feature map đầu ra $W_{\text{out}} \times H_{\text{out}}$ là bao nhiêu?
+
+- **A.** $14 \times 14$
+- **B.** $16 \times 16$
+- **C.** $18 \times 18$
+- **D.** $15 \times 15$
+
+**Đáp án chính xác:** `B`
+
+### 1. ELI5 — Bản chất cốt lõi (Giải thích như cho em bé)
+👶 **Hiểu nhanh bản chất:**
+Thêm padding 2 mỗi bên giúp ảnh rộng $32 + 4 = 36$. Đặt filter cỡ 5 trượt qua với bước nhảy 2:
+Số vị trí trượt được là $(36 - 5) / 2 + 1 = 31 / 2 + 1 = 15 + 1 = 16$.
+
+### 2. Công thức toán & Bước tính chi tiết (Step-by-Step)
+📐 $O = \lfloor \frac{W - K + 2P}{S} \rfloor + 1 = \lfloor \frac{32 - 5 + 4}{2} \rfloor + 1 = \lfloor 15.5 \rfloor + 1 = 16$. Chọn **B**.
+
+### 3. Bẫy đề thi & Tại sao các đáp án khác sai (Pitfalls)
+⚠️ **Cạm bẫy:** Quên nhân đôi padding $2P = 4$ dẫn đến tính ra 14 hoặc 15.
+
+### 4. Mắt xích kiến thức & Căn cứ khoa học
+📚 **Căn cứ lý thuyết:** Xem **§3.1 Kiến Trúc CNN & Các Khái Niệm Cốt Lõi**.
+
+---
+
+### Câu 83 [OLP01-M83] — Phân hệ Module B (Thang điểm: 1.0đ)
+
+**Đề bài:** Khi xếp chồng liên tiếp hai tầng tích chập Conv2D cùng có kernel size $3 \times 3$ với stride $S = 1$ và không dùng dilated convolution, trường tiếp nhận (Receptive Field) của nơ-ron ở tầng thứ hai tương đương với một tầng tích chập duy nhất có kích thước kernel bằng bao nhiêu?
+
+- **A.** $6 \times 6$ (bằng tổng chu vi hai ma trận tích chập kết hợp theo chiều dọc)
+- **B.** $4 \times 4$ (tăng tuyến tính một pixel theo từng bước tích chập kế tiếp)
+- **C.** $5 \times 5$ (theo công thức phát triển trường tiếp nhận $RF_2 = RF_1 + (K_2 - 1) = 3 + 2 = 5$)
+- **D.** $9 \times 9$ (bằng tích diện tích không gian của hai ma trận tích chập)
+
+**Đáp án chính xác:** `C`
+
+### 1. ELI5 — Bản chất cốt lõi (Giải thích như cho em bé)
+👶 **Hiểu nhanh bản chất:**
+Tầng 1 nhìn một ô $3 \times 3$. Tầng 2 nhìn $3 \times 3$ ô của tầng 1, mở rộng thêm 1 ô ra mỗi phía biên, tức thành ô $5 \times 5$ trên ảnh gốc! Đây chính là triết lý thiết kế của mạng VGG: dùng 2 tầng $3 \times 3$ thay vì 1 tầng $5 \times 5$ để vừa sâu hơn vừa tiết kiệm tham số.
+
+### 2. Công thức toán & Bước tính chi tiết (Step-by-Step)
+📐 $RF_l = RF_{l-1} + (K_l - 1) \times J_{l-1} = 3 + (3 - 1) \times 1 = 5$. Chọn **C**.
+
+### 3. Bẫy đề thi & Tại sao các đáp án khác sai (Pitfalls)
+⚠️ **Cạm bẫy:** Thí sinh nhầm $3 + 3 = 6$ (cộng trực tiếp mà không trừ vùng đè lên nhau).
+
+### 4. Mắt xích kiến thức & Căn cứ khoa học
+📚 **Căn cứ lý thuyết:** Xem **§3.1 Kiến Trúc CNN & Các Khái Niệm Cốt Lõi**.
+
+---
+
+### Câu 84 [OLP01-M84] — Phân hệ Module B (Thang điểm: 1.0đ)
+
+**Đề bài:** Trong tầng Batch Normalization (BN), các tham số thống kê kỳ vọng chạy (running mean $\mu_{\text{run}}$) và phương sai chạy (running variance $\sigma^2_{\text{run}}$) được cập nhật trong pha huấn luyện bằng phương pháp nào?
+
+- **A.** Trung bình động hàm mũ (Exponential Moving Average) với hệ số momentum $\mu_{\text{new}} = (1-m)\mu_{\text{old}} + m \mu_{\text{batch}}$
+- **B.** Cập nhật bằng thuật toán tối ưu (AdamW Optimization) kết hợp đạo hàm lan truyền ngược Backpropagation qua các biến trạng thái
+- **C.** Gán đè trực tiếp giá trị trung bình (Direct Assignment) của mini-batch hiện tại ở mỗi bước cập nhật trọng số mà không lưu lịch sử
+- **D.** Lấy trung bình cộng tích lũy (Cumulative Moving Average) toàn bộ các mini-batch từ đầu epoch bằng mảng đệm tĩnh trong bộ nhớ RAM
+
+**Đáp án chính xác:** `A`
+
+### 1. ELI5 — Bản chất cốt lõi (Giải thích như cho em bé)
+👶 **Hiểu nhanh bản chất:**
+Running mean và running variance KHÔNG học bằng gradient descent. Chúng là bộ đếm thống kê tích lũy dần dần qua các mini-batch bằng trung bình trượt hàm mũ (EMA). Khi sang chế độ Test/Eval, mạng dùng chính bộ thống kê tích lũy này để chuẩn hóa từng ảnh đơn lẻ mà không cần cả batch.
+
+### 2. Công thức toán & Bước tính chi tiết (Step-by-Step)
+📐 $\mu_{\text{run}} \leftarrow (1 - m) \mu_{\text{run}} + m \mu_B$. Đây là non-trainable buffers. Chọn **A**.
+
+### 3. Bẫy đề thi & Tại sao các đáp án khác sai (Pitfalls)
+⚠️ **Cạm bẫy:** BN chỉ học 2 tham số affine $\gamma$ (scale) và $\beta$ (shift) qua Backprop; mean và var là thống kê EMA.
+
+### 4. Mắt xích kiến thức & Căn cứ khoa học
+📚 **Căn cứ lý thuyết:** Xem **§2.6 Kỹ Thuật Điều Hòa: Dropout, Batch Normalization, Layer Normalization**.
+
+---
+
+### Câu 85 [OLP01-M85] — Phân hệ Module B (Thang điểm: 1.0đ)
+
+**Đề bài:** Tại sao kiến trúc mạng Transformer cho xử lý ngôn ngữ tự nhiên (NLP) lại ưu tiên sử dụng Layer Normalization (LN) thay vì Batch Normalization (BN)?
+
+- **A.** LN chuẩn hóa độc lập trên từng câu (Per-sample Normalization), không bị ảnh hưởng bởi độ dài câu thay đổi hay batch size nhỏ
+- **B.** LN có chi phí tính toán phần cứng GPU (Hardware Reduction) thấp hơn BN đúng 10 lần nhờ loại bỏ các phép tính căn bậc hai phức tạp
+- **C.** BN không thể tính toán được đạo hàm bậc một (Sparse Failure) khi đầu vào là các ma trận thưa embedding trong phân loại văn bản
+- **D.** LN hoàn toàn loại bỏ hiện tượng nổ gradient (Gradient Clipping) trong các mạng nơ-ron hồi quy nhờ cơ chế kẹp gradient tự động
+
+**Đáp án chính xác:** `A`
+
+### 1. ELI5 — Bản chất cốt lõi (Giải thích như cho em bé)
+👶 **Hiểu nhanh bản chất:**
+BN tính trung bình trên các câu khác nhau trong cùng 1 batch. Nhưng các câu tiếng văn bản dài ngắn khác nhau, có câu dài có câu ngắn phải đệm padding, khiến trung bình theo batch bị méo mó. LN chuẩn hóa bên trong từng từ/từng token của chính câu đó, câu dài hay ngắn, batch size bằng 1 hay 1000 đều chạy hoàn hảo!
+
+### 2. Công thức toán & Bước tính chi tiết (Step-by-Step)
+📐 LN tính $\mu = \frac{1}{H} \sum_{i=1}^H x_i$ trên chiều ẩn (hidden dimension) của từng token đơn lẻ. Chọn **A**.
+
+### 3. Bẫy đề thi & Tại sao các đáp án khác sai (Pitfalls)
+⚠️ **Cạm bẫy:** BN không bị lỗi căn bậc hai hay ma trận thưa; nguyên nhân cốt lõi là sự phụ thuộc tai hại vào batch và độ dài chuỗi biến thiên.
+
+### 4. Mắt xích kiến thức & Căn cứ khoa học
+📚 **Căn cứ lý thuyết:** Xem **§2.6 Kỹ Thuật Điều Hòa: Dropout, Batch Normalization, Layer Normalization**.
+
+---
+
+### Câu 86 [OLP01-M86] — Phân hệ Module B (Thang điểm: 1.0đ)
+
+**Đề bài:** Phương pháp khởi tạo trọng số Kaiming (He Initialization) thiết kế phương sai ban đầu của trọng số $\text{Var}(W) = \frac{2}{n_{\text{in}}}$ nhằm giải quyết bài toán cốt lõi nào khi sử dụng hàm kích hoạt ReLU trong mạng sâu?
+
+- **A.** Triệt tiêu hiện tượng chết nơ-ron ReLU bằng cách ép tất cả các giá trị bias ban đầu về giá trị âm
+- **B.** Giữ cho phương sai của tín hiệu kích hoạt và gradient không bị suy giảm theo cấp số nhân qua các tầng mạng
+- **C.** Đảm bảo ma trận trọng số luôn là ma trận trực giao có định thức bằng 1 trong suốt quá trình học
+- **D.** Tự động cân bằng tỉ lệ giữa tốc độ học của tầng tích chập và tầng phân loại Fully-Connected
+
+**Đáp án chính xác:** `B`
+
+### 1. ELI5 — Bản chất cốt lõi (Giải thích như cho em bé)
+👶 **Hiểu nhanh bản chất:**
+ReLU cắt bỏ 50% tín hiệu âm (gán về 0), khiến năng lượng tín hiệu bị giảm đi một nửa sau mỗi tầng. Khởi tạo Xavier chỉ nhân $1/n_{\text{in}}$ sẽ làm tín hiệu teo tóp dần về 0 (vanishing gradient). Khởi tạo He nhân thêm số 2 ($\text{Var} = 2/n_{\text{in}}$) để bù đắp đúng 50% năng lượng bị mất mát đó!
+
+### 2. Công thức toán & Bước tính chi tiết (Step-by-Step)
+📐 $\mathbb{E}[y^2] = \frac{1}{2} n_{\text{in}} \text{Var}(W) \mathbb{E}[x^2]$. Để $\mathbb{E}[y^2] = \mathbb{E}[x^2]$, cần $\text{Var}(W) = \frac{2}{n_{\text{in}}}$. Chọn **B**.
+
+### 3. Bẫy đề thi & Tại sao các đáp án khác sai (Pitfalls)
+⚠️ **Cạm bẫy:** Khởi tạo trọng số không thể biến ma trận thành trực giao vĩnh viễn (loại C) hay can thiệp bias âm (loại A).
+
+### 4. Mắt xích kiến thức & Căn cứ khoa học
+📚 **Căn cứ lý thuyết:** Xem **§2.5 Kỹ Thuật Khởi Tạo Trọng Số**.
+
+---
+
+### Câu 87 [OLP01-M87] — Phân hệ Module B (Thang điểm: 1.0đ)
+
+**Đề bài:** Trong tế bào mạng LSTM (Long Short-Term Memory), cổng nào chịu trách nhiệm trực tiếp quyết định tỷ lệ thông tin từ trạng thái ô nhớ cũ $C_{t-1}$ được giữ lại hay xóa bỏ?
+
+- **A.** Cổng đầu vào (Input Gate) $i_t = \sigma(W_i [h_{t-1}, x_t] + b_i)$
+- **B.** Cổng quên (Forget Gate) $f_t = \sigma(W_f [h_{t-1}, x_t] + b_f)$
+- **C.** Cổng đầu ra (Output Gate) $o_t = \sigma(W_o [h_{t-1}, x_t] + b_o)$
+- **D.** Ô nhớ ứng viên (Candidate Cell) $\tilde{C}_t = \tanh(W_c [h_{t-1}, x_t] + b_c)$
+
+**Đáp án chính xác:** `B`
+
+### 1. ELI5 — Bản chất cốt lõi (Giải thích như cho em bé)
+👶 **Hiểu nhanh bản chất:**
+Cổng quên (Forget Gate) $f_t$ cho ra các số từ 0 đến 1. Khi nhân từng phần tử $f_t \odot C_{t-1}$, nếu $f_t = 0$ nghĩa là quên sạch ký ức cũ; nếu $f_t = 1$ nghĩa là giữ nguyên ký ức truyền sang thời điểm tiếp theo.
+
+### 2. Công thức toán & Bước tính chi tiết (Step-by-Step)
+📐 $C_t = f_t \odot C_{t-1} + i_t \odot \tilde{C}_t$. Hệ số đứng trước $C_{t-1}$ là $f_t$. Chọn **B**.
+
+### 3. Bẫy đề thi & Tại sao các đáp án khác sai (Pitfalls)
+⚠️ **Cạm bẫy:** Input gate $i_t$ quyết định nạp thêm ký ức mới $\tilde{C}_t$, không phải xóa ký ức cũ.
+
+### 4. Mắt xích kiến thức & Căn cứ khoa học
+📚 **Căn cứ lý thuyết:** Xem **§4.1 Tổng Quan Xử Lý Ngôn Ngữ Tự Nhiên & RNN/LSTM/GRU**.
+
+---
+
+### Câu 88 [OLP01-M88] — Phân hệ Module B (Thang điểm: 1.0đ)
+
+**Đề bài:** Kiến trúc tế bào GRU (Gated Recurrent Unit) tinh giản cấu trúc của LSTM bằng cách thực hiện thay đổi nào sau đây?
+
+- **A.** Loại bỏ hoàn toàn các hàm phi tuyến tính sigmoid và chỉ sử dụng kích hoạt tuyến tính để tăng tốc độ tính toán phần cứng
+- **B.** Tách trạng thái ẩn thành ba vector riêng biệt để xử lý song song trên nhiều luồng GPU độc lập mà không cần đồng bộ
+- **C.** Gộp trạng thái ô $C_t$ và trạng thái ẩn $h_t$ làm một, đồng thời kết hợp cổng quên và cổng vào thành cổng cập nhật $z_t$
+- **D.** Thay thế ma trận trọng số hồi quy bằng một phép biến đổi Fourier nhanh 1D để nắm bắt các đặc trưng tần số chuỗi
+
+**Đáp án chính xác:** `C`
+
+### 1. ELI5 — Bản chất cốt lõi (Giải thích như cho em bé)
+👶 **Hiểu nhanh bản chất:**
+LSTM có 2 đường dây truyền tin ($C_t$ và $h_t$) cùng 3 cổng. GRU gộp lại chỉ còn đúng 1 đường dây ẩn $h_t$ và 2 cổng: Cổng Cập nhật (Update Gate $z_t$) và Cổng Đặt lại (Reset Gate $r_t$). Cổng cập nhật vừa lo quên cái cũ ($1 - z_t$) vừa lo nạp cái mới ($z_t$), giúp mô hình nhẹ hơn và chạy nhanh hơn.
+
+### 2. Công thức toán & Bước tính chi tiết (Step-by-Step)
+📐 $h_t = (1 - z_t) \odot h_{t-1} + z_t \odot \tilde{h}_t$. Chọn **C**.
+
+### 3. Bẫy đề thi & Tại sao các đáp án khác sai (Pitfalls)
+⚠️ **Cạm bẫy:** GRU không bỏ sigmoid (vẫn dùng cho 2 cổng) và không dùng Fourier.
+
+### 4. Mắt xích kiến thức & Căn cứ khoa học
+📚 **Căn cứ lý thuyết:** Xem **§4.1 Tổng Quan Xử Lý Ngôn Ngữ Tự Nhiên & RNN/LSTM/GRU**.
+
+---
+
+### Câu 89 [OLP01-M89] — Phân hệ Module B (Thang điểm: 1.0đ)
+
+**Đề bài:** Trong cơ chế Scaled Dot-Product Attention $\text{Attention}(Q, K, V) = \text{softmax}\left(\frac{QK^T}{\sqrt{d_k}}\right) V$, mục đích cốt lõi của việc chia cho thừa số $\sqrt{d_k}$ là gì?
+
+- **A.** Chuyển đổi ma trận tích vô hướng từ phân phối nhị thức sang phân phối chuẩn tắc chuẩn hóa
+- **B.** Ngăn chặn tích vô hướng có độ lớn quá lớn khi $d_k$ cao, tránh đẩy hàm softmax vào vùng bão hòa có gradient cực nhỏ
+- **C.** Đảm bảo định thức của ma trận chú ý luôn bằng 1 để bảo toàn năng lượng vector đặc trưng
+- **D.** Giảm độ phức tạp tính toán thời gian từ bậc hai $O(N^2)$ xuống bậc tuyến tính $O(N)$
+
+**Đáp án chính xác:** `B`
+
+### 1. ELI5 — Bản chất cốt lõi (Giải thích như cho em bé)
+👶 **Hiểu nhanh bản chất:**
+Khi nhân 2 vector dài $d_k$ thành phần với nhau, nếu mỗi số có phương sai 1 thì tổng tích vô hướng sẽ có phương sai bằng đúng $d_k$. Nếu $d_k = 64$ hay $128$, các số sẽ vọt lên rất lớn (ví dụ $+50$ hoặc $-50$). Khi đưa số quá to vào softmax, xác suất sẽ bị dồn hết về 1 điểm (bão hòa), làm đạo hàm gần như bằng 0 (triệt tiêu gradient). Chia cho $\sqrt{d_k}$ kéo phương sai về lại 1 mượt mà.
+
+### 2. Công thức toán & Bước tính chi tiết (Step-by-Step)
+📐 Giả sử $q_i, k_i \sim \mathcal{N}(0, 1)$ độc lập: $\text{Var}(q \cdot k) = d_k \implies \text{Var}\left(\frac{q \cdot k}{\sqrt{d_k}}\right) = 1$. Chọn **B**.
+
+### 3. Bẫy đề thi & Tại sao các đáp án khác sai (Pitfalls)
+⚠️ **Cạm bẫy:** Chia cho hằng số $\sqrt{d_k}$ không làm giảm độ phức tạp tính toán (vẫn là $O(N^2 d_k)$).
+
+### 4. Mắt xích kiến thức & Căn cứ khoa học
+📚 **Căn cứ lý thuyết:** Xem **§4.3 Cơ Chế Attention & Kiến Trúc Transformer**.
+
+---
+
+### Câu 90 [OLP01-M90] — Phân hệ Module B (Thang điểm: 1.0đ)
+
+**Đề bài:** Trong tầng Multi-Head Attention với số đầu chú ý $h = 8$, chiều ẩn mô hình $d_{\text{model}} = 512$, chiều của mỗi đầu $d_k = d_v = 512 / 8 = 64$. Tổng số tham số của 4 ma trận chiếu trọng số $(W_Q, W_K, W_V, W_O)$ trong tầng này (không tính bias) là bao nhiêu?
+
+- **A.** $512 \times 512 \times 2 = 524.288$ tham số theo cấu trúc nén kênh đối xứng
+- **B.** $4 \times (512 \times 512) = 1.048.576$ tham số (tương đương xấp xỉ 1.05 triệu trọng số)
+- **C.** $8 \times (512 \times 64) = 262.144$ tham số do các đầu chú ý chia sẻ ma trận chiếu
+- **D.** $4 \times 8 \times (512 \times 512) = 8.388.608$ tham số độc lập trên từng đầu
+
+**Đáp án chính xác:** `B`
+
+### 1. ELI5 — Bản chất cốt lõi (Giải thích như cho em bé)
+👶 **Hiểu nhanh bản chất:**
+Multi-Head Attention có 4 ma trận: biến đổi Query ($W_Q$), Key ($W_K$), Value ($W_V$), và gộp đầu ra Output ($W_O$). Mỗi ma trận đều có kích thước $d_{\text{model}} \times d_{\text{model}} = 512 \times 512 = 262.144$. Tổng 4 ma trận là $4 \times 262.144 = 1.048.576$ (đúng 1 triệu tham số).
+
+### 2. Công thức toán & Bước tính chi tiết (Step-by-Step)
+📐 $W_Q, W_K, W_V, W_O \in \mathbb{R}^{d_{\text{model}} \times d_{\text{model}}}$. Tổng tham số: $4 \times d_{\text{model}}^2 = 4 \times 512^2 = 1.048.576$. Chọn **B**.
+
+### 3. Bẫy đề thi & Tại sao các đáp án khác sai (Pitfalls)
+⚠️ **Cạm bẫy:** Phương án D nhân thêm $h=8$ là sai, vì các đầu thực chất được phân tách từ cùng một ma trận chiếu gộp $d_{\text{model}} \times (h \times d_k) = d_{\text{model}} \times d_{\text{model}}$.
+
+### 4. Mắt xích kiến thức & Căn cứ khoa học
+📚 **Căn cứ lý thuyết:** Xem **§4.3 Cơ Chế Attention & Kiến Trúc Transformer**.
+
+---
+
+### Câu 91 [OLP01-M91] — Phân hệ Module B (Thang điểm: 1.0đ)
+
+**Đề bài:** Mã hóa vị trí hình sin (Sinusoidal Positional Encoding) trong bài báo Attention Is All You Need sở hữu đặc tính toán học nào cho phép mô hình dễ dàng học được vị trí tương đối giữa các token?
+
+- **A.** Với bất kỳ độ dời cố định $k$, vector $PE_{pos+k}$ có thể được biểu diễn dưới dạng biến đổi tuyến tính của $PE_{pos}$
+- **B.** Khoảng cách Cosine giữa hai vector vị trí bất kỳ luôn bằng 0 nhờ tính trực giao của sóng sin và cos
+- **C.** Tổng các phần tử trong mỗi vector vị trí luôn bằng 1 để đóng vai trò như một phân phối xác suất
+- **D.** Các giá trị vị trí tự động suy giảm về 0 khi độ dài chuỗi văn bản vượt quá 512 token
+
+**Đáp án chính xác:** `A`
+
+### 1. ELI5 — Bản chất cốt lõi (Giải thích như cho em bé)
+👶 **Hiểu nhanh bản chất:**
+Nhờ công thức cộng lượng giác $\sin(a+b) = \sin(a)\cos(b) + \cos(a)\sin(b)$, vector vị trí tại điểm $pos + k$ có thể tính được bằng cách nhân vector tại $pos$ với một ma trận quay 2D cố định! Mô hình chỉ cần nhân ma trận là biết được hai từ cách nhau $k$ bước.
+
+### 2. Công thức toán & Bước tính chi tiết (Step-by-Step)
+📐 Tồn tại ma trận xoay tuyến tính $M_k$ sao cho $PE_{pos+k} = M_k PE_{pos}$. Chọn **A**.
+
+### 3. Bẫy đề thi & Tại sao các đáp án khác sai (Pitfalls)
+⚠️ **Cạm bẫy:** Các vector vị trí khác nhau không trực giao nhau (loại B), và không suy giảm về 0 (loại D).
+
+### 4. Mắt xích kiến thức & Căn cứ khoa học
+📚 **Căn cứ lý thuyết:** Xem **§4.3 Cơ Chế Attention & Kiến Trúc Transformer**.
+
+---
+
+### Câu 92 [OLP01-M92] — Phân hệ Module B (Thang điểm: 1.0đ)
+
+**Đề bài:** Trong mô hình sinh ngôn ngữ tự hồi quy (Autoregressive Causal LLM như GPT), mặt nạ chú ý Causal Mask được áp dụng vào ma trận điểm tương đồng $QK^T$ trước khi qua hàm softmax theo cách nào?
+
+- **A.** Gán giá trị 0 cho các vị trí token tương lai (Zero Masking) để giữ nguyên trọng số đồng đều trên toàn bộ chuỗi đầu vào
+- **B.** Gán giá trị $-\infty$ cho các vị trí token tương lai ($j > i$) để xác suất chú ý sau softmax bằng đúng 0
+- **C.** Nhân toàn bộ ma trận với ma trận hoán vị nghịch đảo (Matrix Transpose) để đảo chiều luồng thông tin truyền xuôi trong mạng
+- **D.** Loại bỏ hoàn toàn các vector Key của token tương lai (Key Pruning) ra khỏi bộ nhớ VRAM của GPU trước khi thực hiện phép nhân
+
+**Đáp án chính xác:** `B`
+
+### 1. ELI5 — Bản chất cốt lõi (Giải thích như cho em bé)
+👶 **Hiểu nhanh bản chất:**
+Khi đoán từ tiếp theo, học sinh không được nhìn trộm đề bài phía sau ($j > i$). Để giấu các từ tương lai, máy tính gán điểm tương đồng của chúng bằng $-\infty$. Vì $e^{-\infty} = 0$, hàm softmax sẽ cho ra xác suất chú ý bằng đúng 0% tuyệt đối!
+
+### 2. Công thức toán & Bước tính chi tiết (Step-by-Step)
+📐 $M_{ij} = \begin{cases} 0 & \text{nếu } j \le i \\ -\infty & \text{nếu } j > i \end{cases}$. $\text{softmax}(S + M)_{ij} = 0$ khi $j > i$. Chọn **B**.
+
+### 3. Bẫy đề thi & Tại sao các đáp án khác sai (Pitfalls)
+⚠️ **Cạm bẫy:** Gán bằng 0 (loại A) là sai vì $\text{softmax}(0) = e^0 = 1 > 0$, vẫn bị rò rỉ thông tin tương lai.
+
+### 4. Mắt xích kiến thức & Căn cứ khoa học
+📚 **Căn cứ lý thuyết:** Xem **§4.4 Các Mô Hình Ngôn Ngữ Lớn (LLMs)**.
+
+---
+
+### Câu 93 [OLP01-M93] — Phân hệ Module C (Thang điểm: 1.0đ)
+
+**Đề bài:** Để tránh hiện tượng tràn số số thực (Numerical Overflow/Underflow) khi tính hàm mất mát Cross-Entropy kết hợp Softmax trên vector logit $z$, kỹ thuật LogSumExp biến đổi biểu thức $\ln\left(\sum_{j} e^{z_j}\right)$ thành dạng ổn định nào?
+
+- **A.** $\ln\left(\sum_{j} e^{z_j}\right) = c + \ln\left(\sum_{j} e^{z_j - c}\right)$ với $c = \max_j(z_j)$
+- **B.** $\ln\left(\sum_{j} e^{z_j}\right) = \frac{1}{c} \sum_{j} \ln(z_j)$ với $c = \sum_j z_j$
+- **C.** $\ln\left(\sum_{j} e^{z_j}\right) = \max_j(z_j) - \min_j(z_j)$ lấy hiệu số biến thiên
+- **D.** $\ln\left(\sum_{j} e^{z_j}\right) = \sum_{j} (z_j - \bar{z})^2$ theo công thức phương sai mẫu
+
+**Đáp án chính xác:** `A`
+
+### 1. ELI5 — Bản chất cốt lõi (Giải thích như cho em bé)
+👶 **Hiểu nhanh bản chất:**
+Nếu logit $z = [1000, 1001]$, máy tính tính $e^{1000}$ sẽ bị nổ số thực (Overflow ra NaN). Thủ thuật LogSumExp trừ đi giá trị lớn nhất $c = 1001$, biến thành $e^{-1}$ và $e^0 = 1$ cực kỳ an toàn, sau đó cộng bù $c$ ra ngoài logarit!
+
+### 2. Công thức toán & Bước tính chi tiết (Step-by-Step)
+📐 $\ln \sum e^{z_j} = \ln \left(e^c \sum e^{z_j - c}\right) = c + \ln \sum e^{z_j - c}$ với $c = \max(z)$. Chọn **A**.
+
+### 3. Bẫy đề thi & Tại sao các đáp án khác sai (Pitfalls)
+⚠️ **Cạm bẫy:** Các công thức B, C, D đều sai lệch hoàn toàn về mặt toán học đồng nhất thức.
+
+### 4. Mắt xích kiến thức & Căn cứ khoa học
+📚 **Căn cứ lý thuyết:** Xem **§2.3 Hàm Mất Mát (Loss Functions)**.
+
+---
+
+### Câu 94 [OLP01-M94] — Phân hệ Module C (Thang điểm: 1.0đ)
+
+**Đề bài:** Trong học tương phản (Contrastive Learning, ví dụ SimCLR / InfoNCE Loss), siêu tham số nhiệt độ $\tau$ (Temperature) trong hàm mất mát $\mathcal{L} = -\log \frac{\exp(\text{sim}(u, v^+) / \tau)}{\sum_k \exp(\text{sim}(u, v_k) / \tau)}$ đóng vai trò gì?
+
+- **A.** Tự động điều chỉnh kích thước batch size (Dynamic Batching) dựa trên mức độ sử dụng VRAM của GPU khi tính ma trận tương đồng
+- **B.** Kiểm soát độ nhạy đối với các mẫu âm khó (Hard Negatives), giá trị $\tau$ nhỏ phạt cực nặng các mẫu âm gần kề
+- **C.** Đảo ngược thứ tự các vector biểu diễn (Manifold Inversion) trong không gian đa tạp cầu đơn vị để mở rộng khoảng cách phân tách
+- **D.** Triệt tiêu hoàn toàn thành phần nhiễu nền (Noise Suppression) bằng cách chiếu vector qua tầng giải mã phi tuyến tính
+
+**Đáp án chính xác:** `B`
+
+### 1. ELI5 — Bản chất cốt lõi (Giải thích như cho em bé)
+👶 **Hiểu nhanh bản chất:**
+Nhiệt độ $\tau$ đóng vai trò như kính lúp soi sự khác biệt. Khi $\tau$ nhỏ (ví dụ 0.07), hàm mũ phóng đại sự chênh lệch: những mẫu âm nào dám bò lại gần anchor (Hard Negatives) sẽ bị phạt một lượng gradient khổng lồ để đẩy văng ra xa.
+
+### 2. Công thức toán & Bước tính chi tiết (Step-by-Step)
+📐 Đạo hàm gradient theo khoảng cách tỉ lệ nghịch với $\tau$: gradient phạt đối với hard negatives tăng mạnh khi $\tau \to 0$. Chọn **B**.
+
+### 3. Bẫy đề thi & Tại sao các đáp án khác sai (Pitfalls)
+⚠️ **Cạm bẫy:** $\tau$ không can thiệp phần cứng (loại A) hay đảo chiều vector (loại C).
+
+### 4. Mắt xích kiến thức & Căn cứ khoa học
+📚 **Căn cứ lý thuyết:** Xem **§3.7 Các Kiến Trúc Deep Learning Tiêu Biểu & SOTA**.
+
+---
+
+### Câu 95 [OLP01-M95] — Phân hệ Module C (Thang điểm: 1.0đ)
+
+**Đề bài:** Phương pháp tăng cường dữ liệu Mixup tạo ra mẫu huấn luyện mới $(\tilde{x}, \tilde{y})$ từ hai mẫu ngẫu nhiên $(x_i, y_i)$ và $(x_j, y_j)$ bằng công thức nội suy tuyến tính nào với hệ số $\lambda \sim \text{Beta}(\alpha, \alpha)$?
+
+- **A.** $\tilde{x} = \max(x_i, x_j)$ và $\tilde{y} = y_i \cdot y_j$ theo phép toán logic nhị phân
+- **B.** $\tilde{x} = \lambda x_i + (1 - \lambda) x_j$ và $\tilde{y} = \lambda y_i + (1 - \lambda) y_j$ trên cả không gian ảnh và vector nhãn one-hot
+- **C.** $\tilde{x} = x_i + \mathcal{N}(0, \lambda I)$ và $\tilde{y} = y_i$ chỉ thêm nhiễu trắng vào ảnh đầu tiên
+- **D.** Cắt một mảng hình chữ nhật ngẫu nhiên từ $x_j$ dán đè lên $x_i$ và giữ nguyên nhãn gốc của $y_i$
+
+**Đáp án chính xác:** `B`
+
+### 1. ELI5 — Bản chất cốt lõi (Giải thích như cho em bé)
+👶 **Hiểu nhanh bản chất:**
+Mixup pha trộn 2 bức ảnh (ví dụ 70% ảnh Mèo và 30% ảnh Chó) thành một ảnh mờ ảo, đồng thời nhãn mục tiêu cũng là [0.7 Mèo, 0.3 Chó]. Điều này dạy mạng suy luận tuyến tính giữa các lớp, ngăn mạng quá tự tin vào biên giới phân lớp.
+
+### 2. Công thức toán & Bước tính chi tiết (Step-by-Step)
+📐 $\tilde{x} = \lambda x_i + (1 - \lambda) x_j$, $\tilde{y} = \lambda y_i + (1 - \lambda) y_j$. Chọn **B**.
+
+### 3. Bẫy đề thi & Tại sao các đáp án khác sai (Pitfalls)
+⚠️ **Cạm bẫy:** Phương án D là mô tả của kỹ thuật CutMix, không phải Mixup.
+
+### 4. Mắt xích kiến thức & Căn cứ khoa học
+📚 **Căn cứ lý thuyết:** Xem **§3.5 Tăng Cường Dữ Liệu Ảnh (Image Augmentation)**.
+
+---
+
+### Câu 96 [OLP01-M96] — Phân hệ Module C (Thang điểm: 1.0đ)
+
+**Đề bài:** Kiến trúc mạng Kim tự tháp Đặc trưng (Feature Pyramid Network - FPN) giải quyết bài toán phát hiện vật thể đa kích thước (Multi-scale Object Detection) bằng cơ chế kết hợp nào?
+
+- **A.** Đường dẫn từ dưới lên (Bottom-up) kết hợp đường dẫn từ trên xuống (Top-down) và các kết nối ngang (Lateral Connections)
+- **B.** Phóng to ảnh đầu vào thành 10 kích thước khác nhau (Multi-scale Testing) rồi chạy 10 mô hình CNN độc lập để tổng hợp suy luận
+- **C.** Loại bỏ hoàn toàn các tầng tích chập nông (Deep-only Features) và chỉ sử dụng feature map của tầng sâu nhất để hồi quy tọa độ
+- **D.** Áp dụng cơ chế Transformer Self-Attention (Vision Transformer) trên toàn bộ ma trận điểm ảnh thô ban đầu để bao quát các tỉ lệ
+
+**Đáp án chính xác:** `A`
+
+### 1. ELI5 — Bản chất cốt lõi (Giải thích như cho em bé)
+👶 **Hiểu nhanh bản chất:**
+Tầng nông có độ phân giải cao giúp nhìn rõ vật nhỏ nhưng ngữ nghĩa yếu. Tầng sâu có ngữ nghĩa phong phú nhưng ảnh bị thu nhỏ làm mất dấu vật nhỏ. FPN phóng to đặc trưng tầng sâu lên (Top-down) rồi cộng với đặc trưng tầng nông qua cầu nối ngang (Lateral connection), tạo ra kim tự tháp đặc trưng hoàn hảo ở mọi tỉ lệ!
+
+### 2. Công thức toán & Bước tính chi tiết (Step-by-Step)
+📐 Kết hợp phép nội suy Nearest Neighbor 2x từ tầng $P_{l+1}$ cộng với conv $1 \times 1$ từ tầng $C_l$. Chọn **A**.
+
+### 3. Bẫy đề thi & Tại sao các đáp án khác sai (Pitfalls)
+⚠️ **Cạm bẫy:** Phương án B là Image Pyramid truyền thống, cực kỳ tốn kém bộ nhớ và tính toán chậm.
+
+### 4. Mắt xích kiến thức & Căn cứ khoa học
+📚 **Căn cứ lý thuyết:** Xem **§3.6 Phát hiện Vật thể (Object Detection): IoU, NMS, mAP, YOLO vs R-CNN**.
+
+---
+
+### Câu 97 [OLP01-M97] — Phân hệ Module C (Thang điểm: 1.0đ)
+
+**Đề bài:** Trong bài toán phân vùng ảnh y tế (Medical Image Segmentation) với tổn thương chiếm diện tích cực nhỏ trên ảnh (mất cân bằng điểm ảnh nặng nề), hàm mất mát Dice Loss $\mathcal{L}_{\text{Dice}} = 1 - \frac{2 |X \cap Y| + \epsilon}{|X| + |Y| + \epsilon}$ vượt trội hơn Binary Cross-Entropy (BCE) nhờ ưu điểm nào?
+
+- **A.** Tập trung trực tiếp vào tỷ lệ chồng lấn vùng mục tiêu, không bị các điểm ảnh nền chiếm đa số áp đảo gradient
+- **B.** Có đạo hàm bậc hai bằng hằng số giúp thuật toán Newton hội tụ chỉ sau một bước lặp
+- **C.** Không cần sử dụng hàm kích hoạt phi tuyến tính ở tầng đầu ra của mạng nơ-ron
+- **D.** Đảm bảo diện tích đường viền của tổn thương luôn là một đường cong trơn khả vi
+
+**Đáp án chính xác:** `A`
+
+### 1. ELI5 — Bản chất cốt lõi (Giải thích như cho em bé)
+👶 **Hiểu nhanh bản chất:**
+Khối u chỉ chiếm 100 pixel trên bức ảnh 1 triệu pixel (99.99% là nền). BCE tính trung bình trên cả triệu pixel nên điểm ảnh nền sẽ lấn át hoàn toàn, khiến mạng chỉ đoán toàn bộ là nền. Dice Loss chỉ nhìn vào độ trùng khớp của khối u (giao / tổng), bỏ qua đại dương điểm ảnh nền!
+
+### 2. Công thức toán & Bước tính chi tiết (Step-by-Step)
+📐 Dice Coefficient tương đương $F_1$-score trên pixel. Mẫu số $|X| + |Y|$ chuẩn hóa cục bộ vùng quan tâm. Chọn **A**.
+
+### 3. Bẫy đề thi & Tại sao các đáp án khác sai (Pitfalls)
+⚠️ **Cạm bẫy:** Dice Loss không có đạo hàm bậc hai hằng số (loại B) và vẫn cần Sigmoid để tính xác suất mềm.
+
+### 4. Mắt xích kiến thức & Căn cứ khoa học
+📚 **Căn cứ lý thuyết:** Xem **§3.7 Các Kiến Trúc Deep Learning Tiêu Biểu & SOTA**.
+
+---
+
+### Câu 98 [OLP01-M98] — Phân hệ Module C (Thang điểm: 1.0đ)
+
+**Đề bài:** Trong kỹ thuật Chưng cất Tri thức (Knowledge Distillation - Geoffrey Hinton), mô hình học sinh (Student) học từ phân phối xác suất mềm (Soft Targets) của mô hình giáo viên (Teacher) thông qua nhiệt độ làm mịn $T > 1$. Đại lượng phân phối mềm $q_i$ được tính bằng công thức nào?
+
+- **A.** $q_i = \frac{\exp(z_i / T)}{\sum_j \exp(z_j / T)}$ (nhiệt độ $T$ làm phẳng phân phối để truyền tải tri thức ngầm ' Dark Knowledge ')
+- **B.** $q_i = \frac{\exp(z_i \cdot T)}{\sum_j \exp(z_j \cdot T)}$ (nhân nhiệt độ $T$ để làm nhọn đỉnh xác suất mục tiêu)
+- **C.** $q_i = \frac{z_i - \min(z)}{\max(z) - \min(z)}$ theo phép chuẩn hóa min-max độc lập với nhiệt độ
+- **D.** $q_i = \frac{\ln(z_i + T)}{\sum_j \ln(z_j + T)}$ theo thang đo logarit tự nhiên phân rã
+
+**Đáp án chính xác:** `A`
+
+### 1. ELI5 — Bản chất cốt lõi (Giải thích như cho em bé)
+👶 **Hiểu nhanh bản chất:**
+Khi $T=1$, mô hình giáo viên cho ra xác suất cực đoan (ví dụ BMW 99%, Xe tải 0.9%, Cà rốt 0.1%). Chia logit cho $T > 1$ (ví dụ $T=5$) làm loãng xác suất ra: BMW 70%, Xe tải 20%, Cà rốt 10%. Nhờ đó học sinh nhận ra được ' Xe hơi trông khá giống Xe tải chứ không giống Cà rốt ' (tri thức ngầm)!
+
+### 2. Công thức toán & Bước tính chi tiết (Step-by-Step)
+📐 Softmax với nhiệt độ: $q_i = \frac{\exp(z_i / T)}{\sum_j \exp(z_j / T)}$. Chọn **A**.
+
+### 3. Bẫy đề thi & Tại sao các đáp án khác sai (Pitfalls)
+⚠️ **Cạm bẫy:** Phương án B nhân $T$ là sai vì làm logit to hơn, khiến phân phối càng nhọn và mất thông tin ngầm.
+
+### 4. Mắt xích kiến thức & Căn cứ khoa học
+📚 **Căn cứ lý thuyết:** Xem **§3.7 Các Kiến Trúc Deep Learning Tiêu Biểu & SOTA**.
+
+---
+
+### Câu 99 [OLP01-M99] — Phân hệ Module C (Thang điểm: 1.0đ)
+
+**Đề bài:** Trong thuật toán giải mã Beam Search cho mô hình sinh văn bản, tại sao hệ số chuẩn hóa độ dài Length Penalty $\text{score}(y) = \frac{\ln P(y)}{(\frac{5 + |y|}{6})^\alpha}$ với $\alpha > 0$ thường được áp dụng vào hàm đánh giá?
+
+- **A.** Khắc phục xu hướng tự nhiên của tích xác suất $P(y) = \prod P(y_t)$ phạt bất công các câu trả lời dài
+- **B.** Ngăn chặn mô hình sinh ra các token lặp từ vô tận bằng cách ép buộc câu phải kết thúc sớm
+- **C.** Tăng tốc độ tìm kiếm của thuật toán từ độ phức tạp $O(B \cdot V)$ xuống còn $O(B + V)$
+- **D.** Tự động thay thế các từ hiếm trong từ điển bằng token siêu ký tự không xác định
+
+**Đáp án chính xác:** `A`
+
+### 1. ELI5 — Bản chất cốt lõi (Giải thích như cho em bé)
+👶 **Hiểu nhanh bản chất:**
+Vì xác suất mỗi từ luôn $< 1$, nên càng viết dài, tích các xác suất càng nhỏ dần về 0. Nếu không chuẩn hóa độ dài, thuật toán Beam Search sẽ có xu hướng ' lười biếng ' và chỉ chọn các câu cực ngắn (thậm chí 1-2 từ). Phép chia cho độ dài lũy thừa $\alpha$ giúp đối xử công bằng với các câu dài.
+
+### 2. Công thức toán & Bước tính chi tiết (Step-by-Step)
+📐 Chuẩn hóa GNMT: chia tổng log-likelihood cho hệ số chiều dài để cân bằng điểm số giữa các chuỗi có độ dài khác nhau. Chọn **A**.
+
+### 3. Bẫy đề thi & Tại sao các đáp án khác sai (Pitfalls)
+⚠️ **Cạm bẫy:** Chống lặp từ dùng kỹ thuật Repetition Penalty hoặc No-Repeat N-gram, không phải Length Penalty.
+
+### 4. Mắt xích kiến thức & Căn cứ khoa học
+📚 **Căn cứ lý thuyết:** Xem **§4.4 Các Mô Hình Ngôn Ngữ Lớn (LLMs)**.
+
+---
+
+### Câu 100 [OLP01-M100] — Phân hệ Module C (Thang điểm: 1.0đ)
+
+**Đề bài:** Trong chiến lược điều chỉnh tốc độ học Cosine Annealing with Warmup, giai đoạn khởi động Warmup (tăng dần tốc độ học từ 0 lên giá trị cực đại $\eta_{\max}$ trong những epoch đầu) mang lại lợi ích kỹ thuật cốt lõi nào?
+
+- **A.** Tránh để gradient cực lớn ở những bước đầu làm phá vỡ các trọng số khởi tạo ban đầu trước khi mô hình ổn định
+- **B.** Đảm bảo toàn bộ tập dữ liệu được nạp vào bộ nhớ đệm RAM trước khi bắt đầu tính toán ma trận
+- **C.** Ép buộc mô hình hội tụ ngay lập tức vào điểm cực tiểu toàn cục mà không cần qua điểm yên ngựa
+- **D.** Loại bỏ hoàn toàn sự cần thiết của các kỹ thuật chuẩn hóa như LayerNorm và BatchNorm
+
+**Đáp án chính xác:** `A`
+
+### 1. ELI5 — Bản chất cốt lõi (Giải thích như cho em bé)
+👶 **Hiểu nhanh bản chất:**
+Lúc mới bắt đầu học, các trọng số chưa biết gì cả, gradient rất hỗn loạn và giật cục. Nếu áp ngay tốc độ học cao nhất, các cú giật mạnh này sẽ phá hỏng hoàn toàn cấu trúc khởi tạo tốt của mạng. Giai đoạn Warmup cho mạng ' chạy rà ' với tốc độ học nhỏ tăng dần, giúp các thống kê ổn định trước khi tăng tốc tối đa.
+
+### 2. Công thức toán & Bước tính chi tiết (Step-by-Step)
+📐 Warmup: $\eta_t = \eta_{\max} \frac{t}{T_{\text{warmup}}}$, sau đó giảm dần theo $\eta_t = \eta_{\min} + \frac{1}{2}(\eta_{\max} - \eta_{\min})(1 + \cos(\frac{t\pi}{T}))$. Chọn **A**.
+
+### 3. Bẫy đề thi & Tại sao các đáp án khác sai (Pitfalls)
+⚠️ **Cạm bẫy:** Warmup không giải quyết vấn đề RAM phần cứng (loại B) và không thể bỏ LayerNorm (loại D).
+
+### 4. Mắt xích kiến thức & Căn cứ khoa học
+📚 **Căn cứ lý thuyết:** Xem **§2.4 Thuật Toán Tối Ưu: SGD, Momentum, Adam, AdamW**.
+
+---

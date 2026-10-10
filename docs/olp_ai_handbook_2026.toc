@@ -1,0 +1,53 @@
+\contentsline {section}{\numberline {1}Machine Learning Cổ Điển (Classical Machine Learning)}{2}{section.1}%
+\contentsline {subsection}{\numberline {1.1}Thuật toán k-NN (k-Nearest Neighbors) \& Bản chất Lazy Learner}{2}{subsection.1.1}%
+\contentsline {subsection}{\numberline {1.2}Support Vector Machines (SVM) \& Kernel Trick}{3}{subsection.1.2}%
+\contentsline {subsection}{\numberline {1.3}Cây Quyết Định (Decision Tree), Entropy \& Information Gain}{4}{subsection.1.3}%
+\contentsline {subsection}{\numberline {1.4}Random Forest \& Phương Pháp Ensemble Learning}{5}{subsection.1.4}%
+\contentsline {subsection}{\numberline {1.5}Bias-Variance Tradeoff \& Kỹ thuật Cross-Validation}{5}{subsection.1.5}%
+\contentsline {subsection}{\numberline {1.6}Regularization: L2 (Ridge) vs L1 (Lasso) vs ElasticNet}{6}{subsection.1.6}%
+\contentsline {subsection}{\numberline {1.7}Các Độ Đo Đánh Giá Phân Lớp (Classification Metrics)}{6}{subsection.1.7}%
+\contentsline {subsection}{\numberline {1.8}K-Means Clustering \& Silhouette Analysis}{7}{subsection.1.8}%
+\contentsline {subsection}{\numberline {1.9}Kỹ thuật Xử lý Mất Cân Bằng Lớp (Imbalanced Data)}{8}{subsection.1.9}%
+\contentsline {section}{\numberline {2}Deep Learning Cơ Bản \& PyTorch Framework}{8}{section.2}%
+\contentsline {subsection}{\numberline {2.1}Perceptron, MLP \& Định Lý Xấp Xỉ Phổ Quát}{8}{subsection.2.1}%
+\contentsline {subsection}{\numberline {2.2}Phân Tích Chi Tiết Các Hàm Kích Hoạt (Activation Functions)}{8}{subsection.2.2}%
+\contentsline {subsection}{\numberline {2.3}Quy Trình Huấn Luyện Chuẩn PyTorch (Training Loop)}{9}{subsection.2.3}%
+\contentsline {subsection}{\numberline {2.4}Các Hàm Mất Mát (Loss Functions) \& Bẫy Double-Softmax}{9}{subsection.2.4}%
+\contentsline {subsection}{\numberline {2.5}Thuật Toán Tối Ưu Hóa: SGD, Momentum, RMSProp \& Adam}{10}{subsection.2.5}%
+\contentsline {subsection}{\numberline {2.6}Khởi Tạo Trọng Số (Weight Initialization)}{10}{subsection.2.6}%
+\contentsline {subsection}{\numberline {2.7}Batch Normalization vs Layer Normalization}{11}{subsection.2.7}%
+\contentsline {subsection}{\numberline {2.8}Cơ Chế Inverted Dropout}{11}{subsection.2.8}%
+\contentsline {section}{\numberline {3}Thị Giác Máy Tính (Computer Vision)}{11}{section.3}%
+\contentsline {subsection}{\numberline {3.1}Công Thức Kích Thước Không Gian Tầng Conv2D}{11}{subsection.3.1}%
+\contentsline {subsection}{\numberline {3.2}Pooling, Global Average Pooling (GAP) \& Receptive Field}{12}{subsection.3.2}%
+\contentsline {subsection}{\numberline {3.3}Kiến Trúc CNN Kinh Điển \& Đột Phá ResNet}{12}{subsection.3.3}%
+\contentsline {subsection}{\numberline {3.4}Phân Biệt Skip Connection: ResNet (ADD) vs U-Net (CONCAT)}{13}{subsection.3.4}%
+\contentsline {subsection}{\numberline {3.5}Object Detection: IoU, NMS, mAP, YOLO vs Faster R-CNN}{13}{subsection.3.5}%
+\contentsline {section}{\numberline {4}Xử Lý Ngôn Ngữ Tự Nhiên (Natural Language Processing)}{13}{section.4}%
+\contentsline {subsection}{\numberline {4.1}Pipeline Tiền Xử Lý Văn Bản Chuẩn 5 Bước}{13}{subsection.4.1}%
+\contentsline {subsection}{\numberline {4.2}Các Phương Pháp Biểu Diễn Từ (Word Representations)}{14}{subsection.4.2}%
+\contentsline {subsection}{\numberline {4.3}Độ Đo Cosine Similarity}{14}{subsection.4.3}%
+\contentsline {subsection}{\numberline {4.4}Mạng Hồi Quy Tuần Tự: RNN, LSTM \& GRU}{14}{subsection.4.4}%
+\contentsline {subsubsection}{\numberline {4.4.1}Mạng Nơ-ron Hồi Quy Cổ Điển (Vanilla RNN)}{14}{subsubsection.4.4.1}%
+\contentsline {subsubsection}{\numberline {4.4.2}Mạng LSTM (Long Short-Term Memory --- Hochreiter \& Schmidhuber, 1997)}{14}{subsubsection.4.4.2}%
+\contentsline {subsubsection}{\numberline {4.4.3}Mạng GRU (Gated Recurrent Unit --- Cho et al., 2014)}{15}{subsubsection.4.4.3}%
+\contentsline {subsection}{\numberline {4.5}Kiến Trúc Transformer (Vaswani et al., 2017)}{15}{subsection.4.5}%
+\contentsline {subsection}{\numberline {4.6}Các Độ Đo Đánh Giá NLP: BLEU, SacreBLEU, ROUGE \& Perplexity}{16}{subsection.4.6}%
+\contentsline {section}{\numberline {5}Toán \& Xác Suất Thống Kê Cho Trí Tuệ Nhân Tạo}{17}{section.5}%
+\contentsline {subsection}{\numberline {5.1}Định Lý Bayes \& Ngụy Biện Tỷ Lệ Cơ Sở (Base-Rate Fallacy)}{17}{subsection.5.1}%
+\contentsline {subsection}{\numberline {5.2}Tính Chất của Kỳ Vọng, Phương Sai \& Ma Trận Tương Quan}{17}{subsection.5.2}%
+\contentsline {subsection}{\numberline {5.3}Ước Lượng Tham Số: MLE vs MAP \& Mối Liên Hệ Với Regularization}{17}{subsection.5.3}%
+\contentsline {subsection}{\numberline {5.4}Kiểm Định Giả Thuyết Thống Kê \& Ý Nghĩa Của p-value}{18}{subsection.5.4}%
+\contentsline {subsection}{\numberline {5.5}Đại Số Tuyến Tính Nâng Cao Cho AI: Ma Trận Trực Giao \& Ma Trận Hessian}{18}{subsection.5.5}%
+\contentsline {subsection}{\numberline {5.6}Kỹ Thuật Cross-Validation Cho Time-Series \& Chống Rò Rỉ Dữ Liệu (Data Leakage)}{19}{subsection.5.6}%
+\contentsline {section}{\numberline {6}Bảng 24 Bẫy Đề Thi Kinh Điển (Lỗi Hay Mắc: SAI $\to $ ĐÚNG)}{19}{section.6}%
+\contentsline {section}{\numberline {7}Chuyên Đề Tác Vụ Thực Chiến OLP AI 2025 \& 2026 (Khung 5 Bước)}{20}{section.7}%
+\contentsline {subsection}{\numberline {7.1}Tác vụ 1 (Đề OLP AI 2025): Nhận Diện Ngôn Ngữ Ký Hiệu từ Video}{20}{subsection.7.1}%
+\contentsline {subsection}{\numberline {7.2}Tác vụ 2 (Đề OLP AI 2025): Dịch Máy Thương Mại Điện Tử Hoa --- Việt}{21}{subsection.7.2}%
+\contentsline {subsection}{\numberline {7.3}Tác vụ 3 (Đề xuất OLP 2026): Phát Hiện Bệnh Lá Cây Trồng Trên Thiết Bị Di Động}{21}{subsection.7.3}%
+\contentsline {subsection}{\numberline {7.4}Tác vụ 4 (Đề xuất OLP 2026): Dự Đoán Sinh Viên Bỏ Học \& Explainable AI (XAI)}{21}{subsection.7.4}%
+\contentsline {section}{\numberline {8}Bộ Đề Luyện Thi Thực Chiến Chuẩn VOAI 2026 (50 Câu) --- Kèm Đáp Án \& Giải Thích Chi Tiết}{23}{section.8}%
+\contentsline {section}{\numberline {9}Ma Trận Đối Chiếu Tra Cứu Web App \& Lộ Trình Ôn Luyện Nước Rút}{44}{section.9}%
+\contentsline {subsection}{\numberline {9.1}Phương Pháp Kết Hợp Web App Thi Thử \& Handbook PDF}{44}{subsection.9.1}%
+\contentsline {subsection}{\numberline {9.2}Bảng Ma Trận Ánh Xạ Chủ Đề Giữa Web App Và Handbook PDF}{44}{subsection.9.2}%
+\contentsline {subsection}{\numberline {9.3}Rubric Tự Chấm Điểm 4 Bài Tự Luận OLP AI (10 Điểm/Câu)}{44}{subsection.9.3}%

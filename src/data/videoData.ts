@@ -29,7 +29,7 @@ export const VIDEO_RESOURCES: Record<string, VideoResource> = {
     topic: 'SVM: Margin, Support Vectors và Kernel RBF (Vai trò của Gamma)',
     channel: 'StatQuest with Josh Starmer',
     title: 'Support Vector Machines Part 2: The Polynomial and RBF Kernel',
-    youtubeId: 'Qc5IyLWy3Tg',
+    youtubeId: '_PwhiWxHK8o',
     startSeconds: 240,
     timestampLabel: '04:00',
     highlightNote: 'Hiểu bản chất hàm nhân RBF (Radial Basis Function) và vì sao Gamma lớn làm biên quyết định cong ôm sát dữ liệu gây Overfitting.'
@@ -69,7 +69,7 @@ export const VIDEO_RESOURCES: Record<string, VideoResource> = {
     topic: 'Regularization: Ridge (L2) vs Lasso (L1) và Tính chất Sparsity',
     channel: 'StatQuest with Josh Starmer',
     title: 'Regularization Part 3: Ridge vs Lasso',
-    youtubeId: 'Xm2CKEJhRs8',
+    youtubeId: 'NGf0voTMlcs',
     startSeconds: 120,
     timestampLabel: '02:00',
     highlightNote: 'Vì sao Lasso (L1) triệt tiêu trọng số về chính xác bằng 0 tạo tính thưa (Sparsity) để chọn đặc trưng, trong khi Ridge (L2) chỉ co nhỏ đều.'
@@ -109,7 +109,7 @@ export const VIDEO_RESOURCES: Record<string, VideoResource> = {
     topic: 'Quy tắc NumPy Broadcasting và Xử lý chiều Ma trận',
     channel: 'DeepLearning.AI (Andrew Ng)',
     title: 'Broadcasting in Python',
-    youtubeId: 'tKcLaGduabM',
+    youtubeId: 'sca5rQ9x1cA',
     startSeconds: 60,
     timestampLabel: '01:00',
     highlightNote: 'Giáo sư Andrew Ng giải thích quy tắc tương thích chiều và cơ chế Broadcasting trong NumPy / Deep Learning.'
@@ -128,8 +128,8 @@ export const VIDEO_RESOURCES: Record<string, VideoResource> = {
     sectionId: '§2.2',
     topic: 'Các hàm kích hoạt: ReLU, Sigmoid, Softmax, GELU',
     channel: 'StatQuest with Josh Starmer',
-    title: 'Neural Networks Part 2: Activation Functions',
-    youtubeId: '68BZ5fQtRL8',
+    title: 'The Essential Main Ideas of Neural Networks & Activations',
+    youtubeId: 'CqOfi41LfDw',
     startSeconds: 180,
     timestampLabel: '03:00',
     highlightNote: 'So sánh ưu nhược điểm của ReLU, Sigmoid, Tanh và hiện tượng Dying ReLU / Vanishing Gradient.'
@@ -189,7 +189,7 @@ export const VIDEO_RESOURCES: Record<string, VideoResource> = {
     topic: 'Batch Normalization vs Layer Normalization',
     channel: 'StatQuest with Josh Starmer',
     title: 'Batch Normalization, Clearly Explained!!!',
-    youtubeId: 'tNIpEZLv_l8',
+    youtubeId: 'YFwyHcJ8je8',
     startSeconds: 190,
     timestampLabel: '03:10',
     highlightNote: 'Cách BatchNorm chuẩn hóa mini-batch, vị trí đặt trước ReLU, và tại sao Transformer chuyển sang LayerNorm.'
@@ -199,7 +199,7 @@ export const VIDEO_RESOURCES: Record<string, VideoResource> = {
     topic: 'Dropout: Cơ chế Inverted Dropout và Tắt khi Test',
     channel: 'DeepLearning.AI (Andrew Ng)',
     title: 'Understanding Dropout',
-    youtubeId: 'D8PJAL-Zvx8',
+    youtubeId: 'ARq74QuavAo',
     startSeconds: 80,
     timestampLabel: '01:20',
     highlightNote: 'Cách Dropout ngẫu nhiên tắt neuron để chống overfit và lưu ý tắt Dropout khi inference.'
@@ -239,7 +239,7 @@ export const VIDEO_RESOURCES: Record<string, VideoResource> = {
     topic: 'Các kiến trúc CNN kinh điển: VGG, ResNet, EfficientNet',
     channel: 'DeepLearning.AI (Andrew Ng)',
     title: 'Why ResNets Work',
-    youtubeId: 'RYth6EbBRqM',
+    youtubeId: 'GWt6Fu05voI',
     startSeconds: 110,
     timestampLabel: '01:50',
     highlightNote: 'Phân tích bản chất đường dẫn tắt Residual Connection F(x) + x giải quyết vấn đề thoái hóa mô hình.'
@@ -249,7 +249,7 @@ export const VIDEO_RESOURCES: Record<string, VideoResource> = {
     topic: 'Skip Connection: ResNet (ADD) vs U-Net (CONCAT)',
     channel: 'DeepLearning.AI (Andrew Ng)',
     title: 'U-Net Architecture for Image Segmentation',
-    youtubeId: 'IHq1t7DxS8k',
+    youtubeId: 'oLvmLJkmXuc',
     startSeconds: 130,
     timestampLabel: '02:10',
     highlightNote: 'So sánh cốt lõi: U-Net ghép nối kênh (CONCAT) giữ chi tiết không gian, ResNet cộng phần tử (ADD).'
@@ -269,7 +269,7 @@ export const VIDEO_RESOURCES: Record<string, VideoResource> = {
     topic: 'Object Detection: IoU, NMS, mAP, YOLO vs Faster R-CNN',
     channel: 'DeepLearning.AI (Andrew Ng)',
     title: 'Intersection Over Union (IoU) & Non-Max Suppression',
-    youtubeId: 'ANIzQ2G-XAI',
+    youtubeId: '9s_FpMpdYW8',
     startSeconds: 90,
     timestampLabel: '01:30',
     highlightNote: 'Công thức tính IoU = Giao / Hợp và thuật toán NMS loại bỏ các hộp bounding box trùng lặp.'
@@ -277,11 +277,11 @@ export const VIDEO_RESOURCES: Record<string, VideoResource> = {
   '§3.7': {
     sectionId: '§3.7',
     topic: 'Phân vùng ảnh: Semantic Segmentation vs Instance Segmentation',
-    channel: 'DeepLearning.AI (Andrew Ng)',
-    title: 'Semantic Segmentation with U-Net',
-    youtubeId: 'IHq1t7DxS8k',
-    startSeconds: 60,
-    timestampLabel: '01:00',
+    channel: 'Stanford University School of Engineering',
+    title: 'CS231n: Lecture 11 | Detection and Segmentation',
+    youtubeId: 'nDPWywWRIRo',
+    startSeconds: 360,
+    timestampLabel: '06:00',
     highlightNote: 'Phân biệt gán nhãn từng pixel (Semantic) với tách biệt từng cá thể riêng biệt (Instance).'
   },
   '§3.8': {
@@ -329,7 +329,7 @@ export const VIDEO_RESOURCES: Record<string, VideoResource> = {
     topic: 'Cosine Similarity: Công thức và Ứng dụng So khớp Embedding',
     channel: 'StatQuest with Josh Starmer',
     title: 'Cosine Similarity, Clearly Explained!!!',
-    youtubeId: 'e9U0QafwdB4',
+    youtubeId: 'e9U0QAFbfLI',
     startSeconds: 90,
     timestampLabel: '01:30',
     highlightNote: 'Vì sao Cosine Similarity là thước đo chuẩn để so sánh embedding thay vì khoảng cách Euclid.'
@@ -409,7 +409,7 @@ export const VIDEO_RESOURCES: Record<string, VideoResource> = {
     topic: 'Ước lượng Tham số: MLE vs MAP (Mối liên hệ với Regularization)',
     channel: 'StatQuest with Josh Starmer',
     title: 'Maximum Likelihood, clearly explained!!!',
-    youtubeId: 'XepXtl9YKWE',
+    youtubeId: 'XepXtl9YKwc',
     startSeconds: 150,
     timestampLabel: '02:30',
     highlightNote: 'Cách MLE tìm tham số tối đa hóa dữ liệu và MAP tích hợp phân phối tiên nghiệm Prior.'
@@ -427,11 +427,11 @@ export const VIDEO_RESOURCES: Record<string, VideoResource> = {
   '§5.6': {
     sectionId: '§5.6',
     topic: 'Tương quan vs Nhân quả (Confounders) & Lấy mẫu Phân tầng',
-    channel: 'StatQuest with Josh Starmer',
-    title: 'Correlation vs Causation',
-    youtubeId: 'ROpbdO-gRq8',
-    startSeconds: 90,
-    timestampLabel: '01:30',
+    channel: 'Khan Academy',
+    title: 'Correlation and Causality | Statistical Studies',
+    youtubeId: 'ROpbdO-gRUo',
+    startSeconds: 60,
+    timestampLabel: '01:00',
     highlightNote: 'Yếu tố nhiễu ẩn (Confounding Variable) và kỹ thuật Stratified Sampling trên dữ liệu lệch.'
   },
   '§7.1': {
@@ -457,11 +457,11 @@ export const VIDEO_RESOURCES: Record<string, VideoResource> = {
   '§7.3': {
     sectionId: '§7.3',
     topic: 'Tác vụ OLP 2026: Object Detection Nông nghiệp trên Mobile (YOLOv8/v11 Nano)',
-    channel: 'DeepLearning.AI (Andrew Ng)',
-    title: 'YOLO Algorithm Explained',
-    youtubeId: '9s_FpMpdYW8',
-    startSeconds: 180,
-    timestampLabel: '03:00',
+    channel: 'Roboflow',
+    title: 'YOLOv8: How to Train for Object Detection on a Custom Dataset',
+    youtubeId: 'wuZtUMEiKWY',
+    startSeconds: 120,
+    timestampLabel: '02:00',
     highlightNote: 'Triển khai mô hình 1-stage siêu nhẹ cho phát hiện vết bệnh và tối ưu hóa thời gian thực.'
   },
   '§7.4': {
@@ -469,7 +469,7 @@ export const VIDEO_RESOURCES: Record<string, VideoResource> = {
     topic: 'Tác vụ OLP 2026: Tabular Churn Prediction & XAI với SHAP Values',
     channel: 'StatQuest with Josh Starmer',
     title: 'SHAP Values (SHapley Additive exPlanations), Clearly Explained!!!',
-    youtubeId: 'VB9QevNZUJE',
+    youtubeId: 'MQ6fFDwjuco',
     startSeconds: 180,
     timestampLabel: '03:00',
     highlightNote: 'Cách tính SHAP Values để giải thích quyết định của mô hình Gradient Boosting (LightGBM/XGBoost).'

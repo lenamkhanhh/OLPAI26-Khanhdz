@@ -3,6 +3,7 @@ import type { AnswerState, Question } from '../types/exam';
 import { MathText } from './MathText';
 import { AnswerOption, type OptionState } from './AnswerOption';
 import { extractSectionRef, getVideoForSection, type VideoResource } from '../data/videoData';
+import { EssayStudio } from './EssayStudio';
 
 interface Props {
   question: Question;
@@ -16,6 +17,7 @@ interface Props {
   onNext: () => void;
   onOpenTheory?: (sectionId: string) => void;
   onOpenVideo?: (video: VideoResource) => void;
+  onOpenAI?: () => void;
 }
 
 const TYPE_LABEL: Record<Question['type'], string> = {
@@ -25,7 +27,7 @@ const TYPE_LABEL: Record<Question['type'], string> = {
 };
 
 export const QuestionCard = memo(function QuestionCard({
-  question, index, total, answer, mode, submitted, hasNext, onAnswer, onNext, onOpenTheory, onOpenVideo
+  question, index, total, answer, mode, submitted, hasNext, onAnswer, onNext, onOpenTheory, onOpenVideo, onOpenAI
 }: Props) {
   const [showHint, setShowHint] = useState(false);
   const [showModelAnswer, setShowModelAnswer] = useState(false);
@@ -73,11 +75,31 @@ export const QuestionCard = memo(function QuestionCard({
               📖 {sectionRef}
             </button>
           )}
+          {onOpenAI && (
+            <button
+              type="button"
+              className="badge-ai-trigger"
+              onClick={onOpenAI}
+              title="Mở Trợ lý AI cho câu hỏi này"
+            >
+              ⚡ AI Trợ lý
+            </button>
+          )}
           <strong>{question.points} điểm</strong>
         </div>
       </header>
 
       <div className="question-stem"><MathText text={question.prompt} /></div>
+
+      {question.image && (
+        <div className="question-image" style={{ textAlign: 'center', margin: '16px 0' }}>
+          <img
+            src={question.image}
+            alt="Question Diagram"
+            style={{ maxWidth: '100%', maxHeight: '360px', borderRadius: '8px', border: '1px solid var(--border-subtle, #333)', background: '#fff', padding: '6px' }}
+          />
+        </div>
+      )}
 
       {isMcq ? (
         <div className="options">
@@ -96,36 +118,30 @@ export const QuestionCard = memo(function QuestionCard({
           ))}
         </div>
       ) : (
-        <div className="open-answer">
-          <textarea
-            placeholder={question.type === 'code' ? 'Gõ code/pseudo-code của bạn...' : 'Trình bày giải pháp theo khung 5 bước...'}
-            value={answer?.text ?? ''}
-            onChange={(event) => onAnswer({ ...answer, text: event.target.value })}
-          />
-
-          {canUseOpenHelp ? (
-            <div className="open-answer-tools">
-              <button type="button" className="secondary" aria-expanded={showHint} onClick={() => setShowHint((v) => !v)}>
-                {showHint ? 'Ẩn gợi ý' : 'Gợi ý'}
+        <EssayStudio
+          question={question}
+          answer={answer}
+          canUseOpenHelp={canUseOpenHelp}
+          showHint={showHint}
+          showModelAnswer={showModelAnswer}
+          onToggleHint={() => setShowHint((v) => !v)}
+          onToggleModelAnswer={() => setShowModelAnswer((v) => !v)}
+          onAnswer={onAnswer}
+          onOpenAI={onOpenAI}
+          sectionRef={sectionRef}
+          onOpenTheory={onOpenTheory}
+          videoButton={
+            video && onOpenVideo ? (
+              <button
+                type="button"
+                className="secondary btn-video-quick"
+                onClick={() => onOpenVideo(video)}
+              >
+                🎬 Video giảng ({video.timestampLabel})
               </button>
-              <button type="button" className="secondary" aria-expanded={showModelAnswer} onClick={() => setShowModelAnswer((v) => !v)}>
-                {showModelAnswer ? 'Ẩn đáp án mẫu' : 'Xem đáp án mẫu'}
-              </button>
-              {sectionRef && onOpenTheory && (
-                <button type="button" className="secondary" onClick={() => onOpenTheory(sectionRef)}>
-                  📖 Lý thuyết {sectionRef}
-                </button>
-              )}
-              {video && onOpenVideo && (
-                <button type="button" className="secondary btn-video-quick" onClick={() => onOpenVideo(video)}>
-                  🎬 Video giảng ({video.timestampLabel})
-                </button>
-              )}
-            </div>
-          ) : (
-            <p className="open-help-note">Gợi ý và đáp án mẫu được ẩn trong Exam mode.</p>
-          )}
-        </div>
+            ) : null
+          }
+        />
       )}
 
       {revealMcq && isMcq && answer?.selected && (
@@ -151,6 +167,15 @@ export const QuestionCard = memo(function QuestionCard({
                 onClick={() => onOpenVideo(video)}
               >
                 🎬 Video giải thích ({video.channel} · {video.timestampLabel})
+              </button>
+            )}
+            {onOpenAI && (
+              <button
+                type="button"
+                className="secondary btn-feedback-tool btn-feedback-ai"
+                onClick={onOpenAI}
+              >
+                🤖 Hỏi AI về câu này
               </button>
             )}
           </div>

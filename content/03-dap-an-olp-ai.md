@@ -20,7 +20,7 @@
 | A07 | A | B09 | A | C07 | C | C22 | B |
 | A08 | D | B10 | B | C08 | D | C23 | C |
 | A09 | B | B11 | C | C09 | A | C24 | D |
-| A10 | A | B12 | D | C10 | B | C25 | A |
+| A10 | A | B12 | D | C10 | A | C25 | A |
 | A11 | C | B13 | A | C11 | C | C26 | B |
 | A12 | D | B14 | B | C12 | D | C27 | C |
 | B01 | A | B15 | C | C13 | A | C28 | D |
@@ -69,7 +69,7 @@ Phân bố đáp án: A×15, B×14, C×15, D×14 (không đoán mò được).
 **C07 → C.** Đúng: chênh 29% = overfit. Sai: A ngược; B/D phủ nhận. → Xem §1.5.
 **C08 → D.** Đúng: stratified giữ tỉ lệ lớp. Sai: A có thể mất lớp hiếm; B tốn kém; C một lần thiếu ổn định. → Xem §1.5.
 **C09 → A.** Đúng: L1 sinh sparse, loại feature. Sai: B L2 không về 0 hẳn; C/D sai. → Xem §1.6.
-**C10 → B.** Đúng: L2 co đều, ổn định. Sai: A L1 giật cục khi tương quan; C/D sai. → Xem §1.6.
+**C10 → A.** Đúng: L1 bấp bênh khi tương quan cao; L2 co đều trọng số và cộng $\lambda I$ giúp $(X^T X + \lambda I)$ luôn khả nghịch (với $\lambda > 0$). Sai: B/C/D. → Xem §1.6.
 **C11 → C.** Đúng: Adam nhanh, ít tune. Sai: A sai sự thật; B Adagrad không chuẩn vision; D sai. → Xem §2.5.
 **C12 → D.** Đúng: warmup + giảm dần. Sai: A càng diverge; B quá chậm; C sai (layer-wise LR hợp lệ). → Xem §2.6.
 **C13 → A.** Đúng: VGG = chồng 3x3. Sai: B 11x11 là AlexNet; C residual là ResNet; D LeNet không attention. → Xem §3.3.

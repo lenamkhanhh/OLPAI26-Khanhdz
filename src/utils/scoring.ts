@@ -52,16 +52,18 @@ export function summarizeExam(exam: Exam, answers: Record<string, AnswerState>) 
       if (!ok) review.push(question);
       continue;
     }
-    const qScore = ok ? question.points : 0;
+    const qScore = question.type === 'code' ? scoreQuestion(question, answer) : (ok ? question.points : 0);
     earned += qScore;
     if (ok) correct += 1;
     else review.push(question);
 
     const bucket = moduleScores[question.module];
-    bucket.earned += qScore;
-    bucket.total += question.points;
-    bucket.totalQuestions += 1;
-    if (ok) bucket.correct += 1;
+    if (bucket) {
+      bucket.earned += qScore;
+      bucket.total += question.points;
+      bucket.totalQuestions += 1;
+      if (ok) bucket.correct += 1;
+    }
   }
 
   const gradedTotal = exam.totalPoints;

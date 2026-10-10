@@ -44,13 +44,31 @@ export function ExamSelector({
         <h1>Ôn thi Olympic AI</h1>
       </header>
 
-      {onOpenHandbook && (
-        <div className="deck-handbook-banner">
-          <button type="button" className="secondary deck-handbook-btn" onClick={onOpenHandbook}>
-            📚 Sổ tay Lý thuyết & Video Bài giảng (Full LaTeX KaTeX) →
+      <div className="deck-handbook-banner" style={{ display: 'flex', gap: '8px', flexWrap: 'wrap', marginBottom: '14px' }}>
+        {onOpenHandbook && (
+          <button type="button" className="secondary deck-handbook-btn" style={{ flex: 1, minWidth: '220px' }} onClick={onOpenHandbook}>
+            📚 Sổ tay Lý thuyết & Video Bài giảng →
           </button>
-        </div>
-      )}
+        )}
+        <a
+          href="/olympic_ai_study_hub.html"
+          className="secondary deck-handbook-btn"
+          style={{
+            flex: 1,
+            minWidth: '220px',
+            textDecoration: 'none',
+            display: 'inline-flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            background: 'linear-gradient(135deg, rgba(37,99,235,0.2), rgba(30,58,138,0.3))',
+            borderColor: '#3b82f6',
+            color: '#93c5fd',
+            fontWeight: 600
+          }}
+        >
+          ⚡ Olympic AI Study Hub (Giao diện 3 Cột E2E) →
+        </a>
+      </div>
 
       <div className="segmented" role="tablist" aria-label="Chế độ làm bài">
         {(['practice', 'exam'] as QuizMode[]).map((m) => (

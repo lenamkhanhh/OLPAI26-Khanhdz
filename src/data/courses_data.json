@@ -1,0 +1,263 @@
+{
+  "olp_course": {
+    "title": "Olympic AI Sinh Viên Chuyên Sâu 2026 (17 Buổi)",
+    "lessons": [
+      {
+        "course": "OLP Sinh Viên 2026",
+        "index": 1,
+        "title": "Buổi 1: Giới Thiệu Về Cuộc Thi Và ML Cơ Bản",
+        "date": "15/09/2026, 20:00",
+        "slide": "https://drive.google.com/file/d/16DudaRnZRwN-MVsnp3j6Y2La5LwRoLfg/view?usp=sharing",
+        "lab": null,
+        "transcript": "https://docs.google.com/document/d/1gEh1o-IrfyN3gpAaE2w8CgmAvlY3Wzxs/edit?usp=sharing&ouid=105388970226558709902&rtpof=true&sd=true",
+        "videoIframe": "https://iframe.mediadelivery.net/embed/575269/0cfc09b1-c23c-46ef-a7a3-1b4de6e10300?token=6e2e7ef3c0d37e24f12b6dbd47a78027c282a156cad8cbbc9cd6f0833c9a45ec&expires=1791463396"
+      },
+      {
+        "course": "OLP Sinh Viên 2026",
+        "index": 3,
+        "title": "Buổi 3: Text/Token Classification, Và Các Baseline Models Trong NLP",
+        "date": "22/09/2026, 20:00",
+        "slide": "https://drive.google.com/file/d/1hDmCaM1WYaz8uKBBx74D8cZRJ0xrKZau/view?usp=sharing",
+        "lab": null,
+        "transcript": "https://docs.google.com/document/d/1d19Z_4BX18AyqewfHhwaPbnE-k8orEoc/edit?usp=sharing&ouid=105388970226558709902&rtpof=true&sd=true",
+        "videoIframe": "https://iframe.mediadelivery.net/embed/575269/904cee06-38c5-4a0e-9b72-06a1db4d4512?token=76fe687ded5e5ab6a51f81816eb6e8948c1f7b4c4bf69e679a9f5e8591559f7e&expires=1791463595"
+      },
+      {
+        "course": "OLP Sinh Viên 2026",
+        "index": 4,
+        "title": "Buổi 4: Bài Toán Time Series, Summarization, Và Machine Translation",
+        "date": "25/09/2026, 20:00",
+        "slide": "https://drive.google.com/file/d/1nOIhMGVBbtCazoFL_UX7JKpHL4cJQQvd/view?usp=sharing",
+        "lab": null,
+        "transcript": "https://docs.google.com/document/d/1sKnUpM6U6ieFnXXC-SMWShponRXp9XLm/edit?usp=sharing&ouid=105388970226558709902&rtpof=true&sd=true",
+        "videoIframe": "https://iframe.mediadelivery.net/embed/575269/e6ec9005-79d0-454a-85ab-42a97513cfb4?token=938cba9a77a113a77bfa0c92e3354568b5e57961f868ce7226e30e5db0f00f0f&expires=1791463596"
+      },
+      {
+        "course": "OLP Sinh Viên 2026",
+        "index": 5,
+        "title": "Buổi 5: Mini-Contest Số 1 (Chủ Đề NLP)",
+        "date": "",
+        "slide": null,
+        "lab": null,
+        "transcript": null,
+        "videoIframe": null
+      },
+      {
+        "course": "OLP Sinh Viên 2026",
+        "index": 6,
+        "title": "Buổi 6: Sửa Contest Và Các Kĩ Thuật Nâng Cao Trong NLP",
+        "date": "29/09/2026, 20:00",
+        "slide": "https://drive.google.com/file/d/1oc5uLfGQ1WLLuEnm1XlsXRes930_8sXN/view?usp=sharing",
+        "lab": null,
+        "transcript": "https://docs.google.com/document/d/1WT95LbCluTiXixMira2kal-VNQvdianM/edit?usp=sharing&ouid=105388970226558709902&rtpof=true&sd=true",
+        "videoIframe": "https://iframe.mediadelivery.net/embed/575269/9465db56-d8d1-4ccf-ade3-8bf008119029?token=bbe86393be851a4245eb70ff9cbe66c74f604d6ab541ca708be91f742b23b119&expires=1791463600"
+      },
+      {
+        "course": "OLP Sinh Viên 2026",
+        "index": 7,
+        "title": "Buổi 7: Bài Toán Image Classification, Segmentation, Và Object Detection",
+        "date": "02/10/2026, 20:00",
+        "slide": "https://drive.google.com/file/d/1UAeVWMNKrnsdpVlUK3XMMmsJxJUolvXq/view?usp=sharing",
+        "lab": "https://drive.google.com/drive/folders/1l9CZImRcEAVaosb911SbdH-7AOHvqBvh?usp=drive_link",
+        "transcript": "https://docs.google.com/document/d/1IrOKL0ub0rVbwKrv5sYn5v1ricJxbR29/edit?usp=sharing&ouid=105388970226558709902&rtpof=true&sd=true",
+        "videoIframe": "https://iframe.mediadelivery.net/embed/575269/02e418a6-7750-4d41-9b58-fbeac2f6c1ac?token=11435cb7facf88b8581d3ce8084661750ad653f0598f261cffcaf26da0cbb693&expires=1791463602"
+      },
+      {
+        "course": "OLP Sinh Viên 2026",
+        "index": 8,
+        "title": "Buổi 8: Mô Hình ViT Và Các Bài Toán Về Video",
+        "date": "06/10/2026, 20:00",
+        "slide": "https://drive.google.com/file/d/1YJTjhpn7jS5U1fx_EFttNbc2vhiJWa8D/view?usp=sharing",
+        "lab": "https://drive.google.com/drive/folders/1V-3P42VeqRvXS5qr5uAumRq0SGg0qHBU?usp=sharing",
+        "transcript": "https://docs.google.com/document/d/10pm78VtfirUEeIFs67t2YiF1g6g5P_Ge/edit?usp=sharing&ouid=105388970226558709902&rtpof=true&sd=true",
+        "videoIframe": "https://iframe.mediadelivery.net/embed/575269/9b13911b-dab4-4e50-8098-e4412bea6541?token=bee3806036c0fb484a529240fe0e1018e7ea9aac47c41213c69cf4b836848a25&expires=1791463605"
+      },
+      {
+        "course": "OLP Sinh Viên 2026",
+        "index": 9,
+        "title": "Buổi 9: Mini-Contest Số 2 (Chủ Đề CV)",
+        "date": "",
+        "slide": null,
+        "lab": null,
+        "transcript": null,
+        "videoIframe": null
+      },
+      {
+        "course": "OLP Sinh Viên 2026",
+        "index": 10,
+        "title": "Buổi 10: Sửa Contest Và Các Kĩ Thuật Nâng Cao Trong CV",
+        "date": "09/10/2026, 20:00",
+        "slide": null,
+        "lab": null,
+        "transcript": null,
+        "videoIframe": null
+      },
+      {
+        "course": "OLP Sinh Viên 2026",
+        "index": 11,
+        "title": "Buổi 11: Các Bài Toán Về Âm Thanh Và Multi-Modal, Retrieval",
+        "date": "13/10/2026, 20:00",
+        "slide": null,
+        "lab": null,
+        "transcript": null,
+        "videoIframe": null
+      },
+      {
+        "course": "OLP Sinh Viên 2026",
+        "index": 12,
+        "title": "Buổi 12: Full-Contest Số 1 (Đầy Đủ Chủ Đề)",
+        "date": "",
+        "slide": null,
+        "lab": null,
+        "transcript": null,
+        "videoIframe": null
+      },
+      {
+        "course": "OLP Sinh Viên 2026",
+        "index": 13,
+        "title": "Buổi 13: Sửa Contest Và Chiến Thuật/Mẹo Thi Đấu Cho Các Đội",
+        "date": "16/10/2026, 20:00",
+        "slide": null,
+        "lab": null,
+        "transcript": null,
+        "videoIframe": null
+      },
+      {
+        "course": "OLP Sinh Viên 2026",
+        "index": 14,
+        "title": "Buổi 14: Full-Contest Số 2 (Đầy Đủ Chủ Đề)",
+        "date": "",
+        "slide": null,
+        "lab": null,
+        "transcript": null,
+        "videoIframe": null
+      },
+      {
+        "course": "OLP Sinh Viên 2026",
+        "index": 15,
+        "title": "Buổi 15: Sửa Contest Và Ôn Tập Toàn Khóa",
+        "date": "20/10/2026, 20:00",
+        "slide": null,
+        "lab": null,
+        "transcript": null,
+        "videoIframe": null
+      },
+      {
+        "course": "OLP Sinh Viên 2026",
+        "index": 16,
+        "title": "OLP AI – Tabular Machine Learning Contest",
+        "date": "",
+        "slide": null,
+        "lab": null,
+        "transcript": null,
+        "videoIframe": null
+      },
+      {
+        "course": "OLP Sinh Viên 2026",
+        "index": 17,
+        "title": "OLP AI - Computer Vision Contest",
+        "date": "",
+        "slide": null,
+        "lab": null,
+        "transcript": null,
+        "videoIframe": null
+      }
+    ]
+  },
+  "voai_course": {
+    "title": "Chuyên Đề VOAI Nâng Cao & Giải Đề",
+    "lessons": [
+      {
+        "course": "VOAI Nâng Cao",
+        "title": "1. ML Cơ Bản: Các Thuật Toán Supervised/Unsupervised Và Quy Trình Training/Tuning Mô Hình",
+        "slide": "https://drive.google.com/file/d/1jLszO_MTpgF2kZ_fx9Cl6Y0A1Pm7oSKQ/view?usp=sharing",
+        "notebook": "https://drive.google.com/drive/folders/1cUUVgamA0Jd155ic4hj-wGcc-iIaf8Fy?usp=sharing",
+        "videoIframe": "https://iframe.mediadelivery.net/embed/575269/4a371066-3a62-4382-91a9-de62daadc88a?token=5400d12ec639e26c5ee1220c84ca63da8192bafb50fa40f1c390ae43c899375c&expires=1791530578"
+      },
+      {
+        "course": "VOAI Nâng Cao",
+        "title": "2. ML Nâng Cao: Boosting Và Ensemble",
+        "slide": "https://drive.google.com/file/d/1tyetKS8xTrnXWghAU8wAlB0O6KUOawfF/view?usp=sharing",
+        "notebook": "https://drive.google.com/file/d/1J8mAh7h_8OLnJIekuYhjkxsFEGPWbqwJ/view?usp=sharing",
+        "videoIframe": "https://iframe.mediadelivery.net/embed/575269/4250d0e9-6fd2-4125-a0d3-a8ee97413afa?token=99c5f841dc060661cc22480879986f2cbc1823bed12b23719a0841359475ce6b&expires=1791530583"
+      },
+      {
+        "course": "VOAI Nâng Cao",
+        "title": "1. Text & Token Classification",
+        "slide": "https://drive.google.com/file/d/1ZU_nP4juzk1_6UTxdiJcjR0dfudjSxCA/view?usp=sharing",
+        "notebook": "https://drive.google.com/drive/folders/1cUUVgamA0Jd155ic4hj-wGcc-iIaf8Fy?usp=drive_link",
+        "videoIframe": "https://iframe.mediadelivery.net/embed/575269/07853c89-f277-4dfd-be71-6e8173706678?token=bbee7f88336ba409eab0992b4fe8b705128a7f0b21b5de286fcd9f96794f2360&expires=1791530586"
+      },
+      {
+        "course": "VOAI Nâng Cao",
+        "title": "2. Sequence Models Và Transformer",
+        "slide": "https://drive.google.com/file/d/1AVigRmW7sPXwXIvjt19-_pchKOKpT5kW/view?usp=sharing",
+        "notebook": "https://drive.google.com/file/d/1AVigRmW7sPXwXIvjt19-_pchKOKpT5kW/view?usp=sharing",
+        "videoIframe": "https://iframe.mediadelivery.net/embed/575269/ae59f4f6-f180-4552-802f-2a4af1ae6c42?token=504d178187f02e2fa1f11b8a003522610ff4f7a3337d27656a509ca24dfddeff&expires=1791530588"
+      },
+      {
+        "course": "VOAI Nâng Cao",
+        "title": "1. Image Classification (ResNet, EfficientNet)",
+        "slide": "https://drive.google.com/file/d/1aNn1k1C4dcgqP4IbC0QeU-5UJJHt2dsO/view?usp=sharing",
+        "notebook": "https://drive.google.com/file/d/1aNn1k1C4dcgqP4IbC0QeU-5UJJHt2dsO/view?usp=sharing",
+        "videoIframe": "https://iframe.mediadelivery.net/embed/575269/aac96990-297b-4d51-93b6-75749cecdf3e?token=f0c28cd26f5a47794b5df4658e9edf074c6ff9ec702c0a5c2f3db1c894845413&expires=1791530596"
+      },
+      {
+        "course": "VOAI Nâng Cao",
+        "title": "2. Image Segmentation (UNet), Object Detection (YOLO), Và Transfer Learning Trong CV",
+        "slide": "https://drive.google.com/file/d/11MPDM1o1Ph5Ui1zA3Y52eVCQtAhxA-aq/view?usp=sharing",
+        "notebook": "https://drive.google.com/file/d/11MPDM1o1Ph5Ui1zA3Y52eVCQtAhxA-aq/view?usp=sharing",
+        "videoIframe": "https://iframe.mediadelivery.net/embed/575269/ae41df4b-16c4-45d0-89ad-b943fc4c5c40?token=535623e95ecb2f25221d01dd29b080a897f15502d0152278428ec4b6c30e711c&expires=1791530598"
+      },
+      {
+        "course": "VOAI Nâng Cao",
+        "title": "3. Mô Hình ViT Và Xử Lý Video Với Spatio-Temporal Modeling",
+        "slide": "https://drive.google.com/file/d/1Gm-dkhm-16Nx6IcrWvBQ_4ZUOp4_Sk6f/view?usp=sharing",
+        "notebook": "https://drive.google.com/file/d/1Gm-dkhm-16Nx6IcrWvBQ_4ZUOp4_Sk6f/view?usp=sharing",
+        "videoIframe": "https://iframe.mediadelivery.net/embed/575269/560e8e0f-8e80-440a-a69a-22c12f5cebae?token=3ffb50d3cd1301f775e1f67a0a0302e5e5a5f27fa56d137910cb6ca95e74f83d&expires=1791530601"
+      },
+      {
+        "course": "VOAI Nâng Cao",
+        "title": "4. Multimodal & Ensemble Trong CV",
+        "slide": "https://drive.google.com/file/d/1ic-g_SoJbIfZWZg9o7K6HZ5IkWXZWAaI/view?usp=sharing",
+        "notebook": "https://drive.google.com/file/d/1ic-g_SoJbIfZWZg9o7K6HZ5IkWXZWAaI/view?usp=sharing",
+        "videoIframe": "https://iframe.mediadelivery.net/embed/575269/abae4214-cec3-4147-bb8b-c3b761d796b4?token=6e5be16827f036fb4c3d9887ad2f3f17cb7b71a9eeffb321fda7aff08403e341&expires=1791530603"
+      },
+      {
+        "course": "VOAI Nâng Cao",
+        "title": "1. Kiểm Tra Giữa Kì (NLP)",
+        "slide": null,
+        "notebook": null,
+        "videoIframe": "https://iframe.mediadelivery.net/embed/575269/7fb2c11f-0f2f-47c0-accb-039dbb86f2e8?token=9f7b4fc771493483f88bb62358f8f0cf3858325316c1c5d2fb8352ec40693ff2&expires=1791530606"
+      },
+      {
+        "course": "VOAI Nâng Cao",
+        "title": "2. Chữa Đề Kiểm Tra",
+        "slide": "https://drive.google.com/file/d/13KHlZjwVLNb8TmU6DTsyX6JpQGYAdW_d/view?usp=sharing",
+        "notebook": "https://drive.google.com/file/d/13KHlZjwVLNb8TmU6DTsyX6JpQGYAdW_d/view?usp=sharing",
+        "videoIframe": "https://iframe.mediadelivery.net/embed/575269/5bfcf720-fc24-41c1-93de-bfbac5978ce8?token=30813948d106d671d9f4b3b307ea9c3e983cfa7728cd66379e6dad58a185035a&expires=1791530608"
+      },
+      {
+        "course": "VOAI Nâng Cao",
+        "title": "1. Time Series Và Digital Signal Processing",
+        "slide": "https://drive.google.com/file/d/1Vlz_7JESfAJsEQz-D0G93ow4uug8-wad/view?usp=sharing",
+        "notebook": "https://drive.google.com/file/d/1Vlz_7JESfAJsEQz-D0G93ow4uug8-wad/view?usp=sharing",
+        "videoIframe": "https://iframe.mediadelivery.net/embed/575269/3fc3558a-3cac-43c0-9870-1fb6e8e1f6cd?token=88771e70e129eff7959fd0e3ac086a4dedcd142afc5d1357fac4960b217407e2&expires=1791530611"
+      },
+      {
+        "course": "VOAI Nâng Cao",
+        "title": "1. Kiểm Tra Cuối Kì (CV)",
+        "slide": null,
+        "notebook": null,
+        "videoIframe": "https://iframe.mediadelivery.net/embed/575269/41b8f23d-8d50-44da-8116-35909c6f6c4d?token=70e9ac5bc172ce59b9d95a6cb380f8afa385cd5bdae399defb9c6a469a34165a&expires=1791530613"
+      },
+      {
+        "course": "VOAI Nâng Cao",
+        "title": "2. Chữa Đề, Ôn Tập, Và Discuss Đề Thi",
+        "slide": null,
+        "notebook": null,
+        "videoIframe": "https://iframe.mediadelivery.net/embed/575269/a668a880-988e-4247-a98a-8b434ba7a31a?token=26f5d05b29d3764e5d4c209be22029bb4b92de6e3add5d9baea7db3f0c89585f&expires=1791530616"
+      }
+    ]
+  }
+}

@@ -1,0 +1,298 @@
+
+=== PAGE 1 ===
+ĐỀ THI THỬ VÒNG THI TRẮC NGHIỆM VOAI 2026
+Đỗ Đình Luật
+Năm 2026
+Thời gian làm bài: 60 phút. Thí sinh không sử dụng tài liệu.
+1. Cho ma trậnAkích thướcn×n. NếuAlà ma trận trực giao (orthogonal matrix), phát biểu nào
+sau đây là ĐÚNG?
+A.A T =A −1
+B. Định thức củaAluôn bằng 0.
+C.Alà ma trận suy biến.
+D. Các hàng củaAphụ thuộc tuyến tính.
+2. Trong tối ưu hóa, nếu ma trận Hessian của hàm số tại một điểm cực trị là xác định dương (positive
+definite), điểm đó là:
+A. Điểm cực đại địa phương.
+B. Điểm cực tiểu địa phương.
+C. Điểm yên ngựa.
+D. Điểm không xác định.
+3. (Khó) Tính đạo hàm của hàm sốf(x) = ln(1 +e−x). Kết quả nào sau đây đúng?
+A.f ′(x) =σ(x)−1(vớiσlà hàm sigmoid)
+B.f ′(x) =σ(x)
+C.f ′(x) = 1 +σ(x)
+D.f ′(x) =e−x
+4. Đại lượng nào đo lường mức độ "bất ngờ"hoặc thông tin trung bình của một phân phối xác suất?
+A. Phương sai.
+B. Entropy.
+C. Độ lệch chuẩn.
+D. Kỳ vọng.
+5. Trong thuật toán K-Nearest Neighbors (KNN), khi giá trịkquá nhỏ, mô hình có xu hướng:
+A. Bị Underfitting.
+B. Bị Overfitting và nhạy cảm với nhiễu.
+C. Có độ chệch (Bias) cao.
+D. Luôn cho kết quả chính xác nhất.
+6. Thuật toán nào sau đây KHÔNG thuộc nhóm học có giám sát (Supervised Learning)?
+A. Support Vector Machine.
+B. Random Forest.
+1
+=== PAGE 2 ===
+C. Principal Component Analysis (PCA).
+D. Logistic Regression.
+7. Mục tiêu chính của kỹ thuật "Pruning"(tỉa cành) trong cây quyết định là gì?
+A. Tăng độ sâu của cây.
+B. Giảm hiện tượng Overfitting.
+C. Tăng số lượng nút lá.
+D. Làm cho cây phức tạp hơn.
+8. Thuật toán Random Forest kết hợp nhiều cây quyết định bằng phương pháp:
+A. Boosting.
+B. Bagging.
+C. Stacking.
+D. Cascading.
+9. Chỉ số F1-Score là trung bình điều hòa của hai đại lượng nào?
+A. Accuracy và Recall.
+B. Precision và Accuracy.
+C. Precision và Recall.
+D. Specificity và Sensitivity.
+10. Trong Linear Regression, nếu các biến độc lập có tương quan rất mạnh với nhau, hiện tượng này gọi
+là:
+A. Đa cộng tuyến (Multicollinearity).
+B. Tự tương quan.
+C. Phương sai thay đổi.
+D. Nhiễu trắng.
+11. Hàm loss nào thường được dùng cho bài toán Logistic Regression?
+A. Mean Squared Error.
+B. Binary Cross-Entropy (Log Loss).
+C. Hinge Loss.
+D. Huber Loss.
+12. (Khó) Cho ma trận nhầm lẫn: TP=80, FP=10, FN=20, TN=90. Precision của mô hình là:
+A. 0.8
+B. 0.88
+C. 0.75
+D. 0.9
+13. Tại sao hàm kích hoạt phi tuyến là cần thiết trong mạng nơ-ron?
+A. Để làm mạng chạy nhanh hơn.
+B. Để mạng có thể học được các ranh giới quyết định phức tạp (phi tuyến).
+C. Để giới hạn giá trị trọng số.
+D. Để thay thế lớp Dropout.
+14. (Khó) Một lớp Convolution có filter5×5, input channels là 3, số lượng filter là 16. Tổng số tham số
+(không tính bias) là:
+A. 1200
+Page 2
+=== PAGE 3 ===
+B. 400
+C. 240
+D. 384
+15. Trong LSTM, cổng (gate) nào quyết định thông tin nào từ trạng thái ô (cell state) cũ sẽ bị loại bỏ?
+A. Input Gate.
+B. Forget Gate.
+C. Output Gate.
+D. Update Gate.
+16. (Khó) Cho đầu vàoW×H, filterK×K, paddingP, strideS. Công thức tính kích thước đầu ra
+Wout là:
+A.(W−K+ 2P)/S+ 1
+B.(W+K−P)/S
+C.W/S+P
+D.(W−K+P)/S
+17. Hàm kích hoạt nào thường được dùng ở lớp cuối của bài toán phân loại đa lớp (Multi-class
+Classification)?
+A. Sigmoid.
+B. Softmax.
+C. Tanh.
+D. ReLU.
+18. Trong thuật toán tối ưu Adam, tham sốβ1 vàβ 2 thường được dùng để:
+A. Tính toán trung bình động của gradient và bình phương gradient.
+B. Thay đổi kích thước batch.
+C. Khởi tạo trọng số.
+D. Cắt (clip) gradient.
+19. Mạng Generative Adversarial Networks (GAN) bao gồm hai thành phần chính nào?
+A. Encoder và Decoder.
+B. Generator và Discriminator.
+C. Actor và Critic.
+D. Input và Output.
+20. Một nơ-ron có 3 đầu vào (1, 2, 3), trọng số tương ứng là (0.5, -1, 2) và bias là 0.5. Nếu dùng hàm
+ReLU, đầu ra là:
+A. 5
+B. 0
+C. -4.5
+D. 4.5
+21. Phương pháp "Bag of Words"(BoW) có nhược điểm lớn nhất là gì?
+A. Mất hoàn toàn thông tin về thứ tự và ngữ cảnh của từ.
+B. Tính toán quá chậm.
+C. Không thể đếm được tần suất từ.
+D. Chỉ dùng được cho tiếng Anh.
+Page 3
+=== PAGE 4 ===
+22. "BERT"là mô hình dựa trên thành phần nào của Transformer?
+A. Encoder.
+B. Decoder.
+C. Cả hai.
+D. Không thành phần nào.
+23. Hệ thống RAG (Retrieval-Augmented Generation) giúp mô hình LLM:
+A. Giảm hiện tượng "ảo giác"(hallucination) bằng cách tham chiếu dữ liệu bên ngoài.
+B. Chạy nhanh hơn 10 lần.
+C. Không cần huấn luyện lại.
+D. Cả A và C đều đúng.
+24. Phép toán "Max Pooling"có tác dụng:
+A. Giảm kích thước không gian và giữ lại đặc trưng nổi bật nhất.
+B. Tăng số lượng kênh.
+C. Thay đổi màu sắc ảnh.
+D. Tăng độ phân giải.
+25. Thuật toán "YOLO"thuộc nhóm phát hiện đối tượng:
+A. Single-stage detector.
+B. Two-stage detector.
+C. Unsupervised detector.
+D. Phân đoạn cá thể (Instance Segmentation).
+26. Thuật toán NMS (Non-Maximum Suppression) dùng để:
+A. Loại bỏ các khung hình (bounding boxes) trùng lặp và chỉ giữ lại khung có xác suất cao
+nhất.
+B. Tăng số lượng dự đoán.
+C. Làm mượt ảnh.
+D. Tính toán hàm loss.
+27. "Model Quantization"(Lượng hóa mô hình) giúp:
+A. Giảm dung lượng mô hình và tăng tốc độ suy luận (inference) trên thiết bị nhúng.
+B. Tăng độ chính xác của mô hình.
+C. Thêm nhiều nơ-ron hơn.
+D. Chuyển mô hình từ Python sang Java.
+28. Khái niệm "Data Drift"(Trôi dạt dữ liệu) nghĩa là:
+A. Sự thay đổi phân phối của dữ liệu thực tế theo thời gian khiến mô hình cũ không còn hiệu
+quả.
+B. Dữ liệu bị xóa mất.
+C. Dữ liệu bị sao chép.
+D. Tốc độ truyền dữ liệu chậm.
+29. "MLOps"là viết tắt của:
+A. Machine Learning Operations.
+B. Multi-Layer Optimization.
+C. Mobile Learning Options.
+Page 4
+=== PAGE 5 ===
+D. Main Logic Operator.
+30. Để phục vụ (serving) một mô hình LLM lớn, kỹ thuật nào thường được dùng để tiết kiệm VRAM?
+A. Paging.
+B. KV Caching.
+C. Unzipping.
+D. Overclocking.
+31. Học bán giám sát (Semi-supervised learning) thường được áp dụng hiệu quả nhất trong kịch bản
+nào?
+A. Toàn bộ dữ liệu đều đã được gán nhãn rất chuẩn xác.
+B. Không có bất kỳ dữ liệu nào được gán nhãn.
+C. Có một lượng nhỏ dữ liệu được gán nhãn và một lượng lớn dữ liệu chưa gán nhãn.
+D. Số lượng nhãn cần phân loại thay đổi liên tục theo thời gian.
+32. Điểm vượt trội của thuật toán t-SNE so với PCA khi giảm chiều dữ liệu trực quan hóa là gì?
+A. t-SNE có tốc độ tính toán nhanh hơn rất nhiều trên tập dữ liệu lớn.
+B. t-SNE bảo toàn tốt hơn cấu trúc phi tuyến và khoảng cách cục bộ (local structure).
+C. t-SNE luôn giữ lại 100% phương sai của dữ liệu gốc.
+D. t-SNE sử dụng phép chiếu tuyến tính đơn giản nên dễ suy luận ngược.
+33. Tại sao Stratified K-Fold lại được ưu tiên sử dụng hơn K-Fold thông thường trong các bài toán phân
+loại có dữ liệu mất cân bằng?
+A. Nó đảm bảo tỷ lệ giữa các lớp trong mỗi Fold giống với tỷ lệ trong toàn bộ tập dữ liệu.
+B. Nó giúp mô hình chạy nhanh hơn bằng cách giảm bớt số lượng mẫu.
+C. Nó tự động loại bỏ các dữ liệu ngoại lệ (outliers) gây nhiễu.
+D. Nó không cho phép các Fold có dữ liệu trùng lặp với nhau.
+34. Hiện tượng "Data Leakage"(Rò rỉ dữ liệu) trong quá trình xử lý đặc trưng (Feature Engineering)
+thường xảy ra khi:
+A. Chúng ta chuẩn hóa dữ liệu (Scaling) trên toàn bộ dataset trước khi chia tập Train/Test.
+B. Tập dữ liệu Train có số lượng mẫu quá nhỏ so với tập Test.
+C. Dùng kỹ thuật K-Fold cross-validation để đánh giá mô hình.
+D. Mô hình có độ phức tạp quá thấp dẫn đến underfitting.
+35. Kỹ thuật SMOTE (Synthetic Minority Over-sampling Technique) giải quyết vấn đề Class Imbalance
+bằng cách:
+A. Loại bỏ ngẫu nhiên các mẫu thuộc lớp đa số (majority class).
+B. Tạo ra các mẫu tổng hợp mới cho lớp thiểu số dựa trên khoảng cách K-NN.
+C. Gán trọng số cao hơn cho các mẫu thuộc lớp đa số trong hàm loss.
+D. Nhân bản lặp đi lặp lại các mẫu có sẵn của lớp thiểu số.
+36. Khi đánh giá một mô hình phân loại trên tập dữ liệu cực kỳ mất cân bằng (như phát hiện gian lận
+thẻ tín dụng), độ đo nào sau đây thường bị coi là "vô dụng"và gây hiểu lầm nhất?
+A. F1-score.
+B. Precision-Recall AUC.
+C. Accuracy (Độ chính xác tổng thể).
+D. Recall.
+Page 5
+=== PAGE 6 ===
+37. Điểm khác biệt cơ bản về mặt hiệu ứng giữa Regularization L1 (Lasso) và L2 (Ridge) là gì?
+A. L1 có xu hướng triệt tiêu các trọng số về 0 (tạo tính thưa thớt), trong khi L2 chỉ thu nhỏ
+chúng.
+B. L2 triệt tiêu hoàn toàn các trọng số về 0, L1 thì không.
+C. L1 chạy nhanh hơn L2 trên mọi kiến trúc phần cứng.
+D. L1 chỉ dùng cho hồi quy tuyến tính, L2 dùng cho mạng nơ-ron.
+38. Trong cây quyết định (Decision Tree), việc thiết lập tham sốmax_depthquá lớn mà không có cơ chế
+cắt tỉa sẽ dẫn đến:
+A. Mô hình bị Underfitting nặng.
+B. Mô hình bị Overfitting do cây quá sâu và học cả nhiễu.
+C. Thời gian suy luận (Inference) giảm đi đáng kể.
+D. Độ chệch (Bias) của mô hình tăng cao.
+39. Trong phân tích dữ liệu khám phá (EDA), biểu đồ Boxplot (biểu đồ hộp) là công cụ cực kỳ hữu hiệu
+để nhanh chóng phát hiện:
+A. Các giá trị ngoại lệ (Outliers) và phân phối tứ phân vị của dữ liệu.
+B. Mối quan hệ tuyến tính giữa hai biến liên tục.
+C. Tần suất xuất hiện của các từ trong văn bản.
+D. Ma trận tương quan giữa tất cả các đặc trưng.
+40. Kỹ thuật Early Stopping dừng quá trình huấn luyện mạng nơ-ron dựa trên tín hiệu nào?
+A. Khi Train loss đạt giá trị bằng 0 tuyệt đối.
+B. Khi Validation loss không còn giảm hoặc bắt đầu tăng liên tục trong một số epoch.
+C. Khi số lượng epoch đạt đúng giới hạn do người dùng đặt ra từ đầu.
+D. Khi tốc độ tính toán của GPU bị sụt giảm.
+41. Điểm khác biệt cốt lõi giữa phương pháp Bagging (như Random Forest) và Boosting (như XGBoost)
+là:
+A. Bagging xây dựng các cây độc lập song song; Boosting xây dựng các cây tuần tự nối tiếp
+nhau.
+B. Bagging luôn cho độ chính xác cao hơn Boosting trên mọi tập dữ liệu.
+C. Boosting cố gắng giảm phương sai (Variance), Bagging cố gắng giảm độ chệch (Bias).
+D. Bagging chỉ dùng cho phân loại, Boosting chỉ dùng cho hồi quy.
+42. Thuật toán CatBoost nổi tiếng trong cộng đồng Kaggle nhờ khả năng xử lý tự động và tối ưu loại
+dữ liệu nào mà không cần qua bước One-Hot Encoding?
+A. Dữ liệu dạng chuỗi thời gian (Time-series).
+B. Dữ liệu dạng phân loại (Categorical features).
+C. Dữ liệu ảnh màu RGB.
+D. Dữ liệu dạng âm thanh.
+43. Thuật toán LightGBM sử dụng chiến lược phát triển cây nào giúp nó thường chạy nhanh hơn và tốn
+ít bộ nhớ hơn so với XGBoost truyền thống?
+A. Leaf-wise growth (Phát triển theo chiều sâu của lá).
+B. Level-wise growth (Phát triển theo chiều ngang của tầng).
+C. Random growth (Phát triển ngẫu nhiên).
+D. Full-depth growth (Phát triển toàn bộ độ sâu cùng lúc).
+Page 6
+=== PAGE 7 ===
+44. Phương pháp "Stacking"trong Ensemble learning hoạt động theo cơ chế nào?
+A. Lấy trung bình cộng đơn giản kết quả dự báo của tất cả các mô hình cơ sở.
+B. Dùng đầu ra (dự báo) của các mô hình cơ sở làm đầu vào cho một mô hình meta-learner
+cấp cao hơn.
+C. Nhân kết quả dự báo của các mô hình với một trọng số cố định được gán từ trước.
+D. Loại bỏ các mô hình yếu và chỉ giữ lại mô hình mạnh nhất.
+45. Khi xây dựng một cây quyết định đơn lẻ trong thuật toán Random Forest, tại mỗi nút chia, thuật
+toán sẽ:
+A. Duyệt qua toàn bộ tất cả các đặc trưng hiện có để tìm điểm chia tốt nhất.
+B. Chỉ chọn ngẫu nhiên một tập con các đặc trưng để tìm điểm chia tốt nhất.
+C. Luôn chọn đặc trưng có giá trị trung bình lớn nhất.
+D. Không sử dụng bất kỳ tiêu chí ngẫu nhiên nào.
+46. (Khó) Mô hình FT-Transformer (Feature Tokenizer + Transformer) dành cho dữ liệu bảng (Tabular
+data) áp dụng cơ chế Self-Attention vào đâu?
+A. Giữa các hàng (các mẫu dữ liệu) khác nhau để tìm sự tương đồng.
+B. Giữa các đặc trưng (các cột) khác nhau sau khi đã được "mã hóa"thành các token.
+C. Giữa các cây quyết định trong một rừng ngẫu nhiên.
+D. Nó không sử dụng Self-Attention mà dùng tích chập 1D.
+47. Mô hình Neural Tabular nào gần đây nổi tiếng với việc chia sẻ tham số hiệu quả để tạo ra một
+"ensemble"gồm nhiều mạng nơ-ron nhỏ bên trong một kiến trúc duy nhất?
+A. TabM.
+B. TabNet.
+C. NODE (Neural Oblivious Decision Ensembles).
+D. SAINT.
+48. Thuật toán Gradient Boosting xây dựng các cây quyết định dựa trên nguyên lý chủ đạo nào?
+A. Mỗi cây sau cố gắng học cách dự báo phần dư (residuals/errors) của các cây đứng trước
+nó.
+B. Các cây hoàn toàn độc lập và kết quả cuối cùng được bầu chọn theo số đông.
+C. Cây sau phải có độ sâu gấp đôi cây trước.
+D. Loại bỏ ngẫu nhiên 50% dữ liệu trước khi xây dựng cây mới.
+49. Trong CatBoost, kỹ thuật "Ordered Boosting"được thiết kế đặc biệt nhằm giải quyết triệt để vấn
+đề gì thường gặp ở các thuật toán Boosting khác?
+A. Hiện tượng Target leakage và Overfitting trong quá trình tính toán gradient trên tập dữ
+liệu nhỏ.
+B. Thời gian huấn luyện quá lâu trên CPU.
+C. Không thể chạy được trên GPU.
+D. Mô hình quá đơn giản dẫn đến Underfitting.
+50. Tại sao việc áp dụng K-Fold cross-validation thông thường trực tiếp lên dữ liệu chuỗi thời gian
+(Time-series) để tuning mô hình lại bị coi là sai lầm nghiêm trọng?
+A. Vì nó phá vỡ tính tuần tự thời gian và dẫn đến rò rỉ dữ liệu từ tương lai vào quá khứ.
+B. Vì dữ liệu chuỗi thời gian không thể chia thành các Fold.
+C. Vì nó làm tăng gấp đôi kích thước của tập dữ liệu.
+D. Vì các mô hình chuỗi thời gian không có siêu tham số để tune.
+Page 7

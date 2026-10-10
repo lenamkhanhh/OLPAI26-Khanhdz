@@ -128,8 +128,8 @@ A. K-fold thường vì đơn giản · B. Leave-one-out vì chính xác nhất 
 **C09.** Bài toán có hàng trăm feature thừa. Chọn regularization nào để tự động loại feature?
 A. L1 (Lasso) vì tạo sparsity, tự loại feature thừa · B. L2 vì đẩy trọng số về 0 hẳn · C. Dropout vì là regularization duy nhất dùng được · D. Không cần regularization, thêm cây là đủ
 
-**C10.** Nhiều feature tương quan mạnh với nhau. Dùng L1 hay L2 ổn định hơn, vì sao?
-A. L1 vì luôn cho độ chính xác cao hơn · B. L2 vì co đều trọng số, ổn định hơn · C. Bỏ regularization vì ridge làm chậm · D. Cả hai như nhau với mọi dữ liệu
+**C10.** Trong trường hợp tập dữ liệu chứa nhiều đặc trưng có độ tương quan tuyến tính rất cao với nhau (hiện tượng Đa cộng tuyến — Multicollinearity), kỹ thuật L2 Regularization (Ridge) thường được ưu tiên hơn L1 (Lasso) vì lý do gì?
+A. Vì L1 sẽ chọn ngẫu nhiên 1 đặc trưng và loại bỏ các đặc trưng còn lại một cách không ổn định, trong khi L2 co đều các hệ số trọng số và luôn đảm bảo ma trận $(X^T X + \lambda I)$ khả nghịch · B. Vì L2 tính toán không cần ma trận · C. Vì L2 luôn đưa toàn bộ trọng số về chính xác bằng 0 · D. Vì L2 không cần siêu tham số lambda
 
 **C11.** Cần train nhanh baseline ít tune hyperparameter. Chọn optimizer nào?
 A. Chỉ dùng SGD vì Adam không bao giờ hội tụ · B. Dùng Adagrad cho mọi bài vision · C. Adam vì hội tụ nhanh, ít tune · D. Optimizer không ảnh hưởng kết quả

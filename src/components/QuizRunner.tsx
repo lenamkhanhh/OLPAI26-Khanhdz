@@ -10,6 +10,7 @@ import { QuizBottomBar } from './QuizBottomBar';
 import { ResultSummary } from './ResultSummary';
 import { TheorySidebar } from './TheorySidebar';
 import { VideoModal } from './VideoModal';
+import { AIChatbotDrawer } from './AIChatbotDrawer';
 
 interface Props {
   exam: Exam;
@@ -31,11 +32,12 @@ export function QuizRunner({ exam, mode, timerEnabled, onHome }: Props) {
   const [paletteOpen, setPaletteOpen] = useState(false);
   const [confirmSubmit, setConfirmSubmit] = useState(false);
 
-  // State cho Sidebar Ly thuyet va Video Modal
+  // State cho Sidebar Ly thuyet, Video Modal va AI Chatbot Drawer
   const [theoryOpen, setTheoryOpen] = useState(() => {
     return typeof window !== 'undefined' && window.innerWidth >= 1200;
   });
   const [activeVideo, setActiveVideo] = useState<VideoResource | null>(null);
+  const [aiDrawerOpen, setAiDrawerOpen] = useState(false);
 
   const currentQuestion = exam.questions[current];
   const currentSection = extractSectionRef(
@@ -105,6 +107,16 @@ export function QuizRunner({ exam, mode, timerEnabled, onHome }: Props) {
     setAnswers((prev) => ({ ...prev, [currentQuestion.id]: answer }));
   };
 
+  const handleApplyAIScore = (score: number, rubricChecks: boolean[]) => {
+    const prev = answers[currentQuestion.id] || {};
+    updateAnswer({
+      ...prev,
+      essayScore: score,
+      rubricChecks
+    });
+    setAiDrawerOpen(false);
+  };
+
   if (submitted) {
     return (
       <ResultSummary
@@ -131,6 +143,8 @@ export function QuizRunner({ exam, mode, timerEnabled, onHome }: Props) {
         onToggleTheory={() => setTheoryOpen((v) => !v)}
         theoryOpen={theoryOpen}
         currentSection={currentSection}
+        onToggleAI={() => setAiDrawerOpen((v) => !v)}
+        aiOpen={aiDrawerOpen}
       />
 
       <div className="quiz-workspace">
@@ -147,6 +161,7 @@ export function QuizRunner({ exam, mode, timerEnabled, onHome }: Props) {
             onNext={goNext}
             onOpenTheory={(_secId) => setTheoryOpen(true)}
             onOpenVideo={(video) => setActiveVideo(video)}
+            onOpenAI={() => setAiDrawerOpen(true)}
           />
         </main>
 
@@ -176,6 +191,27 @@ export function QuizRunner({ exam, mode, timerEnabled, onHome }: Props) {
         onClose={() => setPaletteOpen(false)}
         onJump={setCurrent}
       />
+
+      <AIChatbotDrawer
+        isOpen={aiDrawerOpen}
+        question={currentQuestion}
+        answer={answers[currentQuestion.id]}
+        onClose={() => setAiDrawerOpen(false)}
+        onApplyScore={handleApplyAIScore}
+      />
+
+      {!aiDrawerOpen && (
+        <button
+          type="button"
+          className="floating-ai-trigger"
+          onClick={() => setAiDrawerOpen(true)}
+          title="Mở Trợ lý AI Olympic (Chấm điểm Rubric & Gia sư)"
+          aria-label="Mở Trợ lý AI Olympic"
+        >
+          <span className="floating-ai-pulse" />
+          <span>⚡ AI Trợ lý</span>
+        </button>
+      )}
 
       {confirmSubmit && (
         <div className="palette-backdrop" role="presentation" onMouseDown={(e) => { if (e.target === e.currentTarget) setConfirmSubmit(false); }}>
