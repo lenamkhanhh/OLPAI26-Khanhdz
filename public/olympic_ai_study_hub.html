@@ -9,7 +9,7 @@
   <!-- Typography: Inter & JetBrains Mono -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700;800&family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
   
   <!-- KaTeX CSS (Local + Fallback CDN) -->
   <link rel="stylesheet" href="katex/katex.min.css" onerror="this.onerror=null;this.href='https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css'">
@@ -55,7 +55,7 @@
       --sidebar-w: 280px;
       --split-w: 420px;
       --inspector-w: 380px;
-      --header-h: 46px;
+      --header-h: 50px;
       --footer-h: 44px;
     }
 
@@ -102,168 +102,387 @@
       -webkit-font-smoothing: antialiased;
     }
 
-    /* 1. TOP HEADER (BINANCE PRO VIP TRADING BAR) */
+    /* 1. TOP HEADER (EXECUTIVE ACADEMIC & LUXURY ATELIER BAR) */
     .arena-header {
       height: var(--header-h);
-      background: var(--bg-surface);
-      border-bottom: 1px solid var(--border-subtle);
+      background: rgba(8, 8, 10, 0.92);
+      backdrop-filter: blur(20px) saturate(180%);
+      -webkit-backdrop-filter: blur(20px) saturate(180%);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding: 0 12px;
+      padding: 0 16px;
       user-select: none;
-      z-index: 40;
-      gap: 8px;
+      z-index: 50;
+      gap: 12px;
       flex-wrap: nowrap;
       overflow: hidden;
       flex-shrink: 0;
+      box-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.6);
     }
 
     .header-left {
       display: flex;
       align-items: center;
-      gap: 8px;
+      gap: 10px;
       flex-shrink: 0;
     }
 
-    .contest-badge {
-      background: rgba(240, 185, 11, 0.08);
-      color: #f0b90b;
-      font-family: var(--font-mono);
-      font-weight: 700;
-      font-size: 11px;
-      padding: 3px 8px;
-      border-radius: var(--radius-sm);
-      border: 1px solid rgba(240, 185, 11, 0.3);
-      letter-spacing: 0.5px;
+    /* Minimalist luxury brand insignia */
+    .brand-cluster {
       display: inline-flex;
       align-items: center;
-      gap: 5px;
-      white-space: nowrap;
-      flex-shrink: 0;
+      gap: 8px;
+      padding: 0 4px 0 2px;
+      cursor: default;
     }
 
-    .exam-select-box {
+    .brand-emblem {
       display: flex;
       align-items: center;
-      gap: 6px;
-      background: #0e0e0e;
-      border: 1px solid var(--border-subtle);
-      padding: 3px 8px;
-      border-radius: var(--radius-sm);
-      max-width: 220px;
-      flex-shrink: 1;
-      min-width: 140px;
-      transition: border-color 0.15s ease;
+      justify-content: center;
+      width: 22px;
+      height: 22px;
+      filter: drop-shadow(0 0 6px rgba(240, 185, 11, 0.35));
     }
+
+    .brand-typography {
+      display: flex;
+      align-items: baseline;
+      gap: 6px;
+    }
+
+    .brand-title {
+      font-family: 'Plus Jakarta Sans', var(--font-sans);
+      font-weight: 800;
+      font-size: 11.5px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: #f4f4f5;
+    }
+
+    .brand-tag {
+      font-family: var(--font-mono);
+      font-weight: 600;
+      font-size: 9px;
+      letter-spacing: 0.08em;
+      padding: 1.5px 5.5px;
+      border-radius: 4px;
+      background: rgba(240, 185, 11, 0.1);
+      color: #f0b90b;
+      border: 1px solid rgba(240, 185, 11, 0.28);
+      line-height: 1.2;
+    }
+
+    /* Refined Custom Exam Selector */
+    .exam-select-box {
+      position: relative;
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 255, 255, 0.09);
+      padding: 0 10px 0 9px;
+      border-radius: 7px;
+      height: 32px;
+      max-width: 240px;
+      flex-shrink: 1;
+      min-width: 150px;
+      transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
     .exam-select-box:hover {
-      border-color: var(--border-strong);
+      background: rgba(255, 255, 255, 0.06);
+      border-color: rgba(240, 185, 11, 0.35);
+      box-shadow: 0 0 12px rgba(240, 185, 11, 0.08);
+    }
+
+    .exam-select-icon {
+      color: #71717a;
+      flex-shrink: 0;
+      transition: color 0.2s ease;
+    }
+    .exam-select-box:hover .exam-select-icon {
+      color: #f0b90b;
     }
 
     .exam-select {
       background: transparent;
-      color: var(--text-main);
+      color: #f4f4f5;
       border: none;
       font-size: 12px;
-      font-weight: 600;
+      font-weight: 500;
       outline: none;
       cursor: pointer;
       width: 100%;
       text-overflow: ellipsis;
       white-space: nowrap;
       overflow: hidden;
-    }
-    .exam-select option {
-      background: #0a0a0a;
-      color: #f5f5f5;
+      padding-right: 14px;
+      -webkit-appearance: none;
+      -moz-appearance: none;
+      appearance: none;
     }
 
+    .exam-select option {
+      background: #09090b;
+      color: #f4f4f5;
+      padding: 6px;
+    }
+
+    .exam-select-chevron {
+      position: absolute;
+      right: 8px;
+      color: #71717a;
+      pointer-events: none;
+      transition: color 0.2s ease;
+    }
+    .exam-select-box:hover .exam-select-chevron {
+      color: #a1a1aa;
+    }
+
+    /* 2. CENTER TELEMETRY COCKPIT (FLOATING GLASS CAPSULE) */
     .header-center {
       display: flex;
       align-items: center;
-      gap: 12px;
+      justify-content: center;
       flex-shrink: 0;
     }
 
-    .timer-pill {
+    .hud-cockpit-capsule {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: rgba(14, 14, 18, 0.75);
+      border: 1px solid rgba(255, 255, 255, 0.09);
+      border-radius: 9999px;
+      padding: 0 14px 0 12px;
+      height: 32px;
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.06), 0 2px 10px rgba(0, 0, 0, 0.45);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+    }
+
+    .hud-timer {
+      display: flex;
+      align-items: center;
+      gap: 6.5px;
+      font-family: var(--font-mono);
+      font-size: 12px;
+      font-weight: 600;
+      color: #f4f4f5;
+      letter-spacing: 0.02em;
+    }
+
+    .live-pulse-dot {
+      width: 6.5px;
+      height: 6.5px;
+      background: #10b981;
+      border-radius: 50%;
+      box-shadow: 0 0 8px rgba(16, 185, 129, 0.7);
+      animation: hudPulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+    }
+
+    @keyframes hudPulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.35; transform: scale(0.85); }
+    }
+
+    .hud-divider {
+      width: 1px;
+      height: 12px;
+      background: rgba(255, 255, 255, 0.12);
+      flex-shrink: 0;
+    }
+
+    .hud-score {
       display: flex;
       align-items: center;
       gap: 6px;
-      background: #0e0e0e;
-      border: 1px solid var(--border-subtle);
-      padding: 3px 10px;
-      border-radius: 14px;
-      font-family: var(--font-mono);
-      font-size: 12.5px;
-      font-weight: 600;
-      color: #f0b90b;
-      white-space: nowrap;
-    }
-
-    .live-dot {
-      width: 6px;
-      height: 6px;
-      background: #0ecb81;
-      border-radius: 50%;
-      box-shadow: 0 0 6px #0ecb81;
-      animation: pulse 2s infinite;
-    }
-
-    @keyframes pulse {
-      0% { opacity: 1; transform: scale(1); }
-      50% { opacity: 0.4; transform: scale(0.9); }
-      100% { opacity: 1; transform: scale(1); }
-    }
-
-    .score-ticker {
-      display: flex;
-      align-items: center;
-      gap: 8px;
       font-family: var(--font-mono);
       font-size: 11.5px;
-      white-space: nowrap;
     }
 
-    .ticker-gold-val {
+    .hud-score-label {
+      font-size: 9.5px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: #71717a;
+      font-weight: 600;
+    }
+
+    .hud-score-val {
       color: #f0b90b;
       font-weight: 700;
     }
 
-    .badge-ac-count {
-      background: rgba(14, 203, 129, 0.12);
-      color: #0ecb81;
-      border: 1px solid rgba(14, 203, 129, 0.3);
-      padding: 1px 7px;
-      border-radius: 10px;
-      font-weight: 600;
-      font-size: 11px;
+    .hud-metrics {
+      display: flex;
+      align-items: center;
+      gap: 5px;
     }
 
-    .badge-wa-count {
-      background: rgba(246, 70, 93, 0.12);
-      color: #f6465d;
-      border: 1px solid rgba(246, 70, 93, 0.3);
-      padding: 1px 7px;
-      border-radius: 10px;
+    .metric-chip {
+      font-family: var(--font-mono);
+      font-size: 10.5px;
       font-weight: 600;
-      font-size: 11px;
+      padding: 1.5px 7px;
+      border-radius: 9999px;
+      line-height: 1.2;
     }
 
-    .badge-essay-score {
+    .metric-chip.chip-ac {
+      background: rgba(16, 185, 129, 0.12);
+      color: #10b981;
+      border: 1px solid rgba(16, 185, 129, 0.28);
+    }
+
+    .metric-chip.chip-wa {
+      background: rgba(239, 68, 68, 0.12);
+      color: #ef4444;
+      border: 1px solid rgba(239, 68, 68, 0.28);
+    }
+
+    .metric-chip.chip-essay {
       background: rgba(255, 255, 255, 0.05);
-      color: #cccccc;
-      border: 1px solid var(--border-subtle);
-      padding: 1px 7px;
-      border-radius: 10px;
-      font-weight: 600;
-      font-size: 11px;
+      color: #a1a1aa;
+      border: 1px solid rgba(255, 255, 255, 0.1);
     }
 
+    /* 3. RIGHT ACTIONS */
     .header-right {
       display: flex;
       align-items: center;
-      gap: 8px;
+      gap: 7px;
       flex-shrink: 0;
+    }
+
+    .btn-auth {
+      height: 32px;
+      padding: 0 10px;
+      font-size: 11.5px;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      background: rgba(255, 255, 255, 0.03);
+      color: #e4e4e7;
+      border-radius: 7px;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .btn-auth:hover {
+      background: rgba(255, 255, 255, 0.08);
+      border-color: rgba(255, 255, 255, 0.2);
+      color: #ffffff;
+      transform: translateY(-0.5px);
+    }
+
+    .user-profile-capsule {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      padding: 0 8px 0 10px;
+      height: 32px;
+      border-radius: 7px;
+      font-size: 11.5px;
+    }
+
+    .user-status-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: #10b981;
+      box-shadow: 0 0 6px #10b981;
+    }
+
+    .user-name {
+      font-weight: 600;
+      color: #f4f4f5;
+      max-width: 120px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .btn-logout-mini {
+      background: none;
+      border: none;
+      color: #71717a;
+      cursor: pointer;
+      padding: 2px;
+      margin-left: 2px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 4px;
+      transition: color 0.15s ease;
+    }
+
+    .btn-logout-mini:hover {
+      color: #ef4444;
+    }
+
+    /* Keyboard Shortcut Chips */
+    .kbd-hint {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--font-mono);
+      font-size: 9.5px;
+      font-weight: 600;
+      color: #a1a1aa;
+      background: rgba(0, 0, 0, 0.4);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: 4px;
+      padding: 0 4px;
+      height: 16px;
+      margin-left: 2px;
+      line-height: 1;
+    }
+
+    .kbd-submit-hint {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--font-mono);
+      font-size: 9.5px;
+      font-weight: 700;
+      color: rgba(0, 0, 0, 0.7);
+      background: rgba(255, 255, 255, 0.25);
+      border: 1px solid rgba(0, 0, 0, 0.15);
+      border-radius: 4px;
+      padding: 0 4px;
+      height: 16px;
+      margin-left: 2px;
+      line-height: 1;
+    }
+
+    .btn-submit-luxury {
+      background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%) !important;
+      border: 1px solid rgba(255, 255, 255, 0.22) !important;
+      color: #050505 !important;
+      font-weight: 600 !important;
+      letter-spacing: 0.02em;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.4), 0 0 16px rgba(245, 158, 11, 0.22);
+      transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1) !important;
+    }
+
+    .btn-submit-luxury:hover {
+      background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%) !important;
+      border-color: rgba(255, 255, 255, 0.35) !important;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.5), 0 0 24px rgba(245, 158, 11, 0.4) !important;
+      transform: translateY(-0.5px);
+      color: #000000 !important;
+    }
+
+    .btn-submit-luxury:active {
+      transform: translateY(0.5px);
+      box-shadow: 0 1px 2px rgba(0, 0, 0, 0.4);
     }
 
     /* BUTTONS: PURE JET BLACK SUITE */
@@ -1074,12 +1293,36 @@
 </head>
 <body>
 
-  <!-- 1. TOP HEADER (BINANCE PRO TRADING BAR) -->
+  <!-- 1. TOP HEADER (EXECUTIVE ACADEMIC & LUXURY ATELIER BAR) -->
   <header class="arena-header">
     <div class="header-left">
-      <button class="btn btn-icon btn-active" id="btnToggleSidebar" onclick="toggleSidebar()" title="Đóng / Mở Danh sách câu hỏi [B]">☰</button>
-      <span class="contest-badge">⚡ OLP AI '26</span>
+      <button class="btn btn-icon btn-active" id="btnToggleSidebar" onclick="toggleSidebar()" title="Đóng / Mở Danh sách câu hỏi [B]">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="3" y1="6" x2="21" y2="6"></line>
+          <line x1="3" y1="12" x2="21" y2="12"></line>
+          <line x1="3" y1="18" x2="21" y2="18"></line>
+        </svg>
+      </button>
+
+      <div class="brand-cluster" title="Olympic AI HCMUS 2026 — Đấu trường học thuật">
+        <div class="brand-emblem">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+            <path d="M12 2L2 9.5L12 22L22 9.5L12 2Z" stroke="#f0b90b" stroke-width="1.8" stroke-linejoin="round" fill="rgba(240, 185, 11, 0.15)"/>
+            <path d="M2 9.5H22" stroke="#f0b90b" stroke-width="1.4"/>
+            <path d="M12 2L8 9.5L12 22L16 9.5L12 2Z" stroke="#f0b90b" stroke-width="1.4" stroke-linejoin="round"/>
+          </svg>
+        </div>
+        <div class="brand-typography">
+          <span class="brand-title">Olympic AI</span>
+          <span class="brand-tag">'26</span>
+        </div>
+      </div>
+
       <div class="exam-select-box">
+        <svg class="exam-select-icon" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path>
+          <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path>
+        </svg>
         <select class="exam-select" id="examSelector" onchange="switchExam(this.value)">
           <option value="olp-01">Đề 01 · Toàn diện (100c)</option>
           <option value="olp-02">Đề 02 · Format VOAI (100c)</option>
@@ -1088,28 +1331,63 @@
           <option value="voai-2025">Đề 006 · Gốc VOAI 2025 (100c)</option>
           <option value="olp-05">Đề 05 · Chuyên đề CV & NLP (100c)</option>
         </select>
+        <svg class="exam-select-chevron" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <polyline points="6 9 12 15 18 9"></polyline>
+        </svg>
       </div>
     </div>
 
     <div class="header-center">
-      <div class="timer-pill">
-        <span class="live-dot"></span>
-        <span id="contestClock">⏱ 01:00:00</span>
-      </div>
+      <div class="hud-cockpit-capsule">
+        <div class="hud-timer">
+          <span class="live-pulse-dot"></span>
+          <span id="contestClock">⏱ 01:00:00</span>
+        </div>
 
-      <div class="score-ticker">
-        <strong class="ticker-gold-val" id="tickerTotalScore">0.0 / 100.0đ</strong>
-        <span class="badge-ac-count" id="tickerAcCount">0 AC</span>
-        <span class="badge-wa-count" id="tickerWaCount">0 WA</span>
-        <span class="badge-essay-score" id="tickerEssayScore" style="display:none;">Tự luận: 0.0đ</span>
+        <span class="hud-divider"></span>
+
+        <div class="hud-score">
+          <span class="hud-score-label">ĐIỂM</span>
+          <strong class="hud-score-val" id="tickerTotalScore">0.0 / 100.0đ</strong>
+        </div>
+
+        <span class="hud-divider"></span>
+
+        <div class="hud-metrics">
+          <span class="metric-chip chip-ac" id="tickerAcCount">0 AC</span>
+          <span class="metric-chip chip-wa" id="tickerWaCount">0 WA</span>
+          <span class="metric-chip chip-essay" id="tickerEssayScore" style="display:none;">Tự luận: 0.0đ</span>
+        </div>
       </div>
     </div>
 
     <div class="header-right">
-      <div id="userAccountBox" style="display:inline-flex; align-items:center; margin-right:6px;"></div>
-      <button class="btn" id="btnToggleSplit" onclick="toggleSplitMode()" title="Chia đôi cửa sổ tra cứu">◫ Chia đôi</button>
-      <button class="btn btn-active" id="btnToggleInspector" onclick="toggleInspector()" title="Đóng / Mở Bảng tra cứu & Đánh giá [I]">🔍 Tra cứu [I]</button>
-      <button class="btn btn-primary" onclick="submitContestConfirm()" title="Nộp bài thi [Ctrl+S]">Nộp bài</button>
+      <div id="userAccountBox" style="display:inline-flex; align-items:center;"></div>
+
+      <button class="btn" id="btnToggleSplit" onclick="toggleSplitMode()" title="Chia đôi cửa sổ tra cứu">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+          <line x1="12" y1="3" x2="12" y2="21"></line>
+        </svg>
+        <span>Chia đôi</span>
+      </button>
+
+      <button class="btn btn-active" id="btnToggleInspector" onclick="toggleInspector()" title="Đóng / Mở Bảng tra cứu & Đánh giá [I]">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="11" cy="11" r="8"></circle>
+          <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+        </svg>
+        <span>Tra cứu</span>
+        <kbd class="kbd-hint">I</kbd>
+      </button>
+
+      <button class="btn btn-submit-luxury" onclick="submitContestConfirm()" title="Nộp bài thi [Ctrl+S]">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <polyline points="20 6 9 17 4 12"></polyline>
+        </svg>
+        <span>Nộp bài</span>
+        <kbd class="kbd-submit-hint">^S</kbd>
+      </button>
     </div>
   </header>
 
@@ -3239,16 +3517,27 @@
       if (currentUser) {
         const shortTeam = currentUser.team_name ? ' · ' + currentUser.team_name : '';
         box.innerHTML = `
-          <div style="display:inline-flex; align-items:center; gap:6px; background:#18181b; border:1px solid #3f3f46; padding:2px 8px; border-radius:4px; font-size:11px;">
-            <span style="color:#10b981; font-size:10px;">●</span>
-            <span style="font-weight:700; color:#f4f4f5;" title="Tài khoản: ${currentUser.username}${shortTeam}">${currentUser.display_name}</span>
-            <button onclick="logoutUser()" style="background:none; border:none; color:#f87171; font-size:11px; cursor:pointer; padding:0 2px; margin-left:2px;" title="Đăng xuất tài khoản">⎋</button>
+          <div class="user-profile-capsule" title="Tài khoản: ${currentUser.username}${shortTeam}">
+            <span class="user-status-dot"></span>
+            <span class="user-name">${currentUser.display_name}</span>
+            <button onclick="logoutUser()" class="btn-logout-mini" title="Đăng xuất tài khoản">
+              <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
+                <polyline points="16 17 21 12 16 7"></polyline>
+                <line x1="21" y1="12" x2="9" y2="12"></line>
+              </svg>
+            </button>
           </div>
         `;
       } else {
         box.innerHTML = `
-          <button class="btn" onclick="openAuthModal()" style="height:24px; font-size:11px; padding:0 8px; border-color:#3b82f6; color:#60a5fa;" title="Đăng nhập để lưu tiến độ vào cơ sở dữ liệu server">
-            🔑 Đăng nhập
+          <button class="btn-auth" onclick="openAuthModal()" title="Đăng nhập để lưu tiến độ và đồng bộ cơ sở dữ liệu">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"></path>
+              <polyline points="10 17 15 12 10 7"></polyline>
+              <line x1="15" y1="12" x2="3" y2="12"></line>
+            </svg>
+            <span>Đăng nhập</span>
           </button>
         `;
       }
