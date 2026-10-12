@@ -130,59 +130,14 @@ def clean_tex_string(s):
     s = re.sub(r'\$([^\$\n]+?)\$', repl_math, s)
     return s
 
-# Danh mục công thức cốt lõi
-FORMULAS = [
-    {
-        "title": "Công thức kích thước đầu ra tầng Conv2D",
-        "desc": "Tính chiều rộng và chiều cao tensor đầu ra (lấy hàm sàn floor trước khi cộng 1):",
-        "tex": "O = \\left\\lfloor \\frac{W - K + 2P}{S} \\right\\rfloor + 1"
-    },
-    {
-        "title": "Định lý Bayes & Xác suất toàn phần",
-        "desc": "Tính xác suất hậu nghiệm (Posterior) từ tiền nghiệm (Prior) và hợp lý (Likelihood):",
-        "tex": "P(A \\mid B) = \\frac{P(B \\mid A) \\cdot P(A)}{P(B \\mid A) \\cdot P(A) + P(B \\mid \\neg A) \\cdot P(\\neg A)}"
-    },
-    {
-        "title": "Độ hỗn loạn thông tin Shannon Entropy",
-        "desc": "Đo độ bất định của phân phối xác suất rời rạc (cơ số 2, đơn vị bit):",
-        "tex": "H(S) = - \\sum_{i=1}^C p_i \\log_2(p_i)"
-    },
-    {
-        "title": "Mức tăng thông tin (Information Gain - ID3)",
-        "desc": "Độ giảm entropy sau khi phân chia theo thuộc tính A:",
-        "tex": "\\text{IG}(S, A) = H(S) - \\sum_{v \\in \\text{Values}(A)} \\frac{|S_v|}{|S|} H(S_v)"
-    },
-    {
-        "title": "Chỉ số giao trên hợp (Intersection over Union - IoU)",
-        "desc": "Độ trùng khớp giữa bounding box dự đoán và nhãn thực tế:",
-        "tex": "\\text{IoU} = \\frac{\\text{Area}(B_p \\cap B_g)}{\\text{Area}(B_p \\cup B_g)}"
-    },
-    {
-        "title": "Chỉ số F1-Score (Trung bình điều hòa)",
-        "desc": "Cân bằng giữa độ chính xác (Precision) và độ bao phủ (Recall):",
-        "tex": "F_1 = 2 \\cdot \\frac{\\text{Precision} \\cdot \\text{Recall}}{\\text{Precision} + \\text{Recall}} = \\frac{2 \\cdot \\text{TP}}{2 \\cdot \\text{TP} + \\text{FP} + \\text{FN}}"
-    },
-    {
-        "title": "Độ tương đồng Cosine Similarity",
-        "desc": "Đo góc định hướng giữa hai vector đặc trưng trong không gian vector:",
-        "tex": "\\cos(\\theta) = \\frac{\\mathbf{u} \\cdot \\mathbf{v}}{\\|\\mathbf{u}\\|_2 \\|\\mathbf{v}\\|_2} = \\frac{\\sum_{i} u_i v_i}{\\sqrt{\\sum_{i} u_i^2} \\sqrt{\\sum_{i} v_i^2}}"
-    },
-    {
-        "title": "Cơ chế Scaled Dot-Product Attention (Transformer)",
-        "desc": "Ma trận trọng số chú ý giữa Query, Key và Value:",
-        "tex": "\\text{Attention}(Q, K, V) = \\text{softmax}\\left( \\frac{Q K^T}{\\sqrt{d_k}} \\right) V"
-    },
-    {
-        "title": "Hàm mất mát Cross-Entropy (Phân loại đa lớp)",
-        "desc": "Hàm mất mát trên vector phân phối xác suất sau Softmax:",
-        "tex": "\\mathcal{L}_{\\text{CE}} = - \\sum_{c=1}^C y_c \\log(\\hat{y}_c)"
-    },
-    {
-        "title": "Ma trận Hessian & Cực trị địa phương bậc 2",
-        "desc": "Khai triển Taylor bậc 2 quanh điểm dừng; xác định dương tương ứng cực tiểu địa phương:",
-        "tex": "f(\\mathbf{x}) \\approx f(\\mathbf{x}^*) + \\frac{1}{2}(\\mathbf{x} - \\mathbf{x}^*)^T H (\\mathbf{x} - \\mathbf{x}^*), \\quad H = \\nabla^2 f(\\mathbf{x}^*)"
-    }
-]
+# Danh mục 55 công thức cốt lõi chuyên sâu từ formulas_data.json
+formulas_path = os.path.join(ROOT_DIR, "src", "data", "formulas_data.json")
+if os.path.exists(formulas_path):
+    with open(formulas_path, "r", encoding="utf-8") as f:
+        FORMULAS = json.load(f)
+else:
+    FORMULAS = []
+print(f"-> Đã nạp thành công {len(FORMULAS)} công thức cốt lõi từ formulas_data.json")
 
 # Tập hợp dữ liệu 6 đề thi chuẩn
 all_exams_data = {
@@ -2144,6 +2099,11 @@ License: MIT License © 2026 Le Nam Khanh
       </button>
       <div id="userAccountBox" style="display:inline-flex; align-items:center;"></div>
 
+      <button class="btn" id="btnToggleCurriculum" onclick="openTheoryHandbook()" title="Open Full Olympiad Curriculum Handbook & Sổ Tay PDF" style="display:inline-flex; align-items:center; gap:5px; background:rgba(59,130,246,0.12); color:#93c5fd; border:1px solid rgba(59,130,246,0.3);">
+        <span>📖</span>
+        <span>Curriculum</span>
+      </button>
+
       <button class="btn" id="btnToggleSplit" onclick="toggleSplitMode()" title="Toggle Parallel Split View">
         <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
           <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
@@ -2561,6 +2521,7 @@ License: MIT License © 2026 Le Nam Khanh
       <div class="inspector-tabs">
         <div class="i-tab active" id="iTabRubric" onclick="switchInspectorTab('rubric')">RUBRIC</div>
         <div class="i-tab" id="iTabExplanation" onclick="switchInspectorTab('explanation')">EDITORIAL</div>
+        <div class="i-tab" id="iTabTheory" onclick="switchInspectorTab('theory')">THEORY</div>
         <div class="i-tab" id="iTabVideo" onclick="switchInspectorTab('video')">LECTURES</div>
         <div class="i-tab" id="iTabFormulas" onclick="switchInspectorTab('formulas')">FORMULAS</div>
       </div>
@@ -3067,6 +3028,309 @@ License: MIT License © 2026 Le Nam Khanh
     }}
 
             // Format Explanation into 4 Beautiful Blocks
+
+    // ============================================================================
+    // GLOBAL CURRICULUM, VIDEO & FORMULARY RESOLVERS
+    // ============================================================================
+    // BỘ PHÂN GIẢI VIDEO THÔNG MINH ĐA TẦNG (Smart Context-Aware Video Resolver)
+        function resolveVideoForQuestion(question) {{
+          if (!question || typeof VIDEOS === 'undefined') return null;
+          
+          // Tầng 1: Quét ký hiệu §x.y tường minh trong explanation, prompt, hoặc tags
+          const textToScan = (question.explanation || '') + ' ' + (question.prompt || '') + ' ' + (question.tags || []).join(' ');
+          const secMatch = textToScan.match(/§\s*(\d+\.\d+)/);
+          if (secMatch) {{
+            const foundSec = '§' + secMatch[1];
+            if (VIDEOS[foundSec]) return VIDEOS[foundSec];
+          }}
+
+          // Tầng 2: Đối soát theo Tags và Từ khóa học thuật chuyên sâu
+          const tags = (question.tags || []).map(t => t.toLowerCase());
+          const lowerPrompt = (question.prompt || '').toLowerCase();
+          const lowerExp = (question.explanation || '').toLowerCase();
+          const allText = lowerPrompt + ' ' + lowerExp + ' ' + tags.join(' ');
+
+          // Nhóm 1: Tác vụ Olympic & Video Contest VOAI
+          if (tags.some(t => ['sign-language', 'st-gcn', 'video-ai'].includes(t)) || allText.includes('ngôn ngữ ký hiệu') || allText.includes('st-gcn') || allText.includes('mediapipe') || allText.includes('3d-cnn') || allText.includes('i3d') || allText.includes('slowfast')) {{
+            if (VIDEOS['§7.1']) return VIDEOS['§7.1'];
+          }}
+          if (tags.some(t => ['nmt', 'bpe', 'translation', 'sacrebleu'].includes(t)) || allText.includes('dịch máy') || allText.includes('sacrebleu') || allText.includes('bpe') || allText.includes('bleu') || allText.includes('subword')) {{
+            if (VIDEOS['§7.2']) return VIDEOS['§7.2'];
+            if (VIDEOS['§4.7']) return VIDEOS['§4.7'];
+          }}
+          if (tags.some(t => ['tabular', 'shap', 'churn', 'catboost'].includes(t)) || allText.includes('dữ liệu bảng') || allText.includes('shap') || allText.includes('lightgbm') || allText.includes('catboost') || allText.includes('target encoding')) {{
+            if (VIDEOS['§7.4']) return VIDEOS['§7.4'];
+          }}
+          if (tags.some(t => ['yolo', 'object-detection', 'iou', 'nms', 'ciou'].includes(t)) || allText.includes('yolo') || allText.includes('iou') || allText.includes('non-maximum') || allText.includes('nms') || allText.includes('bounding box') || allText.includes('phát hiện đối tượng') || allText.includes('phát hiện vật thể') || allText.includes('ciou')) {{
+            if (allText.includes('nano') || allText.includes('mobile') || allText.includes('edge')) {{
+              if (VIDEOS['§7.3']) return VIDEOS['§7.3'];
+            }}
+            if (VIDEOS['§3.6']) return VIDEOS['§3.6'];
+          }}
+          if (tags.some(t => ['deepfake', 'diffusion', 'gan'].includes(t)) || allText.includes('diffusion') || allText.includes('gan') || allText.includes('kẻ mạo danh') || allText.includes('real vs fake') || allText.includes('tạo ảnh')) {{
+            if (VIDEOS['§3.8']) return VIDEOS['§3.8'];
+          }}
+          if (tags.some(t => ['table-extraction', 'tsr', 'docvqa', 'docvivqa', 'ocr'].includes(t)) || allText.includes('bảng tài liệu') || allText.includes('ocr') || allText.includes('tsr') || allText.includes('docvivqa') || allText.includes('teds')) {{
+            if (VIDEOS['§4.1']) return VIDEOS['§4.1'];
+          }}
+
+          // Nhóm 2: Kiến trúc Deep Learning & Computer Vision
+          if (tags.some(t => ['vit', 'vision-transformer'].includes(t)) || allText.includes('vision transformer') || allText.includes('vit') || allText.includes('patch') || allText.includes('[cls]')) {{
+            if (VIDEOS['§3.5']) return VIDEOS['§3.5'];
+          }}
+          if (tags.some(t => ['transformer', 'attention'].includes(t)) || allText.includes('transformer') || allText.includes('self-attention') || allText.includes('query') || allText.includes('multi-head')) {{
+            if (VIDEOS['§4.5']) return VIDEOS['§4.5'];
+          }}
+          if (tags.some(t => ['u-net', 'segmentation'].includes(t)) || allText.includes('u-net') || allText.includes('semantic segmentation') || allText.includes('phân vùng')) {{
+            if (allText.includes('semantic') || allText.includes('instance')) {{
+              if (VIDEOS['§3.7']) return VIDEOS['§3.7'];
+            }}
+            if (VIDEOS['§3.4']) return VIDEOS['§3.4'];
+          }}
+          if (tags.some(t => ['resnet', 'skip-connection'].includes(t)) || allText.includes('resnet') || allText.includes('skip connection') || allText.includes('residual') || allText.includes('shortcut')) {{
+            if (VIDEOS['§3.3']) return VIDEOS['§3.3'];
+          }}
+          if (allText.includes('conv2d') || allText.includes('tích chập') || allText.includes('receptive field') || allText.includes('stride') || allText.includes('padding')) {{
+            if (VIDEOS['§3.1']) return VIDEOS['§3.1'];
+          }}
+          if (allText.includes('pooling') || allText.includes('max-pooling') || allText.includes('average pooling')) {{
+            if (VIDEOS['§3.2']) return VIDEOS['§3.2'];
+          }}
+          if (allText.includes('transfer learning') || allText.includes('fine-tuning') || allText.includes('backbone') || allText.includes('đóng băng')) {{
+            if (VIDEOS['§3.9']) return VIDEOS['§3.9'];
+          }}
+
+          // Nhóm 3: Tối ưu hóa & Huấn luyện Mạng
+          if (allText.includes('cross-entropy') || allText.includes('bce') || allText.includes('logsoftmax') || allText.includes('hàm loss') || allText.includes('hàm mất mát')) {{
+            if (VIDEOS['§2.4']) return VIDEOS['§2.4'];
+          }}
+          if (allText.includes('adam') || allText.includes('momentum') || allText.includes('rmsprop') || allText.includes('optimizer') || allText.includes('tối ưu hóa')) {{
+            if (VIDEOS['§2.5']) return VIDEOS['§2.5'];
+          }}
+          if (allText.includes('backprop') || allText.includes('autograd') || allText.includes('zero_grad') || allText.includes('backward') || allText.includes('lan truyền ngược')) {{
+            if (VIDEOS['§2.3']) return VIDEOS['§2.3'];
+          }}
+          if (allText.includes('learning rate') || allText.includes('warmup') || allText.includes('scheduler') || allText.includes('cosine annealing')) {{
+            if (VIDEOS['§2.6']) return VIDEOS['§2.6'];
+          }}
+          if (allText.includes('khởi tạo trọng số') || allText.includes('he (kaiming)') || allText.includes('xavier') || allText.includes('weight initialization')) {{
+            if (VIDEOS['§2.7']) return VIDEOS['§2.7'];
+          }}
+          if (allText.includes('batch norm') || allText.includes('batchnorm') || allText.includes('layer norm') || allText.includes('layernorm') || allText.includes('group norm')) {{
+            if (VIDEOS['§2.8']) return VIDEOS['§2.8'];
+          }}
+          if (allText.includes('dropout')) {{
+            if (VIDEOS['§2.9']) return VIDEOS['§2.9'];
+          }}
+          if (allText.includes('vanishing gradient') || allText.includes('triệt tiêu gradient') || allText.includes('bùng nổ gradient')) {{
+            if (VIDEOS['§2.10']) return VIDEOS['§2.10'];
+          }}
+          if (allText.includes('relu') || allText.includes('sigmoid') || allText.includes('softmax') || allText.includes('gelu') || allText.includes('hàm kích hoạt')) {{
+            if (VIDEOS['§2.2']) return VIDEOS['§2.2'];
+          }}
+          if (allText.includes('mạng nơ-ron') || allText.includes('neural network') || allText.includes('neuron')) {{
+            if (VIDEOS['§2.1']) return VIDEOS['§2.1'];
+          }}
+
+          // Nhóm 4: NLP & Chuỗi
+          if (allText.includes('bert') || allText.includes('gpt') || allText.includes('llm') || allText.includes('kv-cache')) {{
+            if (VIDEOS['§4.6']) return VIDEOS['§4.6'];
+          }}
+          if (allText.includes('lstm') || allText.includes('gru') || allText.includes('rnn') || allText.includes('chuỗi thời gian') || allText.includes('time-series')) {{
+            if (VIDEOS['§4.4']) return VIDEOS['§4.4'];
+          }}
+          if (allText.includes('cosine similarity') || allText.includes('độ tương đồng')) {{
+            if (VIDEOS['§4.3']) return VIDEOS['§4.3'];
+          }}
+          if (allText.includes('word2vec') || allText.includes('fasttext') || allText.includes('word embedding')) {{
+            if (VIDEOS['§4.2']) return VIDEOS['§4.2'];
+          }}
+          if (allText.includes('token') || allText.includes('lemmatization') || allText.includes('stemming') || allText.includes('tiền xử lý văn bản')) {{
+            if (VIDEOS['§4.1']) return VIDEOS['§4.1'];
+          }}
+
+          // Nhóm 5: Toán & Xác suất Thống kê
+          if (allText.includes('bayes') || allText.includes('tiền nghiệm') || allText.includes('hậu nghiệm') || allText.includes('base rate')) {{
+            if (VIDEOS['§5.1']) return VIDEOS['§5.1'];
+          }}
+          if (allText.includes('phương sai') || allText.includes('kỳ vọng') || allText.includes('var(') || allText.includes('variance')) {{
+            if (VIDEOS['§5.3']) return VIDEOS['§5.3'];
+          }}
+          if (allText.includes('phân phối') || allText.includes('gaussian') || allText.includes('clt') || allText.includes('giới hạn trung tâm')) {{
+            if (VIDEOS['§5.2']) return VIDEOS['§5.2'];
+          }}
+          if (allText.includes('mle') || allText.includes('map') || allText.includes('hợp lý cực đại')) {{
+            if (VIDEOS['§5.4']) return VIDEOS['§5.4'];
+          }}
+          if (allText.includes('p-value') || allText.includes('kiểm định giả thuyết') || allText.includes('mức ý nghĩa')) {{
+            if (VIDEOS['§5.5']) return VIDEOS['§5.5'];
+          }}
+          if (allText.includes('tương quan') || allText.includes('nhân quả') || allText.includes('causation') || allText.includes('confounder')) {{
+            if (VIDEOS['§5.6']) return VIDEOS['§5.6'];
+          }}
+
+          // Nhóm 6: Học máy Cổ điển
+          if (allText.includes('precision') || allText.includes('recall') || allText.includes('f1') || allText.includes('roc') || allText.includes('confusion matrix') || allText.includes('pr-auc')) {{
+            if (VIDEOS['§1.7']) return VIDEOS['§1.7'];
+          }}
+          if (allText.includes('svm') || allText.includes('rbf') || allText.includes('support vector')) {{
+            if (VIDEOS['§1.2']) return VIDEOS['§1.2'];
+          }}
+          if (allText.includes('decision tree') || allText.includes('cây quyết định') || allText.includes('entropy') || allText.includes('information gain')) {{
+            if (VIDEOS['§1.3']) return VIDEOS['§1.3'];
+          }}
+          if (allText.includes('random forest') || allText.includes('bagging') || allText.includes('bootstrap')) {{
+            if (VIDEOS['§1.4']) return VIDEOS['§1.4'];
+          }}
+          if (allText.includes('k-means') || allText.includes('silhouette') || allText.includes('phân cụm')) {{
+            if (VIDEOS['§1.8']) return VIDEOS['§1.8'];
+          }}
+          if (allText.includes('smote') || allText.includes('mất cân bằng')) {{
+            if (VIDEOS['§1.9']) return VIDEOS['§1.9'];
+          }}
+          if (allText.includes('lasso') || allText.includes('ridge') || allText.includes('regularization') || allText.includes('l1') || allText.includes('l2')) {{
+            if (VIDEOS['§1.6']) return VIDEOS['§1.6'];
+          }}
+          if (allText.includes('broadcasting') || allText.includes('numpy')) {{
+            if (VIDEOS['§1.10']) return VIDEOS['§1.10'];
+          }}
+
+          // Tầng 3: Phân loại theo Module của đề thi
+          if (question.module === 'C') return VIDEOS['§3.3'] || VIDEOS['§4.5'];
+          if (question.module === 'B') return VIDEOS['§2.3'] || VIDEOS['§2.5'];
+          if (question.module === 'A') return VIDEOS['§1.5'] || VIDEOS['§5.1'];
+
+          return VIDEOS['§1.1'];
+        }}
+
+    let currentTheorySecId = '§1.1';
+    let currentTheorySecIdUserSelected = false;
+    let currentFormulaCategory = 'ALL';
+    let currentFormulaQuery = '';
+
+    function openQuestionVideo(qid) {{
+      const targetIndex = EXAM.questions.findIndex(item => item.id === qid);
+      if (targetIndex !== -1 && targetIndex !== currentIndex) {{
+        currentIndex = targetIndex;
+        renderCenter();
+        renderSidebar();
+      }}
+      switchInspectorTab('video');
+      if (!isInspectorOpen) toggleInspector();
+      setTimeout(() => {{
+        const pbox = document.getElementById('videoPlayerBox');
+        if (pbox) pbox.scrollIntoView({{ behavior: 'smooth', block: 'center' }});
+      }}, 80);
+    }}
+
+    function openQuestionTheory(qid) {{
+      const targetIndex = EXAM.questions.findIndex(item => item.id === qid);
+      if (targetIndex !== -1 && targetIndex !== currentIndex) {{
+        currentIndex = targetIndex;
+        renderCenter();
+        renderSidebar();
+      }}
+      switchInspectorTab('theory');
+      if (!isInspectorOpen) toggleInspector();
+    }}
+
+    function openTheorySection(secId) {{
+      currentTheorySecId = secId;
+      currentTheorySecIdUserSelected = true;
+      switchInspectorTab('theory');
+      if (!isInspectorOpen) toggleInspector();
+      const secSel = document.getElementById('inspectorTheorySecSelect');
+      if (secSel) secSel.value = secId;
+      renderInspector();
+    }}
+
+    function setFormulaCategory(cat) {{
+      currentFormulaCategory = cat;
+      renderInspector();
+      if (isSplitOpen && splitType === 'formulas') renderSplitContent();
+    }}
+
+    function onFormulaSearchInput(query) {{
+      currentFormulaQuery = (query || '').toLowerCase().trim();
+      renderInspector();
+      if (isSplitOpen && splitType === 'formulas') renderSplitContent();
+    }}
+
+    function renderFormularyView(container) {{
+      const categories = [
+        {{ id: 'ALL', label: 'All (55)' }},
+        {{ id: 'Optimization', label: 'Optimization (7)' }},
+        {{ id: 'Linear Algebra', label: 'Linear Algebra (7)' }},
+        {{ id: 'Probability & Stats', label: 'Probability (8)' }},
+        {{ id: 'Activations & Init', label: 'Activations (6)' }},
+        {{ id: 'CNN & Vision', label: 'CNN & CV (7)' }},
+        {{ id: 'Transformers & NLP', label: 'Transformers & NLP (7)' }},
+        {{ id: 'Loss Functions', label: 'Losses (6)' }},
+        {{ id: 'Evaluation Metrics', label: 'Metrics (6)' }}
+      ];
+
+      let pillsHtml = '<div style="display:flex; gap:5px; flex-wrap:wrap; margin-bottom:12px;">';
+      categories.forEach(c => {{
+        const isActive = (currentFormulaCategory === c.id);
+        const style = isActive
+          ? 'background:#f0b90b; color:#000; font-weight:700; border:1px solid #f0b90b;'
+          : 'background:rgba(255,255,255,0.05); color:#9ca3af; border:1px solid var(--border-subtle);';
+        pillsHtml += `<button class="btn" style="height:22px; font-size:10px; padding:0 8px; border-radius:12px; ${{style}}" onclick="setFormulaCategory('${{c.id}}')">${{c.label}}</button>`;
+      }});
+      pillsHtml += '</div>';
+
+      const searchHtml = `
+        <div style="margin-bottom:12px;">
+          <input type="text" placeholder="🔍 Tìm kiếm công thức (ví dụ: Adam, Attention, IoU, Bayes...)" value="${{currentFormulaQuery}}" oninput="onFormulaSearchInput(this.value)" style="width:100%; height:28px; font-size:11.5px; background:#141414; border:1px solid var(--border-subtle); border-radius:4px; padding:0 10px; color:#fff;" />
+        </div>
+      `;
+
+      const filtered = FORMULAS.filter(f => {{
+        const matchCat = (currentFormulaCategory === 'ALL' || f.category === currentFormulaCategory);
+        if (!matchCat) return false;
+        if (!currentFormulaQuery) return true;
+        const q = currentFormulaQuery;
+        return (f.title || '').toLowerCase().includes(q) ||
+               (f.desc || '').toLowerCase().includes(q) ||
+               (f.tex || '').toLowerCase().includes(q) ||
+               (f.category || '').toLowerCase().includes(q);
+      }});
+
+      let listHtml = `<div style="display:flex; flex-direction:column; gap:12px;">`;
+      if (filtered.length === 0) {{
+        listHtml += `<div style="padding:20px; text-align:center; color:var(--text-muted); font-size:12px;">Không tìm thấy công thức phù hợp với từ khóa.</div>`;
+      }} else {{
+        filtered.forEach(f => {{
+          listHtml += `
+            <div class="cp-formula-box" style="background:var(--bg-card); border:1px solid var(--border-subtle); border-radius:6px; padding:12px 14px; position:relative;">
+              <div style="display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:4px;">
+                <span style="font-size:10px; font-weight:700; color:#60a5fa; text-transform:uppercase; background:rgba(59,130,246,0.1); padding:1px 6px; border-radius:3px; border:1px solid rgba(59,130,246,0.25);">${{f.category || 'ML Formula'}}</span>
+              </div>
+              <div class="formula-title" style="font-size:13px; font-weight:700; color:#fff; margin-top:4px;">${{f.title}}</div>
+              <div class="formula-desc" style="font-size:11.5px; color:var(--text-secondary); line-height:1.5; margin-top:4px; margin-bottom:8px;">${{f.desc}}</div>
+              <div class="formula-tex" style="background:#09090b; border:1px solid rgba(255,255,255,0.08); border-radius:4px; padding:10px 12px; overflow-x:auto; text-align:center; font-size:13px; color:#e2e8f0;">$$${{f.tex}}$$</div>
+            </div>
+          `;
+        }});
+      }}
+      listHtml += `</div>`;
+
+      container.innerHTML = `
+        <div style="height:100%; overflow-y:auto; padding:14px 16px 80px 16px;">
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
+            <div style="font-size:11px; font-weight:700; color:var(--text-muted); text-transform:uppercase;">
+              BẢNG CÔNG THỨC TOÁN & ML TOÀN DIỆN (55 CÔNG THỨC)
+            </div>
+            <span style="font-size:10.5px; font-family:var(--font-mono); color:#10b981;">${{filtered.length}}/${{FORMULAS.length}} công thức</span>
+          </div>
+          ${{searchHtml}}
+          ${{pillsHtml}}
+          ${{listHtml}}
+        </div>
+      `;
+      renderMath(container);
+    }}
+
     function formatExplanationHtml(expText) {{
       if (!expText) return '<div class="eli5-block" style="color:var(--text-muted); font-style:italic;">Đang cập nhật lời giải chi tiết.</div>';
 
@@ -3092,6 +3356,9 @@ License: MIT License © 2026 Le Nam Khanh
 
         // Escape < and > in regular text to prevent broken HTML tags (e.g. 10 > 0 và 90 < 100)
         s = s.replace(/</g, '&lt;').replace(/>/g, '&gt;');
+
+        // Interactive Theory Section Links: §x.y
+        s = s.replace(/§\s*(\d+\.\d+)/g, '<a href="javascript:void(0)" onclick="openTheorySection(&quot;§$1&quot;)" style="color:#60a5fa; text-decoration:underline; font-weight:600;" title="Mở giáo trình chuyên đề §$1">§$1 ↗</a>');
 
         // 3. Bold & Code
         s = s.replace(/\*\*([^\*]+)\*\*/g, '<strong>$1</strong>');
@@ -3182,7 +3449,31 @@ License: MIT License © 2026 Le Nam Khanh
         return out || '<div class="eli5-block">' + safeMdToHtml(expText) + '</div>';
       }}
 
-      return '<div class="eli5-block">' + safeMdToHtml(expText) + '</div>';
+      const q = EXAM.questions[currentIndex];
+      const vid = resolveVideoForQuestion(q);
+      const matchSec = (expText || '').match(/§\s*(\d+\.\d+)/);
+      const secStr = matchSec ? ('§' + matchSec[1]) : (vid ? vid.sectionId : '§1.1');
+
+      let vidFooter = '';
+      if (vid) {{
+        vidFooter = `
+          <div style="background:rgba(255,255,255,0.02); border:1px solid rgba(240,185,11,0.25); border-radius:6px; padding:10px 14px; margin-top:14px; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:8px;">
+            <div style="display:flex; align-items:center; gap:8px;">
+              <span style="font-size:14px;">🎬</span>
+              <div>
+                <div style="font-size:10.5px; font-weight:700; color:#f0b90b; text-transform:uppercase;">BÀI GIẢNG QUỐC TẾ & MỐC THỜI GIAN ĐỐI ỨNG</div>
+                <div style="font-size:12px; color:#e2e8f0; margin-top:2px;"><strong>${{vid.channel}}</strong>: ${{vid.title}} <span style="color:#f87171; font-weight:700;">[Tua sẵn: ${{vid.timestampLabel}}]</span></div>
+              </div>
+            </div>
+            <div style="display:flex; gap:6px;">
+              <button class="btn" style="height:24px; font-size:11px; padding:0 8px; background:#f0b90b; color:#000; font-weight:700;" onclick="openQuestionVideo('${{q.id}}')">▶ Xem Video [${{vid.timestampLabel}}]</button>
+              <button class="btn" style="height:24px; font-size:11px; padding:0 8px; background:rgba(59,130,246,0.15); color:#93c5fd; border:1px solid rgba(59,130,246,0.3);" onclick="openTheorySection('${{secStr}}')">📖 Đọc Giáo trình ${{secStr}}</button>
+            </div>
+          </div>
+        `;
+      }}
+
+      return '<div class="eli5-block">' + safeMdToHtml(expText) + '</div>' + vidFooter;
     }}
 
     // Render Center Viewport
@@ -3213,6 +3504,14 @@ License: MIT License © 2026 Le Nam Khanh
             <div class="meta-item"><span>Points:</span> <span class="meta-val num" style="color:#f0b90b; font-weight:700;">${{q.points}} PTS</span></div>
             <div class="meta-item"><span>Module:</span> <span class="meta-val">Module ${{q.module}}</span></div>
             <div class="meta-item"><span>Type:</span> <span class="meta-val">${{q.type === 'mcq' ? 'Multiple Choice' : q.type === 'code' ? 'Algorithm Implementation' : 'System Architecture Essay'}}</span></div>
+            
+            <!-- Quick Masterclass Video & Theory Navigation -->
+            <button class="btn" style="height:22px; font-size:10.5px; padding:0 8px; background:rgba(239,68,68,0.12); color:#f87171; border:1px solid rgba(239,68,68,0.3); border-radius:3px; display:inline-flex; align-items:center; gap:4px; cursor:pointer;" onclick="openQuestionVideo('${{q.id}}')" title="Xem bài giảng quốc tế đúng mốc thời gian cho câu này">
+              <span>▶</span> Video [${{(resolveVideoForQuestion(q) || {{}}).timestampLabel || '00:00'}}]
+            </button>
+            <button class="btn" style="height:22px; font-size:10.5px; padding:0 8px; background:rgba(59,130,246,0.12); color:#93c5fd; border:1px solid rgba(59,130,246,0.3); border-radius:3px; display:inline-flex; align-items:center; gap:4px; cursor:pointer;" onclick="openQuestionTheory('${{q.id}}')" title="Xem giáo trình lý thuyết trọng tâm câu này">
+              <span>📖</span> Giáo trình [${{(q.explanation && q.explanation.match(/§\s*(\d+\.\d+)/)) ? ('§' + q.explanation.match(/§\s*(\d+\.\d+)/)[1]) : ((resolveVideoForQuestion(q) || {{}}).sectionId || '§1.1')}}]
+            </button>
           </div>
         </div>
 
@@ -3563,10 +3862,11 @@ License: MIT License © 2026 Le Nam Khanh
     function switchInspectorTab(tab) {{
       inspectorTab = tab;
       document.querySelectorAll('.i-tab').forEach(t => t.classList.remove('active'));
-      if (tab === 'rubric') document.getElementById('iTabRubric').classList.add('active');
-      if (tab === 'explanation') document.getElementById('iTabExplanation').classList.add('active');
-      if (tab === 'video') document.getElementById('iTabVideo').classList.add('active');
-      if (tab === 'formulas') document.getElementById('iTabFormulas').classList.add('active');
+      if (tab === 'rubric' && document.getElementById('iTabRubric')) document.getElementById('iTabRubric').classList.add('active');
+      if (tab === 'explanation' && document.getElementById('iTabExplanation')) document.getElementById('iTabExplanation').classList.add('active');
+      if (tab === 'theory' && document.getElementById('iTabTheory')) document.getElementById('iTabTheory').classList.add('active');
+      if (tab === 'video' && document.getElementById('iTabVideo')) document.getElementById('iTabVideo').classList.add('active');
+      if (tab === 'formulas' && document.getElementById('iTabFormulas')) document.getElementById('iTabFormulas').classList.add('active');
       renderInspector();
     }}
 
@@ -3718,8 +4018,43 @@ License: MIT License © 2026 Le Nam Khanh
         `;
         renderMath(container);
 
+      }} else if (inspectorTab === 'theory') {{
+        const q = EXAM.questions[currentIndex];
+        let targetSecId = currentTheorySecId || '§1.1';
+        if (!currentTheorySecIdUserSelected && q && q.explanation) {{
+          const matchSec = q.explanation.match(/§\s*(\d+\.\d+)/);
+          if (matchSec) {{
+            targetSecId = '§' + matchSec[1];
+            currentTheorySecId = targetSecId;
+          }}
+        }}
+        const sec = THEORY.find(s => s.secId === targetSecId) || THEORY.find(s => s.secId.startsWith(targetSecId)) || THEORY[1] || THEORY[0];
+
+        let selectOptions = '';
+        THEORY.forEach(s => {{
+          const isSel = (s.secId === sec.secId) ? 'selected' : '';
+          const shortTit = (s.title || '').length > 32 ? s.title.substring(0, 32) + '...' : s.title;
+          selectOptions += `<option value="${{s.secId}}" ${{isSel}}>${{s.secId}} ${{shortTit}}</option>`;
+        }});
+
+        container.innerHTML = `
+          <div style="height:100%; overflow-y:auto; padding:14px 16px 80px 16px; font-size:13px; line-height:1.7; color:var(--text-secondary);">
+            <div style="display:flex; flex-direction:column; gap:8px; margin-bottom:12px; border-bottom:1px solid var(--border-subtle); padding-bottom:10px;">
+              <div style="display:flex; justify-content:space-between; align-items:center;">
+                <span style="font-size:11px; font-weight:700; color:#f0b90b; text-transform:uppercase;">GIÁO TRÌNH TRỌNG TÂM OLP AI</span>
+                <button class="btn" style="height:22px; font-size:10px; padding:0 6px;" onclick="openTheoryModal('${{sec.secId}}')" title="Mở giáo trình toàn màn hình">⛶ Mở rộng</button>
+              </div>
+              <select id="inspectorTheorySecSelect" style="width:100%; height:26px; font-size:11px; background:#141414; color:#f0b90b; border:1px solid var(--border-subtle); border-radius:4px; padding:0 6px;" onchange="switchTheorySection(this.value)">
+                ${{selectOptions}}
+              </select>
+              <h3 style="font-size:15px; font-weight:700; color:#ffffff; margin:0;">${{sec.secId}} ${{sec.title}}</h3>
+            </div>
+            <div class="theory-body-content">${{formatTheoryMarkdown(sec.body)}}</div>
+          </div>
+        `;
+        renderMath(container);
+
       }} else if (inspectorTab === 'video') {{
-        // BỘ PHÂN GIẢI VIDEO THÔNG MINH ĐA TẦNG (Smart Context-Aware Video Resolver)
         function resolveVideoForQuestion(question) {{
           if (!question || typeof VIDEOS === 'undefined') return null;
           
@@ -3966,24 +4301,7 @@ License: MIT License © 2026 Le Nam Khanh
         `;
 
       }} else if (inspectorTab === 'formulas') {{
-        let html = `
-          <div style="display:flex; flex-direction:column; gap:8px;">
-            <div style="font-size:11px; font-weight:700; color:var(--text-muted); text-transform:uppercase;">
-              CORE MATHEMATICAL & ML FORMULARY
-            </div>
-        `;
-        FORMULAS.forEach(f => {{
-          html += `
-            <div class="cp-formula-box">
-              <div class="formula-title">${{f.title}}</div>
-              <div class="formula-desc">${{f.desc}}</div>
-              <div class="formula-tex">$$${{f.tex}}$$</div>
-            </div>
-          `;
-        }});
-        html += `</div>`;
-        container.innerHTML = html;
-        renderMath(container);
+        renderFormularyView(container);
       }}
     }}
 
@@ -4084,9 +4402,6 @@ License: MIT License © 2026 Le Nam Khanh
       splitType = type;
       renderSplitContent();
     }}
-
-    let currentTheorySecId = '§1.1';
-    let currentTheorySecIdUserSelected = false;
 
     function switchTheorySection(secId) {{
       currentTheorySecId = secId;
@@ -4204,7 +4519,16 @@ License: MIT License © 2026 Le Nam Khanh
       if (btnFormulas) btnFormulas.className = splitType === 'formulas' ? 'btn btn-primary' : 'btn';
 
       if (splitType === 'pdf') {{
-        container.innerHTML = `<iframe src="olp_ai_handbook_2026.pdf" style="width:100%; height:100%; border:none;"></iframe>`;
+        const pdfUrl = (window.location.protocol === 'file:') ? 'olp_ai_handbook_2026.pdf' : '/olp_ai_handbook_2026.pdf';
+        container.innerHTML = `
+          <div style="height:100%; display:flex; flex-direction:column;">
+            <div style="padding:6px 12px; background:#111; border-bottom:1px solid var(--border-subtle); display:flex; justify-content:space-between; align-items:center;">
+              <span style="font-size:11px; color:#9ca3af; font-family:var(--font-mono);">Sổ tay OLP AI 2026 (PDF Toàn Thư)</span>
+              <a href="${{pdfUrl}}" target="_blank" class="btn" style="height:20px; font-size:10px; padding:0 6px; text-decoration:none; display:inline-flex; align-items:center; gap:4px; background:#2563eb; color:#fff;">↗ Mở Cửa Sổ Mới</a>
+            </div>
+            <iframe src="${{pdfUrl}}" style="flex:1; width:100%; border:none;"></iframe>
+          </div>
+        `;
       }} else if (splitType === 'theory') {{
         // Smart match: if user hasn't explicitly picked a section, link to current problem section
         const q = EXAM.questions[currentIndex];
@@ -4232,19 +4556,7 @@ License: MIT License © 2026 Le Nam Khanh
         `;
         renderMath(container);
       }} else if (splitType === 'formulas') {{
-        let html = `<div style="height:100%; overflow-y:auto; padding:16px 18px 80px 18px; display:flex; flex-direction:column; gap:14px;">`;
-        FORMULAS.forEach(f => {{
-          html += `
-            <div class="cp-formula-box">
-              <div class="formula-title">${{f.title}}</div>
-              <div class="formula-desc">${{f.desc}}</div>
-              <div class="formula-tex">$$${{f.tex}}$$</div>
-            </div>
-          `;
-        }});
-        html += `</div>`;
-        container.innerHTML = html;
-        renderMath(container);
+        renderFormularyView(container);
       }}
     }}
 
@@ -4927,9 +5239,191 @@ License: MIT License © 2026 Le Nam Khanh
       showArena();
     }}
 
+    // ============================================================================
+    // DEDICATED FULL-SCREEN CURRICULUM HANDBOOK MODAL CONTROLLER
+    // ============================================================================
+    let curriculumModalMode = 'theory';
+    let curriculumSearchQuery = '';
+
     function openTheoryHandbook() {{
-      showArena();
-      switchSidebarTab('doc');
+      openTheoryModal(currentTheorySecId || '§1.1');
+    }}
+
+    function openTheoryModal(secId) {{
+      if (secId) {{
+        currentTheorySecId = secId;
+        currentTheorySecIdUserSelected = true;
+      }}
+      const modal = document.getElementById('curriculumModal');
+      if (modal) {{
+        modal.style.display = 'flex';
+        renderCurriculumModalTree();
+        renderCurriculumModalContent();
+      }}
+    }}
+
+    function closeCurriculumModal() {{
+      const modal = document.getElementById('curriculumModal');
+      if (modal) modal.style.display = 'none';
+    }}
+
+    function switchCurriculumModalMode(mode) {{
+      curriculumModalMode = mode;
+      const tabTheory = document.getElementById('modalTabTheory');
+      const tabPdf = document.getElementById('modalTabPdf');
+      const theoryPane = document.getElementById('curriculumModalSidebar');
+      const contentPane = document.getElementById('curriculumModalContent');
+      const pdfPane = document.getElementById('curriculumModalPdfPane');
+
+      if (mode === 'pdf') {{
+        if (tabTheory) tabTheory.className = 'btn';
+        if (tabPdf) tabPdf.className = 'btn btn-primary';
+        if (theoryPane) theoryPane.style.display = 'none';
+        if (contentPane) contentPane.style.display = 'none';
+        if (pdfPane) {{
+          pdfPane.style.display = 'flex';
+          const iframe = document.getElementById('curriculumPdfFrame');
+          const pdfUrl = (window.location.protocol === 'file:') ? 'olp_ai_handbook_2026.pdf' : '/olp_ai_handbook_2026.pdf';
+          if (iframe && !iframe.src.includes('olp_ai_handbook_2026.pdf')) {{
+            iframe.src = pdfUrl;
+          }}
+        }}
+      }} else {{
+        if (tabTheory) tabTheory.className = 'btn btn-primary';
+        if (tabPdf) tabPdf.className = 'btn';
+        if (theoryPane) theoryPane.style.display = 'flex';
+        if (contentPane) contentPane.style.display = 'block';
+        if (pdfPane) pdfPane.style.display = 'none';
+        renderCurriculumModalTree();
+        renderCurriculumModalContent();
+      }}
+    }}
+
+    function filterCurriculumSections(query) {{
+      curriculumSearchQuery = (query || '').toLowerCase().trim();
+      renderCurriculumModalTree();
+    }}
+
+    function selectCurriculumSection(secId) {{
+      currentTheorySecId = secId;
+      currentTheorySecIdUserSelected = true;
+      renderCurriculumModalTree();
+      renderCurriculumModalContent();
+    }}
+
+    function renderCurriculumModalTree() {{
+      const listEl = document.getElementById('curriculumSectionsList');
+      if (!listEl) return;
+
+      const chapters = [
+        {{ prefix: '§1', title: 'Chapter 1: Classical Machine Learning' }},
+        {{ prefix: '§2', title: 'Chapter 2: Deep Learning & PyTorch' }},
+        {{ prefix: '§3', title: 'Chapter 3: Computer Vision (CV)' }},
+        {{ prefix: '§4', title: 'Chapter 4: Natural Language Processing (NLP)' }},
+        {{ prefix: '§5', title: 'Chapter 5: Probability & Statistics' }},
+        {{ prefix: '§6', title: 'Chapter 6: 24 Classic Exam Traps' }},
+        {{ prefix: '§7', title: 'Chapter 7: Practical Olympiad AI Problems' }},
+        {{ prefix: '§8', title: 'Chapter 8: Mock Exam Practice' }},
+        {{ prefix: '§9', title: 'Chapter 9: Review Roadmaps & Rubrics' }}
+      ];
+
+      let html = '';
+      chapters.forEach(ch => {{
+        const secList = THEORY.filter(s => s.secId.startsWith(ch.prefix));
+        const filteredSecs = secList.filter(s => {{
+          if (!curriculumSearchQuery) return true;
+          return (s.secId || '').toLowerCase().includes(curriculumSearchQuery) ||
+                 (s.title || '').toLowerCase().includes(curriculumSearchQuery) ||
+                 (s.body || '').toLowerCase().includes(curriculumSearchQuery);
+        }});
+
+        if (filteredSecs.length === 0 && curriculumSearchQuery) return;
+
+        html += `
+          <div style="margin-bottom:8px;">
+            <div style="font-size:10px; font-weight:700; color:#f0b90b; text-transform:uppercase; padding:4px 8px; letter-spacing:0.04em;">
+              ${{ch.title}}
+            </div>
+            <div style="display:flex; flex-direction:column; gap:2px; margin-top:2px;">
+        `;
+
+        filteredSecs.forEach(s => {{
+          const isAct = (s.secId === currentTheorySecId);
+          const bg = isAct ? 'background:#1f2937; border-left:3px solid #f0b90b;' : 'background:transparent; border-left:3px solid transparent;';
+          const txtColor = isAct ? '#ffffff' : '#9ca3af';
+          const shortTit = (s.title || '').length > 34 ? s.title.substring(0, 34) + '...' : s.title;
+
+          html += `
+            <div style="${{bg}} padding:6px 10px; border-radius:0 4px 4px 0; cursor:pointer; font-size:11.5px; color:${{txtColor}}; line-height:1.4; transition:all 0.15s ease;" onclick="selectCurriculumSection('${{s.secId}}')">
+              <span style="font-weight:700; color:${{isAct ? '#f0b90b' : '#60a5fa'}};">${{s.secId}}</span> ${{shortTit}}
+            </div>
+          `;
+        }});
+
+        html += `
+            </div>
+          </div>
+        `;
+      }});
+
+      listEl.innerHTML = html || '<div style="padding:16px; font-size:11px; color:#6b7280; text-align:center;">Không tìm thấy chuyên đề.</div>';
+    }}
+
+    function renderCurriculumModalContent() {{
+      const contentEl = document.getElementById('curriculumModalContent');
+      if (!contentEl) return;
+
+      const sec = THEORY.find(s => s.secId === currentTheorySecId) || THEORY[0];
+      if (!sec) return;
+
+      // Find prev and next sections
+      const curIdx = THEORY.findIndex(s => s.secId === sec.secId);
+      const prevSec = curIdx > 0 ? THEORY[curIdx - 1] : null;
+      const nextSec = curIdx < THEORY.length - 1 ? THEORY[curIdx + 1] : null;
+
+      const vid = VIDEOS[sec.secId];
+
+      let vidBoxHtml = '';
+      if (vid) {{
+        vidBoxHtml = `
+          <div style="background:rgba(240,185,11,0.06); border:1px solid rgba(240,185,11,0.3); border-radius:6px; padding:12px 14px; margin-bottom:18px; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px;">
+            <div>
+              <div style="font-size:11px; font-weight:700; color:#f0b90b; text-transform:uppercase;">🎬 MASTERCLASS VIDEO TƯƠNG ỨNG</div>
+              <div style="font-size:13px; font-weight:600; color:#fff; margin-top:2px;">${{vid.channel}}: ${{vid.title}}</div>
+              <div style="font-size:11px; color:#9ca3af; margin-top:2px;">Mốc thời gian trọng tâm: <strong style="color:#f87171;">${{vid.timestampLabel}}</strong> (${{vid.startSeconds}}s)</div>
+            </div>
+            <a href="https://www.youtube.com/watch?v=${{vid.youtubeId}}&t=${{vid.startSeconds}}s" target="_blank" class="btn" style="height:26px; font-size:11px; padding:0 10px; background:#f0b90b; color:#000; font-weight:700; text-decoration:none; display:inline-flex; align-items:center; gap:5px;">
+              ▶ Mở YouTube [${{vid.timestampLabel}}]
+            </a>
+          </div>
+        `;
+      }}
+
+      contentEl.innerHTML = `
+        <div style="max-width:880px; margin:0 auto;">
+          <div style="display:flex; justify-content:space-between; align-items:flex-start; border-bottom:1px solid #27272a; padding-bottom:12px; margin-bottom:16px;">
+            <div>
+              <span style="font-size:11px; font-weight:700; color:#f0b90b; text-transform:uppercase; letter-spacing:0.04em;">CHUYÊN ĐỀ LÝ THUYẾT TRỌNG TÂM</span>
+              <h1 style="font-size:22px; font-weight:700; color:#ffffff; margin:4px 0 0 0; line-height:1.3;">${{sec.secId}} ${{sec.title}}</h1>
+            </div>
+            <div style="display:flex; gap:6px;">
+              ${{prevSec ? `<button class="btn" style="height:26px; font-size:11px; padding:0 8px;" onclick="selectCurriculumSection('${{prevSec.secId}}')">← ${{prevSec.secId}}</button>` : ''}}
+              ${{nextSec ? `<button class="btn" style="height:26px; font-size:11px; padding:0 8px;" onclick="selectCurriculumSection('${{nextSec.secId}}')">${{nextSec.secId}} →</button>` : ''}}
+            </div>
+          </div>
+          ${{vidBoxHtml}}
+          <div class="theory-body-content" style="font-size:13.5px; line-height:1.75; color:#d4d4d8;">
+            ${{formatTheoryMarkdown(sec.body)}}
+          </div>
+          <div style="display:flex; justify-content:space-between; align-items:center; border-top:1px solid #27272a; padding-top:16px; margin-top:28px;">
+            ${{prevSec ? `<button class="btn" style="height:28px; font-size:11px; padding:0 12px;" onclick="selectCurriculumSection('${{prevSec.secId}}')">← Mục trước: ${{prevSec.secId}}</button>` : '<div></div>'}}
+            ${{nextSec ? `<button class="btn" style="height:28px; font-size:11px; padding:0 12px; background:#2563eb; color:#fff;" onclick="selectCurriculumSection('${{nextSec.secId}}')">Mục tiếp theo: ${{nextSec.secId}} →</button>` : '<div></div>'}}
+          </div>
+        </div>
+      `;
+
+      contentEl.scrollTop = 0;
+      renderMath(contentEl);
     }}
 
     function updateLobbyDashboard() {{
@@ -5018,6 +5512,34 @@ License: MIT License © 2026 Le Nam Khanh
       renderInspector();
     }}
 
+    // Explicit global exposure for robust inline onclick handlers
+    window.openTheoryHandbook = openTheoryHandbook;
+    window.openTheoryModal = openTheoryModal;
+    window.closeCurriculumModal = closeCurriculumModal;
+    window.switchCurriculumModalMode = switchCurriculumModalMode;
+    window.filterCurriculumSections = filterCurriculumSections;
+    window.selectCurriculumSection = selectCurriculumSection;
+    window.openQuestionVideo = openQuestionVideo;
+    window.openQuestionTheory = openQuestionTheory;
+    window.openTheorySection = openTheorySection;
+    window.setFormulaCategory = setFormulaCategory;
+    window.onFormulaSearchInput = onFormulaSearchInput;
+    window.enterArenaWithExam = enterArenaWithExam;
+    window.startMistakeReview = startMistakeReview;
+    window.filterByModulePrompt = filterByModulePrompt;
+    window.toggleSplitMode = toggleSplitMode;
+    window.setSplitType = setSplitType;
+    window.switchTheorySection = switchTheorySection;
+    window.switchSidebarTab = switchSidebarTab;
+    window.switchInspectorTab = switchInspectorTab;
+    window.jumpToQuestion = jumpToQuestion;
+    window.selectChoice = selectChoice;
+    window.toggleInspector = toggleInspector;
+    window.toggleLobbyView = toggleLobbyView;
+    window.showLobby = showLobby;
+    window.showArena = showArena;
+    window.switchExam = switchExam;
+
     // Boot App
     window.addEventListener('DOMContentLoaded', () => {{
       loadSavedState();
@@ -5033,6 +5555,46 @@ License: MIT License © 2026 Le Nam Khanh
     }});
 
   </script>
+
+  <!-- DEDICATED FULL-SCREEN CURRICULUM HANDBOOK MODAL -->
+  <div id="curriculumModal" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,0.85); z-index:99999; align-items:center; justify-content:center; backdrop-filter:blur(6px); padding:20px;">
+    <div style="background:#0c0d0e; border:1px solid #27272a; width:95%; max-width:1300px; height:90vh; border-radius:8px; display:flex; flex-direction:column; box-shadow:0 25px 60px rgba(0,0,0,0.8); overflow:hidden;">
+      <!-- Modal Header -->
+      <div style="padding:12px 18px; background:#141416; border-bottom:1px solid #27272a; display:flex; justify-content:space-between; align-items:center; gap:12px; flex-shrink:0;">
+        <div style="display:flex; align-items:center; gap:10px;">
+          <span style="font-size:16px;">📖</span>
+          <div>
+            <h3 style="font-size:13.5px; font-weight:700; color:#ffffff; margin:0; letter-spacing:0.02em;">OLYMPIC AI CURRICULUM HANDBOOK — GIÁO TRÌNH HỌC THUẬT TOÀN THƯ</h3>
+            <div style="font-size:10.5px; color:var(--text-muted);">7 Chapters · 57 Chuyên Đề Trọng Tâm · KaTeX Mathematical Typesetting · Sổ Tay PDF</div>
+          </div>
+        </div>
+        <div style="display:flex; align-items:center; gap:8px;">
+          <div style="display:flex; background:#09090b; border:1px solid #27272a; border-radius:4px; padding:2px;">
+            <button id="modalTabTheory" class="btn btn-primary" style="height:24px; font-size:11px; padding:0 10px;" onclick="switchCurriculumModalMode('theory')">Lý Thuyết & Công Thức</button>
+            <button id="modalTabPdf" class="btn" style="height:24px; font-size:11px; padding:0 10px; background:transparent; color:#9ca3af; border:none;" onclick="switchCurriculumModalMode('pdf')">Sổ Tay Toàn Thư (PDF)</button>
+          </div>
+          <a href="/olp_ai_handbook_2026.pdf" target="_blank" class="btn" style="height:28px; font-size:11px; padding:0 10px; text-decoration:none; display:inline-flex; align-items:center; gap:4px; background:#2563eb; color:#fff;" title="Mở file PDF trong tab mới">↗ PDF Mới</a>
+          <button class="btn" style="height:28px; width:28px; padding:0; font-size:13px; font-weight:700;" onclick="closeCurriculumModal()">✕</button>
+        </div>
+      </div>
+      <!-- Modal Body -->
+      <div id="curriculumModalBody" style="flex:1; min-height:0; display:flex; overflow:hidden;">
+        <!-- Left: Chapter & Section Navigation Tree -->
+        <div id="curriculumModalSidebar" style="width:340px; background:#0e0e10; border-right:1px solid #27272a; display:flex; flex-direction:column; flex-shrink:0;">
+          <div style="padding:10px 12px; border-bottom:1px solid #27272a;">
+            <input type="text" id="curriculumSearchInput" placeholder="🔍 Tìm kiếm chuyên đề (VD: k-NN, Adam, ViT, Bayes...)" oninput="filterCurriculumSections(this.value)" style="width:100%; height:28px; font-size:11px; background:#18181b; border:1px solid #27272a; border-radius:4px; padding:0 8px; color:#fff;" />
+          </div>
+          <div id="curriculumSectionsList" style="flex:1; overflow-y:auto; padding:8px 6px;"></div>
+        </div>
+        <!-- Right: Reading View / Markdown Content -->
+        <div id="curriculumModalContent" style="flex:1; overflow-y:auto; padding:24px 32px; background:#09090b; font-size:13.5px; line-height:1.75; color:#d4d4d8;"></div>
+        <!-- PDF View (hidden initially) -->
+        <div id="curriculumModalPdfPane" style="display:none; flex:1; height:100%;">
+          <iframe id="curriculumPdfFrame" src="" style="width:100%; height:100%; border:none;"></iframe>
+        </div>
+      </div>
+    </div>
+  </div>
 
   <!-- AUTH MODAL -->
   <div id="authModal" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,0.75); z-index:100000; align-items:center; justify-content:center; backdrop-filter:blur(4px);">
