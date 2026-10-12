@@ -1644,7 +1644,7 @@
   <!-- 1. TOP HEADER (EXECUTIVE ACADEMIC & LUXURY ATELIER BAR) -->
   <header class="arena-header">
     <div class="header-left">
-      <button class="btn btn-icon btn-active" id="btnToggleSidebar" onclick="toggleSidebar()" title="Đóng / Mở Danh sách câu hỏi [B]">
+      <button class="btn btn-icon btn-active" id="btnToggleSidebar" onclick="toggleSidebar()" title="Toggle Question Palette [B]">
         <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
           <line x1="3" y1="6" x2="21" y2="6"></line>
           <line x1="3" y1="12" x2="21" y2="12"></line>
@@ -1652,7 +1652,7 @@
         </svg>
       </button>
 
-      <div class="brand-cluster" style="cursor:pointer;" onclick="toggleLobbyView()" title="Bấm để về Sảnh chính [Lobby]">
+      <div class="brand-cluster" style="cursor:pointer;" onclick="toggleLobbyView()" title="Return to Arena Lobby">
         <div class="brand-emblem">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
             <path d="M12 2L2 9.5L12 22L22 9.5L12 2Z" stroke="#f0b90b" stroke-width="1.8" stroke-linejoin="round" fill="rgba(240, 185, 11, 0.15)"/>
@@ -1672,12 +1672,12 @@
           <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path>
         </svg>
         <select class="exam-select" id="examSelector" onchange="switchExam(this.value)">
-          <option value="olp-01">Đề 01 · Toàn diện (100c)</option>
-          <option value="olp-02">Đề 02 · Format VOAI (100c)</option>
-          <option value="olp-03">Đề 03 · Mô phỏng Quốc gia (100c)</option>
-          <option value="olp-04">Đề 04 · Insight Video VOAI (100c)</option>
-          <option value="voai-2025">Đề 006 · Gốc VOAI 2025 (100c)</option>
-          <option value="olp-05">Đề 05 · Chuyên đề CV & NLP (100c)</option>
+          <option value="olp-01">Contest 01 · Comprehensive (100Q)</option>
+          <option value="olp-02">Contest 02 · National Format (100Q)</option>
+          <option value="olp-03">Contest 03 · National Mock (100Q)</option>
+          <option value="olp-04">Contest 04 · Video Insights (100Q)</option>
+          <option value="voai-2025">Contest 006 · Official VOAI 2025 (100Q)</option>
+          <option value="olp-05">Contest 05 · Advanced CV & LLMs (100Q)</option>
         </select>
         <svg class="exam-select-chevron" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
           <polyline points="6 9 12 15 18 9"></polyline>
@@ -1695,8 +1695,8 @@
         <span class="hud-divider"></span>
 
         <div class="hud-score">
-          <span class="hud-score-label">ĐIỂM</span>
-          <strong class="hud-score-val" id="tickerTotalScore">0.0 / 100.0đ</strong>
+          <span class="hud-score-label">SCORE</span>
+          <strong class="hud-score-val" id="tickerTotalScore">0.0 / 100.0 PTS</strong>
         </div>
 
         <span class="hud-divider"></span>
@@ -1710,33 +1710,33 @@
     </div>
 
     <div class="header-right">
-      <button class="btn" id="btnToggleLobby" onclick="toggleLobbyView()" title="Về Sảnh chính / Vào phòng thi" style="font-weight:700; color:#f0b90b; border-color:rgba(240,185,11,0.35);">
-        <span>🏛️ Sảnh chính</span>
+      <button class="btn" id="btnToggleLobby" onclick="toggleLobbyView()" title="Toggle Arena Lobby / Contest Arena" style="font-weight:700; color:#f0b90b; border-color:rgba(240,185,11,0.35);">
+        <span>🏛️ Lobby</span>
       </button>
       <div id="userAccountBox" style="display:inline-flex; align-items:center;"></div>
 
-      <button class="btn" id="btnToggleSplit" onclick="toggleSplitMode()" title="Chia đôi cửa sổ tra cứu">
+      <button class="btn" id="btnToggleSplit" onclick="toggleSplitMode()" title="Toggle Parallel Split View">
         <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
           <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
           <line x1="12" y1="3" x2="12" y2="21"></line>
         </svg>
-        <span>Chia đôi</span>
+        <span>Split View</span>
       </button>
 
-      <button class="btn btn-active" id="btnToggleInspector" onclick="toggleInspector()" title="Đóng / Mở Bảng tra cứu & Đánh giá [I]">
+      <button class="btn btn-active" id="btnToggleInspector" onclick="toggleInspector()" title="Toggle Research & Evaluation Inspector [I]">
         <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
           <circle cx="11" cy="11" r="8"></circle>
           <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
         </svg>
-        <span>Tra cứu</span>
+        <span>Inspector</span>
         <kbd class="kbd-hint">I</kbd>
       </button>
 
-      <button class="btn btn-submit-luxury" onclick="submitContestConfirm()" title="Nộp bài thi [Ctrl+S]">
+      <button class="btn btn-submit-luxury" onclick="submitContestConfirm()" title="Submit Contest [Ctrl+S]">
         <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
           <polyline points="20 6 9 17 4 12"></polyline>
         </svg>
-        <span>Nộp bài</span>
+        <span>Submit</span>
         <kbd class="kbd-submit-hint">^S</kbd>
       </button>
     </div>
@@ -1751,21 +1751,21 @@
       <!-- HERO BANNER -->
       <div class="lobby-hero">
         <div class="hero-eyebrow">
-          <span>🏛️</span> ĐẤU TRƯỜNG CHỌN ĐỘI TUYỂN OLYMPIC AI HCMUS 2026
+          <span>🏛️</span> OLYMPIC AI HCMUS 2026 · ACADEMIC PREPARATION ARENA
         </div>
-        <h1 class="hero-title">Trung Tâm Khảo Thí & Ôn Luyện Đề Thi Chuẩn Hóa</h1>
+        <h1 class="hero-title">Standardized Examination & Olympiad Training Hub</h1>
         <p class="hero-desc">
-          Nền tảng thi thử và trau dồi giải pháp AI học thuật hàng đầu: Tích hợp 6 đề thi lớn (600 câu trắc nghiệm & tự luận), hệ thống tự động lưu trữ tiến độ, sổ câu hỏi sai (Mistake Vault), đối chiếu rubric 5 bước và thư viện 46 video bài giảng chuyên sâu.
+          Premier academic arena for artificial intelligence competitions: featuring 6 official standardized exams (600 rigorous multiple-choice & essay problems), persistent telemetry progress, Mistake Vault for error targeting, 5-step rubric benchmarks, and 46 curated video masterclasses.
         </p>
         <div class="hero-actions">
           <button class="btn btn-submit-luxury" style="height:38px; padding:0 20px; font-size:13px; font-weight:700;" onclick="enterArenaWithExam('olp-01')">
-            🚀 Bắt đầu làm bài thi ngay
+            🚀 Start Examination Now
           </button>
           <button class="btn" style="height:38px; padding:0 18px; font-size:12.5px; font-weight:600;" onclick="startMistakeReview()">
-            🎯 Luyện lại câu đã làm sai (WA)
+            🎯 Review Mistake Vault (WA)
           </button>
           <button class="btn" style="height:38px; padding:0 18px; font-size:12.5px; font-weight:600;" onclick="openTheoryHandbook()">
-            📖 Đọc giáo trình lý thuyết
+            📖 Explore Curriculum Handbook
           </button>
         </div>
       </div>
@@ -1774,46 +1774,46 @@
       <div class="lobby-stats-grid">
         <div class="stat-card">
           <div class="stat-label">
-            <span>Tổng tiến độ</span>
+            <span>Total Progress</span>
             <span>📊</span>
           </div>
           <div class="stat-val" id="lobbyStatCompleted">0 / 600</div>
-          <div class="stat-sub" id="lobbyStatCompletedSub">0% ngân hàng câu hỏi</div>
+          <div class="stat-sub" id="lobbyStatCompletedSub">0% completed</div>
         </div>
 
         <div class="stat-card">
           <div class="stat-label">
-            <span>Tỉ lệ chính xác</span>
+            <span>Accuracy Rate</span>
             <span>🎯</span>
           </div>
           <div class="stat-val" style="color:#10b981;" id="lobbyStatAccuracy">0.0%</div>
-          <div class="stat-sub" id="lobbyStatAcCount">0 câu Đúng (AC)</div>
+          <div class="stat-sub" id="lobbyStatAcCount">0 Accepted (AC)</div>
         </div>
 
         <div class="stat-card">
           <div class="stat-label">
-            <span>Cần khắc phục (WA)</span>
+            <span>Mistake Vault</span>
             <span>⚠️</span>
           </div>
           <div class="stat-val" style="color:#ef4444;" id="lobbyStatWrongCount">0</div>
-          <div class="stat-sub">Câu trả lời sai cần ôn lại</div>
+          <div class="stat-sub">Incorrect submissions to review</div>
         </div>
 
         <div class="stat-card">
           <div class="stat-label">
-            <span>Điểm cao nhất</span>
+            <span>Top Score</span>
             <span>🏆</span>
           </div>
-          <div class="stat-val" style="color:#f0b90b;" id="lobbyStatBestScore">0.0đ</div>
-          <div class="stat-sub">Thang điểm 100.0 chuẩn</div>
+          <div class="stat-val" style="color:#f0b90b;" id="lobbyStatBestScore">0.0 PTS</div>
+          <div class="stat-sub">Standard 100.0 scale</div>
         </div>
       </div>
 
       <!-- STUDY MODES SECTION -->
       <div>
         <div class="section-headline">
-          <h2>Các Chế Độ Ôn Luyện Chuyên Sâu</h2>
-          <span>Chọn phương thức ôn tập phù hợp với mục tiêu</span>
+          <h2>Specialized Training Modes</h2>
+          <span>Select a preparation format tailored to your training target</span>
         </div>
 
         <div class="study-modes-grid">
@@ -1821,36 +1821,36 @@
           <div class="mode-card" onclick="startMistakeReview()">
             <div>
               <div class="mode-icon-box" style="background:rgba(239,68,68,0.12); color:#ef4444; border:1px solid rgba(239,68,68,0.25);">🎯</div>
-              <div class="mode-card-title">Sổ Câu Hỏi Sai (Mistake Vault)</div>
+              <div class="mode-card-title">Mistake Vault & Error Targeting</div>
               <div class="mode-card-desc">
-                Tự động trích xuất tất cả câu hỏi bạn đã từng chọn sai (WA) trong các đề thi. Luyện tập lại riêng để xóa bỏ lỗ hổng kiến thức trước ngày thi đấu.
+                Automatically extracts all problems marked Wrong Answer (WA) across all exams. Drill targeted weaknesses to eliminate knowledge gaps before competition day.
               </div>
             </div>
-            <div class="mode-card-cta">Luyện lại câu sai ngay ➔</div>
+            <div class="mode-card-cta">Review Mistakes Now ➔</div>
           </div>
 
           <!-- MODE 2: TOPIC DRILLS -->
           <div class="mode-card" onclick="filterByModulePrompt()">
             <div>
               <div class="mode-icon-box" style="background:rgba(59,130,246,0.12); color:#60a5fa; border:1px solid rgba(59,130,246,0.25);">🧩</div>
-              <div class="mode-card-title">Luyện Tập Theo Phân Hệ (Modules)</div>
+              <div class="mode-card-title">Domain-Specific Drills (Modules)</div>
               <div class="mode-card-desc">
-                Rèn luyện tập trung theo từng mảng: Module A (ML & Toán tối ưu), Module B (Computer Vision & CNN/YOLO), Module C (NLP & Transformer/LLMs).
+                Focus training by academic domain: Module A (Optimization & ML Theory), Module B (Computer Vision & CNN/YOLO), Module C (NLP, Transformers & LLMs).
               </div>
             </div>
-            <div class="mode-card-cta">Chọn chủ đề luyện tập ➔</div>
+            <div class="mode-card-cta">Start Domain Drill ➔</div>
           </div>
 
           <!-- MODE 3: FULL EXAMS -->
           <div class="mode-card" onclick="enterArenaWithExam('olp-01')">
             <div>
               <div class="mode-icon-box" style="background:rgba(240,185,11,0.12); color:#f0b90b; border:1px solid rgba(240,185,11,0.25);">⏱️</div>
-              <div class="mode-card-title">Thi Thử Chuẩn Hóa 90 Phút</div>
+              <div class="mode-card-title">90-Minute Standardized Mock Exam</div>
               <div class="mode-card-desc">
-                Trải nghiệm cảm giác phòng thi chuẩn với đồng hồ đếm ngược, ma trận 100 câu hỏi, chấm điểm tự động và xếp hạng theo tiêu chuẩn Olympic AI.
+                Experience full competition conditions with an active countdown timer, 100-problem balanced matrix, automated grading, and instant score telemetry.
               </div>
             </div>
-            <div class="mode-card-cta">Vào phòng thi thử ➔</div>
+            <div class="mode-card-cta">Enter Mock Exam ➔</div>
           </div>
         </div>
       </div>
@@ -1858,116 +1858,116 @@
       <!-- EXAM SHOWCASE -->
       <div>
         <div class="section-headline">
-          <h2>Danh Mục 6 Đề Thi Chuẩn Hóa Tuyển Chọn</h2>
-          <span>600 câu hỏi độc quyền bao quát trọn vẹn kiến thức thi đấu</span>
+          <h2>Curated Standardized Olympiad Exams</h2>
+          <span>600 proprietary academic problems covering the comprehensive competition syllabus</span>
         </div>
 
         <div class="exams-showcase-grid">
           <!-- EXAM 1 -->
           <div class="exam-card">
             <div class="exam-card-header">
-              <span class="exam-card-badge">ĐỀ 01</span>
-              <span style="font-size:11px; color:#10b981; font-weight:600;">Chuẩn hóa</span>
+              <span class="exam-card-badge">EXAM 01</span>
+              <span style="font-size:11px; color:#10b981; font-weight:600;">Standardized</span>
             </div>
-            <div class="exam-card-title">Đề 01 · Khảo Thí Toàn Diện OLP AI</div>
+            <div class="exam-card-title">Exam 01 · Comprehensive Olympic AI Assessment</div>
             <div class="exam-card-meta">
-              <span>⏱️ 90 phút</span>
-              <span>📝 100 câu</span>
+              <span>⏱️ 90 Mins</span>
+              <span>📝 100 Problems</span>
               <span>⭐ ML · CV · NLP</span>
             </div>
             <div class="exam-card-progress">
-              <span id="lobbyProgress-olp-01">Tiến độ: 0/100</span>
-              <button class="btn btn-primary" style="height:28px; font-size:11.5px;" onclick="enterArenaWithExam('olp-01')">Vào thi ➔</button>
+              <span id="lobbyProgress-olp-01">Progress: 0/100</span>
+              <button class="btn btn-primary" style="height:28px; font-size:11.5px;" onclick="enterArenaWithExam('olp-01')">Enter Exam ➔</button>
             </div>
           </div>
 
           <!-- EXAM 2 -->
           <div class="exam-card">
             <div class="exam-card-header">
-              <span class="exam-card-badge">ĐỀ 02</span>
-              <span style="font-size:11px; color:#60a5fa; font-weight:600;">Format VOAI</span>
+              <span class="exam-card-badge">EXAM 02</span>
+              <span style="font-size:11px; color:#60a5fa; font-weight:600;">National Format</span>
             </div>
-            <div class="exam-card-title">Đề 02 · Chuẩn Cấu Trúc Đề Thi Quốc Gia</div>
+            <div class="exam-card-title">Exam 02 · National Olympiad Standard Format</div>
             <div class="exam-card-meta">
-              <span>⏱️ 90 phút</span>
-              <span>📝 100 câu</span>
-              <span>⭐ Đề chọn lọc</span>
+              <span>⏱️ 90 Mins</span>
+              <span>📝 100 Problems</span>
+              <span>⭐ Balanced Matrix</span>
             </div>
             <div class="exam-card-progress">
-              <span id="lobbyProgress-olp-02">Tiến độ: 0/100</span>
-              <button class="btn btn-primary" style="height:28px; font-size:11.5px;" onclick="enterArenaWithExam('olp-02')">Vào thi ➔</button>
+              <span id="lobbyProgress-olp-02">Progress: 0/100</span>
+              <button class="btn btn-primary" style="height:28px; font-size:11.5px;" onclick="enterArenaWithExam('olp-02')">Enter Exam ➔</button>
             </div>
           </div>
 
           <!-- EXAM 3 -->
           <div class="exam-card">
             <div class="exam-card-header">
-              <span class="exam-card-badge">ĐỀ 03</span>
-              <span style="font-size:11px; color:#a855f7; font-weight:600;">Mô phỏng</span>
+              <span class="exam-card-badge">EXAM 03</span>
+              <span style="font-size:11px; color:#a855f7; font-weight:600;">National Mock</span>
             </div>
-            <div class="exam-card-title">Đề 03 · Mô Phỏng Vòng Miền & Tuyển Chọn</div>
+            <div class="exam-card-title">Exam 03 · Regional & National Selection Mock</div>
             <div class="exam-card-meta">
-              <span>⏱️ 90 phút</span>
-              <span>📝 100 câu</span>
-              <span>⭐ Bẫy đề kinh điển</span>
+              <span>⏱️ 90 Mins</span>
+              <span>📝 100 Problems</span>
+              <span>⭐ Pitfall Analysis</span>
             </div>
             <div class="exam-card-progress">
-              <span id="lobbyProgress-olp-03">Tiến độ: 0/100</span>
-              <button class="btn btn-primary" style="height:28px; font-size:11.5px;" onclick="enterArenaWithExam('olp-03')">Vào thi ➔</button>
+              <span id="lobbyProgress-olp-03">Progress: 0/100</span>
+              <button class="btn btn-primary" style="height:28px; font-size:11.5px;" onclick="enterArenaWithExam('olp-03')">Enter Exam ➔</button>
             </div>
           </div>
 
           <!-- EXAM 4 -->
           <div class="exam-card">
             <div class="exam-card-header">
-              <span class="exam-card-badge">ĐỀ 04</span>
-              <span style="font-size:11px; color:#38bdf8; font-weight:600;">Insight Video</span>
+              <span class="exam-card-badge">EXAM 04</span>
+              <span style="font-size:11px; color:#38bdf8; font-weight:600;">Video Insights</span>
             </div>
-            <div class="exam-card-title">Đề 04 · Khảo Thí Theo 46 Video Bài Giảng</div>
+            <div class="exam-card-title">Exam 04 · 46 Masterclass Video Case Studies</div>
             <div class="exam-card-meta">
-              <span>⏱️ 90 phút</span>
-              <span>📝 100 câu</span>
-              <span>⭐ Video AI Vietnam</span>
+              <span>⏱️ 90 Mins</span>
+              <span>📝 100 Problems</span>
+              <span>⭐ Video Solutions</span>
             </div>
             <div class="exam-card-progress">
-              <span id="lobbyProgress-olp-04">Tiến độ: 0/100</span>
-              <button class="btn btn-primary" style="height:28px; font-size:11.5px;" onclick="enterArenaWithExam('olp-04')">Vào thi ➔</button>
+              <span id="lobbyProgress-olp-04">Progress: 0/100</span>
+              <button class="btn btn-primary" style="height:28px; font-size:11.5px;" onclick="enterArenaWithExam('olp-04')">Enter Exam ➔</button>
             </div>
           </div>
 
           <!-- EXAM 5 -->
           <div class="exam-card">
             <div class="exam-card-header">
-              <span class="exam-card-badge" style="color:#ef4444; border-color:rgba(239,68,68,0.4); background:rgba(239,68,68,0.1);">ĐỀ 006</span>
-              <span style="font-size:11px; color:#ef4444; font-weight:600;">Đề Gốc 2025</span>
+              <span class="exam-card-badge" style="color:#ef4444; border-color:rgba(239,68,68,0.4); background:rgba(239,68,68,0.1);">EXAM 006</span>
+              <span style="font-size:11px; color:#ef4444; font-weight:600;">Official 2025</span>
             </div>
-            <div class="exam-card-title">Đề 006 · Đề Thi Gốc VOAI 2025 Chuẩn Hóa</div>
+            <div class="exam-card-title">Exam 006 · Official VOAI 2025 Competition Paper</div>
             <div class="exam-card-meta">
-              <span>⏱️ 90 phút</span>
-              <span>📝 100 câu</span>
-              <span>⭐ Rubric chuẩn</span>
+              <span>⏱️ 90 Mins</span>
+              <span>📝 100 Problems</span>
+              <span>⭐ Official Rubric</span>
             </div>
             <div class="exam-card-progress">
-              <span id="lobbyProgress-voai-2025">Tiến độ: 0/100</span>
-              <button class="btn btn-primary" style="height:28px; font-size:11.5px;" onclick="enterArenaWithExam('voai-2025')">Vào thi ➔</button>
+              <span id="lobbyProgress-voai-2025">Progress: 0/100</span>
+              <button class="btn btn-primary" style="height:28px; font-size:11.5px;" onclick="enterArenaWithExam('voai-2025')">Enter Exam ➔</button>
             </div>
           </div>
 
           <!-- EXAM 6 -->
           <div class="exam-card">
             <div class="exam-card-header">
-              <span class="exam-card-badge" style="color:#ec4899; border-color:rgba(239,68,68,0.4); background:rgba(236,72,153,0.1);">ĐỀ 05</span>
-              <span style="font-size:11px; color:#ec4899; font-weight:600;">Nâng cao</span>
+              <span class="exam-card-badge" style="color:#ec4899; border-color:rgba(239,68,68,0.4); background:rgba(236,72,153,0.1);">EXAM 05</span>
+              <span style="font-size:11px; color:#ec4899; font-weight:600;">Advanced</span>
             </div>
-            <div class="exam-card-title">Đề 05 · Chuyên Đề Nâng Cao CV & LLMs</div>
+            <div class="exam-card-title">Exam 05 · Advanced Deep Vision & Large Language Models</div>
             <div class="exam-card-meta">
-              <span>⏱️ 90 phút</span>
-              <span>📝 100 câu</span>
+              <span>⏱️ 90 Mins</span>
+              <span>📝 100 Problems</span>
               <span>⭐ Attention & ViT</span>
             </div>
             <div class="exam-card-progress">
-              <span id="lobbyProgress-olp-05">Tiến độ: 0/100</span>
-              <button class="btn btn-primary" style="height:28px; font-size:11.5px;" onclick="enterArenaWithExam('olp-05')">Vào thi ➔</button>
+              <span id="lobbyProgress-olp-05">Progress: 0/100</span>
+              <button class="btn btn-primary" style="height:28px; font-size:11.5px;" onclick="enterArenaWithExam('olp-05')">Enter Exam ➔</button>
             </div>
           </div>
         </div>
@@ -1981,9 +1981,9 @@
     <!-- 2.1 LEFT SIDEBAR -->
     <aside class="arena-sidebar" id="arenaSidebar">
       <div class="sidebar-tabs">
-        <div class="s-tab active" id="sTabGrid" onclick="switchSidebarTab('grid')">ĐỀ THI</div>
-        <div class="s-tab" id="sTabDoc" onclick="switchSidebarTab('doc')">GIÁO TRÌNH</div>
-        <div class="s-tab" id="sTabSub" onclick="switchSidebarTab('sub')">LỊCH SỬ NỘP</div>
+        <div class="s-tab active" id="sTabGrid" onclick="switchSidebarTab('grid')">PROBLEMS</div>
+        <div class="s-tab" id="sTabDoc" onclick="switchSidebarTab('doc')">CURRICULUM</div>
+        <div class="s-tab" id="sTabSub" onclick="switchSidebarTab('sub')">SUBMISSIONS</div>
       </div>
 
       <div class="sidebar-content" id="sidebarContent">
@@ -2004,14 +2004,14 @@
 
       <footer class="arena-footer">
         <div class="footer-left">
-          <button class="btn" onclick="prevQuestion()" title="Câu trước [A]">← Trước</button>
-          <button class="btn" onclick="nextQuestion()" title="Câu sau [D]">Sau →</button>
-          <span class="footer-prog-tag" id="footerProgressLabel">Tiến độ bài thi</span>
+          <button class="btn" onclick="prevQuestion()" title="Previous Problem [A]">← Prev</button>
+          <button class="btn" onclick="nextQuestion()" title="Next Problem [D]">Next →</button>
+          <span class="footer-prog-tag" id="footerProgressLabel">Progress: 0/100 (0%)</span>
         </div>
 
         <div class="footer-right">
-          <button class="btn" onclick="toggleEditorialManual()" title="Xem lời giải [E]">📖 Lời giải [E]</button>
-          <button class="btn btn-primary" onclick="submitContestConfirm()" title="Nộp bài thi [Ctrl+S]">Nộp bài</button>
+          <button class="btn" onclick="toggleEditorialManual()" title="Toggle Editorial Proof [E]">📖 Editorial [E]</button>
+          <button class="btn btn-primary" onclick="submitContestConfirm()" title="Submit Examination [Ctrl+S]">Submit Contest</button>
         </div>
       </footer>
     </section>
@@ -2025,21 +2025,21 @@
     <section class="arena-split-pane" id="arenaSplitPane" style="display:none; width:420px;">
       <div style="padding:10px 14px; background:#0e0e0e; border-bottom:1px solid var(--border-subtle); display:flex; justify-content:space-between; align-items:center; gap:10px; flex-shrink:0;">
         <div style="display:flex; align-items:center; gap:8px 10px; flex-wrap:wrap; flex:1; min-width:0;">
-          <span style="font-size:11px; font-weight:700; color:var(--text-secondary); text-transform:uppercase; letter-spacing:0.04em;">Tra cứu song song:</span>
+          <span style="font-size:11px; font-weight:700; color:var(--text-secondary); text-transform:uppercase; letter-spacing:0.04em;">PARALLEL REFERENCE:</span>
           <div style="display:inline-flex; align-items:center; gap:5px; flex-wrap:wrap;">
             <button class="btn" id="btnSplitPdf" style="height:24px; font-size:10.5px; padding:0 8px;" onclick="setSplitType('pdf')">PDF Handbook</button>
-            <button class="btn" id="btnSplitTheory" style="height:24px; font-size:10.5px; padding:0 8px;" onclick="setSplitType('theory')">Giáo trình</button>
-            <button class="btn" id="btnSplitFormulas" style="height:24px; font-size:10.5px; padding:0 8px;" onclick="setSplitType('formulas')">Công thức</button>
+            <button class="btn" id="btnSplitTheory" style="height:24px; font-size:10.5px; padding:0 8px;" onclick="setSplitType('theory')">Curriculum</button>
+            <button class="btn" id="btnSplitFormulas" style="height:24px; font-size:10.5px; padding:0 8px;" onclick="setSplitType('formulas')">Formulas</button>
           </div>
-          <select id="splitTheorySecSelect" style="height:24px; font-size:11px; background:#141414; color:#f0b90b; border:1px solid var(--border-subtle); border-radius:4px; padding:0 8px; display:none; max-width:220px;" onchange="switchTheorySection(this.value)" title="Chọn chuyên đề lý thuyết để tra cứu"></select>
+          <select id="splitTheorySecSelect" style="height:24px; font-size:11px; background:#141414; color:#f0b90b; border:1px solid var(--border-subtle); border-radius:4px; padding:0 8px; display:none; max-width:220px;" onchange="switchTheorySection(this.value)" title="Select theory section for parallel study"></select>
         </div>
-        <button class="btn" style="height:24px; font-size:10.5px; padding:0 8px;" onclick="toggleSplitMode()">Đóng ✕</button>
+        <button class="btn" style="height:24px; font-size:10.5px; padding:0 8px;" onclick="toggleSplitMode()">Close ✕</button>
       </div>
       <div id="splitPaneBody" style="flex:1; min-height:0; overflow-y:auto;"></div>
     </section>
 
     <!-- RIGHT SPLITTER RESIZER (BETWEEN WORKSPACE AND INSPECTOR) -->
-    <div class="splitter-gutter" id="splitterRight" title="Kéo để chỉnh kích thước Bảng tra cứu (kéo sát mép phải để ẩn)">
+    <div class="splitter-gutter" id="splitterRight" title="Drag to resize Research & Evaluation Inspector (drag right to collapse)">
       <div class="splitter-handle"></div>
     </div>
 
@@ -2048,16 +2048,16 @@
       <div class="inspector-top-bar" style="padding:10px 14px;">
         <div class="inspector-title-group" style="display:flex; align-items:center; gap:8px;">
           <span style="font-size:13px; color:#f0b90b;">🔍</span>
-          <h3 class="inspector-title" style="margin:0; font-size:12.5px; font-weight:700; color:#f4f4f5; letter-spacing:0.03em;">TRA CỨU & ĐÁNH GIÁ</h3>
+          <h3 class="inspector-title" style="margin:0; font-size:12.5px; font-weight:700; color:#f4f4f5; letter-spacing:0.03em;">RESEARCH & EVALUATION</h3>
         </div>
         <button class="btn" style="padding:3px 8px; font-size:11px; height:24px;" onclick="toggleInspector()" title="Thu gọn bảng điều khiển bên phải">✕</button>
       </div>
 
       <div class="inspector-tabs">
-        <div class="i-tab active" id="iTabRubric" onclick="switchInspectorTab('rubric')">RUBRIC CHẤM</div>
-        <div class="i-tab" id="iTabExplanation" onclick="switchInspectorTab('explanation')">LUẬN GIẢI</div>
-        <div class="i-tab" id="iTabVideo" onclick="switchInspectorTab('video')">BÀI GIẢNG</div>
-        <div class="i-tab" id="iTabFormulas" onclick="switchInspectorTab('formulas')">CÔNG THỨC</div>
+        <div class="i-tab active" id="iTabRubric" onclick="switchInspectorTab('rubric')">RUBRIC</div>
+        <div class="i-tab" id="iTabExplanation" onclick="switchInspectorTab('explanation')">EDITORIAL</div>
+        <div class="i-tab" id="iTabVideo" onclick="switchInspectorTab('video')">LECTURES</div>
+        <div class="i-tab" id="iTabFormulas" onclick="switchInspectorTab('formulas')">FORMULAS</div>
       </div>
 
       <div class="inspector-content" id="inspectorContent">
@@ -2510,7 +2510,7 @@
 
       const tickerTotalScoreEl = document.getElementById('tickerTotalScore');
       if (tickerTotalScoreEl) {
-        tickerTotalScoreEl.textContent = `${gradedPts.toFixed(1)} / ${maxGradedPts.toFixed(1)}đ`;
+        tickerTotalScoreEl.textContent = `${gradedPts.toFixed(1)} / ${maxGradedPts.toFixed(1)} PTS`;
       }
       const tickerAcCountEl = document.getElementById('tickerAcCount');
       if (tickerAcCountEl) {
@@ -2524,7 +2524,7 @@
       if (tickerEssayScoreEl) {
         if (maxEssayPts > 0) {
           tickerEssayScoreEl.style.display = 'inline-block';
-          tickerEssayScoreEl.textContent = `Tự luận: ${essaySelfPts.toFixed(1)}/${maxEssayPts.toFixed(1)}đ`;
+          tickerEssayScoreEl.textContent = `Essay: ${essaySelfPts.toFixed(1)}/${maxEssayPts.toFixed(1)} PTS`;
         } else {
           tickerEssayScoreEl.style.display = 'none';
         }
@@ -2533,7 +2533,7 @@
       const pct = Math.round((answeredCount / EXAM.questions.length) * 100);
       const footerProgressLabelEl = document.getElementById('footerProgressLabel');
       if (footerProgressLabelEl) {
-        footerProgressLabelEl.textContent = `Tiến độ: ${answeredCount}/${EXAM.questions.length} (${pct}%)`;
+        footerProgressLabelEl.textContent = `Progress: ${answeredCount}/${EXAM.questions.length} (${pct}%)`;
       }
     }
 
@@ -2671,19 +2671,19 @@
               (q.cpTitle && q.cpTitle !== q.id) 
                 ? q.cpTitle 
                 : (q.type === 'mcq' 
-                    ? 'Trắc nghiệm Chuyên sâu' 
+                    ? 'Multiple Choice · Analytical & Conceptual' 
                     : q.type === 'code' 
-                        ? 'Lập trình Thuật toán AI' 
-                        : 'Tự luận Giải pháp Kiến trúc')
+                        ? 'Algorithm Implementation' 
+                        : 'AI System Architecture Solution')
             }</h1>
           </div>
 
           <div class="problem-meta-row">
-            <div class="meta-item"><span>Thời gian:</span> <span class="meta-val num">2.0s</span></div>
-            <div class="meta-item"><span>Bộ nhớ:</span> <span class="meta-val num">256 MB</span></div>
-            <div class="meta-item"><span>Thang điểm:</span> <span class="meta-val num" style="color:#f0b90b; font-weight:700;">${q.points} điểm</span></div>
-            <div class="meta-item"><span>Phân hệ:</span> <span class="meta-val">Module ${q.module}</span></div>
-            <div class="meta-item"><span>Dạng câu:</span> <span class="meta-val">${q.type === 'mcq' ? 'Trắc nghiệm lý thuyết & định tính' : q.type === 'code' ? 'Lập trình thuật toán' : 'Tự luận giải pháp AI'}</span></div>
+            <div class="meta-item"><span>Time Limit:</span> <span class="meta-val num">2.0s</span></div>
+            <div class="meta-item"><span>Memory Limit:</span> <span class="meta-val num">256 MB</span></div>
+            <div class="meta-item"><span>Points:</span> <span class="meta-val num" style="color:#f0b90b; font-weight:700;">${q.points} PTS</span></div>
+            <div class="meta-item"><span>Module:</span> <span class="meta-val">Module ${q.module}</span></div>
+            <div class="meta-item"><span>Type:</span> <span class="meta-val">${q.type === 'mcq' ? 'Multiple Choice' : q.type === 'code' ? 'Algorithm Implementation' : 'System Architecture Essay'}</span></div>
           </div>
         </div>
 
@@ -2719,10 +2719,10 @@
           html += `
             <div class="verdict-banner ${isAC ? 'ac' : 'wa'}">
               <div class="verdict-title">
-                ${isAC ? '✓ JUDGE VERDICT: ACCEPTED (AC)' : `✗ JUDGE VERDICT: WRONG ANSWER (WA) — Đáp án chính xác là: ${q.answer}`}
+                ${isAC ? '✓ JUDGE VERDICT: ACCEPTED (AC)' : `✗ VERDICT: WRONG ANSWER (WA) — Correct Answer: ${q.answer}`}
               </div>
               <div class="verdict-meta">
-                Điểm số: ${isAC ? `+${q.points}đ` : '0.0đ'} · Thời gian suy luận: 0.04s · Nộp lúc: ${ans.timestamp || 'Vừa xong'}
+                Score: ${isAC ? `+${q.points} PTS` : '0.0 PTS'} · Inference Latency: 0.04s · Submitted at: ${ans.timestamp || 'Just now'}
               </div>
             </div>
           `;
@@ -2733,9 +2733,9 @@
           <div class="editorial-card">
             <div class="editorial-header" onclick="toggleEditorialManual()">
               <div class="editorial-title">
-                <span>📖 LỜI GIẢI THAM KHẢO & PHÂN TÍCH CHI TIẾT (ELI5 + STEP-BY-STEP)</span>
+                <span>📖 OFFICIAL EDITORIAL & STEP-BY-STEP PROOF</span>
               </div>
-              <span style="font-size:11px; color:var(--text-muted);">${isEditorialOpen ? 'Thu gọn ▲' : 'Xem chi tiết ▼'}</span>
+              <span style="font-size:11px; color:var(--text-muted);">${isEditorialOpen ? 'Collapse ▲' : 'Expand Proof ▼'}</span>
             </div>
             ${isEditorialOpen ? `
               <div class="editorial-body">
@@ -2749,16 +2749,16 @@
         html += `
           <div class="statement-section">
             <div class="section-title">PYTHON / PYTORCH WORKBENCH</div>
-            <textarea style="width:100%; height:180px; background:#07090e; color:#a5d6ff; font-family:var(--font-mono); padding:10px; border:1px solid var(--border-strong); border-radius:4px;" id="codeInput_${q.id}">${ans.code || '# Viết mã nguồn Python / PyTorch tại đây...'}</textarea>
+            <textarea style="width:100%; height:180px; background:#07090e; color:#a5d6ff; font-family:var(--font-mono); padding:10px; border:1px solid var(--border-strong); border-radius:4px;" id="codeInput_${q.id}">${ans.code || '# Implement your Python / PyTorch algorithm here...'}</textarea>
             <div style="margin-top:10px; display:flex; justify-content:space-between; align-items:center;">
-              <span style="font-size:11px; color:var(--text-muted);">Môi trường ghi nhận mã nguồn · Tự đối chiếu giải pháp mẫu</span>
-              <button class="btn btn-primary" onclick="runCustomCode('${q.id}')">💾 Lưu & Đối Chiếu Giải Pháp</button>
+              <span style="font-size:11px; color:var(--text-muted);">Code submission environment · Self-evaluate against reference model answer</span>
+              <button class="btn btn-primary" onclick="runCustomCode('${q.id}')">💾 Save & Compare Solution</button>
             </div>
           </div>
           <div class="editorial-card">
             <div class="editorial-header" onclick="toggleEditorialManual()">
-              <div class="editorial-title"><span>📖 BÀI GIẢI MẪU THAM KHẢO & TEST CASES MINH HỌA</span></div>
-              <span style="font-size:11px; color:var(--text-muted);">${isEditorialOpen ? 'Thu gọn ▲' : 'Xem chi tiết ▼'}</span>
+              <div class="editorial-title"><span>📖 REFERENCE IMPLEMENTATION & TEST CASES</span></div>
+              <span style="font-size:11px; color:var(--text-muted);">${isEditorialOpen ? 'Collapse ▲' : 'Expand Proof ▼'}</span>
             </div>
             ${isEditorialOpen ? `
               <div class="editorial-body">
@@ -2771,17 +2771,17 @@
       } else {
         html += `
           <div class="statement-section">
-            <div class="section-title">KHÔNG GIAN TRÌNH BÀY BÀI TỰ LUẬN GIẢI PHÁP AI</div>
-            <textarea style="width:100%; height:220px; background:#07090e; color:#f1f5f9; font-family:var(--font-sans); padding:12px; border:1px solid var(--border-strong); border-radius:4px; font-size:13px; line-height:1.6;" id="essayInput_${q.id}" placeholder="Trình bày luận điểm 5 bước: 1. Phân tích bài toán -> 2. Thiết kế mô hình -> 3. Pipeline chống leakage -> 4. Metrics -> 5. Mở rộng...">${ans.text || ''}</textarea>
+            <div class="section-title">AI ARCHITECTURE ESSAY WORKBENCH</div>
+            <textarea style="width:100%; height:220px; background:#07090e; color:#f1f5f9; font-family:var(--font-sans); padding:12px; border:1px solid var(--border-strong); border-radius:4px; font-size:13px; line-height:1.6;" id="essayInput_${q.id}" placeholder="Formulate your 5-step solution: 1. Problem Formulation -> 2. Architecture & Pipeline -> 3. Leakage Prevention -> 4. Evaluation Metrics -> 5. Scaling & Deployment...">${ans.text || ''}</textarea>
             <div style="margin-top:10px; display:flex; justify-content:space-between;">
-              <button class="btn" onclick="insertEssayTemplate('${q.id}')">Nạp khung mẫu 5 bước chuẩn</button>
-              <button class="btn btn-primary" onclick="runEssayKeywordCheck('${q.id}')">⚡ Gợi Ý Kiểm Tra Từ Khóa Rubric</button>
+              <button class="btn" onclick="insertEssayTemplate('${q.id}')">Insert 5-Step Architecture Template</button>
+              <button class="btn btn-primary" onclick="runEssayKeywordCheck('${q.id}')">⚡ Verify Rubric Keywords</button>
             </div>
           </div>
           <div class="editorial-card">
             <div class="editorial-header" onclick="toggleEditorialManual()">
-              <div class="editorial-title"><span>📖 BÀI GIẢI MẪU THAM KHẢO (KHUNG 5 BƯỚC)</span></div>
-              <span style="font-size:11px; color:var(--text-muted);">${isEditorialOpen ? 'Thu gọn ▲' : 'Xem chi tiết ▼'}</span>
+              <div class="editorial-title"><span>📖 REFERENCE ARCHITECTURE BENCHMARK (5 STEPS)</span></div>
+              <span style="font-size:11px; color:var(--text-muted);">${isEditorialOpen ? 'Collapse ▲' : 'Expand Proof ▼'}</span>
             </div>
             ${isEditorialOpen ? `
               <div class="editorial-body" style="white-space:pre-wrap;">${q.modelAnswer || ''}</div>
@@ -2806,7 +2806,7 @@
         let html = `
           <div class="contest-progress-box">
             <div class="prog-text">
-              <span>TIẾN ĐỘ THI ĐẤU</span>
+              <span>CONTEST PROGRESS</span>
               <strong>${answeredCount}/${total} (${pct}%)</strong>
             </div>
             <div class="prog-track">
@@ -2815,7 +2815,7 @@
           </div>
 
           <div class="problem-filter-row">
-            <button class="filter-btn ${filterModule === 'all' ? 'active' : ''}" onclick="setFilter('all')">Tất cả (${total})</button>
+            <button class="filter-btn ${filterModule === 'all' ? 'active' : ''}" onclick="setFilter('all')">All (${total})</button>
             <button class="filter-btn ${filterModule === 'A' ? 'active' : ''}" onclick="setFilter('A')">Mod A</button>
             <button class="filter-btn ${filterModule === 'B' ? 'active' : ''}" onclick="setFilter('B')">Mod B</button>
             <button class="filter-btn ${filterModule === 'C' ? 'active' : ''}" onclick="setFilter('C')">Mod C</button>
@@ -2864,23 +2864,23 @@
       } else if (sidebarTab === 'doc') {
         let html = `
           <div style="font-size:11px; font-weight:700; color:var(--text-muted); text-transform:uppercase;">
-            GIÁO TRÌNH 7 CHƯƠNG TRỌNG TÂM
+            CORE OLYMPIAD CURRICULUM (7 CHAPTERS)
           </div>
           <div style="display:flex; flex-direction:column; gap:6px;">
         `;
         [
-          { id: '§1', title: 'Chương 1: Machine Learning Cổ Điển' },
-          { id: '§2', title: 'Chương 2: Deep Learning & PyTorch' },
-          { id: '§3', title: 'Chương 3: Thị Giác Máy Tính (CV)' },
-          { id: '§4', title: 'Chương 4: Xử Lý Ngôn Ngữ Tự Nhiên (NLP)' },
-          { id: '§5', title: 'Chương 5: Xác Suất & Thống Kê' },
-          { id: '§6', title: 'Chương 6: Bảng 24 Bẫy Đề Thi Kinh Điển' },
-          { id: '§7', title: 'Chương 7: Bài Toán Thực Chiến OLP AI' }
+          { id: '§1', title: 'Chapter 1: Classical Machine Learning' },
+          { id: '§2', title: 'Chapter 2: Deep Learning & PyTorch' },
+          { id: '§3', title: 'Chapter 3: Computer Vision (CV)' },
+          { id: '§4', title: 'Chapter 4: Natural Language Processing (NLP)' },
+          { id: '§5', title: 'Chapter 5: Probability & Statistics' },
+          { id: '§6', title: 'Chapter 6: 24 Classic Exam Traps' },
+          { id: '§7', title: 'Chapter 7: Practical Olympiad AI Problems' }
         ].forEach(ch => {
           html += `
             <div style="background:var(--bg-card); border:1px solid var(--border-subtle); padding:10px; border-radius:4px; cursor:pointer;" onclick="openChapterTheory('${ch.id}')">
               <div style="font-weight:700; font-size:12px; color:#93c5fd;">${ch.title}</div>
-              <div style="font-size:10.5px; color:var(--text-muted); margin-top:3px;">Nhấn để xem lý thuyết & công thức chi tiết ↗</div>
+              <div style="font-size:10.5px; color:var(--text-muted); margin-top:3px;">View theory & mathematical formulations ↗</div>
             </div>
           `;
         });
@@ -2891,7 +2891,7 @@
         if (olpLessons.length > 0) {
           html += `
             <div style="font-size:11px; font-weight:700; color:#f0b90b; text-transform:uppercase; margin-top:16px; margin-bottom:6px; display:flex; align-items:center; gap:6px;">
-              <span>🎓</span> KHÓA HỌC OLP SINH VIÊN (16 BUỔI)
+              <span>🎓</span> OLYMPIC LECTURE MASTERCLASSES (16 SESSIONS)
             </div>
             <div style="display:flex; flex-direction:column; gap:6px;">
           `;
@@ -2908,9 +2908,9 @@
                 ${ls.date ? `<div style="font-size:10px; color:var(--text-muted); margin-top:2px;">📅 ${ls.date}</div>` : ''}
                 <div style="display:flex; flex-wrap:wrap; gap:4px; margin-top:6px;">
                   ${hasVid ? `<button type="button" class="btn" style="height:22px; font-size:10px; padding:0 6px; background:rgba(240,185,11,0.15); color:#f0b90b; border:1px solid rgba(240,185,11,0.3);" onclick="playCourseVideo('${ls.videoIframe}', '${safeTitle}')">▶ Video</button>` : ''}
-                  ${hasSlide ? `<a href="${ls.slide}" target="_blank" class="btn" style="height:22px; font-size:10px; padding:0 6px; text-decoration:none; display:inline-flex; align-items:center;" title="Mở Slide Drive">📑 Slide</a>` : ''}
+                  ${hasSlide ? `<a href="${ls.slide}" target="_blank" class="btn" style="height:22px; font-size:10px; padding:0 6px; text-decoration:none; display:inline-flex; align-items:center;" title="Mở Slide Drive">📑 Slides</a>` : ''}
                   ${hasLab ? `<a href="${ls.lab}" target="_blank" class="btn" style="height:22px; font-size:10px; padding:0 6px; text-decoration:none; display:inline-flex; align-items:center;" title="Mở Lab Code Drive">💻 Lab</a>` : ''}
-                  ${hasTrans ? `<a href="${ls.transcript}" target="_blank" class="btn" style="height:22px; font-size:10px; padding:0 6px; text-decoration:none; display:inline-flex; align-items:center;" title="Mở Transcript Docs">📝 Docs</a>` : ''}
+                  ${hasTrans ? `<a href="${ls.transcript}" target="_blank" class="btn" style="height:22px; font-size:10px; padding:0 6px; text-decoration:none; display:inline-flex; align-items:center;" title="Mở Transcript Docs">📝 Notes</a>` : ''}
                 </div>
               </div>
             `;
@@ -2924,18 +2924,18 @@
         let html = `
           <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
             <div style="font-size:11px; font-weight:700; color:var(--text-muted); text-transform:uppercase;">
-              LỊCH SỬ BÀI THI & NỘP BÀI
+              SUBMISSION HISTORY
             </div>
-            <button class="btn" style="height:20px; font-size:10px; padding:0 6px;" onclick="fetchSubmissionsHistory()" title="Đồng bộ lại từ Server">🔄 Đồng bộ</button>
+            <button class="btn" style="height:20px; font-size:10px; padding:0 6px;" onclick="fetchSubmissionsHistory()" title="Đồng bộ lại từ Server">🔄 Sync</button>
           </div>
         `;
 
         if (!currentUser) {
           html += `
             <div style="background:rgba(59,130,246,0.1); border:1px solid rgba(59,130,246,0.3); border-radius:4px; padding:10px; margin-bottom:10px;">
-              <div style="font-size:11.5px; font-weight:600; color:#93c5fa; margin-bottom:4px;">🔑 Lưu bài nộp vào tài khoản</div>
+              <div style="font-size:11.5px; font-weight:600; color:#93c5fa; margin-bottom:4px;">🔑 Persist Submissions to Cloud</div>
               <div style="font-size:10.5px; color:#cbd5e1; line-height:1.4; margin-bottom:8px;">
-                Đăng nhập để lưu vĩnh viễn kết quả vào cơ sở dữ liệu server và xếp hạng Leaderboard.
+                Sign in to permanently sync your submission records and rank on the official Leaderboard.
               </div>
               <button class="btn btn-primary" style="height:26px; font-size:11px; width:100%; justify-content:center; background:linear-gradient(135deg, #2563eb, #1d4ed8); color:#fff; border:none;" onclick="openAuthModal()">
                 Đăng nhập / Đăng ký ngay
@@ -2963,7 +2963,7 @@
                 </div>
                 <div style="font-size:11px; color:#e2e8f0; font-weight:600;">${sub.exam_title || sub.exam_id}</div>
                 <div style="font-size:10px; color:var(--text-muted); display:flex; justify-content:space-between; margin-top:2px;">
-                  <span>Đúng: <strong>${sub.correct_count}/${sub.total_questions} câu</strong> (${accPct}%)</span>
+                  <span>Accepted: <strong>${sub.correct_count}/${sub.total_questions} problems</strong> (${accPct}%)</span>
                   <span>${sub.submitted_at ? sub.submitted_at.replace('T', ' ').substring(0, 16) : ''}</span>
                 </div>
               </div>
@@ -2975,7 +2975,7 @@
         // Tiến độ chi tiết từng câu trong phiên làm bài hiện tại
         html += `
           <div style="font-size:10.5px; font-weight:700; color:var(--text-muted); margin-bottom:4px; margin-top:6px;">
-            CHI TIẾT PHIÊN LÀM BÀI HIỆN TẠI
+            CURRENT SESSION SUBMISSION LOG
           </div>
           <div style="display:flex; flex-direction:column; gap:5px;">
         `;
@@ -3056,13 +3056,13 @@
         let html = '';
 
         if (q.type === 'essay') {
-          // BAREM CHẤM TỰ LUẬN 5 BƯỚC
+          // 5-STEP ESSAY RUBRIC BENCHMARK
           html += `
             <div style="background:var(--bg-card); border:1px solid rgba(59,130,246,0.3); border-radius:8px; padding:16px 18px 80px 18px; display:flex; flex-direction:column; gap:14px; box-shadow:0 4px 16px rgba(0,0,0,0.4);">
               <div style="display:flex; justify-content:space-between; align-items:center; border-bottom:1px solid var(--border-subtle); padding-bottom:8px;">
                 <div style="display:flex; align-items:center; gap:6px;">
                   <span style="font-size:12px; color:#60a5fa;">📋</span>
-                  <span style="font-family:'Plus Jakarta Sans', var(--font-sans); font-weight:800; font-size:12.5px; color:#93c5fa; letter-spacing:0.02em;">BAREM CHẤM TỰ LUẬN 5 BƯỚC</span>
+                  <span style="font-family:'Plus Jakarta Sans', var(--font-sans); font-weight:800; font-size:12.5px; color:#93c5fa; letter-spacing:0.02em;">5-STEP ESSAY RUBRIC BENCHMARK</span>
                 </div>
                 <span style="font-family:var(--font-mono); font-size:13px; font-weight:700; color:#10b981; background:rgba(16,185,129,0.1); padding:2px 8px; border-radius:4px; border:1px solid rgba(16,185,129,0.25);">
                   ${currentSelfPts.toFixed(1)} / ${q.points}.0đ
@@ -3070,7 +3070,7 @@
               </div>
 
               <p style="font-size:12px; color:var(--text-secondary); line-height:1.6; margin:0;">
-                Tự đánh giá giải pháp AI theo khung chuẩn 5 bước. Tích chọn các tiêu chí bạn đã hoàn thiện hoặc nhấn nút kiểm tra từ khóa:
+                Evaluate your AI architecture against the standardized 5-step rubric. Check completed criteria or run keyword verification:
               </p>
 
               <div style="display:flex; flex-direction:column; gap:8px;">
@@ -3094,10 +3094,10 @@
 
               <div style="display:flex; flex-direction:column; gap:6px; margin-top:4px;">
                 <button class="btn btn-primary" style="justify-content:center; height:32px; font-size:12px; font-weight:600;" onclick="runEssayKeywordCheck('${q.id}')">
-                  ⚡ Gợi ý kiểm tra từ khóa tự động
+                  ⚡ Auto Keyword Verification
                 </button>
                 <div style="font-size:10.5px; color:#71717a; text-align:center;">
-                  (Gợi ý từ khóa hỗ trợ rà soát; điểm số do bạn tự đối chiếu quyết định)
+                  (Keyword heuristics assist self-audit; final score is determined by candidate)
                 </div>
               </div>
             </div>
@@ -3106,7 +3106,7 @@
           if (evalRes.summary) {
             html += `
               <div style="background:rgba(59,130,246,0.08); border:1px solid rgba(59,130,246,0.25); border-radius:6px; padding:10px 12px; font-size:11.5px; color:#cbd5e1; line-height:1.55;">
-                <strong style="color:#60a5fa;">Nhận xét từ khóa:</strong> ${evalRes.summary}
+                <strong style="color:#60a5fa;">Keyword Feedback:</strong> ${evalRes.summary}
               </div>
             `;
           }
@@ -3117,11 +3117,11 @@
           html += `
             <div style="background:var(--bg-card); border:1px solid var(--border-subtle); border-radius:8px; padding:16px 18px 80px 18px; display:flex; flex-direction:column; gap:14px;">
               <div style="display:flex; justify-content:space-between; align-items:center; border-bottom:1px solid var(--border-subtle); padding-bottom:8px;">
-                <span style="font-family:'Plus Jakarta Sans', var(--font-sans); font-size:12px; font-weight:700; color:#60a5fa; text-transform:uppercase;">ĐỐI CHIẾU THUẬT TOÁN PYTHON</span>
+                <span style="font-family:'Plus Jakarta Sans', var(--font-sans); font-size:12px; font-weight:700; color:#60a5fa; text-transform:uppercase;">PYTHON ALGORITHM SPECIFICATION</span>
                 <span style="font-family:var(--font-mono); font-size:13px; font-weight:700; color:#10b981;">${curCodePts}.0 / ${q.points}.0đ</span>
               </div>
               <p style="font-size:12px; color:var(--text-secondary); line-height:1.6; margin:0;">
-                Môi trường trình duyệt không chạy code trực tiếp. Sau khi viết code và xem đáp án mẫu, hãy tự chọn mức điểm hoàn thiện:
+                Browser environment does not execute scripts directly. After inspecting the reference algorithm, select your completion tier:
               </p>
               <div style="display:flex; flex-wrap:wrap; gap:6px; margin-top:4px;">
                 ${[0, 2, 4, 5, 7].map(pt => {
@@ -3133,7 +3133,7 @@
                   }
                   return `
                     <button class="${btnCls}" style="height:28px; font-size:11.5px; font-weight:600;" onclick="setCodeSelfScore('${q.id}', ${pt})">
-                      ${pt}.0đ ${pt === q.points ? '(Full AC)' : pt === 0 ? '(Chưa làm)' : '(Một phần)'}
+                      ${pt}.0đ ${pt === q.points ? '(Full AC)' : pt === 0 ? '(Unanswered)' : '(Partial)'}
                     </button>
                   `;
                 }).join('')}
@@ -3147,7 +3147,7 @@
               <div style="display:flex; justify-content:space-between; align-items:center; border-bottom:1px solid var(--border-subtle); padding-bottom:8px;">
                 <div style="display:flex; align-items:center; gap:6px;">
                   <span style="font-size:12px; color:#10b981;">🎯</span>
-                  <span style="font-family:'Plus Jakarta Sans', var(--font-sans); font-weight:800; font-size:12.5px; color:#f4f4f5; letter-spacing:0.02em;">QUY CHUẨN KHẢO THÍ TRẮC NGHIỆM</span>
+                  <span style="font-family:'Plus Jakarta Sans', var(--font-sans); font-weight:800; font-size:12.5px; color:#f4f4f5; letter-spacing:0.02em;">MULTIPLE-CHOICE EXAM SPECIFICATION</span>
                 </div>
                 <span style="font-family:var(--font-mono); font-size:11px; font-weight:700; color:#f0b90b; background:rgba(240,185,11,0.1); padding:2px 7px; border-radius:4px; border:1px solid rgba(240,185,11,0.25);">
                   MODULE ${q.module || 'A'}
@@ -3156,20 +3156,20 @@
 
               <div style="display:flex; flex-direction:column; gap:8px;">
                 <div style="display:flex; align-items:center; justify-content:space-between; background:rgba(16,185,129,0.08); border:1px solid rgba(16,185,129,0.25); border-radius:6px; padding:9px 12px;">
-                  <span style="font-size:12px; color:#a7f3d0; font-weight:600;">✓ Trả lời Đúng:</span>
-                  <span style="font-family:var(--font-mono); font-size:12.5px; font-weight:700; color:#10b981;">+${q.points} điểm</span>
+                  <span style="font-size:12px; color:#a7f3d0; font-weight:600;">✓ Correct Answer:</span>
+                  <span style="font-family:var(--font-mono); font-size:12.5px; font-weight:700; color:#10b981;">+${q.points} PTS</span>
                 </div>
                 <div style="display:flex; align-items:center; justify-content:space-between; background:rgba(239,68,68,0.06); border:1px solid rgba(239,68,68,0.2); border-radius:6px; padding:9px 12px;">
-                  <span style="font-size:12px; color:#fca5a5; font-weight:600;">✗ Trả lời Sai / Bỏ qua:</span>
-                  <span style="font-family:var(--font-mono); font-size:12.5px; font-weight:700; color:#ef4444;">0 điểm</span>
+                  <span style="font-size:12px; color:#fca5a5; font-weight:600;">✗ Incorrect / Omitted:</span>
+                  <span style="font-family:var(--font-mono); font-size:12.5px; font-weight:700; color:#ef4444;">0 PTS</span>
                 </div>
               </div>
 
               <div style="background:rgba(255,255,255,0.02); border:1px solid var(--border-subtle); border-radius:6px; padding:10px 12px; font-size:12px; color:var(--text-secondary); line-height:1.6;">
                 <div style="font-weight:700; color:#f4f4f5; margin-bottom:4px; display:flex; align-items:center; gap:5px;">
-                  <span>💡</span> Hướng dẫn làm bài & Đối chiếu:
+                  <span>💡</span> Examination & Evaluation Guidelines:
                 </div>
-                <div>Sau khi bấm chọn 1 trong 4 đáp án (A, B, C, D), hệ thống sẽ chấm điểm tức thì và mở khóa tab <strong>"Luận giải"</strong> bên cạnh để bạn xem phân tích cặn kẽ từng bước và các bẫy đề thi cần tránh.</div>
+                <div>Select one of the 4 options (A, B, C, D). The system records your verdict instantly and unlocks the <strong>"Editorial"</strong> tab for in-depth step-by-step mathematical proofs and trap breakdowns.</div>
               </div>
             </div>
           `;
@@ -3182,7 +3182,7 @@
         container.innerHTML = `
           <div style="display:flex; flex-direction:column; gap:10px;">
             <div style="font-size:11px; font-weight:700; color:var(--text-muted); text-transform:uppercase;">
-              LUẬN GIẢI CHI TIẾT (PROBLEM ${q.id})
+              IN-DEPTH EDITORIAL PROOF (PROBLEM ${q.id})
             </div>
             ${formatExplanationHtml(q.explanation)}
           </div>
@@ -3405,7 +3405,7 @@
               <div class="video-play-overlay">
                 <div class="play-btn-circle">▶</div>
               </div>
-              <div class="timestamp-badge">Mốc tua: ${vid.timestampLabel}</div>
+              <div class="timestamp-badge">Timestamp: ${vid.timestampLabel}</div>
               <div style="position:absolute; top:6px; left:6px; background:rgba(0,0,0,0.85); color:#34d399; font-size:10px; font-weight:700; padding:2px 7px; border-radius:3px; border:1px solid rgba(52,211,153,0.35); display:flex; align-items:center; gap:4px; z-index:2;">
                 <span style="display:inline-block; width:6px; height:6px; border-radius:50%; background:#10b981;"></span>
                 Phát trực tiếp trên web
@@ -3415,22 +3415,22 @@
             <div style="padding:12px; display:flex; flex-direction:column; gap:8px;">
               <div style="font-size:12.5px; font-weight:700; color:#fff; line-height:1.4;">${vid.title}</div>
               <div style="font-size:11px; color:var(--text-muted); display:flex; justify-content:space-between;">
-                <span>Kênh: <strong>${vid.channel}</strong></span>
-                <span style="font-family:var(--font-mono); color:#60a5fa;">Tua [${vid.timestampLabel}]</span>
+                <span>Channel: <strong>${vid.channel}</strong></span>
+                <span style="font-family:var(--font-mono); color:#60a5fa;">Seek [${vid.timestampLabel}]</span>
               </div>
               <div style="font-size:11px; color:var(--text-secondary); background:rgba(0,0,0,0.25); padding:8px; border-radius:3px; border-left:2px solid #3b82f6; line-height:1.5;">
-                <strong>Trọng tâm (${vid.sectionId}):</strong> ${vid.highlightNote}
+                <strong>Core Focus (${vid.sectionId}):</strong> ${vid.highlightNote}
               </div>
               <div style="display:grid; grid-template-columns: 1fr auto; gap:6px; margin-top:4px;">
                 <button id="btnPlayInline" onclick="playVideoInline('${vid.youtubeId}', ${vid.startSeconds}, '${cleanTitle}')" class="btn btn-primary" style="justify-content:center; height:34px; font-size:12px; font-weight:700; background:linear-gradient(135deg, #f0b90b, #d97706); color:#000; border:none; cursor:pointer;">
-                  ▶ Phát ngay trên Web (${vid.timestampLabel})
+                  ▶ Play in Web (${vid.timestampLabel})
                 </button>
                 <a href="${ytDirectUrl}" target="_blank" class="btn btn-secondary" style="justify-content:center; text-decoration:none; height:34px; font-size:11px; padding:0 10px; display:inline-flex; align-items:center;" title="Mở trong tab mới trên YouTube">
                   ↗ YouTube
                 </a>
               </div>
               <div style="font-size:10px; color:var(--text-muted); text-align:center;">
-                (Nếu gặp Lỗi 153 do mở file cục bộ, bấm nút ↗ YouTube hoặc chạy trên Localhost)
+                (If Error 153 occurs when opening local files, click ↗ YouTube or run on local server)
               </div>
             </div>
           </div>
@@ -3440,7 +3440,7 @@
         let html = `
           <div style="display:flex; flex-direction:column; gap:8px;">
             <div style="font-size:11px; font-weight:700; color:var(--text-muted); text-transform:uppercase;">
-              BẢNG CÔNG THỨC TOÁN & HỌC MÁY CỐT LÕI
+              CORE MATHEMATICAL & ML FORMULARY
             </div>
         `;
         FORMULAS.forEach(f => {
@@ -3920,7 +3920,7 @@
     function runCustomCode(qid) {
       const ta = document.getElementById('codeInput_' + qid);
       const code = ta ? ta.value.trim() : '';
-      if (!code || code === '# Viết mã nguồn Python / PyTorch tại đây...') {
+      if (!code || code === '# Implement your Python / PyTorch algorithm here...') {
         alert('⚠️ Vui lòng viết giải pháp mã nguồn trước khi kiểm tra.');
         return;
       }
@@ -4113,18 +4113,18 @@
       const sel = document.getElementById('examSelector');
       if (!sel || typeof ALL_EXAMS === 'undefined') return;
       const labels = {
-        'olp-01': 'Đề 01 · Toàn diện',
-        'olp-02': 'Đề 02 · Format VOAI',
-        'olp-03': 'Đề 03 · Mô phỏng Quốc gia',
-        'olp-04': 'Đề 04 · Insight Video VOAI',
-        'voai-2025': 'Đề 006 · Gốc VOAI 2025',
-        'olp-05': 'Đề 05 · Chuyên đề CV & NLP'
+        'olp-01': 'Contest 01 · Comprehensive',
+        'olp-02': 'Contest 02 · National Format',
+        'olp-03': 'Contest 03 · National Mock',
+        'olp-04': 'Contest 04 · Video Insights',
+        'voai-2025': 'Contest 006 · Official VOAI 2025',
+        'olp-05': 'Contest 05 · Advanced CV & LLMs'
       };
       Array.from(sel.options).forEach(opt => {
         const exam = ALL_EXAMS[opt.value];
         if (exam && exam.questions) {
           const base = labels[opt.value] || exam.title || opt.value;
-          opt.textContent = `${base} (${exam.questions.length}c)`;
+          opt.textContent = `${base} (${exam.questions.length}Q)`;
         }
       });
     }
@@ -4156,13 +4156,13 @@
         `;
       } else {
         box.innerHTML = `
-          <button class="btn-auth" onclick="openAuthModal()" title="Đăng nhập để lưu tiến độ và đồng bộ cơ sở dữ liệu">
+          <button class="btn-auth" onclick="openAuthModal()" title="Sign in to sync progress and submissions to cloud database">
             <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
               <path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"></path>
               <polyline points="10 17 15 12 10 7"></polyline>
               <line x1="15" y1="12" x2="3" y2="12"></line>
             </svg>
-            <span>Đăng nhập</span>
+            <span>Sign In</span>
           </button>
         `;
       }
@@ -4198,7 +4198,7 @@
       serverSubmissions = [];
       renderUserAccountBox();
       renderSidebar();
-      showToast('Đã đăng xuất tài khoản.');
+      showToast('Signed out successfully.');
     }
 
     function openAuthModal() {
@@ -4227,20 +4227,20 @@
         body.innerHTML = `
           <form onsubmit="handleAuthSubmit(event)" style="display:flex; flex-direction:column; gap:10px;">
             <div>
-              <label style="font-size:11px; color:#9ca3af; display:block; margin-bottom:4px;">Tên đăng nhập:</label>
-              <input type="text" id="authUsername" required style="width:100%; height:30px; background:#1f2937; border:1px solid #374151; color:#fff; padding:0 8px; border-radius:4px; font-size:12px;" placeholder="Ví dụ: student hoặc admin">
+              <label style="font-size:11px; color:#9ca3af; display:block; margin-bottom:4px;">Username:</label>
+              <input type="text" id="authUsername" required style="width:100%; height:30px; background:#1f2937; border:1px solid #374151; color:#fff; padding:0 8px; border-radius:4px; font-size:12px;" placeholder="e.g. student or admin">
             </div>
             <div>
-              <label style="font-size:11px; color:#9ca3af; display:block; margin-bottom:4px;">Mật khẩu:</label>
-              <input type="password" id="authPassword" required style="width:100%; height:30px; background:#1f2937; border:1px solid #374151; color:#fff; padding:0 8px; border-radius:4px; font-size:12px;" placeholder="Nhập mật khẩu">
+              <label style="font-size:11px; color:#9ca3af; display:block; margin-bottom:4px;">Password:</label>
+              <input type="password" id="authPassword" required style="width:100%; height:30px; background:#1f2937; border:1px solid #374151; color:#fff; padding:0 8px; border-radius:4px; font-size:12px;" placeholder="Enter password">
             </div>
             <div id="authErrorMsg" style="font-size:11px; color:#f87171; display:none;"></div>
             <button type="submit" class="btn btn-primary" style="height:32px; font-size:12px; margin-top:4px; background:#2563eb; color:#fff; border:none; border-radius:4px; font-weight:600; cursor:pointer;">
-              Đăng nhập ngay
+              Sign In Now
             </button>
             <div style="display:flex; justify-content:space-between; align-items:center; margin-top:6px; font-size:11px;">
-              <span style="color:#6b7280;">Chưa có tài khoản?</span>
-              <a href="javascript:void(0)" onclick="quickFillDemo()" style="color:#f59e0b; text-decoration:none;">⚡ Điền tài khoản demo (student)</a>
+              <span style="color:#6b7280;">Need an account?</span>
+              <a href="javascript:void(0)" onclick="quickFillDemo()" style="color:#f59e0b; text-decoration:none;">⚡ Quick Fill Demo (student)</a>
             </div>
           </form>
         `;
@@ -4250,24 +4250,24 @@
         body.innerHTML = `
           <form onsubmit="handleAuthSubmit(event)" style="display:flex; flex-direction:column; gap:8px;">
             <div>
-              <label style="font-size:11px; color:#9ca3af; display:block; margin-bottom:3px;">Tên đăng nhập:</label>
-              <input type="text" id="authUsername" required minlength="3" style="width:100%; height:28px; background:#1f2937; border:1px solid #374151; color:#fff; padding:0 8px; border-radius:4px; font-size:12px;" placeholder="Tối thiểu 3 ký tự">
+              <label style="font-size:11px; color:#9ca3af; display:block; margin-bottom:3px;">Username:</label>
+              <input type="text" id="authUsername" required minlength="3" style="width:100%; height:28px; background:#1f2937; border:1px solid #374151; color:#fff; padding:0 8px; border-radius:4px; font-size:12px;" placeholder="Min 3 characters">
             </div>
             <div>
-              <label style="font-size:11px; color:#9ca3af; display:block; margin-bottom:3px;">Họ và tên thí sinh:</label>
-              <input type="text" id="authDisplayName" required style="width:100%; height:28px; background:#1f2937; border:1px solid #374151; color:#fff; padding:0 8px; border-radius:4px; font-size:12px;" placeholder="Ví dụ: Lê Nam Khánh">
+              <label style="font-size:11px; color:#9ca3af; display:block; margin-bottom:3px;">Candidate Full Name:</label>
+              <input type="text" id="authDisplayName" required style="width:100%; height:28px; background:#1f2937; border:1px solid #374151; color:#fff; padding:0 8px; border-radius:4px; font-size:12px;" placeholder="e.g. Le Nam Khanh">
             </div>
             <div>
-              <label style="font-size:11px; color:#9ca3af; display:block; margin-bottom:3px;">Đội thi / Lớp / Trường:</label>
-              <input type="text" id="authTeamName" style="width:100%; height:28px; background:#1f2937; border:1px solid #374151; color:#fff; padding:0 8px; border-radius:4px; font-size:12px;" placeholder="Ví dụ: HCMUS AI Team 01">
+              <label style="font-size:11px; color:#9ca3af; display:block; margin-bottom:3px;">Affiliation / University / Team:</label>
+              <input type="text" id="authTeamName" style="width:100%; height:28px; background:#1f2937; border:1px solid #374151; color:#fff; padding:0 8px; border-radius:4px; font-size:12px;" placeholder="e.g. HCMUS AI Team 01">
             </div>
             <div>
-              <label style="font-size:11px; color:#9ca3af; display:block; margin-bottom:3px;">Mật khẩu:</label>
-              <input type="password" id="authPassword" required minlength="6" style="width:100%; height:28px; background:#1f2937; border:1px solid #374151; color:#fff; padding:0 8px; border-radius:4px; font-size:12px;" placeholder="Tối thiểu 6 ký tự">
+              <label style="font-size:11px; color:#9ca3af; display:block; margin-bottom:3px;">Password:</label>
+              <input type="password" id="authPassword" required minlength="6" style="width:100%; height:28px; background:#1f2937; border:1px solid #374151; color:#fff; padding:0 8px; border-radius:4px; font-size:12px;" placeholder="Min 6 characters">
             </div>
             <div id="authErrorMsg" style="font-size:11px; color:#f87171; display:none;"></div>
             <button type="submit" class="btn btn-primary" style="height:32px; font-size:12px; margin-top:4px; background:#10b981; color:#fff; border:none; border-radius:4px; font-weight:600; cursor:pointer;">
-              Tạo tài khoản & Đăng nhập
+              Create Account & Sign In
             </button>
           </form>
         `;
@@ -4319,7 +4319,7 @@
           closeAuthModal();
           renderUserAccountBox();
           fetchSubmissionsHistory();
-          showToast('Xin chào, ' + (currentUser.display_name || currentUser.username) + '! Đăng nhập thành công.');
+          showToast('Welcome, ' + (currentUser.display_name || currentUser.username) + '! Successfully signed in.');
         }
       })
       .catch(err => {
@@ -4366,7 +4366,7 @@
       if (lobbyEl) lobbyEl.style.display = 'block';
       if (arenaEl) arenaEl.style.display = 'none';
       if (btnEl) {
-        btnEl.innerHTML = '<span>⚡ Vào phòng thi</span>';
+        btnEl.innerHTML = '<span>⚡ Enter Arena</span>';
         btnEl.classList.add('btn-active');
       }
       updateLobbyDashboard();
@@ -4380,7 +4380,7 @@
       if (lobbyEl) lobbyEl.style.display = 'none';
       if (arenaEl) arenaEl.style.display = 'flex';
       if (btnEl) {
-        btnEl.innerHTML = '<span>🏛️ Sảnh chính</span>';
+        btnEl.innerHTML = '<span>🏛️ Lobby</span>';
         btnEl.classList.remove('btn-active');
       }
       renderCenter();
@@ -4432,27 +4432,27 @@
       if (statCompEl) statCompEl.textContent = `${totalCompleted} / 600`;
 
       const statCompSubEl = document.getElementById('lobbyStatCompletedSub');
-      if (statCompSubEl) statCompSubEl.textContent = `${((totalCompleted / 600) * 100).toFixed(1)}% hoàn thành`;
+      if (statCompSubEl) statCompSubEl.textContent = `${((totalCompleted / 600) * 100).toFixed(1)}% completed`;
 
       const statAccEl = document.getElementById('lobbyStatAccuracy');
       if (statAccEl) statAccEl.textContent = `${accRate}%`;
 
       const statAcCountEl = document.getElementById('lobbyStatAcCount');
-      if (statAcCountEl) statAcCountEl.textContent = `${totalAc} câu Đúng (AC)`;
+      if (statAcCountEl) statAcCountEl.textContent = `${totalAc} Accepted (AC)`;
 
       const statWaEl = document.getElementById('lobbyStatWrongCount');
       if (statWaEl) statWaEl.textContent = `${totalWa}`;
 
       const statBestEl = document.getElementById('lobbyStatBestScore');
-      if (statBestEl) statBestEl.textContent = `${bestScore.toFixed(1)}đ`;
+      if (statBestEl) statBestEl.textContent = `${bestScore.toFixed(1)} PTS`;
 
       ['olp-01', 'olp-02', 'olp-03', 'olp-04', 'voai-2025', 'olp-05'].forEach(eid => {
         const progEl = document.getElementById(`lobbyProgress-${eid}`);
         if (progEl) {
           if (eid === currentExamId) {
-            progEl.textContent = `Tiến độ: ${totalCompleted}/100`;
+            progEl.textContent = `Progress: ${totalCompleted}/100`;
           } else {
-            progEl.textContent = `Tiến độ: 0/100`;
+            progEl.textContent = `Progress: 0/100`;
           }
         }
       });
@@ -4467,7 +4467,7 @@
       });
 
       if (wrongIndices.length === 0) {
-        alert('Tuyệt vời! Hiện tại bạn chưa có câu làm sai (WA) nào trong đề này. Bạn có thể chọn làm bài thi mới hoặc thử sức với các đề khác.');
+        alert('Outstanding! You currently have zero Wrong Answers (WA) recorded for this exam. You can start a new exam or explore other contest papers to challenge your knowledge.');
         return;
       }
 
@@ -4510,8 +4510,8 @@
     <div style="background:#111827; border:1px solid #374151; width:90%; max-width:400px; border-radius:8px; padding:20px; box-shadow:0 10px 25px rgba(0,0,0,0.5); color:#f3f4f6;">
       <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:14px; border-bottom:1px solid #1f2937; padding-bottom:10px;">
         <div style="display:flex; gap:8px;">
-          <button id="authTabLogin" class="btn btn-primary" style="height:26px; font-size:11px; background:#2563eb; color:#fff; border:none;" onclick="switchAuthTab('login')">Đăng nhập</button>
-          <button id="authTabRegister" class="btn" style="height:26px; font-size:11px; background:#1f2937; color:#9ca3af; border:1px solid #374151;" onclick="switchAuthTab('register')">Đăng ký</button>
+          <button id="authTabLogin" class="btn btn-primary" style="height:26px; font-size:11px; background:#2563eb; color:#fff; border:none;" onclick="switchAuthTab('login')">Sign In</button>
+          <button id="authTabRegister" class="btn" style="height:26px; font-size:11px; background:#1f2937; color:#9ca3af; border:1px solid #374151;" onclick="switchAuthTab('register')">Register</button>
         </div>
         <button class="btn" style="height:24px; padding:0 6px; font-size:11px;" onclick="closeAuthModal()">✕</button>
       </div>
