@@ -1,9 +1,25 @@
 <!DOCTYPE html>
+<!--
+================================================================================
+OLYMPIC AI HCMUS 2026 — ACADEMIC ARENA & STUDY HUB (v1.0.0)
+Chief Architect & Author: Le Nam Khanh (@lenamkhanhh / namkhanhle)
+Institutional Context: VNUHCM - University of Science (HCMUS)
+Repository: https://github.com/lenamkhanhh/OLPAI26-Khanhdz
+Live Production: https://olpai26.vercel.app/hub
+License: MIT License © 2026 Le Nam Khanh
+================================================================================
+-->
 <html lang="vi">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Olympic AI HCMUS 2026 — Academic Arena & Study Hub</title>
+  <meta name="author" content="Le Nam Khanh (namkhanhle)">
+  <meta name="description" content="Olympic AI HCMUS 2026 — Academic Arena & Study Hub with 600-question matrix, KaTeX mathematical proofs, and OLED Dark Cockpit. Designed by Le Nam Khanh.">
+  <meta name="citation_title" content="Olympic AI HCMUS 2026: Academic Arena & Study Hub">
+  <meta name="citation_author" content="Le, Nam Khanh">
+  <meta name="citation_publication_date" content="2026">
+  <meta name="citation_online_date" content="2026">
   <link rel="icon" type="image/svg+xml" href="favicon.svg">
   
   <!-- Typography: Inter & JetBrains Mono -->
@@ -864,6 +880,207 @@
       align-items: center;
       font-size: 11.5px;
       color: var(--text-secondary);
+    }
+
+    /* 1.8 ACADEMIC INSTITUTIONAL FOOTER & CITATION MODULE */
+    .academic-lobby-footer {
+      margin-top: 56px;
+      padding-top: 36px;
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
+      margin-bottom: 24px;
+    }
+    .academic-footer-card {
+      background: rgba(12, 12, 16, 0.85);
+      border: 1px solid rgba(255, 255, 255, 0.09);
+      border-radius: 12px;
+      padding: 28px 32px;
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 12px 32px rgba(0, 0, 0, 0.4);
+    }
+    .academic-footer-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, #f0b90b 0%, #10b981 50%, #3b82f6 100%);
+      opacity: 0.9;
+    }
+    .academic-footer-grid {
+      display: grid;
+      grid-template-columns: 1.25fr 1fr;
+      gap: 32px;
+      align-items: start;
+    }
+    @media (max-width: 960px) {
+      .academic-footer-grid {
+        grid-template-columns: 1fr;
+        gap: 24px;
+      }
+    }
+    .academic-seal {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 12px;
+    }
+    .seal-icon {
+      font-size: 26px;
+      line-height: 1;
+    }
+    .seal-title {
+      font-family: 'Plus Jakarta Sans', var(--font-sans);
+      font-size: 14px;
+      font-weight: 800;
+      color: #ffffff;
+      letter-spacing: 0.04em;
+    }
+    .seal-subtitle {
+      font-size: 12px;
+      color: var(--text-muted);
+      font-weight: 500;
+    }
+    .academic-bio {
+      font-size: 13px;
+      line-height: 1.65;
+      color: var(--text-secondary);
+      margin-bottom: 16px;
+    }
+    .academic-bio strong {
+      color: #ffffff;
+      font-weight: 700;
+    }
+    .academic-meta-badges {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    .meta-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 4px 10px;
+      border-radius: 9999px;
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      color: #a1a1aa;
+      font-size: 11.5px;
+      font-weight: 600;
+    }
+    .meta-badge.author-badge {
+      background: rgba(240, 185, 11, 0.1);
+      border-color: rgba(240, 185, 11, 0.3);
+      color: #f0b90b;
+    }
+    .badge-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: #10b981;
+      display: inline-block;
+    }
+    .citation-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 10px;
+    }
+    .citation-title {
+      font-size: 11.5px;
+      font-weight: 700;
+      color: #ffffff;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .btn-copy-bibtex {
+      height: 26px;
+      padding: 0 10px;
+      font-size: 11px;
+      font-weight: 600;
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: 5px;
+      color: #ffffff;
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+    .btn-copy-bibtex:hover {
+      background: rgba(255, 255, 255, 0.12);
+      border-color: rgba(255, 255, 255, 0.25);
+    }
+    .bibtex-code-block {
+      font-family: 'JetBrains Mono', var(--font-mono);
+      font-size: 11px;
+      line-height: 1.55;
+      background: #000000;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 7px;
+      padding: 12px 14px;
+      color: #e4e4e7;
+      overflow-x: auto;
+      margin: 0;
+      white-space: pre;
+    }
+    .academic-footer-bottom {
+      border-top: 1px solid rgba(255, 255, 255, 0.06);
+      padding-top: 18px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+    .footer-links {
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 10px;
+      font-size: 12px;
+    }
+    .academic-link {
+      color: var(--text-secondary);
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      font-weight: 500;
+      transition: color 0.15s ease;
+    }
+    .academic-link:hover {
+      color: #f0b90b;
+      text-decoration: underline;
+    }
+    .footer-sep {
+      color: rgba(255, 255, 255, 0.2);
+    }
+    .copyright-notice {
+      font-size: 11.5px;
+      color: var(--text-muted);
+    }
+    .copyright-notice strong {
+      color: var(--text-secondary);
+    }
+    .footer-center-credit {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 11.5px;
+      color: var(--text-muted);
+    }
+    .footer-center-credit a:hover {
+      color: #f0b90b !important;
+      text-decoration: underline;
+    }
+    @media (max-width: 860px) {
+      .footer-center-credit { display: none !important; }
     }
 
     .arena-main {
@@ -1973,6 +2190,74 @@
         </div>
       </div>
 
+      <!-- ACADEMIC INSTITUTIONAL FOOTER & CITATION MODULE -->
+      <footer class="academic-lobby-footer">
+        <div class="academic-footer-card">
+          <div class="academic-footer-grid">
+            <div class="academic-footer-col primary-info">
+              <div class="academic-seal">
+                <span class="seal-icon">🏛️</span>
+                <div class="seal-text">
+                  <div class="seal-title">OLYMPIC AI HCMUS 2026</div>
+                  <div class="seal-subtitle">Academic Arena &amp; Study Hub · Official Platform</div>
+                </div>
+              </div>
+              <p class="academic-bio">
+                Designed, architected, and curated by <strong>Le Nam Khanh</strong> (<strong>@lenamkhanhh</strong> / <em>namkhanhle</em>) for the Olympic AI competition at VNUHCM - University of Science (HCMUS). Developed with zero-lag single-bundle architecture, native KaTeX mathematical typography, and 600 rigorous academic problems.
+              </p>
+              <div class="academic-meta-badges">
+                <span class="meta-badge author-badge"><span class="badge-dot"></span> Author &amp; Architect: Le Nam Khanh</span>
+                <span class="meta-badge">VNUHCM - University of Science</span>
+                <span class="meta-badge">Release v1.0.0</span>
+                <span class="meta-badge">MIT License</span>
+              </div>
+            </div>
+
+            <div class="academic-footer-col citation-info">
+              <div class="citation-header">
+                <div class="citation-title">
+                  <span>📜</span> Academic Citation (BibTeX)
+                </div>
+                <button class="btn btn-copy-bibtex" onclick="copyBibtexCitation(this)" title="Copy BibTeX Citation">
+                  📋 Copy BibTeX
+                </button>
+              </div>
+              <pre class="bibtex-code-block" id="bibtexSnippet">@software{lenamkhanh2026olpai,
+  author       = {Le, Nam Khanh},
+  title        = {Olympic AI HCMUS 2026: Academic Arena &amp; Study Hub},
+  year         = {2026},
+  publisher    = {GitHub},
+  version      = {v1.0.0},
+  url          = {https://github.com/lenamkhanhh/OLPAI26-Khanhdz}
+}</pre>
+            </div>
+          </div>
+
+          <div class="academic-footer-bottom">
+            <div class="footer-links">
+              <a href="https://github.com/lenamkhanhh" target="_blank" rel="noopener noreferrer" class="academic-link">
+                <span>👤</span> Author Profile (@lenamkhanhh)
+              </a>
+              <span class="footer-sep">•</span>
+              <a href="https://github.com/lenamkhanhh/OLPAI26-Khanhdz" target="_blank" rel="noopener noreferrer" class="academic-link">
+                <span>⭐</span> GitHub Repository
+              </a>
+              <span class="footer-sep">•</span>
+              <a href="https://github.com/lenamkhanhh/OLPAI26-Khanhdz/releases/tag/v1.0.0" target="_blank" rel="noopener noreferrer" class="academic-link">
+                <span>📦</span> Release v1.0.0
+              </a>
+              <span class="footer-sep">•</span>
+              <a href="https://olpai26.vercel.app/hub" target="_blank" rel="noopener noreferrer" class="academic-link">
+                <span>🌐</span> Production Deployment
+              </a>
+            </div>
+            <div class="copyright-notice">
+              © 2026 <strong>Le Nam Khanh</strong> (@lenamkhanhh). Distributed under the <strong>MIT License</strong>.
+            </div>
+          </div>
+        </div>
+      </footer>
+
     </div>
   </div>
 
@@ -2007,6 +2292,14 @@
           <button class="btn" onclick="prevQuestion()" title="Previous Problem [A]">← Prev</button>
           <button class="btn" onclick="nextQuestion()" title="Next Problem [D]">Next →</button>
           <span class="footer-prog-tag" id="footerProgressLabel">Progress: 0/100 (0%)</span>
+        </div>
+
+        <div class="footer-center-credit">
+          <span>Olympic AI HCMUS '26</span>
+          <span style="opacity:0.35;">•</span>
+          <span>Architected by <a href="https://github.com/lenamkhanhh" target="_blank" rel="noopener noreferrer" style="color:#ffffff; text-decoration:none; font-weight:700;">Le Nam Khanh</a></span>
+          <span style="opacity:0.35;">•</span>
+          <a href="https://github.com/lenamkhanhh/OLPAI26-Khanhdz" target="_blank" rel="noopener noreferrer" style="color:var(--text-muted); text-decoration:none;">v1.0.0</a>
         </div>
 
         <div class="footer-right">
@@ -2132,6 +2425,30 @@
           if (toast) toast.style.opacity = '0';
         }, 3500);
       } catch(e) {}
+    }
+
+    // Academic Citation Copy
+    function copyBibtexCitation(btn) {
+      try {
+        const snippet = document.getElementById('bibtexSnippet');
+        if (!snippet) return;
+        const text = snippet.innerText || snippet.textContent;
+        navigator.clipboard.writeText(text).then(() => {
+          const orig = btn.innerHTML;
+          btn.innerHTML = '✓ Copied!';
+          btn.style.color = '#10b981';
+          btn.style.borderColor = '#10b981';
+          setTimeout(() => {
+            btn.innerHTML = orig;
+            btn.style.color = '';
+            btn.style.borderColor = '';
+          }, 2500);
+        }).catch(() => {
+          showToast('Failed to copy BibTeX to clipboard');
+        });
+      } catch(err) {
+        showToast('Clipboard access not permitted');
+      }
     }
 
     // Load LocalStorage with Migration
