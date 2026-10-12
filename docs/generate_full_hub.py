@@ -221,7 +221,8 @@ html_template = f"""<!DOCTYPE html>
   <!-- Typography: Inter & JetBrains Mono -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700;800&family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700;800&family=STIX+Two+Text:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600;1,700&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/dreampulse/computer-modern-web-font@master/fonts.css">
   
   <!-- KaTeX CSS (Local + Fallback CDN) -->
   <link rel="stylesheet" href="katex/katex.min.css" onerror="this.onerror=null;this.href='https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css'">
@@ -256,9 +257,10 @@ html_template = f"""<!DOCTYPE html>
       --text-muted: #a1a1aa;
       --text-dim: #71717a;
       
-      --font-sans: 'Plus Jakarta Sans', 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      --font-sans: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
       --font-mono: 'JetBrains Mono', 'Fira Code', 'Consolas', monospace;
-      --font-serif: 'STIX Two Text', 'Cambria', 'Times New Roman', serif;
+      --font-latex: 'Computer Modern Serif', 'STIX Two Text', 'KaTeX_Main', 'CMU Serif', 'Times New Roman', serif;
+      --font-serif: 'Computer Modern Serif', 'STIX Two Text', 'KaTeX_Main', 'CMU Serif', 'Times New Roman', serif;
       
       --radius-sm: 4px;
       --radius-md: 6px;
@@ -681,6 +683,18 @@ html_template = f"""<!DOCTYPE html>
       box-shadow: 0 1px 2px rgba(0, 0, 0, 0.4);
     }}
 
+    
+    /* 5. ACADEMIC LATEX HARMONY */
+    .statement-text .katex, 
+    .option-text-content .katex, 
+    .editorial-body .katex,
+    .split-pane-body .katex {{
+      font-size: 1.08em;
+    }}
+    .statement-text p, .editorial-body p {{
+      margin-bottom: 10px;
+    }}
+
     /* BUTTONS: PURE JET BLACK SUITE */
     .btn {{
       font-family: var(--font-sans);
@@ -1061,10 +1075,12 @@ html_template = f"""<!DOCTYPE html>
       gap: 6px;
     }}
     .statement-text {{
-      font-size: 14.5px;
-      font-weight: 450;
-      line-height: 1.7;
-      color: var(--text-main);
+      font-family: var(--font-latex);
+      font-size: 16px;
+      font-weight: 400;
+      line-height: 1.8;
+      color: #fcfcfd;
+      letter-spacing: 0.01em;
     }}
 
     /* Options Grid */
@@ -1135,10 +1151,12 @@ html_template = f"""<!DOCTYPE html>
     }}
 
     .option-text-content {{
-      font-size: 14px;
-      font-weight: 500;
-      line-height: 1.6;
-      color: var(--text-main);
+      font-family: var(--font-latex);
+      font-size: 15px;
+      font-weight: 400;
+      line-height: 1.65;
+      color: #f4f4f5;
+      letter-spacing: 0.01em;
       flex: 1;
       min-width: 0;
     }}
@@ -1214,9 +1232,10 @@ html_template = f"""<!DOCTYPE html>
     }}
     .editorial-body {{
       padding: 16px;
-      font-size: 13px;
-      line-height: 1.65;
-      color: var(--text-main);
+      font-family: var(--font-latex);
+      font-size: 15px;
+      line-height: 1.8;
+      color: #f1f5f9;
       display: flex;
       flex-direction: column;
       gap: 12px;
@@ -1229,7 +1248,10 @@ html_template = f"""<!DOCTYPE html>
       border: 1px solid var(--border-subtle);
       border-left: 3px solid #888888;
       background: #111111;
-      color: var(--text-main);
+      font-family: var(--font-latex);
+      font-size: 14.5px;
+      line-height: 1.75;
+      color: #f1f5f9;
     }}
     .eli5-block.math {{
       border-left-color: #0ecb81;
