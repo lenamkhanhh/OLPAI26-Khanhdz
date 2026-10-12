@@ -2,7 +2,7 @@
   "name": "olp-ai-hcmus26",
   "version": "0.1.0",
   "private": false,
-  "description": "Web thi thu vong loai cap truong Olympic AI HCMUS 2026: trac nghiem ML/DL/CV/NLP/XSTK + tu luan giai phap AI.",
+  "description": "Olympic AI HCMUS 2026 — Premier Academic Arena & Study Hub with 600-question matrix, KaTeX mathematical proofs, and OLED Dark Cockpit.",
   "type": "module",
   "scripts": {
     "dev": "vite",

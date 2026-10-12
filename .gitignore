@@ -2,6 +2,7 @@
 node_modules/
 .npm/
 dist/
+*.tsbuildinfo
 .env
 .env.local
 .env.*.local
